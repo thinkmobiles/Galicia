@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">Galicia</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title">Estrella Galicia - SDK Sample</string>
+    <string name="header_label">Contador</string>
+    <string name="counter_value">0</string>
+    <string name="button_increment">+</string>
+    <string name="button_decrement">-</string>
+    <string name="button_reset">Reset</string>
+    <string name="webservice_label">WebServcice Data:</string>
+    <string name="button_webservice">Download</string>
+    <string name="button_webservice_appconfig">Read content</string>
+    <string name="version">0.1</string>
 </resources>
