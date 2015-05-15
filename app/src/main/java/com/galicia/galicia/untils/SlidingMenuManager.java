@@ -67,7 +67,7 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
                     case 4:
-                        FragmentReplacer.replaceTopNavigationFragment(_activity, new ShoppingCartFragment());
+                        FragmentReplacer.replaceTopNavigationFragment(activity, new ShoppingCartFragment());
                         break;
 
                 }
