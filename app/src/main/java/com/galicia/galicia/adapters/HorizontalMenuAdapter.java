@@ -1,6 +1,8 @@
 package com.galicia.galicia.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.R;
 
 import java.util.List;
@@ -15,9 +18,9 @@ import java.util.List;
 public class HorizontalMenuAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<String> mList;
+    private List<Item> mList;
 
-    public HorizontalMenuAdapter(Context mContext, List<String> mList) {
+    public HorizontalMenuAdapter(Context mContext, List<Item> mList) {
         this.mContext = mContext;
         this.mList = mList;
     }
@@ -49,11 +52,11 @@ public class HorizontalMenuAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
 
-//        holder.header.setText(mList.get(position));
+        holder.header.setImageBitmap(getBitmap(mList.get(position).getIcon()));
         holder.header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, mList.get(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, mList.get(position).getName(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -62,5 +65,9 @@ public class HorizontalMenuAdapter extends BaseAdapter {
 
     private class Holder {
         ImageView header;
+    }
+
+    private Bitmap getBitmap(String _path) {
+        return BitmapFactory.decodeFile(_path);
     }
 }

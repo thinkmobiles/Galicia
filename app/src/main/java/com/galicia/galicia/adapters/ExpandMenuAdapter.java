@@ -8,25 +8,26 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
+import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.R;
 import com.galicia.galicia.untils.HorizontalListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Bogdan on 08.05.2015.
  */
 public class ExpandMenuAdapter extends BaseExpandableListAdapter {
-    private List<ArrayList<String>> mDataList;
-    private List<String> itemNames;
+
     private Context mContext;
+    private List<List<Item>> mSubList;
+    private List<Item> mParentList;
     private ExpandableListView mParentViewGroup;
 
-    public ExpandMenuAdapter(final Context mContext, final List<String> names, List<ArrayList<String>> mDataList) {
-        this.mDataList = mDataList;
-        this.mContext = mContext;
-        this.itemNames = names;
+    public ExpandMenuAdapter(final Context _context, final List<Item> _parentList, List<List<Item>> _subList) {
+        this.mContext   = _context;
+        this.mParentList = _parentList;
+        this.mSubList = _subList;
     }
 
     @Override
@@ -42,8 +43,8 @@ public class ExpandMenuAdapter extends BaseExpandableListAdapter {
             holder = (HeaderHolder) convertView.getTag();
         }
 
-        holder.header.setText(itemNames.get(groupPosition));
-
+        holder.header.setText(mParentList.get(groupPosition).getName());
+//        holder.header.setText(AppModel.getInstance().getFirstLevel().get(groupPosition).getName());
         return convertView;
     }
 
@@ -59,14 +60,14 @@ public class ExpandMenuAdapter extends BaseExpandableListAdapter {
         } else {
             holder = (ChildrenHolder) convertView.getTag();
         }
-        HorizontalMenuAdapter adapter = new HorizontalMenuAdapter(mContext, mDataList.get(groupPosition));
+        HorizontalMenuAdapter adapter = new HorizontalMenuAdapter(mContext, mSubList.get(groupPosition));
         holder.hList.setAdapter(adapter);
         return convertView;
     }
 
     @Override
     public int getGroupCount() {
-        return itemNames.size();
+        return mParentList.size();
     }
 
     @Override
@@ -76,12 +77,12 @@ public class ExpandMenuAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getGroup(int groupPosition) {
-        return mDataList.get(groupPosition);
+        return mSubList.get(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return mDataList.get(groupPosition).get(childPosition);
+        return mSubList.get(groupPosition).get(childPosition);
     }
 
     @Override

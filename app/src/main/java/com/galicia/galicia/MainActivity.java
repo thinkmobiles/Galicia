@@ -7,15 +7,15 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.galicia.galicia.fragments.StartMenu;
+import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.FragmentReplacer;
 import com.galicia.galicia.untils.SlidingMenuManager;
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
+
     private ImageButton menuBtn;
     private TextView mTitle;
     private SlidingMenuManager manager;
-
-
 
 
     @Override
@@ -23,7 +23,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_container);
         findUI();
-//        initMenu();
+        initMenu();
+        ApiManager.init(this);
+        ApiManager.setOfflineMode();
         openStartMenu();
     }
 
@@ -55,7 +57,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     private void openStartMenu(){
         FragmentReplacer.replaceTopNavigationFragment(this, new StartMenu());
-
     }
 
 

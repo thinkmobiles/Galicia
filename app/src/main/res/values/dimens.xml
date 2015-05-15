@@ -5,4 +5,29 @@
 
     <dimen name="slidingmenu_shadow_width">15dp</dimen>
     <dimen name="slidingmenu_offset">250dp</dimen>
+
+    <dimen name="beverage_title_min_size">45dp</dimen>
+    <dimen name="beverage_title_max_size">75dp</dimen>
+    <dimen name="beverage_description_size">160dp</dimen>
+
+    <dimen name="beverage_item_w">90dp</dimen>
+
+    <style name="Beverage"/>
+
+    <style name="TitleStyle" parent="Beverage">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/beverage_title_max_size</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="ItemHorizontalListStyle" parent="Beverage">
+        <item name="android:layout_width">@dimen/beverage_item_w</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:padding">5dp</item>
+    </style>
 </resources>
