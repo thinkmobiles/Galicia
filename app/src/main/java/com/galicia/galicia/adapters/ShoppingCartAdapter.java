@@ -1,5 +1,8 @@
 package com.galicia.galicia.adapters;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,8 +10,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.galicia.galicia.R;
+import com.galicia.galicia.global.ProgressDialogWorker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +51,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, final ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null){
             convertView = inflater.inflate(R.layout.item_shoping_cart_list,parent,false);
@@ -64,6 +69,23 @@ public class ShoppingCartAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
 
             holder.titleGoods.setText(titles.get(position).toString());
+            holder.sendButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    Runnable runnable = new Runnable() {
+//                        public void run() {
+//                            final AlertDialog.Builder spinerDialog = new AlertDialog.Builder(context);
+//                            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//                            View view = inflater.inflate(R.layout.custom_dialog_spinner,null);
+//                            spinerDialog.setView(view);
+//                            spinerDialog.create().show();
+//                        }
+//                    };
+//                    Thread thread = new Thread(runnable);
+//                    thread.start();
+                    Toast.makeText(context,"Custom dialog",Toast.LENGTH_SHORT).show();
+                }
+            });
 
         return convertView;
     }

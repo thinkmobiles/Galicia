@@ -13,6 +13,8 @@
     <string name="locales_shopping">LOCALES</string>
     <string name="guardar_shopping">GUARDAR</string>
     <string name="version">0.1</string>
+    <string name="button_cancel">Cancelar</string>
+    <string name="button_accept">Aceptar</string>
 
     <string name="download">Download..</string>
 

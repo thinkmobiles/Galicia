@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.galicia.galicia.fragments.ShoppingCartFragment;
 import com.galicia.galicia.fragments.StartMenu;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.FragmentReplacer;
@@ -16,6 +18,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private ImageButton menuBtn;
     private TextView mTitle;
     private SlidingMenuManager manager;
+    ImageView logo;
 
 
     @Override
@@ -34,6 +37,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private void findUI() {
         menuBtn = (ImageButton) findViewById(R.id.ibMenu);
         mTitle  = (TextView) findViewById(R.id.title);
+        logo = (ImageView) findViewById(R.id.tvLogoTitle);
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentReplacer.replaceTopNavigationFragment(MainActivity.this, new ShoppingCartFragment());
+            }
+        });
         menuBtn.setOnClickListener(this);
     }
 
