@@ -30,7 +30,7 @@ public class MenuAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public String getItem(int position) {
         return list.get(position);
     }
 

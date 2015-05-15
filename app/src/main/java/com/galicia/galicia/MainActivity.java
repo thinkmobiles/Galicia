@@ -23,7 +23,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_container);
         findUI();
-//        initMenu();
+        initMenu();
         ApiManager.init(this);
         ApiManager.setOfflineMode();
         openStartMenu();

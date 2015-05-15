@@ -34,6 +34,8 @@ public class FragmentSlide extends Fragment implements View.OnClickListener {
         mBtnPrev = (ImageView) view.findViewById(R.id.ivPrev);
 
         mSlidePager = (ViewPager) view.findViewById(R.id.vpSlider);
+        initPager();
+        setListeners();
 
         return view;
     }
@@ -41,7 +43,9 @@ public class FragmentSlide extends Fragment implements View.OnClickListener {
     private void initPager(){
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new FragmentProductNoDetail());
-        mSlidePagerAdapter = new SlidePagerAdapter(fragments, getFragmentManager());
+        fragments.add(new FragmentProductNoDetail());
+        fragments.add(new FragmentProductNoDetail());
+        mSlidePagerAdapter = new SlidePagerAdapter(mSlidePager, fragments, getFragmentManager());
         mSlidePager.setAdapter(mSlidePagerAdapter);
     }
 
@@ -55,10 +59,11 @@ public class FragmentSlide extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ivNext:
+                mSlidePagerAdapter.refreshPager(true);
                 break;
-
             case R.id.ivPrev:
-            break;
+                mSlidePagerAdapter.refreshPager(false);
+                break;
         }
 
     }

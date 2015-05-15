@@ -12,22 +12,15 @@
 
     <dimen name="beverage_item_w">90dp</dimen>
 
-    <style name="Beverage"/>
 
-    <style name="TitleStyle" parent="Beverage">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/beverage_title_max_size</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingRight">16dp</item>
-        <item name="android:textSize">24sp</item>
-    </style>
 
-    <style name="ItemHorizontalListStyle" parent="Beverage">
-        <item name="android:layout_width">@dimen/beverage_item_w</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:padding">5dp</item>
-    </style>
+    <!--SlideMenu-->
+    <dimen name="menu_width">300dp</dimen>
+    <dimen name="menu_height">55dp</dimen>
+    <dimen name="menu_margin_top">70dp</dimen>
+    <dimen name="menu_padding_left">5dp</dimen>
+    <dimen name="menu_text_size">15sp</dimen>
+
+
+
 </resources>
