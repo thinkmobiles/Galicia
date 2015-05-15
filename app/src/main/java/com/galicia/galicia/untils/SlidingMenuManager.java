@@ -1,10 +1,16 @@
 package com.galicia.galicia.untils;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.galicia.galicia.R;
+import com.galicia.galicia.fragments.ShoppingCartFragment;
+import com.galicia.galicia.global.FragmentReplacer;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import java.util.ArrayList;
@@ -20,7 +26,7 @@ public class SlidingMenuManager {
     private BaseAdapter adapter;
     private ListView listMenu;
 
-    public void initMenu(Activity _activity) {
+    public void initMenu(final Activity _activity) {
         activity = (Activity) _activity;
         menu = new SlidingMenu(_activity);
 
@@ -41,6 +47,18 @@ public class SlidingMenuManager {
         strings.add("Item 5 ");
         MenuAdapter menuAdapter = new MenuAdapter(strings, activity);
         listMenu.setAdapter(menuAdapter);
+
+        listMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 4:
+                        FragmentReplacer.replaceTopNavigationFragment(_activity, new ShoppingCartFragment());
+                        break;
+
+                }
+            }
+        });
     }
 
     public void show(){

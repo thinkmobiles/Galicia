@@ -10,7 +10,9 @@
     <string name="webservice_label">WebServcice Data:</string>
     <string name="button_webservice">Download</string>
     <string name="button_webservice_appconfig">Read content</string>
-    <string name="version">0.1</string>\
+    <string name="locales_shopping">LOCALES</string>
+    <string name="guardar_shopping">GUARDAR</string>
+    <string name="version">0.1</string>
 
     <string name="download">Download..</string>
 
