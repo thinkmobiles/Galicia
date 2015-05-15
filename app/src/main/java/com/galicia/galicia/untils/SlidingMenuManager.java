@@ -6,10 +6,16 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.galicia.galicia.R;
+import com.galicia.galicia.fragments.ShoppingCartFragment;
+import com.galicia.galicia.global.FragmentReplacer;
 import com.galicia.galicia.fragments.FragmentSlide;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
@@ -49,12 +55,24 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
         strings.add("Item 3 ");
         strings.add("Item 4");
         strings.add("Item 5 ");
-        menuAdapter = new MenuAdapter(strings, activity);
+        MenuAdapter menuAdapter = new MenuAdapter(strings, activity);
         listMenu.setAdapter(menuAdapter);
         listMenu.addFooterView(footer);
         listMenu.addHeaderView(header);
 
         listMenu.setOnItemClickListener(this);
+
+        listMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 4:
+                        FragmentReplacer.replaceTopNavigationFragment(_activity, new ShoppingCartFragment());
+                        break;
+
+                }
+            }
+        });
     }
 
     public void show(){

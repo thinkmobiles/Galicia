@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_vertical_margin"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:id="@+id/rl_labelShopping_FS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_deleteAll_FS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_delete"
+            android:layout_alignParentRight="true"
+            android:paddingRight="@dimen/abc_button_padding_vertical_material"/>
+
+        <TextView
+            android:text="@string/locales_shopping"
+            android:id="@+id/tv_locales_label_FS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"/>
+        <View
+            android:layout_below="@id/iv_deleteAll_FS"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/black_translucent">
+
+        </View>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lv_list_Shopping_FS"
+        android:layout_below="@+id/rl_labelShopping_FS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tw_guardar_button_FS">
+    </ListView>
+
+    <Button
+        android:id="@+id/tw_guardar_button_FS"
+        android:text="@string/guardar_shopping"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/background_material_light"/>
+
+</RelativeLayout>
