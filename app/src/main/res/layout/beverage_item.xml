@@ -9,7 +9,7 @@
         android:id="@+id/tvTitle_BI"
         style="@style/TitleStyle"/>
 
-    <ua.ms365.wifimedia.custom_list.ItemListBeverage
+    <com.galicia.galicia.custom.custom_list.ItemListBeverage
         android:id="@+id/vDescription_BI"
         android:background="@android:color/white"
         android:layout_height="0dp"

@@ -1,6 +1,8 @@
 package com.galicia.galicia.custom.custom_list;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -9,11 +11,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.R;
-import com.galicia.galicia.custom.BeverageModel;
-import com.squareup.picasso.Picasso;
+import com.galicia.galicia.global.ApiManager;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -37,11 +39,12 @@ public class ItemListBeverage extends RelativeLayout {
         llContainer.setOrientation(LinearLayout.HORIZONTAL);
     }
 
-    public void updateContent(final ArrayList<BeverageModel> beverageModels){
+    public void updateContent(final List<Item> beverageModels){
         llContainer.removeAllViews();
-        for (BeverageModel bm: beverageModels){
+        for (Item bm: beverageModels){
             final ImageView iv = (ImageView) LayoutInflater.from(getContext()).inflate(R.layout.beverage_horizontal_list_item, llContainer, false);
-            Picasso.with(getContext()).load(bm.imageURL).placeholder(R.drawable.default_bytulka).error(R.drawable.default_bytulka).into(iv);
+            iv.setImageBitmap(getBitmap(bm.getIcon()));
+//            Picasso.with(getContext()).load(bm.getIcon()).placeholder(R.drawable.default_bytulka).error(R.drawable.default_bytulka).into(iv);
             llContainer.addView(iv);
         }
 
@@ -59,6 +62,10 @@ public class ItemListBeverage extends RelativeLayout {
 
     private void prepareRelativeParent(){
         addView(llContainer);
+    }
+
+    private Bitmap getBitmap(String _path) {
+        return BitmapFactory.decodeFile(ApiManager.getPath() + _path);
     }
 
 }
