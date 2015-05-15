@@ -28,6 +28,10 @@ public abstract class ApiManager {
         return path;
     }
 
+    public static String getPath() {
+        return path;
+    }
+
     public static void init(Context context) {
         model = AppModel.getInstance();
         path = Environment.getExternalStorageDirectory() + "/" + context.getPackageName();
