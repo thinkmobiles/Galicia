@@ -24,7 +24,7 @@ public class ItemBeverage extends LinearLayout {
 
     private GroupBeverageModel gbm;
 
-    public ItemBeverage(Context context, GroupBeverageModel gbm) {
+    public ItemBeverage(Context context, GroupBeverageModel gbm, OnClickListener listener) {
         super(context);
         this.gbm = gbm;
         this.MAX_SIZE_DESC = (int) context.getResources().getDimension(R.dimen.beverage_description_size);
@@ -32,15 +32,15 @@ public class ItemBeverage extends LinearLayout {
         this.MAX_SIZE_TITLE = (int) context.getResources().getDimension(R.dimen.beverage_title_max_size);
 
         inflate(context, R.layout.beverage_item, this);
-        findViews();
+        findViews(listener);
     }
 
-    private void findViews(){
+    private void findViews(OnClickListener _Listener){
         title       = (TextView)            findViewById(R.id.tvTitle_BI);
         description = (ItemListBeverage)    findViewById(R.id.vDescription_BI);
 
         title.setText(gbm.title);
-        description.updateContent(gbm.beverageModels);
+        description.updateContent(gbm.beverageModels, _Listener);
     }
 
     public void expandDescription() {
@@ -78,5 +78,9 @@ public class ItemBeverage extends LinearLayout {
     @Override
     public void setOnClickListener(OnClickListener l) {
         title.setOnClickListener(l);
+    }
+
+    public String getTitleName(){
+        return (String) title.getText();
     }
 }

@@ -34,7 +34,7 @@ public class SplashScreen extends Activity {
                     openNewActivity();
                 }
             };
-            worker.schedule(task, 2, TimeUnit.SECONDS);
+            worker.schedule(task, 1, TimeUnit.SECONDS);
         } else {
             ProgressDialogWorker.createDialog(this);
             makeDownloadListener();
@@ -49,6 +49,7 @@ public class SplashScreen extends Activity {
 
     private void openNewActivity() {
         startActivity(new Intent(SplashScreen.this, MainActivity.class));
+        finish();
     }
 
     private void downloadContent() {

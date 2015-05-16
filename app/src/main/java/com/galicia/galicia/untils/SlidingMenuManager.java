@@ -2,21 +2,16 @@ package com.galicia.galicia.untils;
 
 import android.app.Activity;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.app.FragmentManager;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.galicia.galicia.R;
+import com.galicia.galicia.fragments.FragmentSlide;
 import com.galicia.galicia.fragments.ShoppingCartFragment;
 import com.galicia.galicia.global.FragmentReplacer;
-import com.galicia.galicia.fragments.FragmentSlide;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import java.util.ArrayList;
@@ -28,14 +23,14 @@ import java.util.List;
 public class SlidingMenuManager implements AdapterView.OnItemClickListener {
 
     private SlidingMenu menu;
-    private ActionBarActivity activity;
+    private FragmentActivity activity;
     private BaseAdapter adapter;
     private MenuAdapter menuAdapter;
     private ListView listMenu;
     private View footer, header;
 
     public void initMenu(Activity _activity) {
-        activity = (ActionBarActivity) _activity;
+        activity = (FragmentActivity) _activity;
         menu = new SlidingMenu(_activity);
 
         menu.setMode(SlidingMenu.LEFT);
@@ -56,9 +51,9 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
         strings.add("Item 4");
         strings.add("Item 5 ");
         MenuAdapter menuAdapter = new MenuAdapter(strings, activity);
-        listMenu.setAdapter(menuAdapter);
-        listMenu.addFooterView(footer);
         listMenu.addHeaderView(header);
+        listMenu.addFooterView(footer);
+        listMenu.setAdapter(menuAdapter);
 
         listMenu.setOnItemClickListener(this);
 

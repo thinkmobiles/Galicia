@@ -1,12 +1,12 @@
 package com.galicia.galicia.fragments;
 
-import android.app.Fragment;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -14,11 +14,12 @@ import com.cristaliza.mvc.events.Event;
 import com.cristaliza.mvc.events.EventListener;
 import com.cristaliza.mvc.models.estrella.AppModel;
 import com.cristaliza.mvc.models.estrella.Item;
+import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
-import com.galicia.galicia.adapters.ExpandMenuAdapter;
 import com.galicia.galicia.custom.GroupBeverageModel;
 import com.galicia.galicia.custom.custom_list.ItemBeverage;
 import com.galicia.galicia.global.ApiManager;
+import com.galicia.galicia.global.FragmentReplacer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,17 +35,20 @@ public class StartMenu extends Fragment implements View.OnClickListener {
     private List<ItemBeverage> views;
     private View selectedView;
     private AtomicBoolean stateListExpand = new AtomicBoolean(false);
+    private MainActivity mainActivity;
 
 
 
 
-    private ExpandableListView mListMenu;
-    private ExpandMenuAdapter mMenuAdapter;
     private EventListener mMenuListener;
     private List<Item> mMenuItemList;
-    private String mTitleMenu;
+    private String mTitleMenu, mBaseTitle;
 
-    private List<List<Item>> groups;
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.mainActivity = (MainActivity) activity;
+    }
 
     @Nullable
     @Override
@@ -76,48 +80,23 @@ public class StartMenu extends Fragment implements View.OnClickListener {
     }
 
     private void createMenu() {
-        mMenuItemList = ApiManager.getFirstList();
         groupBeverageModels = new ArrayList<>();
-
-        for (Item item : ApiManager.getFirstList()){
+        mMenuItemList = ApiManager.getFirstList();
+        for (Item item : mMenuItemList){
             mTitleMenu = item.getName();
             ApiManager.getSecondLevel(mMenuListener, item);
-
         }
         addViews();
-//        mMenuAdapter = new ExpandMenuAdapter(getActivity(), mMenuItemList, groups);
-//        mListMenu.setAdapter(mMenuAdapter);
-//        for (Item item : ApiManager.getFirstList()){
-//
-//            groupBeverageModels = new ArrayList<>();
-//            groupBeverageModels.add();
-//        }
     }
 
     private void createSubMenu() {
-//        List<Item> mSubMenuList = new ArrayList<>();
-//        for (Item item : ApiManager.getSecondList()){
-//            mSubMenuList.add(item.getName());
-//        }
         groupBeverageModels.add(new GroupBeverageModel(mTitleMenu, ApiManager.getSecondList()));
     }
 
-    //////////////////////////////////////////////////////////
-//    private void prepapreMockData(){
-//        groupBeverageModels = new ArrayList<>();
-//        groupBeverageModels.add(new GroupBeverageModel("CERVEZAS HIJOS DE RIVERA", GroupBeverageModel.mockListData1()));
-//        groupBeverageModels.add(new GroupBeverageModel("CERVEZAS DE IMPORTACION", GroupBeverageModel.mockListData2()));
-//        groupBeverageModels.add(new GroupBeverageModel("AGUAS", GroupBeverageModel.mockListData3()));
-//        groupBeverageModels.add(new GroupBeverageModel("VINO / LICORES", GroupBeverageModel.mockListData1()));
-//        groupBeverageModels.add(new GroupBeverageModel("REFRESCOS / ZUMOS / BATIDOS", GroupBeverageModel.mockListData1()));
-//        groupBeverageModels.add(new GroupBeverageModel("SIDRAS", GroupBeverageModel.mockListData2()));
-//        groupBeverageModels.add(new GroupBeverageModel("ENERGETICAS", GroupBeverageModel.mockListData3()));
-//    }
-
     private void addViews(){
         views = new ArrayList<>();
-        for (GroupBeverageModel gbm: groupBeverageModels){
-            final ItemBeverage ib = new ItemBeverage(getActivity(), gbm);
+            for (int i = 0; i < groupBeverageModels.size(); i++ ) {
+            final ItemBeverage ib = new ItemBeverage(getActivity(), groupBeverageModels.get(i), mItemOnClickListener);
             ib.setOnClickListener(this);
             views.add(ib);
             containerForAdd.addView(ib);
@@ -151,5 +130,14 @@ public class StartMenu extends Fragment implements View.OnClickListener {
             selectedView = null;
         }
     }
+
+    private View.OnClickListener mItemOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            final Item item = (Item) v.getTag();
+            mainActivity.setCurrentItem(item);
+            FragmentReplacer.replaceFragmentWithStack(mainActivity, new FragmentProductDetail());
+        }
+    };
 }
 

@@ -39,12 +39,14 @@ public class ItemListBeverage extends RelativeLayout {
         llContainer.setOrientation(LinearLayout.HORIZONTAL);
     }
 
-    public void updateContent(final List<Item> beverageModels){
+    public void updateContent(final List<Item> beverageModels, OnClickListener _ClickListener){
         llContainer.removeAllViews();
         for (Item bm: beverageModels){
             final ImageView iv = (ImageView) LayoutInflater.from(getContext()).inflate(R.layout.beverage_horizontal_list_item, llContainer, false);
-            iv.setImageBitmap(getBitmap(bm.getIcon()));
-//            Picasso.with(getContext()).load(bm.getIcon()).placeholder(R.drawable.default_bytulka).error(R.drawable.default_bytulka).into(iv);
+            setImage(iv, bm.getIcon());
+//            iv.setImageBitmap(getBitmap(bm.getIcon()));
+            iv.setTag(bm);
+            iv.setOnClickListener(_ClickListener);
             llContainer.addView(iv);
         }
 
@@ -66,6 +68,17 @@ public class ItemListBeverage extends RelativeLayout {
 
     private Bitmap getBitmap(String _path) {
         return BitmapFactory.decodeFile(ApiManager.getPath() + _path);
+    }
+
+    private void setImage(ImageView view, String _path) {
+        if (_path != null){
+            if (_path.isEmpty())
+                view.setImageResource(R.drawable.default_bytulka);
+            else
+                view.setImageBitmap(getBitmap(_path));
+        } else {
+            view.setImageResource(R.drawable.default_bytulka);
+        }
     }
 
 }

@@ -90,8 +90,14 @@ public abstract class ApiManager {
         return model.getThirdLevel();
     }
 
-    public static List<Product> getProducts() {
+    public static List<Product> getProductsList() {
         return model.getProducts();
+    }
+
+    public static void getProducts(EventListener listener, Item item) {
+        model.removeListeners();
+        model.addListener(AppModel.ChangeEvent.PRODUCTS_CHANGED, listener);
+        controller.onExecuteWSProducts(item);
     }
 
 }

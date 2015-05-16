@@ -8,10 +8,8 @@ import android.view.ViewParent;
 
 import java.util.ArrayList;
 
-/**
- * Created by Bogdan on 10.05.2015.
- */
 public class SlidePagerAdapter extends FragmentPagerAdapter {
+
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private ViewPager mPager;
 
