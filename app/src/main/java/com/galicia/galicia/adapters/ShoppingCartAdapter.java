@@ -1,14 +1,22 @@
 package com.galicia.galicia.adapters;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,11 +34,13 @@ public class ShoppingCartAdapter extends BaseAdapter {
     private Context context;
     private List<String> titles;
     private LayoutInflater inflater;
+    private Activity activity;
 
-    public ShoppingCartAdapter(Context _context, List<String> data){
+    public ShoppingCartAdapter(Activity _activity, Context _context, List<String> _data){
         if(_context != null){
+            activity = _activity;
             context = _context;
-            titles = data;
+            titles = _data;
 
             inflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
@@ -72,18 +82,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
             holder.sendButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Runnable runnable = new Runnable() {
-//                        public void run() {
-//                            final AlertDialog.Builder spinerDialog = new AlertDialog.Builder(context);
-//                            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//                            View view = inflater.inflate(R.layout.custom_dialog_spinner,null);
-//                            spinerDialog.setView(view);
-//                            spinerDialog.create().show();
-//                        }
-//                    };
-//                    Thread thread = new Thread(runnable);
-//                    thread.start();
-                    Toast.makeText(context,"Custom dialog",Toast.LENGTH_SHORT).show();
+                  showDialog();
                 }
             });
 
@@ -93,5 +92,23 @@ public class ShoppingCartAdapter extends BaseAdapter {
     class ViewHolder{
         private TextView titleGoods;
         private ImageView refreshButton, deleteButton, seeButton, sendButton;
+    }
+
+    private void showDialog(){
+        final AlertDialog.Builder spinerDialog = new AlertDialog.Builder(activity);
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.custom_dialog_spinner,null);
+
+        Spinner spinner = (Spinner) view.findViewById(R.id.dialogSpinner);
+        // spinner.
+        spinner.setAdapter(ArrayAdapter.createFromResource(context, R.array.spinner_resource,R.layout.item_spiner));
+        spinerDialog.setView(view);
+        AlertDialog alertDialog = spinerDialog.create();
+
+        DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
+        int screenWidth = (int) (metrics.widthPixels * 0.80);
+        alertDialog.getWindow().setLayout(screenWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
+        alertDialog.show();
+
     }
 }
