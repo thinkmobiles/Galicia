@@ -26,10 +26,15 @@ public class FragmentProductNoDetail extends Fragment {
         View view = inflater.inflate(R.layout.fragment_product_no_detail, container, false);
 
         mCompanyLogo = (ImageView) view.findViewById(R.id.ivCompanyLogo);
-        mProductImage = (ImageView) view.findViewById(R.id.ivProductPreview);
+        mProductImage = (ImageView) view.findViewById(R.id.ivProductImage);
 
         mAddProductBtn = (ImageView) view.findViewById(R.id.ivAddProduct);
         mProductInfo =(TextView) view.findViewById(R.id.tvProductDescription);
+        setImage();
         return view;
+    }
+
+    public void setImage(){
+        mProductImage.setImageResource(R.drawable.bg_vinos);
     }
 }
