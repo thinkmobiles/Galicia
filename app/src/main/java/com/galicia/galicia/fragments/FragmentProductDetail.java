@@ -22,6 +22,7 @@ import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.Constants;
+import com.galicia.galicia.models.ItemSerializable;
 
 import java.util.List;
 
@@ -33,30 +34,32 @@ public class FragmentProductDetail extends Fragment {
     private ImageView mAddProductBtn;
     private TextView mDiscription, mNameProduct;
     private EventListener mListener;
-    private MainActivity mActivity;
-    private Item mCurentItem;
+    private MainActivity mCallingActivity;
+    private ItemSerializable mCurentItem;
     private List<Item> mThridList;
     private List<Product> mProductList;
 
 
 
 
-    public static FragmentProductDetail newInstance(final int _firstPosition, int _secondPosition){
-        FragmentProductDetail detail = new FragmentProductDetail();
-        Bundle bundle = new Bundle();
-        bundle.putInt(Constants.FIRST_LEVEL_POSITION, _firstPosition);
-        bundle.putInt(Constants.SECOND_LEVEL_POSITION, _secondPosition);
-        detail.setArguments(bundle);
-        return detail;
+    public FragmentProductDetail() {
     }
 
-    public FragmentProductDetail() {
+    public static FragmentProductDetail newInstance(final ItemSerializable _item) {
+        FragmentProductDetail fragment = new FragmentProductDetail();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.ITEM_SERIAZ, _item);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mActivity = (MainActivity) activity;
+        mCallingActivity = (MainActivity) activity;
+        if (getArguments() != null) {
+            mCurentItem = (ItemSerializable) getArguments().getSerializable(Constants.ITEM_SERIAZ);
+        }
     }
 
     @Nullable
@@ -71,8 +74,7 @@ public class FragmentProductDetail extends Fragment {
         mDiscription =(TextView) view.findViewById(R.id.tvProductDescription);
         mNameProduct = (TextView) view.findViewById(R.id.tvNameProductPrev);
         makeListener();
-        mCurentItem = mActivity.getCurrentItem();
-        ApiManager.getThirdLevel(mListener, mCurentItem);
+        ApiManager.getThirdLevel(mListener, mCurentItem.getItem());
 
         return view;
     }
@@ -100,9 +102,9 @@ public class FragmentProductDetail extends Fragment {
     }
 
     private void makeData() {
-        mCompanyLogo.setImageBitmap(getBitmap(mCurentItem.getLogo()));
-        mProductPreview.setImageBitmap(getBitmap(mCurentItem.getIcon()));
-        mNameProduct.setText(mCurentItem.getName());
+        mCompanyLogo.setImageBitmap(getBitmap(mCurentItem.getItem().getLogo()));
+        mProductPreview.setImageBitmap(getBitmap(mCurentItem.getItem().getIcon()));
+        mNameProduct.setText(mCurentItem.getItem().getName());
     }
 
 

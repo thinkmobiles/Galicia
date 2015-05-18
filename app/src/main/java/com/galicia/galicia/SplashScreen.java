@@ -10,6 +10,7 @@ import com.cristaliza.mvc.events.EventListener;
 import com.cristaliza.mvc.models.estrella.AppModel;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.ProgressDialogWorker;
+import com.galicia.galicia.global.SharedPreferencesManager;
 
 import java.io.File;
 import java.util.concurrent.Executors;
@@ -67,17 +68,37 @@ public class SplashScreen extends Activity {
                         break;
                     case AppModel.ChangeEvent.DOWNLOAD_ALL_CHANGED_ID:
 //                        todo if download finish
-                        ProgressDialogWorker.dismissDialog();
-                        openNewActivity();
+                        runOnUiThread (new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                SharedPreferencesManager.saveUpdateDate(getBaseContext(), System.currentTimeMillis());
+                                ProgressDialogWorker.dismissDialog();
+                                ApiManager.setOfflineMode();
+                                openNewActivity();
+                            }
+                        }));
+
                         break;
                     case AppModel.ChangeEvent.LAST_UPDATE_CHANGED_ID:
 //                        todo Last Update
-//                        SharedPreferencesManager.saveUpdateDate();
+                        SharedPreferencesManager.getUpdateDate(getBaseContext());
+
                         break;
                 }
             }
         };
 
     }
+
+    private void isHasNewContent() {
+        ApiManager.init(this);
+        ApiManager.getLastUpdateServer(downloadListenr);
+    }
+
+    private void asf() {
+        final long currentTime = SharedPreferencesManager.getUpdateDate(getBaseContext());
+
+    }
+
 
 }

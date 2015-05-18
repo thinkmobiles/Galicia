@@ -10,14 +10,16 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="100dp"
+        android:gravity="center_vertical"
         >
         <ImageButton
             android:id="@+id/ibMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/btn_menu"
-            android:layout_alignParentLeft="true" />
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true" />
         <ImageView
             android:id="@+id/tvLogoTitle"
             android:layout_width="wrap_content"
@@ -32,8 +34,8 @@
             android:layout_toRightOf="@+id/ibMenu"
             android:layout_toLeftOf="@+id/tvLogoTitle"
             android:textColor="@android:color/white"
-            android:textSize="32dp"
-            android:text="FAFHAFks"
+            android:textSize="27dp"
+            android:text=""
             android:layout_centerVertical="true" />
 
 
@@ -44,7 +46,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="50dp">
 
     </FrameLayout>
 

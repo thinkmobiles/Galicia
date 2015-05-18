@@ -20,6 +20,7 @@ import com.galicia.galicia.custom.GroupBeverageModel;
 import com.galicia.galicia.custom.custom_list.ItemBeverage;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.FragmentReplacer;
+import com.galicia.galicia.models.ItemSerializable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,9 +136,24 @@ public class StartMenu extends Fragment implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             final Item item = (Item) v.getTag();
-            mainActivity.setCurrentItem(item);
-            FragmentReplacer.replaceFragmentWithStack(mainActivity, new FragmentProductDetail());
+            openItemFragment(item);
         }
     };
+
+    private void openItemFragment(final Item _item) {
+        ItemSerializable itemSerializable = new ItemSerializable();
+        itemSerializable.setItem(_item);
+        if (_item.getExtraVideos() != null && !_item.getExtraVideos().isEmpty()){
+            FragmentReplacer.replaceFragmentWithStack(mainActivity, FragmentProductDetail.newInstance(itemSerializable));
+        }
+        else if (_item.getExtraImages() != null && !_item.getExtraImages().isEmpty()){
+            FragmentReplacer.replaceFragmentWithStack(mainActivity, FragmentProductDetail.newInstance(itemSerializable));
+        } else {
+            FragmentReplacer.replaceFragmentWithStack(mainActivity, FragmentProductNoDetail.newInstance(itemSerializable));
+        }
+
+
+
+    }
 }
 

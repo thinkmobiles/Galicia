@@ -36,7 +36,6 @@ public abstract class ApiManager {
         model = AppModel.getInstance();
         path = Environment.getExternalStorageDirectory() + "/" + context.getPackageName();
         controller = new MainController();
-        controller.setAsynchronousMode();
         controller.setAppGalicia();
     }
 
@@ -46,6 +45,7 @@ public abstract class ApiManager {
             boolean b = f.mkdirs();
             System.out.println(b);
         }
+        controller.setAsynchronousMode();
         controller.downloadAllAppData(listener, path);
     }
 
@@ -74,11 +74,22 @@ public abstract class ApiManager {
 
     public static void getLastUpdateServer(EventListener listener) {
         model.removeListeners();
+        controller.setSynchronousMode();
         model.addListener(AppModel.ChangeEvent.LAST_UPDATE_CHANGED, listener);
         controller.onExecuteWSAppLastUpdate();
     }
 
+    public static String getDateUpdate() {
+        return model.getLastUpdate();
+    }
+
     public static List<Item> getFirstList() {
+        List<Item> list;
+        int currentId;
+
+        for (Item item : model.getFirstLevel()){
+
+        }
         return model.getFirstLevel();
     }
 
