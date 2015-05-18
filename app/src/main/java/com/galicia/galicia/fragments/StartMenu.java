@@ -149,9 +149,19 @@ public class StartMenu extends Fragment implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             final Item item = (Item) v.getTag();
+            closeItemMenu();
             openItemFragment(item);
         }
     };
+
+    private void closeItemMenu(){
+        for (ItemBeverage ib: views) {
+            if (ib.title == selectedView) {
+                ib.collapseDescription();
+                ib.hideTitle(false);
+            }
+        }
+    }
 
     private void openItemMenu(final int _id){
         views.get(_id).expandDescription();
