@@ -1,16 +1,15 @@
 package com.galicia.galicia.untils;
 
 import android.app.Activity;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
-import com.galicia.galicia.fragments.FragmentSlide;
 import com.galicia.galicia.fragments.ShoppingCartFragment;
+import com.galicia.galicia.fragments.StartMenu;
 import com.galicia.galicia.global.FragmentReplacer;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
@@ -23,14 +22,14 @@ import java.util.List;
 public class SlidingMenuManager implements AdapterView.OnItemClickListener {
 
     private SlidingMenu menu;
-    private FragmentActivity activity;
+    private MainActivity activity;
     private BaseAdapter adapter;
     private MenuAdapter menuAdapter;
     private ListView listMenu;
     private View footer, header;
 
     public void initMenu(Activity _activity) {
-        activity = (FragmentActivity) _activity;
+        activity = (MainActivity) _activity;
         menu = new SlidingMenu(_activity);
 
         menu.setMode(SlidingMenu.LEFT);
@@ -40,59 +39,78 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
         menu.setFadeDegree(0.35f);
         menu.attachToActivity(_activity, SlidingMenu.SLIDING_WINDOW);
         menu.setMenu(R.layout.menu);
+        menu.setSlidingEnabled(true);
 
         footer = View.inflate(activity,R.layout.slidemenu_footer,null);
         header = View.inflate(activity,R.layout.slidemenu_header,null);
         listMenu = (ListView) menu.findViewById(R.id.sidemenu);
         List<String> strings = new ArrayList<>();
-        strings.add("Item 1 ");
-        strings.add("Item 2 ");
-        strings.add("Item 3 ");
-        strings.add("Item 4");
-        strings.add("Item 5 ");
+        strings.add(activity.getString(R.string.title_rivera));
+        strings.add(activity.getString(R.string.title_importacion));
+        strings.add(activity.getString(R.string.title_aguas));
+        strings.add(activity.getString(R.string.title_vino));
+        strings.add(activity.getString(R.string.title_refrescos));
+        strings.add(activity.getString(R.string.title_sidras));
+        strings.add(activity.getString(R.string.title_energetical));
         MenuAdapter menuAdapter = new MenuAdapter(strings, activity);
         listMenu.addHeaderView(header);
         listMenu.addFooterView(footer);
         listMenu.setAdapter(menuAdapter);
 
         listMenu.setOnItemClickListener(this);
-
-        listMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
-                    case 4:
-                        FragmentReplacer.replaceTopNavigationFragment(activity, new ShoppingCartFragment());
-                        break;
-
-                }
-            }
-        });
     }
 
     public void show(){
         menu.showMenu();
     }
-
+    public void enableMenu(final boolean _state){
+        menu.setSlidingEnabled(_state);
+    }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if(view == header){
-            Log.e("listener","header");
+            FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu());
+            menu.toggle();
         }else if(view == footer){
-            Log.e("listener","footer");
+            FragmentReplacer.replaceFragmentWithStack(activity, new ShoppingCartFragment());
+            menu.toggle();
         } else{
-            switch (position-1){
+            switch (position){
                 case 0:
-                    Log.e("listener","0");
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.container, new FragmentSlide()).commit();
+                    FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu());
+                    menu.toggle();
                     break;
                 case 1:
-                    Log.e("listener","1");
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.container, new FragmentSlide()).commit();
+                    FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu().newInstance(0));
+                    menu.toggle();
                     break;
                 case 2:
-                    Log.e("listener","2");
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.container, new FragmentSlide()).commit();
+                    FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu().newInstance(1));
+                    menu.toggle();
+                    break;
+                case 3:
+                    FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu().newInstance(2));
+                    menu.toggle();
+                    break;
+                case 4:
+                    FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu().newInstance(3));
+                    menu.toggle();
+                    break;
+                case 5:
+                    FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu().newInstance(4));
+                    menu.toggle();
+                    break;
+                case 6:
+                    FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu().newInstance(5));
+                    menu.toggle();
+                    break;
+                case 7:
+                    FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu().newInstance(6));
+                    menu.toggle();
+                    break;
+                case 8:
+                    FragmentReplacer.replaceFragmentWithStack(activity, new ShoppingCartFragment());
+                    menu.toggle();
                     break;
             }
         }

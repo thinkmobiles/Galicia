@@ -21,9 +21,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private ImageButton menuBtn;
     private TextView mTitle;
     private SlidingMenuManager manager;
-    ImageView logo;
+    private ImageView logo;
     private Item mCurrentItem;
     private boolean doubleBackToExitPressedOnce;
+    private boolean clickable = true;
 
 
     @Override
@@ -47,6 +48,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setEnableMenu(true);
                 FragmentReplacer.replaceTopNavigationFragment(MainActivity.this, new ShoppingCartFragment());
             }
         });
@@ -58,9 +60,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         manager.initMenu(this);
     }
 
+    public void setEnableMenu(boolean _status){
+        manager.enableMenu(_status);
+        clickable = _status;
+    }
+
     @Override
     public void onClick(View v) {
-        manager.show();
+        if(clickable)
+            manager.show();
     }
 
     public void setTitle(String _title) {
@@ -71,7 +79,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     }
 
-    private void openStartMenu(){
+    public void openStartMenu(){
         FragmentReplacer.replaceFragmentWithStack(this, new StartMenu());
     }
 

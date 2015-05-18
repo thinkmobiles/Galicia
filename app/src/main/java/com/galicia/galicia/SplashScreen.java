@@ -3,6 +3,7 @@ package com.galicia.galicia;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.widget.Toast;
 
 import com.cristaliza.mvc.events.Event;
@@ -13,6 +14,10 @@ import com.galicia.galicia.global.ProgressDialogWorker;
 import com.galicia.galicia.global.SharedPreferencesManager;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -28,14 +33,19 @@ public class SplashScreen extends Activity {
         setContentView(R.layout.splash_screen);
 
         if (isHasContent()) {
-            ScheduledExecutorService worker =
-                    Executors.newSingleThreadScheduledExecutor();
-            Runnable task = new Runnable() {
-                public void run() {
-                    openNewActivity();
-                }
-            };
-            worker.schedule(task, 1, TimeUnit.SECONDS);
+            if(hasNewContent()){
+                makeDownloadListener();
+                updateContent();
+            } else {
+                ScheduledExecutorService worker =
+                        Executors.newSingleThreadScheduledExecutor();
+                Runnable task = new Runnable() {
+                    public void run() {
+                        openNewActivity();
+                    }
+                };
+                worker.schedule(task, 1, TimeUnit.SECONDS);
+            }
         } else {
             ProgressDialogWorker.createDialog(this);
             makeDownloadListener();
@@ -64,7 +74,7 @@ public class SplashScreen extends Activity {
             public void onEvent(Event event) {
                 switch (event.getId()) {
                     case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
-                        Toast.makeText(getBaseContext(), event.getType() + "error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), event.getType() + " error", Toast.LENGTH_LONG).show();
                         break;
                     case AppModel.ChangeEvent.DOWNLOAD_ALL_CHANGED_ID:
 //                        todo if download finish
@@ -81,7 +91,15 @@ public class SplashScreen extends Activity {
                         break;
                     case AppModel.ChangeEvent.LAST_UPDATE_CHANGED_ID:
 //                        todo Last Update
-                        SharedPreferencesManager.getUpdateDate(getBaseContext());
+                        runOnUiThread (new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                SharedPreferencesManager.saveUpdateDate(getBaseContext(), System.currentTimeMillis());
+                                ProgressDialogWorker.dismissDialog();
+                                ApiManager.setOfflineMode();
+                                openNewActivity();
+                            }
+                        }));
 
                         break;
                 }
@@ -90,15 +108,31 @@ public class SplashScreen extends Activity {
 
     }
 
-    private void isHasNewContent() {
+    private void updateContent() {
         ApiManager.init(this);
         ApiManager.getLastUpdateServer(downloadListenr);
     }
 
-    private void asf() {
-        final long currentTime = SharedPreferencesManager.getUpdateDate(getBaseContext());
+    private boolean hasNewContent() {
+        ApiManager.init(this);
+        final Date currentUpdate = new Date(SharedPreferencesManager.getUpdateDate(getBaseContext()));
+        final Date lastUpdate = getDate(ApiManager.getDateUpdate());
+//        if(currentUpdate.before(lastUpdate))
+//            return true;
+        return false;
 
     }
 
-
+    private Date getDate(final String _date){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date(2000,1,1);
+        if(_date != null) {
+            try {
+                date = format.parse(_date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return date;
+    }
 }
