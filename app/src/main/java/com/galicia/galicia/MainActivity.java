@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.galicia.galicia.fragments.ShoppingCartFragment;
+import com.galicia.galicia.fragments.PurchaseCartFragment;
 import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.fragments.StartMenu;
 import com.galicia.galicia.global.ApiManager;
@@ -50,6 +50,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             public void onClick(View v) {
                 setEnableMenu(true);
                 FragmentReplacer.replaceTopNavigationFragment(MainActivity.this, new ShoppingCartFragment());
+                FragmentReplacer.replaceTopNavigationFragment(MainActivity.this, new PurchaseCartFragment());
             }
         });
         menuBtn.setOnClickListener(this);

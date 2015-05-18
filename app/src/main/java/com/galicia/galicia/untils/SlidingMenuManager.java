@@ -8,8 +8,8 @@ import android.widget.ListView;
 
 import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
+import com.galicia.galicia.fragments.FragmentSlide;
 import com.galicia.galicia.fragments.ShoppingCartFragment;
-import com.galicia.galicia.fragments.StartMenu;
 import com.galicia.galicia.global.FragmentReplacer;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 

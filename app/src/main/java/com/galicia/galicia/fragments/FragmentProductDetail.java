@@ -23,6 +23,7 @@ import com.galicia.galicia.R;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.Constants;
 import com.galicia.galicia.models.ItemSerializable;
+import com.galicia.galicia.global.ItemsPurchaseList;
 
 import java.util.List;
 
@@ -73,12 +74,16 @@ public class FragmentProductDetail extends Fragment {
         mAddProductBtn = (ImageView) view.findViewById(R.id.ivAddProduct);
         mDiscription =(TextView) view.findViewById(R.id.tvProductDescription);
         mNameProduct = (TextView) view.findViewById(R.id.tvNameProductPrev);
+        setClickListener();
         makeListener();
         ApiManager.getThirdLevel(mListener, mCurentItem.getItem());
 
         return view;
     }
 
+    private void setClickListener(){
+        mAddProductBtn.setOnClickListener(this);
+    }
 
 
     private void makeListener() {
@@ -112,4 +117,17 @@ public class FragmentProductDetail extends Fragment {
         return BitmapFactory.decodeFile(ApiManager.getPath() + _path);
     }
 
+    private void addToPurchaseCart(){
+        ItemsPurchaseList.getInstance(getActivity()).addItem(mCurentItem);
+        Toast.makeText(getActivity(), R.string.added_item,Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.ivAddProduct :
+                addToPurchaseCart();
+        }
+    }
 }
