@@ -22,5 +22,9 @@
     <dimen name="menu_text_size">15sp</dimen>
 
 
+    <!-- fragment product universal-->
+    <dimen name="padding_item_video_title">10dp</dimen>
+
+
 
 </resources>

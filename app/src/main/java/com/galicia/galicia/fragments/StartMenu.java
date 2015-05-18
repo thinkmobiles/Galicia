@@ -152,6 +152,8 @@ public class StartMenu extends Fragment implements View.OnClickListener {
             FragmentReplacer.replaceFragmentWithStack(mainActivity, FragmentProductNoDetail.newInstance(itemSerializable));
         }
 
+//        FragmentReplacer.replaceFragmentWithStack(mainActivity, FragmentProductUniversal.newInstance(itemSerializable));
+
 
 
     }
