@@ -2,7 +2,7 @@ package com.galicia.galicia.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 /**
  * Created by Feltsan on 12.05.2015.
  */
-public class PurchaseCartFragment extends Fragment implements View.OnClickListener{
+public class PurchaseCartFragment extends Fragment implements View.OnClickListener {
     private PurchaseCartAdapter purchaseCartAdapter;
     private ArrayList<Item> data;
     private ListView purchaseList;
@@ -39,35 +39,35 @@ public class PurchaseCartFragment extends Fragment implements View.OnClickListen
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_cart_shopping,container,false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_cart_shopping, container, false);
 
         findUI(rootView);
         setClickListener();
 
-        purchaseCartAdapter = new PurchaseCartAdapter(getActivity(),getActivity().getApplicationContext(),data);
+        purchaseCartAdapter = new PurchaseCartAdapter(getActivity().getApplicationContext(), data);
         purchaseList.setAdapter(purchaseCartAdapter);
         return rootView;
     }
 
-    public void findUI(View view){
+    public void findUI(View view) {
         deleteItems = (ImageView) view.findViewById(R.id.iv_deleteAll_FS);
         purchaseList = (ListView) view.findViewById(R.id.lv_list_Shopping_FS);
     }
 
-    public void setClickListener(){
+    public void setClickListener() {
         deleteItems.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.iv_deleteAll_FS :
-                if(!data.isEmpty()) {
+        switch (v.getId()) {
+            case R.id.iv_deleteAll_FS:
+                if (!data.isEmpty()) {
                     ItemsPurchaseList.getInstance(getActivity()).clearItems();
                     purchaseCartAdapter.notifyDataSetChanged();
-                }else{
-                    Toast.makeText(getActivity(),R.string.empty_cart,Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), R.string.empty_cart, Toast.LENGTH_SHORT).show();
                 }
                 break;
         }

@@ -38,12 +38,11 @@ public class PurchaseCartAdapter extends BaseAdapter implements View.OnClickList
     private Context context;
     private ArrayList<Item> itemsData;
     private LayoutInflater inflater;
-    private Activity activity;
-    private int location;
 
-    public PurchaseCartAdapter(Activity _activity, Context _context, ArrayList<Item> _data){
+
+
+    public PurchaseCartAdapter(Context _context, ArrayList<Item> _data){
         if(_context != null){
-            activity = _activity;
             context = _context;
             itemsData = _data;
 
@@ -108,7 +107,6 @@ public class PurchaseCartAdapter extends BaseAdapter implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_send_shop_item_IS :
-                showDialog();
                 break;
             case R.id.iv_refresh_shop_item_IS :
                 break;
@@ -120,43 +118,6 @@ public class PurchaseCartAdapter extends BaseAdapter implements View.OnClickList
     class ViewHolder{
         private TextView nameItem;
         private ImageView previewImage, refreshButton, deleteButton, seeButton, sendButton;
-        private int pos;
-    }
-
-    private void showDialog(){
-
-        final AlertDialog.Builder spinerDialog = new AlertDialog.Builder(activity);
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.custom_dialog_spinner,null);
-
-        Spinner spinner = (Spinner) view.findViewById(R.id.dialogSpinner);
-
-        TextView negativButton = (TextView) view.findViewById(R.id.tv_cancel_action_CD);
-        TextView positivButton = (TextView) view.findViewById(R.id.tv_accept_action_CD);
-
-
-        SpinnerPurchaseAdapter spinnerPurchaseAdapter = new SpinnerPurchaseAdapter(context, itemsData);
-
-        spinner.setAdapter(spinnerPurchaseAdapter);
-        spinerDialog.setView(view);
-        final AlertDialog alertDialog = spinerDialog.create();
-        alertDialog.show();
-
-        negativButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-            }
-        });
-
-        positivButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                notifyDataSetChanged();
-                alertDialog.dismiss();
-            }
-        });
-
     }
 
     public Drawable getDrawable(String _icon){

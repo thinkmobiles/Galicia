@@ -58,12 +58,6 @@ public class SpinnerPurchaseAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
 
             holder.nameItem.setText(items.get(position).getName());
-            holder.nameItem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    items.set(position,getItem(position));
-                }
-            });
 
             return convertView;
 

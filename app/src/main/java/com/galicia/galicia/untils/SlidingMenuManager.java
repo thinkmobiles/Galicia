@@ -8,8 +8,10 @@ import android.widget.ListView;
 
 import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
-import com.galicia.galicia.fragments.FragmentSlide;
-import com.galicia.galicia.fragments.ShoppingCartFragment;
+
+import com.galicia.galicia.fragments.PurchaseCartFragment;
+
+import com.galicia.galicia.fragments.StartMenu;
 import com.galicia.galicia.global.FragmentReplacer;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
@@ -72,7 +74,7 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
             FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu());
             menu.toggle();
         }else if(view == footer){
-            FragmentReplacer.replaceFragmentWithStack(activity, new ShoppingCartFragment());
+            FragmentReplacer.replaceFragmentWithStack(activity, new PurchaseCartFragment());
             menu.toggle();
         } else{
             switch (position){
@@ -109,7 +111,7 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
                     menu.toggle();
                     break;
                 case 8:
-                    FragmentReplacer.replaceFragmentWithStack(activity, new ShoppingCartFragment());
+                    FragmentReplacer.replaceFragmentWithStack(activity, new PurchaseCartFragment());
                     menu.toggle();
                     break;
             }

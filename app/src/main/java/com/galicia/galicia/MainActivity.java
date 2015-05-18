@@ -45,14 +45,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mTitle  = (TextView) findViewById(R.id.tvMenuTitle);
         mTitle  = (TextView) findViewById(R.id.title);
         logo = (ImageView) findViewById(R.id.tvLogoTitle);
-        logo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setEnableMenu(true);
-                FragmentReplacer.replaceTopNavigationFragment(MainActivity.this, new ShoppingCartFragment());
-                FragmentReplacer.replaceTopNavigationFragment(MainActivity.this, new PurchaseCartFragment());
-            }
-        });
         menuBtn.setOnClickListener(this);
     }
 
