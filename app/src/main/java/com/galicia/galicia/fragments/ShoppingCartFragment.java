@@ -19,7 +19,6 @@ import java.util.List;
  */
 public class ShoppingCartFragment extends Fragment {
     private ShoppingCartAdapter shoppingCartAdapter;
-    private ShoppingCartFragment fragment;
     private List<String> data;
     private ListView shopingList;
 
@@ -45,7 +44,7 @@ public class ShoppingCartFragment extends Fragment {
 
         shopingList = (ListView) rootView.findViewById(R.id.lv_list_Shopping_FS);
 
-        shoppingCartAdapter = new ShoppingCartAdapter(getActivity().getApplicationContext(),data);
+        shoppingCartAdapter = new ShoppingCartAdapter(getActivity(),getActivity().getApplicationContext(),data);
         shopingList.setAdapter(shoppingCartAdapter);
         return rootView;
     }
