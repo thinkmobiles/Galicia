@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="@dimen/menu_width"
         android:layout_height="@dimen/menu_height"
-        android:text="fgnghng"
+        android:text="@string/title_inicio"
         android:id="@+id/tvInicio"
         android:background="@drawable/line_bottom"
         android:layout_marginTop="@dimen/menu_margin_top"

@@ -6,9 +6,9 @@
     <string name="title_vino">VINO / LICORES</string>
     <string name="title_refrescos">REFRESCOS / ZUMOS / BATIDOS</string>
     <string name="title_sidras">SIDRAS</string>
-    <string name="tltle_energetical">energéticas</string>
-    <string name="tltle_incio">INICIO</string>
-    <string name="tltle_envios">ENVIOS PENDIENTES</string>
+    <string name="title_energetical">energéticas</string>
+    <string name="title_inicio">INICIO</string>
+    <string name="title_envios">ENVIOS PENDIENTES</string>
 
 
     <string name="app_name">Galicia</string>

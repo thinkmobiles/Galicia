@@ -37,18 +37,27 @@ public class StartMenu extends Fragment implements View.OnClickListener {
     private View selectedView;
     private AtomicBoolean stateListExpand = new AtomicBoolean(false);
     private MainActivity mainActivity;
-
-
-
-
     private EventListener mMenuListener;
     private List<Item> mMenuItemList;
     private String mTitleMenu, mBaseTitle;
+
+    private int idOpen = -1;
+
+    public static StartMenu newInstance(final int _open){
+        StartMenu fragment = new StartMenu();
+        Bundle attr = new Bundle();
+        attr.putInt("OPEN",_open);
+        fragment.setArguments(attr);
+        return fragment;
+    }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.mainActivity = (MainActivity) activity;
+        if(getArguments() != null){
+            idOpen = getArguments().getInt("OPEN");
+        }
     }
 
     @Nullable
@@ -58,6 +67,10 @@ public class StartMenu extends Fragment implements View.OnClickListener {
         containerForAdd = (LinearLayout) view.findViewById(R.id.llContentList_AM);
         makeListeners();
         ApiManager.getFirstLevel(mMenuListener);
+        if(idOpen != -1){
+            openItemMenu(idOpen);
+        }
+        mainActivity.setEnableMenu(false);
         return view;
     }
 
@@ -96,7 +109,7 @@ public class StartMenu extends Fragment implements View.OnClickListener {
 
     private void addViews(){
         views = new ArrayList<>();
-            for (int i = 0; i < groupBeverageModels.size(); i++ ) {
+        for (int i = 0; i < groupBeverageModels.size(); i++ ) {
             final ItemBeverage ib = new ItemBeverage(getActivity(), groupBeverageModels.get(i), mItemOnClickListener);
             ib.setOnClickListener(this);
             views.add(ib);
@@ -140,7 +153,15 @@ public class StartMenu extends Fragment implements View.OnClickListener {
         }
     };
 
+    private void openItemMenu(final int _id){
+        views.get(_id).expandDescription();
+        views.get(_id).hideTitle(true);
+        stateListExpand.set(!stateListExpand.get());
+        selectedView = views.get(_id).title;
+    }
+
     private void openItemFragment(final Item _item) {
+        mainActivity.setEnableMenu(true);
         ItemSerializable itemSerializable = new ItemSerializable();
         itemSerializable.setItem(_item);
         if (_item.getExtraVideos() != null && !_item.getExtraVideos().isEmpty()){
