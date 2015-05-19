@@ -1,22 +1,15 @@
 package com.galicia.galicia.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import com.cristaliza.mvc.events.Event;
-import com.cristaliza.mvc.events.EventListener;
-import com.cristaliza.mvc.models.estrella.AppModel;
-import com.cristaliza.mvc.models.estrella.Item;
+
 import com.cristaliza.mvc.models.estrella.Product;
 import com.galicia.galicia.R;
-import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.untils.BitmapCreator;
 
 import java.util.List;
@@ -27,22 +20,21 @@ import java.util.List;
 public class HorisontalPhotoProductAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<Product> mList;
-    private EventListener mListener;
+    private List<Product> mProductList;
 
-    public HorisontalPhotoProductAdapter(Context mContext, List<Product> mList) {
+    public HorisontalPhotoProductAdapter(Context mContext, List<Product> mProductList) {
         this.mContext = mContext;
-        this.mList = mList;
+        this.mProductList = mProductList;
     }
 
     @Override
     public int getCount() {
-        return mList.size();
+        return mProductList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mList.get(position);
+        return mProductList.get(position);
     }
 
     @Override
@@ -63,14 +55,8 @@ public class HorisontalPhotoProductAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
 
-        holder.ivIcon.setImageBitmap(BitmapCreator.getBitmap(mList.get(position).getImage()));
-        holder.tvDescription.setText(mList.get(position).getImageDescription());
-//        holder.ivIcon.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(mContext, mList.get(position).getName(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        holder.ivIcon.setImageBitmap(BitmapCreator.getBitmap(mProductList.get(position).getImage()));
+        holder.tvDescription.setText(mProductList.get(position).getName());
 
         return convertView;
     }

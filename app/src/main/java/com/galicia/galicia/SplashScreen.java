@@ -44,10 +44,10 @@ public class SplashScreen extends Activity {
                         openNewActivity();
                     }
                 };
-                worker.schedule(task, 10, TimeUnit.SECONDS);
+                worker.schedule(task, 1, TimeUnit.SECONDS);
 //            }
         } else {
-            ProgressDialogWorker.createDialog(this);
+//            ProgressDialogWorker.createDialog(this);
             makeDownloadListener();
             downloadContent();
         }
@@ -83,7 +83,7 @@ public class SplashScreen extends Activity {
 //                            @Override
 //                            public void run() {
                                 SharedPreferencesManager.saveUpdateDate(getBaseContext(), System.currentTimeMillis());
-                                ProgressDialogWorker.dismissDialog();
+//                                ProgressDialogWorker.dismissDialog();
                                 ApiManager.setOfflineMode();
                                 openNewActivity();
 //                            }

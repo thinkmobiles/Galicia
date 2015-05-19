@@ -24,7 +24,6 @@ import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.Constants;
 import com.galicia.galicia.models.ItemSerializable;
 import com.galicia.galicia.models.ProductSerializable;
-
 import java.util.ArrayList;
 import java.util.List;
 

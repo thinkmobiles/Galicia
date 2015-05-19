@@ -17,9 +17,7 @@ import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.R;
 import com.galicia.galicia.untils.BitmapCreator;
 
-import java.util.List;
-import android.os.Handler;
-import java.util.logging.LogRecord;
+import java.util.HashMap;
 
 /**
  * Created by vasia on 18.05.2015.
@@ -28,11 +26,12 @@ public class ProductVideoAdapter extends BaseAdapter {
 
     private Context mContext;
     private Item mItem;
-    private Handler mHandler;
+    private HashMap<String, Bitmap> mBitmapCache;
 
     public ProductVideoAdapter(Context _context, Item _item) {
-        this.mContext = _context;
-        this.mItem = _item;
+        mContext = _context;
+        mItem = _item;
+        mBitmapCache = new HashMap<>();
     }
 
     @Override
@@ -62,10 +61,20 @@ public class ProductVideoAdapter extends BaseAdapter {
         } else {
             holder = (Holder) convertView.getTag();
         }
-
-        holder.ivVideoPreview.setImageBitmap(BitmapCreator.getBitmap(mItem.getExtraImages().get(position)));
+        if (mItem.getExtraImages() != null)
+            holder.ivVideoPreview.setImageBitmap(BitmapCreator.getBitmap(mItem.getExtraImages().get(position)));
+        else holder.ivVideoPreview.setImageBitmap(getBitmap(BitmapCreator.getAbsolutePath(mItem.getExtraVideos().get(position))));
         holder.tvVideoTitle.setText(mItem.getExtraVideosDescripton().get(position));
         return convertView;
+    }
+
+    @TargetApi(Build.VERSION_CODES.FROYO)
+    private Bitmap getBitmap(String _filePath){
+        if (!mBitmapCache.containsValue(_filePath)) {
+            mBitmapCache.put(_filePath, ThumbnailUtils.createVideoThumbnail(_filePath,
+                    MediaStore.Images.Thumbnails.MINI_KIND));
+        }
+        return mBitmapCache.get(_filePath);
     }
 
 

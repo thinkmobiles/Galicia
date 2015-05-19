@@ -1,15 +1,17 @@
 package com.galicia.galicia.fragments;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,24 +27,28 @@ import com.galicia.galicia.adapters.HorisontalPhotoProductAdapter;
 import com.galicia.galicia.adapters.ProductVideoAdapter;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.Constants;
+import com.galicia.galicia.global.FragmentReplacer;
 import com.galicia.galicia.models.ItemSerializable;
 import com.galicia.galicia.untils.BitmapCreator;
 import com.galicia.galicia.untils.HorizontalListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentProductUniversal extends Fragment implements View.OnClickListener {
+public class FragmentProductUniversal extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private MainActivity mCallingActivity;
-    private ItemSerializable mCurentItem;
+    private Item mCurentItem;
     private ImageView ivAddProduct, ivProductPhoto, ivCompanyLogo, ivFichaPrduct;
     private HorizontalListView hlvAllProduct;
     private ListView lvProductVideo;
-    private TextView tvProductDetail;
+    private TextView tvProductPhotoTitle;
+    private WebView wvProductDescription;
     private EventListener mListener;
     private List<Product> mProductList;
     private List<Item> mThridList;
-    private RelativeLayout rlThirdProduct, rlMoreDetail, rldetail;
+    private RelativeLayout rlProductPhoto;
+    private LinearLayout llCompanyLogo, llDetail, llMoreDetail;
 
     public static FragmentProductUniversal newInstance(final ItemSerializable _item) {
         final FragmentProductUniversal fragment = new FragmentProductUniversal();
@@ -57,7 +63,7 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
         super.onAttach(activity);
         mCallingActivity = (MainActivity) activity;
         if (getArguments() != null) {
-            mCurentItem = (ItemSerializable) getArguments().getSerializable(Constants.ITEM_SERIAZ);
+            mCurentItem = ((ItemSerializable) getArguments().getSerializable(Constants.ITEM_SERIAZ)).getItem();
         }
     }
 
@@ -65,29 +71,27 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
     public View onCreateView(LayoutInflater _inflater, ViewGroup _container, Bundle _savedInstanceState) {
         final View view = _inflater.inflate(R.layout.fragment_product_more_detail_universal, _container, false);
         findUI(view);
-        initLists();
         setListener();
-        ApiManager.getThirdLevel(mListener, mCurentItem.getItem());
-        initProductDetail();
         makeData();
+        ApiManager.getThirdLevel(mListener, mCurentItem);
         return view;
     }
 
     private void findUI(final View _view){
         ivAddProduct = (ImageView) _view.findViewById(R.id.ivAddProduct_FPU);
         ivFichaPrduct = (ImageView) _view.findViewById(R.id.ivFichaProduct_FPU);
-        tvProductDetail = (TextView) _view.findViewById(R.id.tvProductDetail_FPU);
+        wvProductDescription = (WebView) _view.findViewById(R.id.wvProductDescription_FPU);
+        tvProductPhotoTitle = (TextView) _view.findViewById(R.id.tvThirdProductTitle_FPU);
         hlvAllProduct = (HorizontalListView) _view.findViewById(R.id.hlvAllProduct_FPU);
         lvProductVideo = (ListView) _view.findViewById(R.id.lvProductVideo_FPU);
         ivProductPhoto = (ImageView) _view.findViewById(R.id.ivProductPhoto_FPU);
-        rlThirdProduct = (RelativeLayout) _view.findViewById(R.id.rlProductThird_FPU);
-        rlMoreDetail = (RelativeLayout) _view.findViewById(R.id.rlMoreDetailContainer_FPU);
-        rldetail = (RelativeLayout) _view.findViewById(R.id.rlMoreDetailContainer_FPU);
+        rlProductPhoto = (RelativeLayout) _view.findViewById(R.id.rlProductPhoto_FPU);
         ivCompanyLogo = (ImageView) _view.findViewById(R.id.ivCompanyLogo_FPU);
-    }
 
-    private void initLists(){
 
+        llCompanyLogo = (LinearLayout)_view.findViewById(R.id.llCompanyLogo_FPU);
+        llDetail = (LinearLayout) _view.findViewById(R.id.llDetailContainer_FPU);
+        llMoreDetail = (LinearLayout) _view.findViewById(R.id.llMoreDetailContainer_FPU);
     }
 
     private void setListener(){
@@ -103,14 +107,24 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
                         break;
                     case AppModel.ChangeEvent.THIRD_LEVEL_CHANGED_ID:
                         mThridList = ApiManager.getThirdList();
-                        ApiManager.getProducts(mListener, mThridList.get(0));
+                        getProduct();
                         break;
                     case AppModel.ChangeEvent.PRODUCTS_CHANGED_ID:
-                        mProductList = ApiManager.getProductsList();
-                        initHorisontalImageList();
+                        mProductList.add(ApiManager.getProductsList().get(0));
+                            initProductDetail();
                 }
             }
         };
+    }
+
+    private void getProduct(){
+        if (mProductList == null) {
+            mProductList = new ArrayList<Product>();
+            for (Item item : mThridList){
+                ApiManager.getProducts(mListener, item);
+            }
+        }
+        else initProductDetail();
     }
 
 
@@ -123,13 +137,15 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
             case R.id.ivFichaProduct_FPU:
 
                 break;
+            case R.id.llMoreDetailContainer_FPU:
+                startSlideFragment(0);
+                break;
         }
     }
 
     private void initProductDetail(){
-        if (mCurentItem.getItem().getExtraVideos() != null && !mCurentItem.getItem().getExtraVideos().isEmpty()){
+        if (mCurentItem.getExtraVideos() != null && !mCurentItem.getExtraVideos().isEmpty()){
             setProductVideoDetail();
-
         }
         else {
             setProductNoVideoDetail();
@@ -139,57 +155,91 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
 
     private void setProductVideoDetail(){
         lvProductVideo.setVisibility(View.VISIBLE);
-        rlMoreDetail.setVisibility(View.VISIBLE);
-        rlThirdProduct.setVisibility(View.GONE);
-        calculateContainerSizeVideoDetail();
+        llMoreDetail.setVisibility(View.VISIBLE);
+        rlProductPhoto.setVisibility(View.GONE);
         initVideoList();
-
-
-    }
-
-    private void calculateContainerSizeVideoDetail(){
-        int
+        initHorisontalImageList();
     }
 
     private void setProductNoVideoDetail(){
-
-        if (mThridList.size() == 1 && lvProductVideo.getVisibility() == View.GONE) {
-            setOneThirdProductDetail();
+        if (mThridList == null)
+            return;
+        if (mThridList.size() == 1) {
+            setOneProductDetail();
         }
         else {
-            rlMoreDetail.setVisibility(View.GONE);
+            llMoreDetail.setVisibility(View.GONE);
+            calculateContainerSizeProductNoVideo();
             hlvAllProduct.setVisibility(View.VISIBLE);
-            ApiManager.getProducts(mListener, mCurentItem.getItem());
+            initHorisontalImageList();
         }
     }
 
-    private void setOneThirdProductDetail(){
+    private void calculateContainerSizeProductNoVideo(){
+        int companyLogoWidth = getDisplayWidth() / 8 *2;
+        int productDetailWidth = getDisplayWidth() / 8 * 6;
+        final LinearLayout.LayoutParams companyLogoParams = new LinearLayout.LayoutParams(companyLogoWidth, ViewGroup.LayoutParams.MATCH_PARENT);
+        final LinearLayout.LayoutParams productDetailParams = new LinearLayout.LayoutParams(productDetailWidth, ViewGroup.LayoutParams.MATCH_PARENT);
+        llCompanyLogo.setLayoutParams(companyLogoParams);
+        llDetail.setLayoutParams(productDetailParams);
+    }
+
+    private void setOneProductDetail(){
+        llMoreDetail.setVisibility(View.VISIBLE);
         hlvAllProduct.setVisibility(View.GONE);
         lvProductVideo.setVisibility(View.GONE);
-        ivProductPhoto.setImageBitmap(BitmapCreator.getBitmap(mThridList.get(0).getIcon()));
+        ivProductPhoto.setImageBitmap(BitmapCreator.getBitmap(mProductList.get(0).getImage()));
+        tvProductPhotoTitle.setText(mThridList.get(0).getName());
+        llMoreDetail.setOnClickListener(this);
     }
 
     private void initHorisontalImageList(){
+        if (mProductList.size() == 0){
+            hlvAllProduct.setVisibility(View.GONE);
+            return;
+        }
         final HorisontalPhotoProductAdapter adapter = new HorisontalPhotoProductAdapter(mCallingActivity, mProductList);
         hlvAllProduct.setAdapter(adapter);
+        hlvAllProduct.setOnItemClickListener(this);
+    }
+
+    private void initVideoList(){
+        final ProductVideoAdapter apter = new ProductVideoAdapter(mCallingActivity, mCurentItem);
+        lvProductVideo.setAdapter(apter);
+        lvProductVideo.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (parent.getAdapter().getClass().getName().equals(ProductVideoAdapter.class.getName()) ){
+            startVideoPlayer(BitmapCreator.getAbsolutePath(mCurentItem.getExtraVideos().get(position)));
+        }
+
+
+        if (parent.getAdapter().getClass().getName().equals(HorisontalPhotoProductAdapter.class.getName()) ){
+            startSlideFragment(position);
+        }
+
     }
 
 
-    private void initVideoList(){
-        final ProductVideoAdapter apter = new ProductVideoAdapter(mCallingActivity, mCurentItem.getItem());
-        lvProductVideo.setAdapter(apter);
-        lvProductVideo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
+    private void startVideoPlayer(String _path){
+        final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(_path));
+        intent.setDataAndType(Uri.parse(_path), "video/*");
+        startActivity(intent);
     }
 
 
     private void makeData(){
-        ivCompanyLogo.setImageBitmap(BitmapCreator.getBitmap(mCurentItem.getItem().getLogo()));
+        ivCompanyLogo.setImageBitmap(BitmapCreator.getBitmap(mCurentItem.getLogo()));
+        makeWeb();
 
+    }
+
+    private void makeWeb() {
+        final String mimeType = "text/html";
+        final String encoding = "UTF-8";
+        wvProductDescription.loadDataWithBaseURL("", mCurentItem.getDescription(), mimeType, encoding, "");
     }
 
     private void addProduct(){
@@ -200,4 +250,9 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
         return mCallingActivity.getWindowManager().getDefaultDisplay().getWidth();
     }
 
+    private void startSlideFragment(int posititon){
+        FragmentReplacer.replaceFragmentWithStack(
+                mCallingActivity,
+                FragmentSlide.newInstance(new ItemSerializable(mCurentItem)));
+    }
 }
