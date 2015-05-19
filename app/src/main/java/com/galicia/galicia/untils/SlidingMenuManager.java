@@ -8,7 +8,6 @@ import android.widget.ListView;
 
 import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
-import com.galicia.galicia.fragments.ShoppingCartFragment;
 import com.galicia.galicia.fragments.StartMenu;
 import com.galicia.galicia.global.FragmentReplacer;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -33,7 +32,7 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
         menu = new SlidingMenu(_activity);
 
         menu.setMode(SlidingMenu.LEFT);
-        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
         menu.setShadowWidthRes(R.dimen.slidingmenu_shadow_width);
         menu.setBehindWidthRes(R.dimen.slidingmenu_offset);
         menu.setFadeDegree(0.35f);
@@ -68,12 +67,13 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
     }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        FragmentReplacer.popSupBackStack(activity);
         if(view == header){
             FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu());
             menu.toggle();
-        }else if(view == footer){
-            FragmentReplacer.replaceFragmentWithStack(activity, new ShoppingCartFragment());
-            menu.toggle();
+//        }else if(view == footer){
+//            FragmentReplacer.replaceFragmentWithStack(activity, new ShoppingCartFragment());
+//            menu.toggle();
         } else{
             switch (position){
                 case 0:
@@ -108,10 +108,10 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
                     FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu().newInstance(6));
                     menu.toggle();
                     break;
-                case 8:
-                    FragmentReplacer.replaceFragmentWithStack(activity, new ShoppingCartFragment());
-                    menu.toggle();
-                    break;
+//                case 8:
+//                    FragmentReplacer.replaceFragmentWithStack(activity, new ShoppingCartFragment());
+//                    menu.toggle();
+//                    break;
             }
         }
     }

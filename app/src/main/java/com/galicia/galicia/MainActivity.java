@@ -1,15 +1,16 @@
 package com.galicia.galicia;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.galicia.galicia.fragments.ShoppingCartFragment;
 import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.fragments.StartMenu;
 import com.galicia.galicia.global.ApiManager;
@@ -19,6 +20,7 @@ import com.galicia.galicia.untils.SlidingMenuManager;
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
     private ImageButton menuBtn;
+    private LinearLayout mBackgroundLayout;
     private TextView mTitle;
     private SlidingMenuManager manager;
     private ImageView logo;
@@ -43,15 +45,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private void findUI() {
         menuBtn = (ImageButton) findViewById(R.id.ibMenu);
         mTitle  = (TextView) findViewById(R.id.tvMenuTitle);
-        mTitle  = (TextView) findViewById(R.id.title);
         logo = (ImageView) findViewById(R.id.tvLogoTitle);
-        logo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setEnableMenu(true);
-                FragmentReplacer.replaceTopNavigationFragment(MainActivity.this, new ShoppingCartFragment());
-            }
-        });
+        mBackgroundLayout = (LinearLayout) findViewById(R.id.llAppContainer);
+//        logo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                setEnableMenu(true);
+//                FragmentReplacer.replaceTopNavigationFragment(MainActivity.this, new ShoppingCartFragment());
+//            }
+//        });
         menuBtn.setOnClickListener(this);
     }
 
@@ -75,8 +77,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mTitle.setText(_title);
     }
 
-    public void setBackround() {
+    public void setBackground(final String _path) {
+        mBackgroundLayout.setBackground(Drawable.createFromPath(ApiManager.getPath() + _path));
+    }
 
+    public void setBackground() {
+        mBackgroundLayout.setBackground(getResources().getDrawable(R.drawable.splashscreen));
     }
 
     public void openStartMenu(){

@@ -22,13 +22,11 @@ import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.Constants;
+import com.galicia.galicia.global.FragmentReplacer;
 import com.galicia.galicia.models.ItemSerializable;
 
 import java.util.List;
 
-/**
- * Created by Bogdan on 10.05.2015.
- */
 public class FragmentProductDetail extends Fragment {
     private ImageView mCompanyLogo, mProductPreview;
     private ImageView mAddProductBtn;
@@ -38,9 +36,6 @@ public class FragmentProductDetail extends Fragment {
     private ItemSerializable mCurentItem;
     private List<Item> mThridList;
     private List<Product> mProductList;
-
-
-
 
     public FragmentProductDetail() {
     }
@@ -69,12 +64,18 @@ public class FragmentProductDetail extends Fragment {
 
         mCompanyLogo = (ImageView) view.findViewById(R.id.ivCompanyLogo);
         mProductPreview = (ImageView) view.findViewById(R.id.ivProductPreview);
+        mProductPreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FragmentSlide.newInstance(mCurentItem));
+            }
+        });
 
         mAddProductBtn = (ImageView) view.findViewById(R.id.ivAddProduct);
         mDiscription =(TextView) view.findViewById(R.id.tvProductDescription);
         mNameProduct = (TextView) view.findViewById(R.id.tvNameProductPrev);
         makeListener();
-        ApiManager.getThirdLevel(mListener, mCurentItem.getItem());
+        makeData();
 
         return view;
     }
@@ -102,9 +103,41 @@ public class FragmentProductDetail extends Fragment {
     }
 
     private void makeData() {
+        mCallingActivity.setBackground(mCurentItem.getItem().getBackgroundImage());
         mCompanyLogo.setImageBitmap(getBitmap(mCurentItem.getItem().getLogo()));
         mProductPreview.setImageBitmap(getBitmap(mCurentItem.getItem().getIcon()));
         mNameProduct.setText(mCurentItem.getItem().getName());
+        mDiscription.setText("We will create simple test class under androidTestScreenshot directory and extends it from InstrumentationTestCase.\n" +
+                "\n" +
+                "The process is pretty straight forward:\n" +
+                "\n" +
+                "First of all put the device in the Home with UiDevice’s method pressHome(). And inside each test case, we do some repetitive tasks:\n" +
+                "\n" +
+                "Open the app from start for each test case. I personally find this easier to take screenshots. You can use UiDevice’s pressBack() method for other tests though.\n" +
+                "Make desired UI interaction using UiSelector, UiScrollable, and UiObject.\n" +
+                "Give some time for async tasks, that may be running behind the scene, by using `SystemClock.sleep`. So that we can avoid taking blank screenshots and receiving `UiObject not found` exception for scrollview items.\n" +
+                "Finally we take screenshot and store it at a specific place." +
+                "We will create simple test class under androidTestScreenshot directory and extends it from InstrumentationTestCase.\n" +
+                "\n" +
+                "The process is pretty straight forward:\n" +
+                "\n" +
+                "First of all put the device in the Home with UiDevice’s method pressHome(). And inside each test case, we do some repetitive tasks:\n" +
+                "\n" +
+                "Open the app from start for each test case. I personally find this easier to take screenshots. You can use UiDevice’s pressBack() method for other tests though.\n" +
+                "Make desired UI interaction using UiSelector, UiScrollable, and UiObject.\n" +
+                "Give some time for async tasks, that may be running behind the scene, by using `SystemClock.sleep`. So that we can avoid taking blank screenshots and receiving `UiObject not found` exception for scrollview items.\n" +
+                "Finally we take screenshot and store it at a specific place." +
+                "We will create simple test class under androidTestScreenshot directory and extends it from InstrumentationTestCase.\n" +
+                "\n" +
+                "The process is pretty straight forward:\n" +
+                "\n" +
+                "First of all put the device in the Home with UiDevice’s method pressHome(). And inside each test case, we do some repetitive tasks:\n" +
+                "\n" +
+                "Open the app from start for each test case. I personally find this easier to take screenshots. You can use UiDevice’s pressBack() method for other tests though.\n" +
+                "Make desired UI interaction using UiSelector, UiScrollable, and UiObject.\n" +
+                "Give some time for async tasks, that may be running behind the scene, by using `SystemClock.sleep`. So that we can avoid taking blank screenshots and receiving `UiObject not found` exception for scrollview items.\n" +
+                "Finally we take screenshot and store it at a specific place.");
+
     }
 
 

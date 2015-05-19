@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cristaliza.mvc.events.Event;
@@ -26,9 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/**
- * Created by Bogdan on 08.05.2015.
- */
+
 public class StartMenu extends Fragment implements View.OnClickListener {
 
     private LinearLayout containerForAdd;
@@ -36,7 +35,11 @@ public class StartMenu extends Fragment implements View.OnClickListener {
     private List<ItemBeverage> views;
     private View selectedView;
     private AtomicBoolean stateListExpand = new AtomicBoolean(false);
-    private MainActivity mainActivity;
+    private MainActivity mCallingActivity;
+
+
+
+
     private EventListener mMenuListener;
     private List<Item> mMenuItemList;
     private String mTitleMenu, mBaseTitle;
@@ -54,7 +57,7 @@ public class StartMenu extends Fragment implements View.OnClickListener {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.mainActivity = (MainActivity) activity;
+        this.mCallingActivity = (MainActivity) activity;
         if(getArguments() != null){
             idOpen = getArguments().getInt("OPEN");
         }
@@ -64,13 +67,16 @@ public class StartMenu extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_main, container, false);
+
         containerForAdd = (LinearLayout) view.findViewById(R.id.llContentList_AM);
+        mCallingActivity.setBackground();
+        mCallingActivity.setTitle("");
         makeListeners();
         ApiManager.getFirstLevel(mMenuListener);
         if(idOpen != -1){
             openItemMenu(idOpen);
         }
-        mainActivity.setEnableMenu(false);
+        mCallingActivity.setEnableMenu(false);
         return view;
     }
 
@@ -143,12 +149,14 @@ public class StartMenu extends Fragment implements View.OnClickListener {
             }
             selectedView = null;
         }
+        mBaseTitle = ((TextView)view).getText().toString();
     }
 
     private View.OnClickListener mItemOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             final Item item = (Item) v.getTag();
+            mCallingActivity.setTitle(mBaseTitle);
             closeItemMenu();
             openItemFragment(item);
         }
@@ -171,22 +179,18 @@ public class StartMenu extends Fragment implements View.OnClickListener {
     }
 
     private void openItemFragment(final Item _item) {
-        mainActivity.setEnableMenu(true);
+        mCallingActivity.setEnableMenu(true);
         ItemSerializable itemSerializable = new ItemSerializable();
         itemSerializable.setItem(_item);
-        if (_item.getExtraVideos() != null && !_item.getExtraVideos().isEmpty()){
-            FragmentReplacer.replaceFragmentWithStack(mainActivity, FragmentProductDetail.newInstance(itemSerializable));
-        }
-        else if (_item.getExtraImages() != null && !_item.getExtraImages().isEmpty()){
-            FragmentReplacer.replaceFragmentWithStack(mainActivity, FragmentProductDetail.newInstance(itemSerializable));
-        } else {
-            FragmentReplacer.replaceFragmentWithStack(mainActivity, FragmentProductNoDetail.newInstance(itemSerializable));
-        }
-
-//        FragmentReplacer.replaceFragmentWithStack(mainActivity, FragmentProductUniversal.newInstance(itemSerializable));
-
-
-
+//            FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FragmentProductUniversal.newInstance(itemSerializable));
+//        if (_item.getExtraVideos() != null && !_item.getExtraVideos().isEmpty()){
+            FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FragmentProductDetail.newInstance(itemSerializable));
+//        }
+//        else if (_item.getExtraImages() != null && !_item.getExtraImages().isEmpty()){
+//            FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FragmentProductDetail.newInstance(itemSerializable));
+//        } else {
+//            FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FragmentProductNoDetail.newInstance(itemSerializable));
+//        }
     }
 }
 

@@ -3,13 +3,13 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="40dp"
     android:background="@android:color/white">
 
     <LinearLayout
         android:layout_weight="5"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp"
         >
         <ImageView
             android:id="@+id/ivCompanyLogo"
@@ -38,13 +38,21 @@
             android:src="@drawable/btn_cata"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:visibility="gone"
             android:layout_alignParentRight="true" />
-
-        <TextView
-            android:id="@+id/tvProductDescription"
+        <ScrollView
+            android:paddingTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ivAddProduct" />
+            android:layout_height="match_parent"
+            android:layout_below="@+id/ivAddProduct">
+            <TextView
+                android:singleLine="false"
+                android:scrollbars="vertical"
+                android:id="@+id/tvProductDescription"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </ScrollView>
 
 
     </RelativeLayout>
@@ -57,9 +65,10 @@
         <ImageView
             android:id="@+id/ivProductPreview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:src="@drawable/bg_art_red"
-            />
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/tvNameProductPrev" />
 
         <TextView
             android:id="@+id/tvNameProductPrev"
@@ -67,8 +76,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:gravity="center_vertical|center_horizontal"
-            android:textSize="24dp"
-            android:layout_below="@+id/ivProductPreview" />
+            android:textSize="20dp"
+            android:text="+ Info" />
 
     </RelativeLayout>
 
