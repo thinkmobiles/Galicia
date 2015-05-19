@@ -25,13 +25,17 @@ import com.cristaliza.mvc.models.estrella.Item;
 import com.cristaliza.mvc.models.estrella.Product;
 import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
+import com.galicia.galicia.adapters.SpinnerPurchaseAdapter;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.Constants;
+import com.galicia.galicia.global.FragmentReplacer;
+import com.galicia.galicia.global.ItemsPurchaseList;
 import com.galicia.galicia.models.ItemSerializable;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentProductDetail extends Fragment {
+public class FragmentProductDetail extends Fragment implements View.OnClickListener{
     private ImageView mCompanyLogo, mProductPreview;
     private ImageView mAddProductBtn;
     private TextView mDiscription, mNameProduct;
