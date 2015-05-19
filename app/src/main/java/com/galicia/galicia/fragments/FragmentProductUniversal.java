@@ -22,10 +22,11 @@ import com.cristaliza.mvc.models.estrella.Product;
 import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.adapters.HorisontalPhotoProductAdapter;
-import com.galicia.galicia.adapters.ProductVideoApter;
+import com.galicia.galicia.adapters.ProductVideoAdapter;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.Constants;
 import com.galicia.galicia.models.ItemSerializable;
+import com.galicia.galicia.untils.BitmapCreator;
 import com.galicia.galicia.untils.HorizontalListView;
 
 import java.util.List;
@@ -71,6 +72,7 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
         setListener();
         ApiManager.getThirdLevel(mListener, mCurentItem.getItem());
         initProductDetail();
+        makeData();
         return view;
     }
 
@@ -84,6 +86,7 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
         rlThirdProduct = (RelativeLayout) _view.findViewById(R.id.rlProductThird_FPU);
         rlMoreDetail = (RelativeLayout) _view.findViewById(R.id.rlMoreDetailContainer_FPU);
         rldetail = (RelativeLayout) _view.findViewById(R.id.rlMoreDetailContainer_FPU);
+        ivCompanyLogo = (ImageView) _view.findViewById(R.id.ivCompanyLogo_FPU);
     }
 
     private void initLists(){
@@ -103,7 +106,6 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
                         break;
                     case AppModel.ChangeEvent.THIRD_LEVEL_CHANGED_ID:
                         mThridList = ApiManager.getThirdList();
-                        makeData();
                         ApiManager.getProducts(mListener, mThridList.get(0));
                         break;
                     case AppModel.ChangeEvent.PRODUCTS_CHANGED_ID:
@@ -128,7 +130,7 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
     }
 
     private void initProductDetail(){
-        if (mCurentItem.getItem().getExtraVideos() != null && mCurentItem.getItem().getExtraVideos().isEmpty()){
+        if (mCurentItem.getItem().getExtraVideos() != null && !mCurentItem.getItem().getExtraVideos().isEmpty()){
             setProductVideoDetail();
 
         }
@@ -140,9 +142,16 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
 
     private void setProductVideoDetail(){
         lvProductVideo.setVisibility(View.VISIBLE);
+        rlMoreDetail.setVisibility(View.VISIBLE);
         rlThirdProduct.setVisibility(View.GONE);
+        calculateContainerSizeVideoDetail();
         initVideoList();
 
+
+    }
+
+    private void calculateContainerSizeVideoDetail(){
+        int
     }
 
     private void setProductNoVideoDetail(){
@@ -153,10 +162,6 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
         else {
             rlMoreDetail.setVisibility(View.GONE);
             hlvAllProduct.setVisibility(View.VISIBLE);
-//            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//            layoutParams.we
-//            rldetail.we
-//            initHorisontalImageList();
             ApiManager.getProducts(mListener, mCurentItem.getItem());
         }
     }
@@ -164,7 +169,7 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
     private void setOneThirdProductDetail(){
         hlvAllProduct.setVisibility(View.GONE);
         lvProductVideo.setVisibility(View.GONE);
-        ivProductPhoto.setImageBitmap(getBitmap(mThridList.get(0).getIcon()));
+        ivProductPhoto.setImageBitmap(BitmapCreator.getBitmap(mThridList.get(0).getIcon()));
     }
 
     private void initHorisontalImageList(){
@@ -174,7 +179,7 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
 
 
     private void initVideoList(){
-        final ProductVideoApter apter = new ProductVideoApter(mCallingActivity, mCurentItem.getItem());
+        final ProductVideoAdapter apter = new ProductVideoAdapter(mCallingActivity, mCurentItem.getItem());
         lvProductVideo.setAdapter(apter);
         lvProductVideo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -186,8 +191,7 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
 
 
     private void makeData(){
-        ivCompanyLogo.setImageBitmap(getBitmap(mCurentItem.getItem().getLogo()));
-//        tvProductDetail.setText();
+        ivCompanyLogo.setImageBitmap(BitmapCreator.getBitmap(mCurentItem.getItem().getLogo()));
 
     }
 
@@ -195,7 +199,8 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
 
     }
 
-    private Bitmap getBitmap(String _path) {
-        return BitmapFactory.decodeFile(ApiManager.getPath() + _path);
+    private int getDisplayWidth(){
+        return mCallingActivity.getWindowManager().getDefaultDisplay().getWidth();
     }
+
 }

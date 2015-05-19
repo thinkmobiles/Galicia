@@ -174,16 +174,16 @@ public class StartMenu extends Fragment implements View.OnClickListener {
         mainActivity.setEnableMenu(true);
         ItemSerializable itemSerializable = new ItemSerializable();
         itemSerializable.setItem(_item);
-        if (_item.getExtraVideos() != null && !_item.getExtraVideos().isEmpty()){
-            FragmentReplacer.replaceFragmentWithStack(mainActivity, FragmentProductDetail.newInstance(itemSerializable));
-        }
-        else if (_item.getExtraImages() != null && !_item.getExtraImages().isEmpty()){
-            FragmentReplacer.replaceFragmentWithStack(mainActivity, FragmentProductDetail.newInstance(itemSerializable));
-        } else {
-            FragmentReplacer.replaceFragmentWithStack(mainActivity, FragmentProductNoDetail.newInstance(itemSerializable));
-        }
+//        if (_item.getExtraVideos() != null && !_item.getExtraVideos().isEmpty()){
+//            FragmentReplacer.replaceFragmentWithStack(mainActivity, FragmentProductDetail.newInstance(itemSerializable));
+//        }
+//        else if (_item.getExtraImages() != null && !_item.getExtraImages().isEmpty()){
+//            FragmentReplacer.replaceFragmentWithStack(mainActivity, FragmentProductDetail.newInstance(itemSerializable));
+//        } else {
+//            FragmentReplacer.replaceFragmentWithStack(mainActivity, FragmentProductNoDetail.newInstance(itemSerializable));
+//        }
 
-//        FragmentReplacer.replaceFragmentWithStack(mainActivity, FragmentProductUniversal.newInstance(itemSerializable));
+        FragmentReplacer.replaceFragmentWithStack(mainActivity, FragmentProductUniversal.newInstance(itemSerializable));
 
 
 

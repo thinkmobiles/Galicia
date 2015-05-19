@@ -15,19 +15,22 @@ import android.widget.TextView;
 
 import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.R;
-import com.galicia.galicia.global.ApiManager;
+import com.galicia.galicia.untils.BitmapCreator;
 
 import java.util.List;
+import android.os.Handler;
+import java.util.logging.LogRecord;
 
 /**
  * Created by vasia on 18.05.2015.
  */
-public class ProductVideoApter extends BaseAdapter {
+public class ProductVideoAdapter extends BaseAdapter {
 
     private Context mContext;
     private Item mItem;
+    private Handler mHandler;
 
-    public ProductVideoApter(Context _context, Item _item) {
+    public ProductVideoAdapter(Context _context, Item _item) {
         this.mContext = _context;
         this.mItem = _item;
     }
@@ -60,12 +63,10 @@ public class ProductVideoApter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
 
-        holder.ivVideoPreview.setImageBitmap(getBitmap(mItem.getExtraVideos().get(position)));
+        holder.ivVideoPreview.setImageBitmap(BitmapCreator.getBitmap(mItem.getExtraImages().get(position)));
         holder.tvVideoTitle.setText(mItem.getExtraVideosDescripton().get(position));
-
         return convertView;
     }
-
 
 
     private class Holder {
@@ -74,8 +75,4 @@ public class ProductVideoApter extends BaseAdapter {
 
     }
 
-    @TargetApi(Build.VERSION_CODES.FROYO)
-    private Bitmap getBitmap(String _path) {
-        return ThumbnailUtils.createVideoThumbnail(ApiManager.getPath() + _path, MediaStore.Images.Thumbnails.MINI_KIND);
-    }
 }
