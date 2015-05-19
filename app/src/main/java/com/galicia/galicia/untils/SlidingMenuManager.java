@@ -5,10 +5,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.cristaliza.mvc.events.Event;
+import com.cristaliza.mvc.events.EventListener;
+import com.cristaliza.mvc.models.estrella.AppModel;
+import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.fragments.StartMenu;
+import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.FragmentReplacer;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
@@ -26,10 +32,17 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
     private MenuAdapter menuAdapter;
     private ListView listMenu;
     private View footer, header;
+    private EventListener mMenuListener;
+    private List<Item> mMenuItemList;
+    private List<String> mMenuTitle;
+    private String mTitleMenu;
 
     public void initMenu(Activity _activity) {
         activity = (MainActivity) _activity;
         menu = new SlidingMenu(_activity);
+
+        makeLitener();
+        ApiManager.getFirstLevel(mMenuListener);
 
         menu.setMode(SlidingMenu.LEFT);
         menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
@@ -43,15 +56,8 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
         footer = View.inflate(activity,R.layout.slidemenu_footer,null);
         header = View.inflate(activity,R.layout.slidemenu_header,null);
         listMenu = (ListView) menu.findViewById(R.id.sidemenu);
-        List<String> strings = new ArrayList<>();
-        strings.add(activity.getString(R.string.title_rivera));
-        strings.add(activity.getString(R.string.title_importacion));
-        strings.add(activity.getString(R.string.title_aguas));
-        strings.add(activity.getString(R.string.title_vino));
-        strings.add(activity.getString(R.string.title_refrescos));
-        strings.add(activity.getString(R.string.title_sidras));
-        strings.add(activity.getString(R.string.title_energetical));
-        MenuAdapter menuAdapter = new MenuAdapter(strings, activity);
+
+        MenuAdapter menuAdapter = new MenuAdapter(mMenuTitle, activity);
         listMenu.addHeaderView(header);
         listMenu.addFooterView(footer);
         listMenu.setAdapter(menuAdapter);
@@ -113,6 +119,30 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
 //                    menu.toggle();
 //                    break;
             }
+        }
+    }
+
+    private void makeLitener(){
+        mMenuListener = new EventListener() {
+            @Override
+            public void onEvent(Event event) {
+                switch (event.getId()){
+                    case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
+                        Toast.makeText(activity, event.getType() + "error", Toast.LENGTH_SHORT).show();
+                        break;
+                    case AppModel.ChangeEvent.FIRST_LEVEL_CHANGED_ID:
+                        createMenu();
+                        break;
+                }
+            }
+        };
+    }
+
+    private void createMenu(){
+        mMenuTitle = new ArrayList<>();
+        mMenuItemList = ApiManager.getFirstList();
+        for (Item item: mMenuItemList){
+            mMenuTitle.add(item.getName());
         }
     }
 }

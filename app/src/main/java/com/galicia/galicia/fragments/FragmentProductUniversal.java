@@ -148,7 +148,7 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
     }
 
     private void calculateContainerSizeVideoDetail(){
-        int
+
     }
 
     private void setProductNoVideoDetail(){

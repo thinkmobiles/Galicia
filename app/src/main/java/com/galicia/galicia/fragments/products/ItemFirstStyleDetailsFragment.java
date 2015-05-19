@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,35 +69,43 @@ public class ItemFirstStyleDetailsFragment extends Fragment {
     private void makeData() {
         mItemName.setText(mSProduct.getProduct().getName());
         mItemImage.setImageBitmap(BitmapCreator.getBitmap(mSProduct.getProduct().getImage()));
-//        switch (mSProduct.getProduct().getPackaging().size()){
-//            case 0:
-                mPackagesContainer.setVisibility(View.GONE);
-//                break;
-//            case 1:
-//                mPackage1.setText(mSProduct.getProduct().getPackaging().get(0));
-//                break;
-//            case 2:
-//                mPackage1.setText(mSProduct.getProduct().getPackaging().get(0));
-//                mPackage2.setText(mSProduct.getProduct().getPackaging().get(1));
-//                mPackage2.setVisibility(View.VISIBLE);
-//                break;
-//            case 3:
-//                mPackage1.setText(mSProduct.getProduct().getPackaging().get(0));
-//                mPackage2.setText(mSProduct.getProduct().getPackaging().get(1));
-//                mPackage3.setText(mSProduct.getProduct().getPackaging().get(2));
-//                mPackage2.setVisibility(View.VISIBLE);
-//                mPackage3.setVisibility(View.VISIBLE);
-//                break;
-//            case 4:
-//                mPackage1.setText(mSProduct.getProduct().getPackaging().get(0));
-//                mPackage2.setText(mSProduct.getProduct().getPackaging().get(1));
-//                mPackage3.setText(mSProduct.getProduct().getPackaging().get(2));
-//                mPackage4.setText(mSProduct.getProduct().getPackaging().get(3));
-//                mPackage2.setVisibility(View.VISIBLE);
-//                mPackage3.setVisibility(View.VISIBLE);
-//                mPackage4.setVisibility(View.VISIBLE);
-//                break;
-//        }
+
+        if (mSProduct.getProduct().getPackaging() == null)
+            mPackagesContainer.setVisibility(View.GONE);
+        else
+            switch (mSProduct.getProduct().getPackaging().size()){
+
+                case 0:
+                    mPackagesContainer.setVisibility(View.GONE);
+                    break;
+                case 1:
+                    mPackage1.setText(Html.fromHtml(mSProduct.getProduct().getPackaging().get(0)).toString());
+                    break;
+                case 2:
+                    mPackage1.setText(Html.fromHtml(mSProduct.getProduct().getPackaging().get(0)).toString());
+                    mPackage2.setText(Html.fromHtml(mSProduct.getProduct().getPackaging().get(1)));
+                    mPackage2.setVisibility(View.VISIBLE);
+                    break;
+                case 3:
+                    mPackage1.setText(Html.fromHtml(mSProduct.getProduct().getPackaging().get(0)).toString());
+                    mPackage2.setText(Html.fromHtml(mSProduct.getProduct().getPackaging().get(1)).toString());
+                    mPackage3.setText(Html.fromHtml(mSProduct.getProduct().getPackaging().get(2)).toString());
+                    mPackage2.setVisibility(View.VISIBLE);
+                    mPackage3.setVisibility(View.VISIBLE);
+                    break;
+                case 4:
+                    mPackage1.setText(Html.fromHtml(mSProduct.getProduct().getPackaging().get(0)).toString());
+                    mPackage2.setText(Html.fromHtml(mSProduct.getProduct().getPackaging().get(1)).toString());
+                    mPackage3.setText(Html.fromHtml(mSProduct.getProduct().getPackaging().get(2)).toString());
+                    mPackage4.setText(Html.fromHtml(mSProduct.getProduct().getPackaging().get(3)).toString());
+                    mPackage2.setVisibility(View.VISIBLE);
+                    mPackage3.setVisibility(View.VISIBLE);
+                    mPackage4.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    mPackagesContainer.setVisibility(View.GONE);
+                    break;
+            }
     }
 
 
