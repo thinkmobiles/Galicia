@@ -22,14 +22,16 @@ import java.util.concurrent.TimeUnit;
 
 public class SplashScreen extends Activity {
 
-    private EventListener downloadListenr;
+    private EventListener downloadListener;
+//    private CircleProgress mProgressView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
-
+//        mProgressView = (CircleProgress) findViewById(R.id.progress);
+//        mProgressView.startAnim();
         if (isHasContent()) {
 //            if(hasNewContent()){
 //                makeDownloadListener();
@@ -42,7 +44,7 @@ public class SplashScreen extends Activity {
                         openNewActivity();
                     }
                 };
-                worker.schedule(task, 1, TimeUnit.SECONDS);
+                worker.schedule(task, 10, TimeUnit.SECONDS);
 //            }
         } else {
             ProgressDialogWorker.createDialog(this);
@@ -57,34 +59,35 @@ public class SplashScreen extends Activity {
     }
 
     private void openNewActivity() {
+//        mProgressView.stopAnim();
         startActivity(new Intent(SplashScreen.this, MainActivity.class));
         finish();
     }
 
     private void downloadContent() {
         ApiManager.init(this);
-        ApiManager.downloadContent(downloadListenr);
+        ApiManager.downloadContent(downloadListener);
     }
 
     private void makeDownloadListener() {
-        downloadListenr = new EventListener() {
+        downloadListener = new EventListener() {
             @Override
             public void onEvent(Event event) {
                 switch (event.getId()) {
                     case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
                         Toast.makeText(getBaseContext(), event.getType() + " error", Toast.LENGTH_LONG).show();
                         break;
-                    case AppModel.ChangeEvent.DOWNLOAD_FILE_CHANGED_ID:
+                    case AppModel.ChangeEvent.DOWNLOAD_ALL_CHANGED_ID:
 //                        todo if download finish
-                        runOnUiThread (new Thread(new Runnable() {
-                            @Override
-                            public void run() {
+//                        runOnUiThread (new Thread(new Runnable() {
+//                            @Override
+//                            public void run() {
                                 SharedPreferencesManager.saveUpdateDate(getBaseContext(), System.currentTimeMillis());
                                 ProgressDialogWorker.dismissDialog();
                                 ApiManager.setOfflineMode();
                                 openNewActivity();
-                            }
-                        }));
+//                            }
+//                        }));
 
                         break;
                     case AppModel.ChangeEvent.LAST_UPDATE_CHANGED_ID:
@@ -108,7 +111,7 @@ public class SplashScreen extends Activity {
 
     private void updateContent() {
         ApiManager.init(this);
-        ApiManager.getLastUpdateServer(downloadListenr);
+        ApiManager.getLastUpdateServer(downloadListener);
     }
 
     private boolean hasNewContent() {
