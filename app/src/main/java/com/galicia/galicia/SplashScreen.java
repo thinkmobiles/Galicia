@@ -50,7 +50,7 @@ public class SplashScreen extends Activity {
 //            ProgressDialogWorker.createDialog(this);
             makeDownloadListener();
             downloadContent();
-        }
+        };
     }
 
     private boolean isHasContent() {

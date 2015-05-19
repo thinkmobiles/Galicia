@@ -35,7 +35,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/hlvAllProduct_FPU"
-                android:layout_below="@+id/ivFichaProduct_FPU">
+                android:id="@+id/scrollView"
+                android:layout_below="@+id/ivAddProduct_FPU">
 
                 <WebView
                     android:layout_width="match_parent"
@@ -46,7 +47,7 @@
             </ScrollView>
             <com.galicia.galicia.untils.HorizontalListView
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="120dp"
                 android:id="@+id/hlvAllProduct_FPU"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
@@ -124,7 +125,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
-                    android:singleLine="true"
+                    android:singleLine="false"
                     android:gravity="center_horizontal" />
             </RelativeLayout>
         </RelativeLayout>

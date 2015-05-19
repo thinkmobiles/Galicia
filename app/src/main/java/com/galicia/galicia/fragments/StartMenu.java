@@ -180,9 +180,8 @@ public class StartMenu extends Fragment implements View.OnClickListener {
 
     private void openItemFragment(final Item _item) {
         mCallingActivity.setEnableMenu(true);
-        ItemSerializable itemSerializable = new ItemSerializable(_item);
 //
-            FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FragmentProductUniversal.newInstance(itemSerializable));
+            FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FragmentProduct.newInstance(new ItemSerializable(_item)));
 //        if (_item.getExtraVideos() != null && !_item.getExtraVideos().isEmpty()){
 //            FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FragmentProductDetail.newInstance(itemSerializable));
 //        }

@@ -35,23 +35,23 @@ import com.galicia.galicia.untils.HorizontalListView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentProductUniversal extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class FragmentProduct extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private MainActivity mCallingActivity;
     private Item mCurentItem;
-    private ImageView ivAddProduct, ivProductPhoto, ivCompanyLogo, ivFichaPrduct;
+    private ImageView ivAddProduct, ivProductPhoto, ivCompanyLogo, ivFicha;
     private HorizontalListView hlvAllProduct;
     private ListView lvProductVideo;
     private TextView tvProductPhotoTitle;
     private WebView wvProductDescription;
     private EventListener mListener;
-    private List<Product> mProductList;
+    private ArrayList<Product> mProductList;
     private List<Item> mThridList;
     private RelativeLayout rlProductPhoto;
     private LinearLayout llCompanyLogo, llDetail, llMoreDetail;
 
-    public static FragmentProductUniversal newInstance(final ItemSerializable _item) {
-        final FragmentProductUniversal fragment = new FragmentProductUniversal();
+    public static FragmentProduct newInstance(final ItemSerializable _item) {
+        final FragmentProduct fragment = new FragmentProduct();
         final Bundle bundle = new Bundle();
         bundle.putSerializable(Constants.ITEM_SERIAZ, _item);
         fragment.setArguments(bundle);
@@ -64,6 +64,7 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
         mCallingActivity = (MainActivity) activity;
         if (getArguments() != null) {
             mCurentItem = ((ItemSerializable) getArguments().getSerializable(Constants.ITEM_SERIAZ)).getItem();
+            getArguments().remove(Constants.ITEM_SERIAZ);
         }
     }
 
@@ -74,12 +75,13 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
         setListener();
         makeData();
         ApiManager.getThirdLevel(mListener, mCurentItem);
+        verifyFichaCata();
         return view;
     }
 
     private void findUI(final View _view){
         ivAddProduct = (ImageView) _view.findViewById(R.id.ivAddProduct_FPU);
-        ivFichaPrduct = (ImageView) _view.findViewById(R.id.ivFichaProduct_FPU);
+        ivFicha = (ImageView) _view.findViewById(R.id.ivFichaProduct_FPU);
         wvProductDescription = (WebView) _view.findViewById(R.id.wvProductDescription_FPU);
         tvProductPhotoTitle = (TextView) _view.findViewById(R.id.tvThirdProductTitle_FPU);
         hlvAllProduct = (HorizontalListView) _view.findViewById(R.id.hlvAllProduct_FPU);
@@ -96,7 +98,8 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
 
     private void setListener(){
         ivAddProduct.setOnClickListener(this);
-        ivFichaPrduct.setOnClickListener(this);
+        ivFicha.setOnClickListener(this);
+        llMoreDetail.setOnClickListener(this);
 
         mListener = new EventListener() {
             @Override
@@ -135,11 +138,17 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
                 addProduct();
                 break;
             case R.id.ivFichaProduct_FPU:
-
+                FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FichaFragment.newInstance(mCurentItem.getFichaCata()));
                 break;
             case R.id.llMoreDetailContainer_FPU:
                 startSlideFragment(0);
                 break;
+        }
+    }
+
+    private void verifyFichaCata(){
+        if (mCurentItem.getFichaCata() == null){
+            ivFicha.setVisibility(View.GONE);
         }
     }
 
@@ -190,7 +199,6 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
         lvProductVideo.setVisibility(View.GONE);
         ivProductPhoto.setImageBitmap(BitmapCreator.getBitmap(mProductList.get(0).getImage()));
         tvProductPhotoTitle.setText(mThridList.get(0).getName());
-        llMoreDetail.setOnClickListener(this);
     }
 
     private void initHorisontalImageList(){
@@ -250,9 +258,9 @@ public class FragmentProductUniversal extends Fragment implements View.OnClickLi
         return mCallingActivity.getWindowManager().getDefaultDisplay().getWidth();
     }
 
-    private void startSlideFragment(int posititon){
+    private void startSlideFragment(int _posititon){
         FragmentReplacer.replaceFragmentWithStack(
                 mCallingActivity,
-                FragmentSlide.newInstance(new ItemSerializable(mCurentItem)));
+                FragmentSlide.newInstance(mProductList, _posititon));
     }
 }

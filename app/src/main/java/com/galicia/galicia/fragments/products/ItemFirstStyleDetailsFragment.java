@@ -45,6 +45,7 @@ public class ItemFirstStyleDetailsFragment extends Fragment {
         mCallingActivity = (MainActivity) activity;
         if (getArguments() != null) {
             mSProduct = (ProductSerializable) getArguments().getSerializable(Constants.ITEM_SERIAZ);
+            getArguments().remove(Constants.ITEM_SERIAZ);
         }
     }
 
