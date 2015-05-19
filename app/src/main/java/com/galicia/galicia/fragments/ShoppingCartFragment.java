@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.galicia.galicia.R;
-
+import com.galicia.galicia.adapters.ShoppingCartAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Feltsan on 12.05.2015.
  */
 public class ShoppingCartFragment extends Fragment {
-//    private ShoppingCartAdapter shoppingCartAdapter;
+    private ShoppingCartAdapter shoppingCartAdapter;
     private List<String> data;
     private ListView shopingList;
 
@@ -44,8 +44,8 @@ public class ShoppingCartFragment extends Fragment {
 
         shopingList = (ListView) rootView.findViewById(R.id.lv_list_Shopping_FS);
 
-//        shoppingCartAdapter = new ShoppingCartAdapter(getActivity(),getActivity().getApplicationContext(),data);
-//        shopingList.setAdapter(shoppingCartAdapter);
+        shoppingCartAdapter = new ShoppingCartAdapter(getActivity(),getActivity().getApplicationContext(),data);
+        shopingList.setAdapter(shoppingCartAdapter);
         return rootView;
     }
 }

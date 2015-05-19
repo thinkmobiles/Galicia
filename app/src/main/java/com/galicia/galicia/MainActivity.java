@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cristaliza.mvc.models.estrella.Item;
-import com.galicia.galicia.fragments.ShoppingCartFragment;
 import com.galicia.galicia.fragments.StartMenu;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.FragmentReplacer;
@@ -35,9 +34,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_container);
         findUI();
-        initMenu();
         ApiManager.init(this);
         ApiManager.setOfflineMode();
+        initMenu();
         openStartMenu();
     }
 
