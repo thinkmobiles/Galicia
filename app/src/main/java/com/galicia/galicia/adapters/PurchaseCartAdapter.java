@@ -6,12 +6,14 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -20,7 +22,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.R;
+import com.galicia.galicia.global.ItemsPurchaseList;
 import com.galicia.galicia.global.ProgressDialogWorker;
 
 import java.util.ArrayList;
@@ -30,29 +34,29 @@ import java.util.zip.Inflater;
 /**
  * Created by Feltsan on 15.05.2015.
  */
-public class ShoppingCartAdapter extends BaseAdapter {
+public class PurchaseCartAdapter extends BaseAdapter implements View.OnClickListener {
     private Context context;
-    private List<String> titles;
+    private ArrayList<Item> itemsData;
     private LayoutInflater inflater;
-    private Activity activity;
 
-    public ShoppingCartAdapter(Activity _activity, Context _context, List<String> _data){
+
+
+    public PurchaseCartAdapter(Context _context, ArrayList<Item> _data){
         if(_context != null){
-            activity = _activity;
             context = _context;
-            titles = _data;
+            itemsData = _data;
 
             inflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
     }
     @Override
     public int getCount() {
-        return titles.size();
+        return itemsData.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return titles.get(position);
+        return itemsData.get(position);
     }
 
     @Override
@@ -61,13 +65,15 @@ public class ShoppingCartAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, final ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
         ViewHolder holder;
+
         if (convertView == null){
             convertView = inflater.inflate(R.layout.item_shoping_cart_list,parent,false);
             holder = new ViewHolder();
 
-            holder.titleGoods = (TextView) convertView.findViewById(R.id.tv_title_goods_IS);
+            holder.previewImage = (ImageView) convertView.findViewById(R.id.ivPrevProduct);
+            holder.nameItem = (TextView) convertView.findViewById(R.id.tv_title_goods_IS);
             holder.refreshButton = (ImageView) convertView.findViewById(R.id.iv_refresh_shop_item_IS);
             holder.deleteButton = (ImageView) convertView.findViewById(R.id.iv_delete_shop_item_IS);
             holder.seeButton = (ImageView) convertView.findViewById(R.id.iv_see_detail_shop_item_IS);
@@ -78,37 +84,43 @@ public class ShoppingCartAdapter extends BaseAdapter {
         }else
             holder = (ViewHolder) convertView.getTag();
 
-            holder.titleGoods.setText(titles.get(position).toString());
-            holder.sendButton.setOnClickListener(new View.OnClickListener() {
+            holder.previewImage.setImageDrawable(getDrawable(itemsData.get(position).getIcon()));
+            holder.nameItem.setText(itemsData.get(position).getName());
+
+            holder.sendButton.setOnClickListener(this);
+            holder.deleteButton.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                  showDialog();
+                    ItemsPurchaseList.getInstance(context).deleteItem(position);
+                    notifyDataSetChanged();
                 }
             });
+
+            holder.refreshButton.setOnClickListener(this);
+            holder.seeButton.setOnClickListener(this);
 
         return convertView;
     }
 
-    class ViewHolder{
-        private TextView titleGoods;
-        private ImageView refreshButton, deleteButton, seeButton, sendButton;
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.iv_send_shop_item_IS :
+                break;
+            case R.id.iv_refresh_shop_item_IS :
+                break;
+            case R.id.iv_see_detail_shop_item_IS :
+                break;
+        }
     }
 
-    private void showDialog(){
-        final AlertDialog.Builder spinerDialog = new AlertDialog.Builder(activity);
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.custom_dialog_spinner,null);
+    class ViewHolder{
+        private TextView nameItem;
+        private ImageView previewImage, refreshButton, deleteButton, seeButton, sendButton;
+    }
 
-        Spinner spinner = (Spinner) view.findViewById(R.id.dialogSpinner);
-        // spinner.
-        spinner.setAdapter(ArrayAdapter.createFromResource(context, R.array.spinner_resource,R.layout.item_spiner));
-        spinerDialog.setView(view);
-        AlertDialog alertDialog = spinerDialog.create();
-
-        DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
-        int screenWidth = (int) (metrics.widthPixels * 0.80);
-        alertDialog.getWindow().setLayout(screenWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
-        alertDialog.show();
-
+    public Drawable getDrawable(String _icon){
+        return Drawable.createFromPath(_icon);
     }
 }

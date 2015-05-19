@@ -1,15 +1,20 @@
 package com.galicia.galicia.fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +27,6 @@ import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.Constants;
-import com.galicia.galicia.global.FragmentReplacer;
 import com.galicia.galicia.models.ItemSerializable;
 
 import java.util.List;
@@ -36,6 +40,8 @@ public class FragmentProductDetail extends Fragment {
     private ItemSerializable mCurentItem;
     private List<Item> mThridList;
     private List<Product> mProductList;
+    private ArrayList<Item> items;
+    private int selected;
 
     public FragmentProductDetail() {
     }
@@ -55,6 +61,8 @@ public class FragmentProductDetail extends Fragment {
         if (getArguments() != null) {
             mCurentItem = (ItemSerializable) getArguments().getSerializable(Constants.ITEM_SERIAZ);
         }
+
+        items = ItemsPurchaseList.getInstance(getActivity()).getItems();
     }
 
     @Nullable
@@ -72,21 +80,25 @@ public class FragmentProductDetail extends Fragment {
         });
 
         mAddProductBtn = (ImageView) view.findViewById(R.id.ivAddProduct);
-        mDiscription =(TextView) view.findViewById(R.id.tvProductDescription);
+        mDiscription = (TextView) view.findViewById(R.id.tvProductDescription);
         mNameProduct = (TextView) view.findViewById(R.id.tvNameProductPrev);
+        setClickListener();
         makeListener();
         makeData();
 
         return view;
     }
 
+    private void setClickListener() {
+        mAddProductBtn.setOnClickListener(this);
+    }
 
 
     private void makeListener() {
         mListener = new EventListener() {
             @Override
             public void onEvent(Event event) {
-                switch (event.getId()){
+                switch (event.getId()) {
                     case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
                         Toast.makeText(getActivity(), event.getType() + "error", Toast.LENGTH_SHORT).show();
                         break;
@@ -145,4 +157,68 @@ public class FragmentProductDetail extends Fragment {
         return BitmapFactory.decodeFile(ApiManager.getPath() + _path);
     }
 
+    private void showDialog() {
+
+        final AlertDialog.Builder spinerDialog = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.custom_dialog_spinner, null);
+
+        Spinner spinner = (Spinner) view.findViewById(R.id.dialogSpinner);
+
+        if(items.isEmpty())
+            spinner.setVisibility(View.GONE);
+
+        TextView negativButton = (TextView) view.findViewById(R.id.tv_cancel_action_CD);
+        TextView positivButton = (TextView) view.findViewById(R.id.tv_accept_action_CD);
+
+
+        SpinnerPurchaseAdapter spinnerPurchaseAdapter = new SpinnerPurchaseAdapter(getActivity(), items);
+
+        spinner.setAdapter(spinnerPurchaseAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selected = position;
+                Log.d("QQQ", String.valueOf(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spinerDialog.setView(view);
+        final AlertDialog alertDialog = spinerDialog.create();
+        alertDialog.show();
+
+        negativButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        positivButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (items.isEmpty()) {
+                    ItemsPurchaseList.getInstance(getActivity()).addItem(mCurentItem.getItem());
+                    alertDialog.dismiss();
+                } else {
+                    ItemsPurchaseList.getInstance(getActivity()).moveItem(selected, mCurentItem.getItem());
+                    alertDialog.dismiss();
+                }
+
+            }
+        });
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ivAddProduct:
+                showDialog();
+        }
+    }
 }

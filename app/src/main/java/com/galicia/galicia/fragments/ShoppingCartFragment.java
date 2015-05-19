@@ -2,13 +2,12 @@ package com.galicia.galicia.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.adapters.ShoppingCartAdapter;
 
@@ -22,12 +21,11 @@ public class ShoppingCartFragment extends Fragment {
     private ShoppingCartAdapter shoppingCartAdapter;
     private List<String> data;
     private ListView shopingList;
-    private MainActivity mActivity;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mActivity =(MainActivity) activity;
+
         data = new ArrayList<>();
         data.add("Beer");
         data.add("Vodka");
@@ -48,7 +46,6 @@ public class ShoppingCartFragment extends Fragment {
 
         shoppingCartAdapter = new ShoppingCartAdapter(getActivity(),getActivity().getApplicationContext(),data);
         shopingList.setAdapter(shoppingCartAdapter);
-        mActivity.setEnableMenu(true);
         return rootView;
     }
 }
