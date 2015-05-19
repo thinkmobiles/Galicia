@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -39,7 +40,8 @@ import java.util.List;
 public class FragmentProductDetail extends Fragment implements View.OnClickListener{
     private ImageView mCompanyLogo, mProductPreview;
     private ImageView mAddProductBtn;
-    private TextView mDiscription, mNameProduct;
+    private TextView  mNameProduct;
+    private WebView mDiscription;
     private EventListener mListener;
     private MainActivity mCallingActivity;
     private ItemSerializable mCurentItem;
@@ -65,6 +67,7 @@ public class FragmentProductDetail extends Fragment implements View.OnClickListe
         mCallingActivity = (MainActivity) activity;
         if (getArguments() != null) {
             mCurentItem = (ItemSerializable) getArguments().getSerializable(Constants.ITEM_SERIAZ);
+            getArguments().remove(Constants.ITEM_SERIAZ);
         }
 
         items = ItemsPurchaseList.getInstance(getActivity()).getItems();
@@ -85,7 +88,7 @@ public class FragmentProductDetail extends Fragment implements View.OnClickListe
         });
 
         mAddProductBtn = (ImageView) view.findViewById(R.id.ivAddProduct);
-        mDiscription = (TextView) view.findViewById(R.id.tvProductDescription);
+        mDiscription = (WebView) view.findViewById(R.id.tvProductDescription);
         mNameProduct = (TextView) view.findViewById(R.id.tvNameProductPrev);
         setClickListener();
         makeListener();
@@ -119,41 +122,52 @@ public class FragmentProductDetail extends Fragment implements View.OnClickListe
         };
     }
 
+    private void makeWeb() {
+        final String mimeType = "text/html";
+        final String encoding = "UTF-8";
+        mDiscription.loadDataWithBaseURL("", mCurentItem.getItem().getDescription(), mimeType, encoding, "");
+//        mDiscription.setText(Html.fromHtml(mCurentItem.getItem().getDescription()));
+    }
+
     private void makeData() {
         mCallingActivity.setBackground(mCurentItem.getItem().getBackgroundImage());
         mCompanyLogo.setImageBitmap(getBitmap(mCurentItem.getItem().getLogo()));
         mProductPreview.setImageBitmap(getBitmap(mCurentItem.getItem().getIcon()));
         mNameProduct.setText(mCurentItem.getItem().getName());
-        mDiscription.setText("We will create simple test class under androidTestScreenshot directory and extends it from InstrumentationTestCase.\n" +
-                "\n" +
-                "The process is pretty straight forward:\n" +
-                "\n" +
-                "First of all put the device in the Home with UiDevice’s method pressHome(). And inside each test case, we do some repetitive tasks:\n" +
-                "\n" +
-                "Open the app from start for each test case. I personally find this easier to take screenshots. You can use UiDevice’s pressBack() method for other tests though.\n" +
-                "Make desired UI interaction using UiSelector, UiScrollable, and UiObject.\n" +
-                "Give some time for async tasks, that may be running behind the scene, by using `SystemClock.sleep`. So that we can avoid taking blank screenshots and receiving `UiObject not found` exception for scrollview items.\n" +
-                "Finally we take screenshot and store it at a specific place." +
-                "We will create simple test class under androidTestScreenshot directory and extends it from InstrumentationTestCase.\n" +
-                "\n" +
-                "The process is pretty straight forward:\n" +
-                "\n" +
-                "First of all put the device in the Home with UiDevice’s method pressHome(). And inside each test case, we do some repetitive tasks:\n" +
-                "\n" +
-                "Open the app from start for each test case. I personally find this easier to take screenshots. You can use UiDevice’s pressBack() method for other tests though.\n" +
-                "Make desired UI interaction using UiSelector, UiScrollable, and UiObject.\n" +
-                "Give some time for async tasks, that may be running behind the scene, by using `SystemClock.sleep`. So that we can avoid taking blank screenshots and receiving `UiObject not found` exception for scrollview items.\n" +
-                "Finally we take screenshot and store it at a specific place." +
-                "We will create simple test class under androidTestScreenshot directory and extends it from InstrumentationTestCase.\n" +
-                "\n" +
-                "The process is pretty straight forward:\n" +
-                "\n" +
-                "First of all put the device in the Home with UiDevice’s method pressHome(). And inside each test case, we do some repetitive tasks:\n" +
-                "\n" +
-                "Open the app from start for each test case. I personally find this easier to take screenshots. You can use UiDevice’s pressBack() method for other tests though.\n" +
-                "Make desired UI interaction using UiSelector, UiScrollable, and UiObject.\n" +
-                "Give some time for async tasks, that may be running behind the scene, by using `SystemClock.sleep`. So that we can avoid taking blank screenshots and receiving `UiObject not found` exception for scrollview items.\n" +
-                "Finally we take screenshot and store it at a specific place.");
+        makeWeb();
+
+
+//        mDiscription.setText(Html.fromHtml(mCurentItem.getItem().getDescription()));
+//        mDiscription.setText("We will create simple test class under androidTestScreenshot directory and extends it from InstrumentationTestCase.\n" +
+//                "\n" +
+//                "The process is pretty straight forward:\n" +
+//                "\n" +
+//                "First of all put the device in the Home with UiDevice’s method pressHome(). And inside each test case, we do some repetitive tasks:\n" +
+//                "\n" +
+//                "Open the app from start for each test case. I personally find this easier to take screenshots. You can use UiDevice’s pressBack() method for other tests though.\n" +
+//                "Make desired UI interaction using UiSelector, UiScrollable, and UiObject.\n" +
+//                "Give some time for async tasks, that may be running behind the scene, by using `SystemClock.sleep`. So that we can avoid taking blank screenshots and receiving `UiObject not found` exception for scrollview items.\n" +
+//                "Finally we take screenshot and store it at a specific place." +
+//                "We will create simple test class under androidTestScreenshot directory and extends it from InstrumentationTestCase.\n" +
+//                "\n" +
+//                "The process is pretty straight forward:\n" +
+//                "\n" +
+//                "First of all put the device in the Home with UiDevice’s method pressHome(). And inside each test case, we do some repetitive tasks:\n" +
+//                "\n" +
+//                "Open the app from start for each test case. I personally find this easier to take screenshots. You can use UiDevice’s pressBack() method for other tests though.\n" +
+//                "Make desired UI interaction using UiSelector, UiScrollable, and UiObject.\n" +
+//                "Give some time for async tasks, that may be running behind the scene, by using `SystemClock.sleep`. So that we can avoid taking blank screenshots and receiving `UiObject not found` exception for scrollview items.\n" +
+//                "Finally we take screenshot and store it at a specific place." +
+//                "We will create simple test class under androidTestScreenshot directory and extends it from InstrumentationTestCase.\n" +
+//                "\n" +
+//                "The process is pretty straight forward:\n" +
+//                "\n" +
+//                "First of all put the device in the Home with UiDevice’s method pressHome(). And inside each test case, we do some repetitive tasks:\n" +
+//                "\n" +
+//                "Open the app from start for each test case. I personally find this easier to take screenshots. You can use UiDevice’s pressBack() method for other tests though.\n" +
+//                "Make desired UI interaction using UiSelector, UiScrollable, and UiObject.\n" +
+//                "Give some time for async tasks, that may be running behind the scene, by using `SystemClock.sleep`. So that we can avoid taking blank screenshots and receiving `UiObject not found` exception for scrollview items.\n" +
+//                "Finally we take screenshot and store it at a specific place.");
 
     }
 

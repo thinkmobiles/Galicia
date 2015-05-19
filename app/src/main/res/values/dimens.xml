@@ -12,6 +12,8 @@
 
     <dimen name="beverage_item_w">90dp</dimen>
 
+    <dimen name="default_circle_view_size">200dp</dimen>
+
 
 
     <!--SlideMenu-->

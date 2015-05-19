@@ -19,7 +19,11 @@ public abstract class FragmentReplacer {
     }
 
     public static final void popSupBackStack(final FragmentActivity _activity) {
+
         _activity.getSupportFragmentManager().popBackStack();
+    }
+    public static final void popSuperBackStack(final FragmentActivity _activity) {
+        _activity.getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
     public static final int getBackStackEntryCount(final FragmentActivity _activity) {
@@ -122,5 +126,13 @@ public abstract class FragmentReplacer {
                 .addToBackStack(_fragment.getClass().getName())
                 .commit();
     }
+
+//    public final void replaceTopNavigationFragment(final FragmentActivity _fragment) {
+//        getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.flContainer_AM, _fragment)
+//                .commit();
+//        HideKeyboard.hide(this);
+//    }
 
 }

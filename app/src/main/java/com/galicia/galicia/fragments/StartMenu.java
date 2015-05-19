@@ -73,9 +73,9 @@ public class StartMenu extends Fragment implements View.OnClickListener {
         mCallingActivity.setTitle("");
         makeListeners();
         ApiManager.getFirstLevel(mMenuListener);
-        if(idOpen != -1){
-            openItemMenu(idOpen);
-        }
+//        if(idOpen != -1){
+//            clickItem(idOpen);
+//        }
         mCallingActivity.setEnableMenu(false);
         return view;
     }
@@ -120,6 +120,9 @@ public class StartMenu extends Fragment implements View.OnClickListener {
             ib.setOnClickListener(this);
             views.add(ib);
             containerForAdd.addView(ib);
+        }
+        if(idOpen != -1){
+            clickItem(idOpen);
         }
     }
 
@@ -191,6 +194,10 @@ public class StartMenu extends Fragment implements View.OnClickListener {
 //            FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FragmentProductNoDetail.newInstance(itemSerializable));
 //            FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FragmentProductNoDetail.newInstance(itemSerializable));
 //        }
+    }
+
+    private void clickItem(final int position) {
+        ((ItemBeverage)containerForAdd.getChildAt(position)).title.performClick();
     }
 }
 

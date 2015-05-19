@@ -3,11 +3,13 @@ package com.galicia.galicia;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.cristaliza.mvc.events.Event;
 import com.cristaliza.mvc.events.EventListener;
 import com.cristaliza.mvc.models.estrella.AppModel;
+import com.galicia.galicia.custom.circleprogress.CircleProgress;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.ProgressDialogWorker;
 import com.galicia.galicia.global.SharedPreferencesManager;
@@ -23,15 +25,15 @@ import java.util.concurrent.TimeUnit;
 public class SplashScreen extends Activity {
 
     private EventListener downloadListener;
-//    private CircleProgress mProgressView;
+    private CircleProgress mProgressView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
-//        mProgressView = (CircleProgress) findViewById(R.id.progress);
-//        mProgressView.startAnim();
+        mProgressView = (CircleProgress) findViewById(R.id.progress);
+
         if (isHasContent()) {
 //            if(hasNewContent()){
 //                makeDownloadListener();
@@ -59,14 +61,16 @@ public class SplashScreen extends Activity {
     }
 
     private void openNewActivity() {
-//        mProgressView.stopAnim();
         startActivity(new Intent(SplashScreen.this, MainActivity.class));
+        mProgressView.stopAnim();
         finish();
     }
 
     private void downloadContent() {
         ApiManager.init(this);
         ApiManager.downloadContent(downloadListener);
+        mProgressView.setVisibility(View.VISIBLE);
+        mProgressView.startAnim();
     }
 
     private void makeDownloadListener() {

@@ -98,9 +98,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     public void onBackPressed() {
-        if (FragmentReplacer.getSupBackStackEntryCount(this) == 0) {
+        if (FragmentReplacer.getSupBackStackEntryCount(this) == 1) {
             if (doubleBackToExitPressedOnce) {
                 super.onBackPressed();
+                MainActivity.this.finish();
                 return;
             }
 

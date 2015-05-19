@@ -45,13 +45,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/ivAddProduct">
-            <TextView
-                android:singleLine="false"
-                android:scrollbars="vertical"
+            <!--<TextView-->
+                <!--android:singleLine="false"-->
+                <!--android:scrollbars="vertical"-->
+                <!--android:id="@+id/tvProductDescription"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--/>-->
+            <WebView
                 android:id="@+id/tvProductDescription"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 />
+
+
         </ScrollView>
 
 
