@@ -9,26 +9,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.global.Constants;
+import com.galicia.galicia.models.ProductSerializable;
 import com.galicia.galicia.untils.BitmapCreator;
-import com.galicia.galicia.models.ItemSerializable;
 
 public class ItemFirstStyleDetailsFragment extends Fragment {
 
     private FragmentActivity mCallingActivity;
-    private ItemSerializable mStartItem;
+    private ProductSerializable mSProduct;
 
     private ImageView mItemImage;
-    private TextView mItemName;
+    private TextView mItemName, mPackage1, mPackage2, mPackage3, mPackage4;
+    private LinearLayout mPackagesContainer;
 
     public ItemFirstStyleDetailsFragment() {
     }
 
-    public static ItemFirstStyleDetailsFragment newInstance(final ItemSerializable _item) {
+    public static ItemFirstStyleDetailsFragment newInstance(final ProductSerializable _item) {
         ItemFirstStyleDetailsFragment fragment = new ItemFirstStyleDetailsFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constants.ITEM_SERIAZ, _item);
@@ -41,25 +43,62 @@ public class ItemFirstStyleDetailsFragment extends Fragment {
         super.onAttach(activity);
         mCallingActivity = (MainActivity) activity;
         if (getArguments() != null) {
-             mStartItem = (ItemSerializable) getArguments().getSerializable(Constants.ITEM_SERIAZ);
+            mSProduct = (ProductSerializable) getArguments().getSerializable(Constants.ITEM_SERIAZ);
         }
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_first_style_item, container, false);
+        View view = inflater.inflate(R.layout.fragment_fifth_style_item, container, false);
 
-        mItemName   = (TextView) view.findViewById(R.id.tvItemTitle_first_SI);
-        mItemImage  = (ImageView) view.findViewById(R.id.ivItemImage_first_SI);
+        mItemName           = (TextView) view.findViewById(R.id.tvItemTitle_fifth_SI);
+        mItemImage          = (ImageView) view.findViewById(R.id.ivItemImage_fifth_SI);
+        mPackagesContainer  = (LinearLayout) view.findViewById(R.id.llPackages);
+        mPackage1           = (TextView) view.findViewById(R.id.tvItemFormatOne);
+        mPackage2           =  (TextView) view.findViewById(R.id.tvItemFormatTwo);
+        mPackage3           =  (TextView) view.findViewById(R.id.tvItemFormatThree);
+        mPackage4           =  (TextView) view.findViewById(R.id.tvItemFormatFour);
+
 
         makeData();
         return view;
     }
 
     private void makeData() {
-        mItemName.setText(mStartItem.getItem().getName());
-        mItemImage.setImageBitmap(BitmapCreator.getBitmap(mStartItem.getItem().getIcon()));
+        mItemName.setText(mSProduct.getProduct().getName());
+        mItemImage.setImageBitmap(BitmapCreator.getBitmap(mSProduct.getProduct().getImage()));
+//        switch (mSProduct.getProduct().getPackaging().size()){
+//            case 0:
+                mPackagesContainer.setVisibility(View.GONE);
+//                break;
+//            case 1:
+//                mPackage1.setText(mSProduct.getProduct().getPackaging().get(0));
+//                break;
+//            case 2:
+//                mPackage1.setText(mSProduct.getProduct().getPackaging().get(0));
+//                mPackage2.setText(mSProduct.getProduct().getPackaging().get(1));
+//                mPackage2.setVisibility(View.VISIBLE);
+//                break;
+//            case 3:
+//                mPackage1.setText(mSProduct.getProduct().getPackaging().get(0));
+//                mPackage2.setText(mSProduct.getProduct().getPackaging().get(1));
+//                mPackage3.setText(mSProduct.getProduct().getPackaging().get(2));
+//                mPackage2.setVisibility(View.VISIBLE);
+//                mPackage3.setVisibility(View.VISIBLE);
+//                break;
+//            case 4:
+//                mPackage1.setText(mSProduct.getProduct().getPackaging().get(0));
+//                mPackage2.setText(mSProduct.getProduct().getPackaging().get(1));
+//                mPackage3.setText(mSProduct.getProduct().getPackaging().get(2));
+//                mPackage4.setText(mSProduct.getProduct().getPackaging().get(3));
+//                mPackage2.setVisibility(View.VISIBLE);
+//                mPackage3.setVisibility(View.VISIBLE);
+//                mPackage4.setVisibility(View.VISIBLE);
+//                break;
+//        }
     }
+
+
 
 }

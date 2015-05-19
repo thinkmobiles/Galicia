@@ -31,9 +31,6 @@ import com.galicia.galicia.untils.HorizontalListView;
 
 import java.util.List;
 
-/**
- * Created by vasia on 18.05.2015.
- */
 public class FragmentProductUniversal extends Fragment implements View.OnClickListener {
 
     private MainActivity mCallingActivity;

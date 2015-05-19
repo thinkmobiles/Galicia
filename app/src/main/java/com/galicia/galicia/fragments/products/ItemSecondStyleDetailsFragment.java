@@ -14,8 +14,8 @@ import android.widget.TextView;
 import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.global.Constants;
+import com.galicia.galicia.models.ProductSerializable;
 import com.galicia.galicia.untils.BitmapCreator;
-import com.galicia.galicia.models.ItemSerializable;
 
 /**
  * Created by Bogdan on 16.05.2015.
@@ -23,7 +23,7 @@ import com.galicia.galicia.models.ItemSerializable;
 public class ItemSecondStyleDetailsFragment extends Fragment{
 
     private FragmentActivity mCallingActivity;
-    private ItemSerializable mStartItem;
+    private ProductSerializable productSerializable;
 
     private ImageView mItemImage;
     private TextView mItemName;
@@ -32,7 +32,7 @@ public class ItemSecondStyleDetailsFragment extends Fragment{
     public ItemSecondStyleDetailsFragment() {
     }
 
-    public static ItemSecondStyleDetailsFragment newInstance(final ItemSerializable _item) {
+    public static ItemSecondStyleDetailsFragment newInstance(final ProductSerializable _item) {
         ItemSecondStyleDetailsFragment fragment = new ItemSecondStyleDetailsFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constants.ITEM_SERIAZ, _item);
@@ -45,7 +45,7 @@ public class ItemSecondStyleDetailsFragment extends Fragment{
         super.onAttach(activity);
         mCallingActivity = (MainActivity) activity;
         if (getArguments() != null) {
-            mStartItem = (ItemSerializable) getArguments().getSerializable(Constants.ITEM_SERIAZ);
+            productSerializable = (ProductSerializable) getArguments().getSerializable(Constants.ITEM_SERIAZ);
         }
     }
 
@@ -63,9 +63,9 @@ public class ItemSecondStyleDetailsFragment extends Fragment{
     }
 
     private void makeData() {
-        mItemName.setText(mStartItem.getItem().getName());
-        mItemImage.setImageBitmap(BitmapCreator.getBitmap(mStartItem.getItem().getIcon()));
-        mItemFormat.setText("Format");
+        mItemName.setText(productSerializable.getProduct().getName());
+        mItemImage.setImageBitmap(BitmapCreator.getBitmap(productSerializable.getProduct().getImage()));
+//        mItemFormat.setText("Format");
 //        mItemFormat.setText(Html.fromHtml());
     }
 
