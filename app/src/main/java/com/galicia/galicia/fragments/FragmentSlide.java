@@ -9,46 +9,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.cristaliza.mvc.events.Event;
-import com.cristaliza.mvc.events.EventListener;
-import com.cristaliza.mvc.models.estrella.AppModel;
-import com.cristaliza.mvc.models.estrella.Item;
 import com.cristaliza.mvc.models.estrella.Product;
-import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.adapters.SlidePagerAdapter;
 import com.galicia.galicia.fragments.products.ItemFirstStyleDetailsFragment;
-import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.Constants;
-import com.galicia.galicia.models.ItemSerializable;
 import com.galicia.galicia.models.ProductSerializable;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentSlide extends Fragment implements View.OnClickListener {
+public class FragmentSlide extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
-    private MainActivity mCallingActivity;
-    private ItemSerializable mCurentItem;
-    private EventListener mListener;
-    private List<Item> mThridList;
+
     private List<Product> mProductList;
+    private int mPosition;
 
     private ImageView mBtnNext, mBtnPrev;
     private ViewPager mSlidePager;
     private ArrayList<Fragment> fragments = new ArrayList<>();
-
     private SlidePagerAdapter mSlidePagerAdapter;
 
     public FragmentSlide() {
     }
 
-    public static FragmentSlide newInstance(final ItemSerializable _item) {
+    public static FragmentSlide newInstance(final ArrayList<Product> _productList, int _position) {
         FragmentSlide fragment = new FragmentSlide();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Constants.ITEM_SERIAZ, _item);
+        bundle.putSerializable(Constants.PRODUCT_LIST, _productList);
+        bundle.putInt(Constants.POSITION, _position);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -56,9 +44,11 @@ public class FragmentSlide extends Fragment implements View.OnClickListener {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mCallingActivity = (MainActivity) activity;
         if (getArguments() != null) {
-            mCurentItem = (ItemSerializable) getArguments().getSerializable(Constants.ITEM_SERIAZ);
+            mProductList = (List<Product>) getArguments().getSerializable(Constants.PRODUCT_LIST);
+            mPosition = getArguments().getInt(Constants.POSITION);
+            getArguments().remove(Constants.PRODUCT_LIST);
+            getArguments().remove(Constants.POSITION);
         }
     }
 
@@ -72,9 +62,8 @@ public class FragmentSlide extends Fragment implements View.OnClickListener {
         mBtnPrev = (ImageView) view.findViewById(R.id.ivPrev);
 
         mSlidePager = (ViewPager) view.findViewById(R.id.vpSlider);
-//        initPager();
-        makeLisner();
-        ApiManager.getThirdLevel(mListener, mCurentItem.getItem());
+        makeList();
+        initFragmentsList();
         setListeners();
 
         return view;
@@ -101,34 +90,13 @@ public class FragmentSlide extends Fragment implements View.OnClickListener {
 
     }
 
-    private void makeLisner() {
-        mListener = new EventListener() {
-            @Override
-            public void onEvent(Event event) {
-                switch (event.getId()){
-                    case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
-                        Toast.makeText(getActivity(), event.getType() + "error", Toast.LENGTH_SHORT).show();
-                        break;
-                    case AppModel.ChangeEvent.THIRD_LEVEL_CHANGED_ID:
-                        mThridList = ApiManager.getThirdList();
-//                        ApiManager.getProducts(mListener, mThridList.get(0));
-                        initFragmentsList();
-                        break;
-                    case AppModel.ChangeEvent.PRODUCTS_CHANGED_ID:
-                        mProductList = ApiManager.getProductsList();
-                        makeList();
-                }
-            }
-        };
-    }
-
     private void initFragmentsList() {
-        for (Item item : mThridList) {
-            ApiManager.getProducts(mListener, item);
-        }
 
         mSlidePagerAdapter = new SlidePagerAdapter(mSlidePager, fragments, getChildFragmentManager());
         mSlidePager.setAdapter(mSlidePagerAdapter);
+        mSlidePager.setCurrentItem(mPosition);
+        mSlidePager.setOnPageChangeListener(this);
+        onPageChange(mPosition);
     }
 
     private void makeList() {
@@ -138,5 +106,40 @@ public class FragmentSlide extends Fragment implements View.OnClickListener {
             fragments.add(ItemFirstStyleDetailsFragment.newInstance(mSproduct));
         }
 
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int _position) {
+        mPosition = _position;
+        onPageChange(_position);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    private void onPageChange(int _position){
+        if (mProductList.size() == 1){
+            mBtnNext.setVisibility(View.GONE);
+            mBtnPrev.setVisibility(View.GONE);
+            return;
+        }
+        if (_position == mProductList.size() - 1) {
+            mBtnNext.setVisibility(View.GONE);
+            return;
+        }
+        if (_position == 0) {
+            mBtnPrev.setVisibility(View.GONE);
+            return;
+        }
+
+        mBtnPrev.setVisibility(View.VISIBLE);
+        mBtnNext.setVisibility(View.VISIBLE);
     }
 }

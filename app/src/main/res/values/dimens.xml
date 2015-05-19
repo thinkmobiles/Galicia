@@ -23,7 +23,8 @@
 
 
     <!-- fragment product universal-->
-    <dimen name="padding_item_video_title">10dp</dimen>
+    <dimen name="default_padding">10dp</dimen>
+    <dimen name="default_margin">8dp</dimen>
 
 
 

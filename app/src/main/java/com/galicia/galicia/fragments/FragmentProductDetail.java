@@ -33,6 +33,7 @@ import com.galicia.galicia.global.ItemsPurchaseList;
 import com.galicia.galicia.models.ItemSerializable;
 
 import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentProductDetail extends Fragment implements View.OnClickListener{
@@ -79,7 +80,7 @@ public class FragmentProductDetail extends Fragment implements View.OnClickListe
         mProductPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FragmentSlide.newInstance(mCurentItem));
+//                FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FragmentSlide.newInstance(mCurentItem));
             }
         });
 

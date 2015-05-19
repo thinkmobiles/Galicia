@@ -10,6 +10,13 @@ import java.io.Serializable;
 public class ProductSerializable implements Serializable {
     private Product product;
 
+    public ProductSerializable() {
+    }
+
+    public ProductSerializable(Product product) {
+        this.product = product;
+    }
+
     public Product getProduct() {
         return product;
     }

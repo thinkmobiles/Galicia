@@ -13,4 +13,8 @@ public abstract class BitmapCreator {
     public static final Bitmap getBitmap(String _path) {
         return BitmapFactory.decodeFile(ApiManager.getPath() + _path);
     }
+
+    public static String getAbsolutePath(String _path){
+        return ApiManager.getPath() + _path;
+    }
 }
