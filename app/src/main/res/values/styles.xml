@@ -3,8 +3,6 @@
     <style name="AppTheme" parent="AppTheme.Base" />
 
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light">
-        <item name="colorPrimary">@color/purple_light</item>
-        <item name="colorPrimaryDark">@color/purple_dark</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:typeface">serif</item>
@@ -27,7 +25,7 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">@dimen/menu_item_size_txt</item>
     </style>
 
     <style name="ItemHorizontalListStyle" parent="Beverage">

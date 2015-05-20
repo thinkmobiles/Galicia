@@ -7,10 +7,6 @@ import android.widget.TextView;
 import com.galicia.galicia.R;
 import com.galicia.galicia.custom.GroupBeverageModel;
 
-
-/**
- * Created by Michael on 14.05.2015.
- */
 public class ItemBeverage extends LinearLayout {
 
     private int MIN_SIZE_DESC = 0;

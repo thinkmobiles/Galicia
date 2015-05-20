@@ -13,7 +13,7 @@
         android:id="@+id/ivNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/btn_next"
+        android:src="@drawable/selector_btn_next"
         android:padding="10dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true" />
@@ -22,7 +22,7 @@
         android:id="@+id/ivPrev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/btn_prev"
+        android:src="@drawable/selector_btn_prev"
         android:padding="10dp"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true" />
