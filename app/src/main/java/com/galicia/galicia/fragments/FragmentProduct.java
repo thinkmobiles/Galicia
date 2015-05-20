@@ -1,19 +1,25 @@
 package com.galicia.galicia.fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,12 +32,16 @@ import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.adapters.HorisontalPhotoProductAdapter;
 import com.galicia.galicia.adapters.ProductVideoAdapter;
+import com.galicia.galicia.adapters.SpinnerPurchaseAdapter;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.Constants;
 import com.galicia.galicia.global.FragmentReplacer;
 import com.galicia.galicia.models.ItemSerializable;
+import com.galicia.galicia.models.Shop;
 import com.galicia.galicia.untils.BitmapCreator;
+import com.galicia.galicia.untils.DataBase.ItemDAO;
 import com.galicia.galicia.untils.HorizontalListView;
+import com.galicia.galicia.untils.DataBase.ShopDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +60,18 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     private List<Item> mThridList;
     private RelativeLayout rlProductPhoto;
     private LinearLayout llCompanyLogo, llDetail, llMoreDetail;
+    private ArrayList<Item> items;
+    private int selected;
+    private ShopDAO shopDAO;
+    private ItemDAO itemDAO;
+    private List<Shop> shopList;
+    private LinearLayout spinerLayout;
+    private Spinner spinner;
+    private SpinnerPurchaseAdapter spinnerPurchaseAdapter;
+    private TextView positivButton, negativButton;
+    private EditText shopName;
+    private AlertDialog alertDialog;
+
 
     public static FragmentProduct newInstance(final ItemSerializable _item) {
         final FragmentProduct fragment = new FragmentProduct();
@@ -67,6 +89,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             mCurentItem = ((ItemSerializable) getArguments().getSerializable(Constants.ITEM_SERIAZ)).getItem();
             getArguments().remove(Constants.ITEM_SERIAZ);
         }
+        shopDAO = new ShopDAO(activity);
+        itemDAO = new ItemDAO(activity);
     }
 
     @Override
@@ -80,7 +104,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         return view;
     }
 
-    private void findUI(final View _view){
+    private void findUI(final View _view) {
         ivAddProduct = (ImageView) _view.findViewById(R.id.ivAddProduct_FPU);
         ivFicha = (ImageView) _view.findViewById(R.id.ivFichaProduct_FPU);
         wvProductDescription = (WebView) _view.findViewById(R.id.wvProductDescription_FPU);
@@ -92,12 +116,12 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         ivCompanyLogo = (ImageView) _view.findViewById(R.id.ivCompanyLogo_FPU);
 
 
-        llCompanyLogo = (LinearLayout)_view.findViewById(R.id.llCompanyLogo_FPU);
+        llCompanyLogo = (LinearLayout) _view.findViewById(R.id.llCompanyLogo_FPU);
         llDetail = (LinearLayout) _view.findViewById(R.id.llDetailContainer_FPU);
         llMoreDetail = (LinearLayout) _view.findViewById(R.id.llMoreDetailContainer_FPU);
     }
 
-    private void setListener(){
+    private void setListener() {
         ivAddProduct.setOnClickListener(this);
         ivFicha.setOnClickListener(this);
         llMoreDetail.setOnClickListener(this);
@@ -105,7 +129,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         mListener = new EventListener() {
             @Override
             public void onEvent(Event event) {
-                switch (event.getId()){
+                switch (event.getId()) {
                     case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
                         Toast.makeText(getActivity(), event.getType() + "error", Toast.LENGTH_SHORT).show();
                         break;
@@ -115,26 +139,25 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
                         break;
                     case AppModel.ChangeEvent.PRODUCTS_CHANGED_ID:
                         mProductList.add(ApiManager.getProductsList().get(0));
-                            initProductDetail();
+                        initProductDetail();
                 }
             }
         };
     }
 
-    private void getProduct(){
+    private void getProduct() {
         if (mProductList == null) {
             mProductList = new ArrayList<Product>();
-            for (Item item : mThridList){
+            for (Item item : mThridList) {
                 ApiManager.getProducts(mListener, item);
             }
-        }
-        else initProductDetail();
+        } else initProductDetail();
     }
 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ivAddProduct_FPU:
                 addProduct();
                 break;
@@ -147,23 +170,22 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         }
     }
 
-    private void verifyFichaCata(){
-        if (mCurentItem.getFichaCata() == null){
+    private void verifyFichaCata() {
+        if (mCurentItem.getFichaCata() == null) {
             ivFicha.setVisibility(View.GONE);
         }
     }
 
-    private void initProductDetail(){
-        if (mCurentItem.getExtraVideos() != null && !mCurentItem.getExtraVideos().isEmpty()){
+    private void initProductDetail() {
+        if (mCurentItem.getExtraVideos() != null && !mCurentItem.getExtraVideos().isEmpty()) {
             setProductVideoDetail();
-        }
-        else {
+        } else {
             setProductNoVideoDetail();
         }
 
     }
 
-    private void setProductVideoDetail(){
+    private void setProductVideoDetail() {
         lvProductVideo.setVisibility(View.VISIBLE);
         llMoreDetail.setVisibility(View.VISIBLE);
         rlProductPhoto.setVisibility(View.GONE);
@@ -171,13 +193,12 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         initHorisontalImageList();
     }
 
-    private void setProductNoVideoDetail(){
+    private void setProductNoVideoDetail() {
         if (mThridList == null)
             return;
         if (mThridList.size() == 1) {
             setOneProductDetail();
-        }
-        else {
+        } else {
             llMoreDetail.setVisibility(View.GONE);
             calculateContainerSizeProductNoVideo();
             hlvAllProduct.setVisibility(View.VISIBLE);
@@ -185,8 +206,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         }
     }
 
-    private void calculateContainerSizeProductNoVideo(){
-        int companyLogoWidth = getDisplayWidth() / 8 *2;
+    private void calculateContainerSizeProductNoVideo() {
+        int companyLogoWidth = getDisplayWidth() / 8 * 2;
         int productDetailWidth = getDisplayWidth() / 8 * 6;
         final LinearLayout.LayoutParams companyLogoParams = new LinearLayout.LayoutParams(companyLogoWidth, ViewGroup.LayoutParams.MATCH_PARENT);
         final LinearLayout.LayoutParams productDetailParams = new LinearLayout.LayoutParams(productDetailWidth, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -194,7 +215,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         llDetail.setLayoutParams(productDetailParams);
     }
 
-    private void setOneProductDetail(){
+    private void setOneProductDetail() {
         llMoreDetail.setVisibility(View.VISIBLE);
         hlvAllProduct.setVisibility(View.GONE);
         lvProductVideo.setVisibility(View.GONE);
@@ -202,8 +223,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         tvProductPhotoTitle.setText(mThridList.get(0).getName());
     }
 
-    private void initHorisontalImageList(){
-        if (mProductList.size() == 0){
+    private void initHorisontalImageList() {
+        if (mProductList.size() == 0) {
             hlvAllProduct.setVisibility(View.GONE);
             return;
         }
@@ -212,7 +233,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         hlvAllProduct.setOnItemClickListener(this);
     }
 
-    private void initVideoList(){
+    private void initVideoList() {
         final ProductVideoAdapter apter = new ProductVideoAdapter(mCallingActivity, mCurentItem);
         lvProductVideo.setAdapter(apter);
         lvProductVideo.setOnItemClickListener(this);
@@ -220,26 +241,26 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (parent.getAdapter().getClass().getName().equals(ProductVideoAdapter.class.getName()) ){
+        if (parent.getAdapter().getClass().getName().equals(ProductVideoAdapter.class.getName())) {
             startVideoPlayer(BitmapCreator.getAbsolutePath(mCurentItem.getExtraVideos().get(position)));
         }
 
 
-        if (parent.getAdapter().getClass().getName().equals(HorisontalPhotoProductAdapter.class.getName()) ){
+        if (parent.getAdapter().getClass().getName().equals(HorisontalPhotoProductAdapter.class.getName())) {
             startSlideFragment(position);
         }
 
     }
 
 
-    private void startVideoPlayer(String _path){
+    private void startVideoPlayer(String _path) {
         final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(_path));
         intent.setDataAndType(Uri.parse(_path), "video/*");
         startActivity(intent);
     }
 
 
-    private void makeData(){
+    private void makeData() {
         ivCompanyLogo.setImageBitmap(BitmapCreator.getBitmap(mCurentItem.getLogo()));
         makeWeb();
 
@@ -251,17 +272,125 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         wvProductDescription.loadDataWithBaseURL("", mCurentItem.getDescription(), mimeType, encoding, "");
     }
 
-    private void addProduct(){
-
+    private void addProduct() {
+        new GetShopTask().execute();
     }
 
-    private int getDisplayWidth(){
+
+    private int getDisplayWidth() {
         return mCallingActivity.getWindowManager().getDefaultDisplay().getWidth();
     }
 
-    private void startSlideFragment(int _posititon){
+    private void startSlideFragment(int _posititon) {
         FragmentReplacer.replaceFragmentWithStack(
                 mCallingActivity,
                 FragmentSlide.newInstance(mProductList, _posititon));
+    }
+
+    public class GetShopTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            shopList = new ArrayList<>();
+            shopList = shopDAO.getShops();
+            shopList.add(new Shop(-1, "Create new shop"));
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            createCustomDialog();
+        }
+    }
+
+    public class GetItemTask extends AsyncTask<Void,Void,Void>{
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            for(Item item:itemDAO.getItems()){
+                Log.d("AAA",item.getName());
+            }
+            return null;
+        }
+
+    }
+
+    public void createCustomDialog(){
+        final AlertDialog.Builder spinerDialog = new AlertDialog.Builder(mCallingActivity);
+
+        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.custom_dialog_spinner, null);
+
+        findDialogUI(view);
+        setDialogListener();
+
+        spinnerPurchaseAdapter = new SpinnerPurchaseAdapter(getActivity(), shopList);
+        spinner.setAdapter(spinnerPurchaseAdapter);
+
+        spinerDialog.setView(view);
+        alertDialog = spinerDialog.create();
+        alertDialog.show();
+
+    }
+
+    private void findDialogUI(View view){
+        spinerLayout = (LinearLayout) view.findViewById(R.id.ll_spinner);
+        spinner = (Spinner) view.findViewById(R.id.dialogSpinner);
+        negativButton = (TextView) view.findViewById(R.id.tv_cancel_action_CD);
+        positivButton = (TextView) view.findViewById(R.id.tv_accept_action_CD);
+        shopName = (EditText) view.findViewById(R.id.et_new_Shop_CD);
+    }
+    private void setDialogListener(){
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selected = position;
+                Log.d("QQQ", String.valueOf(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        negativButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (shopName.getVisibility() == View.VISIBLE) {
+                    spinerLayout.setVisibility(View.VISIBLE);
+                    shopName.setVisibility(View.GONE);
+                } else
+                    alertDialog.dismiss();
+            }
+        });
+
+        positivButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (shopName.getVisibility() == View.GONE) {
+                    if (shopList.get(selected).getId() == -1) {
+                        spinerLayout.setVisibility(View.INVISIBLE);
+                        shopName.setVisibility(View.VISIBLE);
+                    } else {
+                        shopList.get(selected).getId();
+                        itemDAO.save(mCurentItem,shopList.get(selected).getId());
+                        Toast.makeText(mCallingActivity,  "Item add to shop_id= " + String.valueOf(shopList.get(selected).getId()), Toast.LENGTH_SHORT).show();
+                        alertDialog.dismiss();
+                        new  GetItemTask().execute();
+                    }
+                } else if (!shopName.getText().toString().isEmpty()) {
+                    shopDAO.save(new Shop(shopName.getText().toString()));
+                    spinerLayout.setVisibility(View.VISIBLE);
+                    shopName.setVisibility(View.GONE);
+                    addProduct();
+                } else {
+                    Toast.makeText(mCallingActivity, R.string.enter_shop, Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
     }
 }

@@ -29,6 +29,8 @@
     <string name="empty_cart">Cart is empty</string>
     <string name="button_cancel">Cancelar</string>
     <string name="button_accept">Aceptar</string>
+    <string name="enter_shop">Enter shop</string>
+    <string name="added_to_cart">Added to cart</string>
     <string-array name="spinner_resource">
         <item>Item1</item>
         <item>Item2</item>

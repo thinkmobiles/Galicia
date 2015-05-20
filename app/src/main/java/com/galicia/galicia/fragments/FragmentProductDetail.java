@@ -178,58 +178,6 @@ public class FragmentProductDetail extends Fragment implements View.OnClickListe
 
     private void showDialog() {
 
-        final AlertDialog.Builder spinerDialog = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.custom_dialog_spinner, null);
-
-        Spinner spinner = (Spinner) view.findViewById(R.id.dialogSpinner);
-
-        if(items.isEmpty())
-            spinner.setVisibility(View.GONE);
-
-        TextView negativButton = (TextView) view.findViewById(R.id.tv_cancel_action_CD);
-        TextView positivButton = (TextView) view.findViewById(R.id.tv_accept_action_CD);
-
-
-        SpinnerPurchaseAdapter spinnerPurchaseAdapter = new SpinnerPurchaseAdapter(getActivity(), items);
-
-        spinner.setAdapter(spinnerPurchaseAdapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selected = position;
-                Log.d("QQQ", String.valueOf(position));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        spinerDialog.setView(view);
-        final AlertDialog alertDialog = spinerDialog.create();
-        alertDialog.show();
-
-        negativButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-            }
-        });
-
-        positivButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (items.isEmpty()) {
-                    ItemsPurchaseList.getInstance(getActivity()).addItem(mCurentItem.getItem());
-                    alertDialog.dismiss();
-                } else {
-                    ItemsPurchaseList.getInstance(getActivity()).moveItem(selected, mCurentItem.getItem());
-                    alertDialog.dismiss();
-                }
-
-            }
-        });
     }
 
 
