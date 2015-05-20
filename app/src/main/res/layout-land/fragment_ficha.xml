@@ -5,7 +5,7 @@
     android:focusable="false"
     android:background="@android:color/white">
 
-    <ImageView
+    <it.sephiroth.android.library.imagezoom.ImageViewTouch
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/ivFicha_FF"
@@ -19,7 +19,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/btn_close"
+        android:src="@drawable/selector_btn_close"
         android:padding="@dimen/default_padding"
         android:layout_margin="@dimen/default_margin"
         android:clickable="true" />

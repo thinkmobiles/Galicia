@@ -3,6 +3,7 @@ package com.galicia.galicia;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -39,14 +40,8 @@ public class SplashScreen extends Activity {
 //                makeDownloadListener();
 //                updateContent();
 //            } else {
-                ScheduledExecutorService worker =
-                        Executors.newSingleThreadScheduledExecutor();
-                Runnable task = new Runnable() {
-                    public void run() {
-                        openNewActivity();
-                    }
-                };
-                worker.schedule(task, 1, TimeUnit.SECONDS);
+//            updateContent();
+                openMainActivityDelay();
 //            }
         } else {
 //            ProgressDialogWorker.createDialog(this);
@@ -54,6 +49,33 @@ public class SplashScreen extends Activity {
             downloadContent();
         };
     }
+
+    private void getlastUpdate(){
+        makeDownloadListener();
+        ScheduledExecutorService worker =
+                Executors.newSingleThreadScheduledExecutor();
+        worker.schedule(mUpdateRunnable, 2, TimeUnit.SECONDS);
+    }
+
+    private void openMainActivityDelay(){
+        ScheduledExecutorService worker =
+                Executors.newSingleThreadScheduledExecutor();
+        Runnable task = new Runnable() {
+            public void run() {
+                openNewActivity();
+            }
+        };
+        worker.schedule(task, 1, TimeUnit.SECONDS);
+    }
+
+
+    private Runnable mUpdateRunnable = new Runnable() {
+        @Override
+        public void run() {
+            updateContent();
+        }
+    };
+
 
     private boolean isHasContent() {
         File f = new File(ApiManager.getPath(this));
@@ -77,6 +99,7 @@ public class SplashScreen extends Activity {
         downloadListener = new EventListener() {
             @Override
             public void onEvent(Event event) {
+                Log.d("tag", "e = " + event);
                 switch (event.getId()) {
                     case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
                         Toast.makeText(getBaseContext(), event.getType() + " error", Toast.LENGTH_LONG).show();
@@ -103,9 +126,10 @@ public class SplashScreen extends Activity {
                                 ProgressDialogWorker.dismissDialog();
                                 ApiManager.setOfflineMode();
                                 openNewActivity();
+                                String date  = ApiManager.getDateUpdate();
+                                Log.d("tag", "update date" + date);
                             }
                         }));
-
                         break;
                 }
             }
@@ -114,6 +138,7 @@ public class SplashScreen extends Activity {
     }
 
     private void updateContent() {
+        makeDownloadListener();
         ApiManager.init(this);
         ApiManager.getLastUpdateServer(downloadListener);
     }

@@ -17,12 +17,12 @@ import java.util.List;
 /**
  * Created by vasia on 18.05.2015.
  */
-public class HorisontalPhotoProductAdapter extends BaseAdapter {
+public class HorizontalPhotoProductAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<Product> mProductList;
 
-    public HorisontalPhotoProductAdapter(Context mContext, List<Product> mProductList) {
+    public HorizontalPhotoProductAdapter(Context mContext, List<Product> mProductList) {
         this.mContext = mContext;
         this.mProductList = mProductList;
     }
@@ -46,17 +46,17 @@ public class HorisontalPhotoProductAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         Holder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_product_image, null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_product_photo_horizontal, null);
             holder = new Holder();
-            holder.ivIcon = (ImageView) convertView.findViewById(R.id.ivIcon_IPI);
-            holder.tvDescription = (TextView) convertView.findViewById(R.id.tvDescription_IPI);
+            holder.ivImage = (ImageView) convertView.findViewById(R.id.ivIcon_IPI);
+            holder.tvProductName = (TextView) convertView.findViewById(R.id.tvDescription_IPI);
             convertView.setTag(holder);
         } else {
             holder = (Holder) convertView.getTag();
         }
 
-        holder.ivIcon.setImageBitmap(BitmapCreator.getBitmap(mProductList.get(position).getImage()));
-        holder.tvDescription.setText(mProductList.get(position).getName());
+        holder.ivImage.setImageBitmap(BitmapCreator.getBitmap(mProductList.get(position).getImage()));
+        holder.tvProductName.setText(mProductList.get(position).getName());
 
         return convertView;
     }
@@ -66,8 +66,8 @@ public class HorisontalPhotoProductAdapter extends BaseAdapter {
 
 
     private class Holder {
-        private ImageView ivIcon;
-        private TextView tvDescription;
+        private ImageView ivImage;
+        private TextView tvProductName;
     }
 
 }
