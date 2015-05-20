@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import com.cristaliza.mvc.models.estrella.Product;
 import com.galicia.galicia.R;
 import com.galicia.galicia.adapters.SlidePagerAdapter;
-import com.galicia.galicia.fragments.products.ItemFirstStyleDetailsFragment;
 import com.galicia.galicia.global.Constants;
 import com.galicia.galicia.models.ProductSerializable;
 import java.util.ArrayList;
@@ -79,11 +78,9 @@ public class FragmentSlide extends Fragment implements View.OnClickListener, Vie
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ivNext:
-//                mSlidePagerAdapter.refreshPager(true);
                 mSlidePager.setCurrentItem(mSlidePager.getCurrentItem()+1, true);
                 break;
             case R.id.ivPrev:
-//                mSlidePagerAdapter.refreshPager(false);
                 mSlidePager.setCurrentItem(mSlidePager.getCurrentItem()-1, true);
                 break;
         }
@@ -103,7 +100,7 @@ public class FragmentSlide extends Fragment implements View.OnClickListener, Vie
         for (Product product : mProductList){
             ProductSerializable mSproduct = new ProductSerializable();
             mSproduct.setProduct(product);
-            fragments.add(ItemFirstStyleDetailsFragment.newInstance(mSproduct));
+            fragments.add(FragmentItemDetails.newInstance(mSproduct));
         }
 
     }

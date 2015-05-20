@@ -33,17 +33,13 @@ public class StartMenu extends Fragment implements View.OnClickListener {
     private LinearLayout containerForAdd;
     private List<GroupBeverageModel> groupBeverageModels;
     private List<ItemBeverage> views;
+    private List<Item> mMenuItemList;
     private View selectedView;
     private AtomicBoolean stateListExpand = new AtomicBoolean(false);
-    private MainActivity mCallingActivity;
-
-
-
-
     private EventListener mMenuListener;
-    private List<Item> mMenuItemList;
-    private String mTitleMenu, mBaseTitle;
 
+    private MainActivity mCallingActivity;
+    private String mTitleMenu, mBaseTitle;
     private int idOpen = -1;
 
     public static StartMenu newInstance(final int _open){
@@ -66,16 +62,13 @@ public class StartMenu extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_main, container, false);
+        View view = inflater.inflate(R.layout.start_menu_fragment, container, false);
 
         containerForAdd = (LinearLayout) view.findViewById(R.id.llContentList_AM);
         mCallingActivity.setBackground();
         mCallingActivity.setTitle("");
         makeListeners();
         ApiManager.getFirstLevel(mMenuListener);
-//        if(idOpen != -1){
-//            clickItem(idOpen);
-//        }
         mCallingActivity.setEnableMenu(false);
         return view;
     }
@@ -174,26 +167,9 @@ public class StartMenu extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void openItemMenu(final int _id){
-        views.get(_id).expandDescription();
-        views.get(_id).hideTitle(true);
-        stateListExpand.set(!stateListExpand.get());
-        selectedView = views.get(_id).title;
-    }
-
     private void openItemFragment(final Item _item) {
         mCallingActivity.setEnableMenu(true);
-//
             FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FragmentProduct.newInstance(new ItemSerializable(_item)));
-//        if (_item.getExtraVideos() != null && !_item.getExtraVideos().isEmpty()){
-//            FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FragmentProductDetail.newInstance(itemSerializable));
-//        }
-//        else if (_item.getExtraImages() != null && !_item.getExtraImages().isEmpty()){
-//            FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FragmentProductDetail.newInstance(itemSerializable));
-//        } else {
-//            FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FragmentProductNoDetail.newInstance(itemSerializable));
-//            FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FragmentProductNoDetail.newInstance(itemSerializable));
-//        }
     }
 
     private void clickItem(final int position) {

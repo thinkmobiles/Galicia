@@ -5,9 +5,6 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.Transformation;
 
-/**
- * Created by Michael on 14.05.2015.
- */
 public final class AnimationUtils {
 
     public static void expand(final View v, final int minHeight, final int maxHeight, final int duration) {

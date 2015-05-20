@@ -17,10 +17,6 @@ import com.galicia.galicia.global.ApiManager;
 
 import java.util.List;
 
-
-/**
- * Created by Michael on 14.05.2015.
- */
 public class ItemListBeverage extends RelativeLayout {
     private LinearLayout llContainer;
     private int MAX_PHYSICAL_WIDTH = 0;

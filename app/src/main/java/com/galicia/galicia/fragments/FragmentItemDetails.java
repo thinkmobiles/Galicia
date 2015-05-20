@@ -1,4 +1,4 @@
-package com.galicia.galicia.fragments.products;
+package com.galicia.galicia.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ import com.galicia.galicia.global.Constants;
 import com.galicia.galicia.models.ProductSerializable;
 import com.galicia.galicia.untils.BitmapCreator;
 
-public class ItemFirstStyleDetailsFragment extends Fragment {
+public class FragmentItemDetails extends Fragment {
 
     private FragmentActivity mCallingActivity;
     private ProductSerializable mSProduct;
@@ -28,11 +28,11 @@ public class ItemFirstStyleDetailsFragment extends Fragment {
     private TextView mItemName, mPackage1, mPackage2, mPackage3, mPackage4;
     private LinearLayout mPackagesContainer;
 
-    public ItemFirstStyleDetailsFragment() {
+    public FragmentItemDetails() {
     }
 
-    public static ItemFirstStyleDetailsFragment newInstance(final ProductSerializable _item) {
-        ItemFirstStyleDetailsFragment fragment = new ItemFirstStyleDetailsFragment();
+    public static FragmentItemDetails newInstance(final ProductSerializable _item) {
+        FragmentItemDetails fragment = new FragmentItemDetails();
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constants.ITEM_SERIAZ, _item);
         fragment.setArguments(bundle);

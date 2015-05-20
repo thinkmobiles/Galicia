@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -28,12 +27,12 @@ import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.adapters.HorizontalPhotoProductAdapter;
 import com.galicia.galicia.adapters.ProductVideoAdapter;
+import com.galicia.galicia.custom.HorizontalListView;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.Constants;
 import com.galicia.galicia.global.FragmentReplacer;
 import com.galicia.galicia.models.ItemSerializable;
 import com.galicia.galicia.untils.BitmapCreator;
-import com.galicia.galicia.untils.HorizontalListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -221,6 +220,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     }
 
     private void initVideoList(){
+        lvProductVideo.setBackground(BitmapCreator.getDrawable(mCurrentItem.getExtraBackgroundImage()));
         final ProductVideoAdapter apter = new ProductVideoAdapter(mCallingActivity, mCurrentItem);
         lvProductVideo.setAdapter(apter);
         lvProductVideo.setOnItemClickListener(this);
@@ -247,13 +247,15 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     }
 
 
-    private void makeData(){
+    private void makeData() {
         ivCompanyLogo.setImageBitmap(BitmapCreator.getBitmap(mCurrentItem.getLogo()));
+        mCallingActivity.setBackground(mCurrentItem.getBackgroundImage());
+        ivCompanyLogo.setImageBitmap(BitmapCreator.getBitmap(mCurrentItem.getLogo()));
+        makeWeb();
 
         if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("")) {
             svDescriptionContainer.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             wvProductDescription.loadDataWithBaseURL(
                     "",
                     mCurrentItem.getDescription(),
@@ -262,7 +264,12 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
                     ""
             );
         }
+    }
 
+    private void makeWeb() {
+        final String mimeType = "text/html";
+        final String encoding = "UTF-8";
+        wvProductDescription.loadDataWithBaseURL("", mCurrentItem.getDescription(), mimeType, encoding, "");
     }
 
     private void addProduct(){

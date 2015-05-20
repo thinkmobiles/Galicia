@@ -5,51 +5,58 @@
     android:id="@+id/llAppContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_art_black"
     >
 
-
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="@dimen/action_bar_title_height"
         android:gravity="center_vertical"
         >
-        <ImageButton
-            android:id="@+id/ibMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/btn_menu"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageButton
+                android:id="@+id/ibMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_menu"
+                android:layout_marginLeft="@dimen/action_bar_menu_icon_margin"
+                android:layout_marginRight="@dimen/action_bar_menu_icon_margin"
+                />
+
+            <TextView
+                android:id="@+id/tvMenuTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/action_bar_title_txt"
+                android:text="Title"
+                />
+        </LinearLayout>
+
         <ImageView
+            android:layout_weight="4"
             android:id="@+id/tvLogoTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/logo"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true" />
-        <TextView
-            android:id="@+id/tvMenuTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/ibMenu"
-            android:layout_toLeftOf="@+id/tvLogoTitle"
-            android:textColor="@android:color/white"
-            android:textSize="27dp"
-            android:text=""
-            android:layout_centerVertical="true" />
+            />
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp">
+        android:layout_marginBottom="@dimen/action_bar_bottom_margin">
 
     </FrameLayout>
 

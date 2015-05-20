@@ -1,4 +1,4 @@
-package com.galicia.galicia.untils;
+package com.galicia.galicia.custom;
 
 import android.content.Context;
 import android.database.DataSetObserver;
@@ -14,9 +14,6 @@ import android.widget.Scroller;
 import java.util.LinkedList;
 import java.util.Queue;
 
-/**
- * Created by Bogdan on 08.05.2015.
- */
 public class HorizontalListView extends AdapterView<ListAdapter> {
 
     public boolean mAlwaysOverrideTouch = true;
@@ -53,17 +50,17 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
     }
 
     @Override
-    public void setOnItemSelectedListener(AdapterView.OnItemSelectedListener listener) {
+    public void setOnItemSelectedListener(OnItemSelectedListener listener) {
         mOnItemSelected = listener;
     }
 
     @Override
-    public void setOnItemClickListener(AdapterView.OnItemClickListener listener){
+    public void setOnItemClickListener(OnItemClickListener listener){
         mOnItemClicked = listener;
     }
 
     @Override
-    public void setOnItemLongClickListener(AdapterView.OnItemLongClickListener listener) {
+    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
         mOnItemLongClicked = listener;
     }
 

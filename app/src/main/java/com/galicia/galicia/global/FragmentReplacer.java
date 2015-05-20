@@ -8,20 +8,13 @@ import android.support.v4.app.FragmentManager;
 
 import com.galicia.galicia.R;
 
-
-/**
- * Created by Виталий on 09/10/2014.
- */
 public abstract class FragmentReplacer {
-
-    public static final void popBackStack(final FragmentActivity _activity) {
-        _activity.getFragmentManager().popBackStack();
-    }
 
     public static final void popSupBackStack(final FragmentActivity _activity) {
 
         _activity.getSupportFragmentManager().popBackStack();
     }
+
     public static final void popSuperBackStack(final FragmentActivity _activity) {
         _activity.getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
@@ -102,37 +95,14 @@ public abstract class FragmentReplacer {
 //        manageBackButton(_activity, true);
     }
 
-//    public static final void manageBackButton(final FragmentActivity _activity, final boolean _doNeedToShow) {
-//        if (_activity instanceof MainFragmentActivity) {
-
-//        }
-//    }
 //
-//    public static final void manageLikeButton(final FragmentActivity _activity, final boolean _doNeedToShow) {
-//        if (_activity instanceof MainFragmentActivity) {
-//            ((MainFragmentActivity) _activity).showLikeButton(_doNeedToShow);
-//        }
-//    }
-//    public static final void clearBackStack(final FragmentActivity _activity) {
-//        _activity.getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-//    }
-
-
-//    ////////////////////////////MY Methods
 
     public static final void replaceFragmentWithStack(final FragmentActivity _activity, final android.support.v4.app.Fragment _fragment) {
         _activity.getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, _fragment)
+                .setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out)
                 .addToBackStack(_fragment.getClass().getName())
                 .commit();
     }
-
-//    public final void replaceTopNavigationFragment(final FragmentActivity _fragment) {
-//        getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-//        getSupportFragmentManager().beginTransaction()
-//                .replace(R.id.flContainer_AM, _fragment)
-//                .commit();
-//        HideKeyboard.hide(this);
-//    }
 
 }

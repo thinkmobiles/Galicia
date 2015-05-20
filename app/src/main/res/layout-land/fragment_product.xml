@@ -73,7 +73,7 @@
                         android:textColor="@android:color/black" />
                 </ScrollView>
 
-                <com.galicia.galicia.untils.HorizontalListView
+                <com.galicia.galicia.custom.HorizontalListView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/hlvAllProduct_FPU"
@@ -83,7 +83,7 @@
                     android:fillViewport="false"
                     android:layout_weight="2">
 
-                </com.galicia.galicia.untils.HorizontalListView>
+                </com.galicia.galicia.custom.HorizontalListView>
             </LinearLayout>
         </RelativeLayout>
 
