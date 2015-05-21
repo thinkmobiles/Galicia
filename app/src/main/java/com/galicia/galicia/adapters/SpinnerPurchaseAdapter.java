@@ -6,37 +6,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.R;
-import com.galicia.galicia.global.ItemsPurchaseList;
+import com.galicia.galicia.models.Shop;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Feltsan on 18.05.2015.
  */
 public class SpinnerPurchaseAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<Item> items;
+    private List<Shop> shops;
     private LayoutInflater inflater;
 
-    public SpinnerPurchaseAdapter(Context _context, ArrayList<Item>_data){
+    public SpinnerPurchaseAdapter(Context _context, List<Shop> _data){
         context = _context;
-        items = _data;
+        shops = _data;
 
         inflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return items.size();
+        return shops.size();
     }
 
     @Override
-    public Item getItem(int position) {
-        return items.get(position);
+    public Shop getItem(int position) {
+        return shops.get(position);
     }
 
     @Override
@@ -51,19 +50,19 @@ public class SpinnerPurchaseAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.item_spiner,parent,false);
             holder = new ViewHolder();
 
-            holder.nameItem = (TextView) convertView.findViewById(R.id.tv_titleItemSpinner_IS);
+            holder.nameShop = (TextView) convertView.findViewById(R.id.tv_titleShopSpinner_IS);
 
             convertView.setTag(holder);
         }else
             holder = (ViewHolder) convertView.getTag();
 
-            holder.nameItem.setText(items.get(position).getName());
+            holder.nameShop.setText(shops.get(position).getName());
 
             return convertView;
 
     }
 
     private class ViewHolder{
-        TextView nameItem;
+        TextView nameShop;
     }
 }

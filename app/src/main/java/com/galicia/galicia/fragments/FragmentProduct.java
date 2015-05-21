@@ -1,20 +1,26 @@
 package com.galicia.galicia.fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,12 +34,17 @@ import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.adapters.HorizontalPhotoProductAdapter;
 import com.galicia.galicia.adapters.ProductVideoAdapter;
+import com.galicia.galicia.adapters.SpinnerPurchaseAdapter;
 import com.galicia.galicia.custom.HorizontalListView;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.Constants;
 import com.galicia.galicia.global.FragmentReplacer;
 import com.galicia.galicia.models.ItemSerializable;
+import com.galicia.galicia.models.Shop;
 import com.galicia.galicia.untils.BitmapCreator;
+import com.galicia.galicia.untils.DataBase.ItemDAO;
+
+import com.galicia.galicia.untils.DataBase.ShopDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +54,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     private MainActivity mCallingActivity;
     private Item mCurrentItem;
     private ImageView ivProductPhoto, ivCompanyLogo, ivAddProduct, ivFicha;
-    private HorizontalListView hlvAllProduct;
+     private HorizontalListView hlvAllProduct;
     private ListView lvProductVideo;
     private TextView tvProductPhotoTitle;
     private WebView wvProductDescription;
@@ -52,6 +63,17 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     private List<Item> mThirdList;
     private RelativeLayout rlProductPhotoContainer;
     private LinearLayout llCompanyLogo, llDetail, llMoreDetail;
+    private ArrayList<Item> items;
+    private int selected;
+    private ShopDAO shopDAO;
+    private ItemDAO itemDAO;
+    private List<Shop> shopList;
+    private LinearLayout spinerLayout;
+    private Spinner spinner;
+    private SpinnerPurchaseAdapter spinnerPurchaseAdapter;
+    private TextView positivButton, negativButton;
+    private EditText shopName;
+    private AlertDialog alertDialog;
     private ScrollView svDescriptionContainer;
 
     public static FragmentProduct newInstance(final ItemSerializable _item) {
@@ -70,6 +92,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             mCurrentItem = ((ItemSerializable) getArguments().getSerializable(Constants.ITEM_SERIAZ)).getItem();
             getArguments().remove(Constants.ITEM_SERIAZ);
         }
+        shopDAO = new ShopDAO(activity);
+        itemDAO = new ItemDAO(activity);
     }
 
     @Override
@@ -121,7 +145,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
                         break;
                     case AppModel.ChangeEvent.PRODUCTS_CHANGED_ID:
                         mProductList.add(ApiManager.getProductsList().get(0));
-                        initProductDetail();
+                            initProductDetail();
                 }
             }
         };
@@ -268,14 +292,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         }
     }
 
-    private void makeWeb() {
-        final String mimeType = "text/html";
-        final String encoding = "UTF-8";
-        wvProductDescription.loadDataWithBaseURL("", mCurrentItem.getDescription(), mimeType, encoding, "");
-    }
-
-    private void addProduct(){
-
+    private void addProduct() {
+        new GetShopTask().execute();
     }
 
     private int getDisplayWidth(){
@@ -286,5 +304,113 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         FragmentReplacer.replaceFragmentWithStack(
                 mCallingActivity,
                 FragmentSlide.newInstance(mProductList, _position));
+    }
+
+    public class GetShopTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            shopList = new ArrayList<>();
+            shopList = shopDAO.getShops();
+            shopList.add(new Shop(-1, "Create new shop"));
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            createCustomDialog();
+        }
+    }
+
+    public class GetItemTask extends AsyncTask<Void,Void,Void>{
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            for(Item item:itemDAO.getItems()){
+                Log.d("AAA",item.getName());
+            }
+            return null;
+        }
+
+    }
+
+    public void createCustomDialog(){
+        final AlertDialog.Builder spinerDialog = new AlertDialog.Builder(mCallingActivity);
+
+        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.custom_dialog_spinner, null);
+
+        findDialogUI(view);
+        setDialogListener();
+
+        spinnerPurchaseAdapter = new SpinnerPurchaseAdapter(getActivity(), shopList);
+        spinner.setAdapter(spinnerPurchaseAdapter);
+
+        spinerDialog.setView(view);
+        alertDialog = spinerDialog.create();
+        alertDialog.show();
+
+    }
+
+    private void findDialogUI(View view){
+        spinerLayout = (LinearLayout) view.findViewById(R.id.ll_spinner);
+        spinner = (Spinner) view.findViewById(R.id.dialogSpinner);
+        negativButton = (TextView) view.findViewById(R.id.tv_cancel_action_CD);
+        positivButton = (TextView) view.findViewById(R.id.tv_accept_action_CD);
+        shopName = (EditText) view.findViewById(R.id.et_new_Shop_CD);
+    }
+    private void setDialogListener(){
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selected = position;
+                Log.d("QQQ", String.valueOf(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        negativButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (shopName.getVisibility() == View.VISIBLE) {
+                    spinerLayout.setVisibility(View.VISIBLE);
+                    shopName.setVisibility(View.GONE);
+                } else
+                    alertDialog.dismiss();
+            }
+        });
+
+        positivButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (shopName.getVisibility() == View.GONE) {
+                    if (shopList.get(selected).getId() == -1) {
+                        spinerLayout.setVisibility(View.INVISIBLE);
+                        shopName.setVisibility(View.VISIBLE);
+                    } else {
+                        shopList.get(selected).getId();
+                        itemDAO.save(mCurentItem,shopList.get(selected).getId());
+                        alertDialog.dismiss();
+                        Toast.makeText(mCallingActivity,  "Item add to shop_id= " + String.valueOf(shopList.get(selected).getId()), Toast.LENGTH_SHORT).show();
+                        new  GetItemTask().execute();
+                    }
+                } else if (!shopName.getText().toString().isEmpty()) {
+                    shopDAO.save(new Shop(shopName.getText().toString()));
+                    spinerLayout.setVisibility(View.VISIBLE);
+                    shopName.setVisibility(View.GONE);
+                    addProduct();
+                    alertDialog.dismiss();
+                } else {
+                    Toast.makeText(mCallingActivity, R.string.enter_shop, Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
     }
 }
