@@ -98,6 +98,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     public void onBackPressed() {
+        if (manager.isShowing()) {
+            manager.toggle();
+            return;
+        }
+
         if (FragmentReplacer.getSupBackStackEntryCount(this) == 1) {
             if (doubleBackToExitPressedOnce) {
                 super.onBackPressed();

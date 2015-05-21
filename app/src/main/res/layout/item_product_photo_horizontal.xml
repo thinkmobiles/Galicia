@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:id="@+id/rlItemContainer_IPI">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvDescription_IPI"
         android:textColor="@android:color/black"
-        android:padding="@dimen/default_padding"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_alignRight="@+id/ivIcon_IPI"
+        android:layout_alignEnd="@+id/ivIcon_IPI"
+        android:layout_alignLeft="@+id/ivIcon_IPI"
+        android:layout_alignStart="@+id/ivIcon_IPI" />
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/ivIcon_IPI"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/tvDescription_IPI"
+        android:paddingTop="@dimen/default_padding"
         android:layout_alignParentTop="true"
-        android:paddingTop="@dimen/default_padding" />
+        android:layout_above="@+id/tvDescription_IPI" />
 
 </RelativeLayout>

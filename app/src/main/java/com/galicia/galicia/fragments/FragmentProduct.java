@@ -2,6 +2,7 @@ package com.galicia.galicia.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -41,7 +42,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
 
     private MainActivity mCallingActivity;
     private Item mCurrentItem;
-    private ImageView ivProductPhoto, ivCompanyLogo, ibAddProduct, ibFicha;
+    private ImageView ivProductPhoto, ivCompanyLogo, ivAddProduct, ivFicha;
     private HorizontalListView hlvAllProduct;
     private ListView lvProductVideo;
     private TextView tvProductPhotoTitle;
@@ -49,7 +50,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     private EventListener mListener;
     private ArrayList<Product> mProductList;
     private List<Item> mThirdList;
-    private RelativeLayout rlProductPhoto;
+    private RelativeLayout rlProductPhotoContainer;
     private LinearLayout llCompanyLogo, llDetail, llMoreDetail;
     private ScrollView svDescriptionContainer;
 
@@ -83,27 +84,25 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     }
 
     private void findUI(final View _view){
-        ibAddProduct         = (ImageView) _view.findViewById(R.id.ivAddProduct_FPU);
-        ibFicha              = (ImageView) _view.findViewById(R.id.ivFichaCata_FPU);
-        wvProductDescription = (WebView) _view.findViewById(R.id.wvProductDescription_FPU);
-        tvProductPhotoTitle  = (TextView) _view.findViewById(R.id.tvThirdProductTitle_FPU);
-        hlvAllProduct        = (HorizontalListView) _view.findViewById(R.id.hlvAllProduct_FPU);
-        lvProductVideo       = (ListView) _view.findViewById(R.id.lvProductVideo_FPU);
-        ivProductPhoto       = (ImageView) _view.findViewById(R.id.ivProductPhoto_FPU);
-        rlProductPhoto       = (RelativeLayout) _view.findViewById(R.id.rlProductPhoto_FPU);
-        ivCompanyLogo        = (ImageView) _view.findViewById(R.id.ivCompanyLogo_FPU);
-
-
-        llCompanyLogo        = (LinearLayout)_view.findViewById(R.id.llCompanyLogo_FPU);
-        llDetail             = (LinearLayout) _view.findViewById(R.id.llDetailContainer_FPU);
-        llMoreDetail         = (LinearLayout) _view.findViewById(R.id.llMoreDetailContainer_FPU);
+        ivAddProduct            = (ImageView) _view.findViewById(R.id.ivAddProduct_FPU);
+        ivFicha                 = (ImageView) _view.findViewById(R.id.ivFichaCata_FPU);
+        wvProductDescription    = (WebView) _view.findViewById(R.id.wvProductDescription_FPU);
+        tvProductPhotoTitle     = (TextView) _view.findViewById(R.id.tvThirdProductTitle_FPU);
+        hlvAllProduct           = (HorizontalListView) _view.findViewById(R.id.hlvAllProduct_FPU);
+        lvProductVideo          = (ListView) _view.findViewById(R.id.lvProductVideo_FPU);
+        ivProductPhoto          = (ImageView) _view.findViewById(R.id.ivProductPhoto_FPU);
+        rlProductPhotoContainer = (RelativeLayout) _view.findViewById(R.id.rlProductPhotoContainer_FPU);
+        ivCompanyLogo           = (ImageView) _view.findViewById(R.id.ivCompanyLogo_FPU);
+        llCompanyLogo           = (LinearLayout)_view.findViewById(R.id.llCompanyLogo_FPU);
+        llDetail                = (LinearLayout) _view.findViewById(R.id.llDetailContainer_FPU);
+        llMoreDetail            = (LinearLayout) _view.findViewById(R.id.llMoreDetailContainer_FPU);
 
         svDescriptionContainer = (ScrollView) _view.findViewById(R.id.svDescriptionContainer_FPU);
     }
 
     private void setListener(){
-        ibAddProduct.setOnClickListener(this);
-        ibFicha.setOnClickListener(this);
+        ivAddProduct.setOnClickListener(this);
+        ivFicha.setOnClickListener(this);
         llMoreDetail.setOnClickListener(this);
         makeDownloadListener();
     }
@@ -156,7 +155,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
 
     private void verifyFichaCata(){
         if (mCurrentItem.getFichaCata() == null){
-            ibFicha.setVisibility(View.GONE);
+            ivFicha.setVisibility(View.GONE);
         }
     }
 
@@ -173,7 +172,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     private void setProductVideoDetail(){
         lvProductVideo.setVisibility(View.VISIBLE);
         llMoreDetail.setVisibility(View.VISIBLE);
-        rlProductPhoto.setVisibility(View.GONE);
+        rlProductPhotoContainer.setVisibility(View.GONE);
         initVideoList();
         initHorizontalImageList();
     }
@@ -215,6 +214,9 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             return;
         }
         final HorizontalPhotoProductAdapter adapter = new HorizontalPhotoProductAdapter(mCallingActivity, mProductList);
+        if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("")) {
+            adapter.setItemMargin(150);
+        }
         hlvAllProduct.setAdapter(adapter);
         hlvAllProduct.setOnItemClickListener(this);
     }

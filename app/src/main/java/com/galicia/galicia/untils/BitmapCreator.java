@@ -12,7 +12,7 @@ import com.galicia.galicia.global.ApiManager;
 public abstract class BitmapCreator {
 
     public static final Bitmap getBitmap(String _path) {
-        return BitmapFactory.decodeFile(ApiManager.getPath() + _path);
+        return BitmapFactory.decodeFile(getAbsolutePath(_path));
     }
 
     public static String getAbsolutePath(String _path){
@@ -20,6 +20,6 @@ public abstract class BitmapCreator {
     }
 
     public static final Drawable getDrawable(String _path) {
-        return Drawable.createFromPath(ApiManager.getPath() + _path);
+        return Drawable.createFromPath(getAbsolutePath(_path));
     }
 }
