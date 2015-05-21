@@ -16,10 +16,6 @@ import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.adapters.ItemCartAdapter;
 import com.galicia.galicia.global.Constants;
-import com.galicia.galicia.global.ItemsPurchaseList;
-import com.galicia.galicia.models.ItemSerializable;
-import com.galicia.galicia.models.Shop;
-import com.galicia.galicia.untils.DataBase.GaliciaDataBaseHelper;
 import com.galicia.galicia.untils.DataBase.ItemDAO;
 
 import java.util.List;
@@ -35,12 +31,15 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
     private ItemDAO itemDAO;
     private String shopId;
     private FragmentActivity callActivity;
+    private static ItemCartFragment fragment;
 
     public static ItemCartFragment newInstance(final String shop_id) {
-        final ItemCartFragment fragment = new ItemCartFragment();
-        final Bundle bundle = new Bundle();
+
+        fragment = new ItemCartFragment();
+        Bundle bundle = new Bundle();
         bundle.putString(Constants.ITEM_SHOP_ID, shop_id);
         fragment.setArguments(bundle);
+
         return fragment;
     }
 
@@ -49,17 +48,18 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
         super.onAttach(activity);
         callActivity = (MainActivity) activity;
 
-        if (getArguments() != null) {
-            shopId = getArguments().getString(Constants.ITEM_SHOP_ID);
-            getArguments().remove(Constants.ITEM_SHOP_ID);
-        }
-
-        itemDAO = new ItemDAO(activity);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            shopId = getArguments().getString(Constants.ITEM_SHOP_ID);
+            getArguments().remove(Constants.ITEM_SHOP_ID);
+        }
+
+        itemDAO = new ItemDAO(callActivity);
+        data = itemDAO.getItems(shopId);
     }
 
     @Override
@@ -69,9 +69,7 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
         findUI(rootView);
         setClickListener();
 
-        data = itemDAO.getItems(shopId);
-
-        itemCartAdapter = new ItemCartAdapter(callActivity, data);
+        itemCartAdapter = new ItemCartAdapter(callActivity, data, shopId);
         purchaseList.setAdapter(itemCartAdapter);
         return rootView;
     }
@@ -91,11 +89,18 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
             case R.id.iv_deleteAll_FS:
                 if (!data.isEmpty()) {
                     itemDAO.deleteAll();
-                    itemCartAdapter.notifyDataSetChanged();
+                    updateDate();
+                    Toast.makeText(getActivity(), R.string.delete_all_item, Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(), R.string.empty_cart, Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
+    }
+
+    public void updateDate() {
+        data.clear();
+        data.addAll(itemDAO.getItems(shopId));
+        itemCartAdapter.notifyDataSetChanged();
     }
 }

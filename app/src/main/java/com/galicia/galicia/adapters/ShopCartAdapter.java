@@ -1,6 +1,5 @@
 package com.galicia.galicia.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -9,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.galicia.galicia.R;
 import com.galicia.galicia.fragments.ItemCartFragment;
@@ -27,13 +27,14 @@ public class ShopCartAdapter extends BaseAdapter implements View.OnClickListener
     private List<Shop> shopsData;
     private LayoutInflater inflater;
 
-    public ShopCartAdapter(FragmentActivity activity, List<Shop> _data){
-            this.activity = activity;
-            shopsData = _data;
+    public ShopCartAdapter(FragmentActivity activity, List<Shop> _data) {
+        this.activity = activity;
+        shopsData = _data;
 
-            inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     }
+
     @Override
     public int getCount() {
         return shopsData.size();
@@ -53,8 +54,8 @@ public class ShopCartAdapter extends BaseAdapter implements View.OnClickListener
     public View getView(final int position, View convertView, final ViewGroup parent) {
         ViewHolder holder;
 
-        if (convertView == null){
-            convertView = inflater.inflate(R.layout.item_shoping_cart_list,parent,false);
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.item_shoping_cart_list, parent, false);
             holder = new ViewHolder();
 
             holder.nameShop = (TextView) convertView.findViewById(R.id.tv_title_goods_IS);
@@ -65,29 +66,31 @@ public class ShopCartAdapter extends BaseAdapter implements View.OnClickListener
 
             convertView.setTag(holder);
 
-        }else
+        } else
             holder = (ViewHolder) convertView.getTag();
 
-            holder.nameShop.setText(shopsData.get(position).getName());
+        holder.nameShop.setText(shopsData.get(position).getName());
 
-            holder.sendButton.setOnClickListener(this);
-            holder.deleteButton.setOnClickListener( new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ShopDAO shopDAO = new ShopDAO(activity);
-                    shopDAO.deleteShop(shopsData.get(position));
-                    notifyDataSetChanged();
-                }
-            });
+        holder.sendButton.setOnClickListener(this);
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShopDAO shopDAO = new ShopDAO(activity);
+                shopDAO.deleteShop(shopsData.get(position));
+                ShopCartFragment.newInstance().updateDate();
+                notifyDataSetChanged();
+                Toast.makeText(activity, R.string.delete_shop, Toast.LENGTH_SHORT).show();
+            }
+        });
 
-            holder.refreshButton.setOnClickListener(this);
-            holder.seeButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    FragmentReplacer.replaceFragmentWithStack(activity,
-                            ItemCartFragment.newInstance(String.valueOf(shopsData.get(position).getId())));
-                }
-            });
+        holder.refreshButton.setOnClickListener(this);
+        holder.seeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentReplacer.replaceFragmentWithStack(activity,
+                        ItemCartFragment.newInstance(String.valueOf(shopsData.get(position).getId())));
+            }
+        });
 
         return convertView;
     }
@@ -95,18 +98,18 @@ public class ShopCartAdapter extends BaseAdapter implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.iv_send_shop_item_IS :
+        switch (v.getId()) {
+            case R.id.iv_send_shop_item_IS:
                 break;
-            case R.id.iv_refresh_shop_item_IS :
+            case R.id.iv_refresh_shop_item_IS:
                 break;
-            case R.id.iv_see_detail_shop_item_IS :
+            case R.id.iv_see_detail_shop_item_IS:
 
                 break;
         }
     }
 
-    class ViewHolder{
+    class ViewHolder {
         private TextView nameShop;
         private ImageView refreshButton, deleteButton, seeButton, sendButton;
     }

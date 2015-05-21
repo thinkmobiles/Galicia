@@ -16,10 +16,7 @@ import android.widget.Toast;
 import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.adapters.ShopCartAdapter;
-import com.galicia.galicia.global.Constants;
 import com.galicia.galicia.global.FragmentReplacer;
-import com.galicia.galicia.global.ItemsPurchaseList;
-import com.galicia.galicia.models.ItemSerializable;
 import com.galicia.galicia.models.Shop;
 import com.galicia.galicia.untils.DataBase.ShopDAO;
 
@@ -36,9 +33,12 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener {
     private ShopDAO shopDAO;
     private Button guardarButton;
     private FragmentActivity callActivity;
+    private static ShopCartFragment fragment;
 
     public static ShopCartFragment newInstance() {
-        final ShopCartFragment fragment = new ShopCartFragment();
+        if (fragment == null) {
+            fragment = new ShopCartFragment();
+        }
         return fragment;
     }
 
@@ -92,12 +92,19 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener {
             case R.id.iv_deleteAll_FS:
                 if (!data.isEmpty()) {
                     shopDAO.deleteAll();
-                    shopCartAdapter.notifyDataSetChanged();
+                    updateDate();
+                    Toast.makeText(getActivity(), R.string.delete_all_shop, Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(), R.string.empty_cart, Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
+    }
+
+    public void updateDate() {
+        data.clear();
+        data.addAll(shopDAO.getShops());
+        shopCartAdapter.notifyDataSetChanged();
     }
 
 }

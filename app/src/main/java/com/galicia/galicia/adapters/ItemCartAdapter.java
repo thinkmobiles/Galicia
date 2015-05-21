@@ -1,21 +1,21 @@
 package com.galicia.galicia.adapters;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.R;
-import com.galicia.galicia.global.ItemsPurchaseList;
+import com.galicia.galicia.fragments.ItemCartFragment;
+import com.galicia.galicia.global.FragmentReplacer;
 import com.galicia.galicia.untils.BitmapCreator;
 import com.galicia.galicia.untils.DataBase.ItemDAO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,17 +25,19 @@ public class ItemCartAdapter extends BaseAdapter implements View.OnClickListener
     private Context context;
     private List<Item> itemsData;
     private LayoutInflater inflater;
+    private String shop_id;
 
 
-
-    public ItemCartAdapter(Context _context, List<Item> _data){
-        if(_context != null){
+    public ItemCartAdapter(Context _context, List<Item> _data, String _shop_id) {
+        if (_context != null) {
             context = _context;
             itemsData = _data;
+            shop_id = _shop_id;
 
             inflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
     }
+
     @Override
     public int getCount() {
         return itemsData.size();
@@ -55,8 +57,8 @@ public class ItemCartAdapter extends BaseAdapter implements View.OnClickListener
     public View getView(final int position, View convertView, final ViewGroup parent) {
         ViewHolder holder;
 
-        if (convertView == null){
-            convertView = inflater.inflate(R.layout.item_product_cart_list,parent,false);
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.item_product_cart_list, parent, false);
             holder = new ViewHolder();
 
             holder.previewImage = (ImageView) convertView.findViewById(R.id.ivPrevProduct);
@@ -66,21 +68,24 @@ public class ItemCartAdapter extends BaseAdapter implements View.OnClickListener
 
             convertView.setTag(holder);
 
-        }else
+        } else
             holder = (ViewHolder) convertView.getTag();
 
-            holder.previewImage.setImageDrawable(BitmapCreator.getDrawable(itemsData.get(position).getIcon()));
-            holder.nameItem.setText(itemsData.get(position).getName());
+        holder.previewImage.setImageDrawable(BitmapCreator.getDrawable(itemsData.get(position).getIcon()));
+        holder.nameItem.setText(itemsData.get(position).getName());
 
-            holder.sendButton.setOnClickListener(this);
-            holder.deleteButton.setOnClickListener( new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ItemDAO itemDAO = new ItemDAO(context);
-                    itemDAO.deleteItem(itemsData.get(position));
-                    notifyDataSetChanged();
-                }
-            });
+        holder.sendButton.setOnClickListener(this);
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ItemDAO itemDAO = new ItemDAO(context);
+                itemDAO.deleteItem(itemsData.get(position));
+                FragmentReplacer.replaceFragmentWithoutBackStack((android.support.v4.app.FragmentActivity) context, ItemCartFragment.newInstance(shop_id));
+//                    fragment.updateDate();
+                //                  notifyDataSetChanged();
+                Toast.makeText(context, R.string.delete_item, Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         return convertView;
@@ -89,13 +94,13 @@ public class ItemCartAdapter extends BaseAdapter implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.iv_send_shop_item_IS :
+        switch (v.getId()) {
+            case R.id.iv_send_shop_item_IS:
                 break;
         }
     }
 
-    class ViewHolder{
+    class ViewHolder {
         private TextView nameItem;
         private ImageView previewImage, deleteButton, sendButton;
     }
