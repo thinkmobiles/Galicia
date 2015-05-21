@@ -7,6 +7,7 @@ public abstract class Constants {
 
     public static final String UPDATE_TIME = "update_time";
     public static final String ITEM_SERIAZ = "item_seriaz";
+    public static final String ITEM_SHOP_ID = "item_shop";
     public static final String FICHA_CATA = "ficha_cata";
     public static final String POSITION = "position";
     public static final String PRODUCT_LIST = "product_list";
@@ -48,10 +49,6 @@ public abstract class Constants {
 
     public static final String DELETE_SHOP_TABLE = "DROP TABLE IF EXISTS " + TABLE_SHOP;
     public static final String DELETE_ITEM_TABLE = "DROP TABLE IF EXISTS " + TABLE_ITEM;
-
-    public static final String ITEM_ID_WITH_PREFIX = "i.id";
-    public static final String ITEM_NAME_WITH_PREFIX = "i.name";
-    public static final String SHOP_NAME_WITH_PREFIX = "s.name";
-
     public static final String WHERE_ID_EQUALS = ID_COLUMN + " =?";
+    public static final String WHERE_SHOP_ID_EQUALS = COLUMN_ID_SHOP + " =?";
 }

@@ -21,28 +21,29 @@ public class ItemDAO extends GaliciaDBDAO {
         super(context);
     }
 
-    public long save(Item item, int shop_id){
+    public void save(Item item, int shop_id){
         ContentValues values = new ContentValues();
         values.put(Constants.NAME_COLUMN, item.getName());
         values.put(Constants.COLUMN_LINK_IMAGE, item.getIcon());
         values.put(Constants.COLUMN_LINK_PDF, item.getPdf());
         values.put(Constants.COLUMN_ID_SHOP, shop_id);
-        return database.insert(Constants.TABLE_ITEM, null, values);
+        database.insert(Constants.TABLE_ITEM, null, values);
+
     }
 
-    public ArrayList<Item> getItems(){
+    public ArrayList<Item> getItems(String shopId){
         ArrayList<Item> items = new ArrayList<>();
-        String query = "SELECT " + Constants.ITEM_ID_WITH_PREFIX + ","
-                + Constants.ITEM_NAME_WITH_PREFIX + ","
+        String query = "SELECT "
+                + Constants.ID_COLUMN + ","
+                + Constants.NAME_COLUMN + ","
                 + Constants.COLUMN_LINK_IMAGE + ","
                 + Constants.COLUMN_LINK_PDF + ","
-                + Constants.COLUMN_ID_SHOP + ","
-                + Constants.SHOP_NAME_WITH_PREFIX
+                + Constants.COLUMN_ID_SHOP
                 + " FROM "
-                + Constants.TABLE_ITEM + " i, "
-                + Constants.TABLE_SHOP + " s WHERE i."
-                + Constants.COLUMN_ID_SHOP + " =s."
-                + Constants.ID_COLUMN;
+                + Constants.TABLE_ITEM
+                + " WHERE "
+                + Constants.COLUMN_ID_SHOP + " = "
+                + shopId;
 
         Log.d("query", query);
         Cursor cursor = database.rawQuery(query, null);
@@ -54,6 +55,27 @@ public class ItemDAO extends GaliciaDBDAO {
             item.setPdf(cursor.getString(3));
             items.add(item);
         }
+        Log.d("ZZZ", String.valueOf(cursor.getCount()));
         return items;
+    }
+    public  long updateItem(Item item){
+        ContentValues values = new ContentValues();
+        values.put(Constants.NAME_COLUMN, item.getName());
+        values.put(Constants.COLUMN_LINK_IMAGE, item.getIcon());
+        values.put(Constants.COLUMN_LINK_PDF, item.getPdf());
+
+        long result = database.update(Constants.TABLE_ITEM,values,
+                Constants.WHERE_ID_EQUALS,
+                new String[]{item.getId()});
+        Log.d("Update result:","=" + result);
+        return result;
+    }
+    public int deleteItem(Item item){
+        return database.delete(Constants.TABLE_ITEM,
+                Constants.WHERE_ID_EQUALS,
+                new String[]{item.getId() + ""});
+    }
+    public void deleteAll(){
+        database.delete(Constants.TABLE_ITEM,null,null);
     }
 }

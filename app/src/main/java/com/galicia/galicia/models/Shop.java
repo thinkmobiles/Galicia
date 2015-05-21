@@ -1,9 +1,11 @@
 package com.galicia.galicia.models;
 
+import java.io.Serializable;
+
 /**
  * Created by Feltsan on 20.05.2015.
  */
-public class Shop {
+public class Shop implements Serializable{
     private int id;
     private String name;
 

@@ -66,7 +66,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     private int selected;
     private ShopDAO shopDAO;
     private ItemDAO itemDAO;
-    private List<Shop> shopList;
+    private List<Shop> shopList, subList;
     private LinearLayout spinerLayout;
     private Spinner spinner;
     private SpinnerPurchaseAdapter spinnerPurchaseAdapter;
@@ -314,9 +314,15 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         @Override
         protected Void doInBackground(Void... params) {
             shopList = new ArrayList<>();
+            subList = new ArrayList<>();
             shopList = shopDAO.getShops();
-            shopList.add(new Shop(-1, "Create new shop"));
+            if(!shopList.isEmpty()){
+                Shop lastElement = shopList.get(shopList.size()-1);
+                shopList.add(0, lastElement);
+                subList = shopList.subList(0,shopList.size()-1);
+            }
 
+            subList.add(new Shop(-1, "Create new shop"));
             return null;
         }
 
@@ -325,18 +331,6 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             super.onPostExecute(aVoid);
             createCustomDialog();
         }
-    }
-
-    public class GetItemTask extends AsyncTask<Void,Void,Void>{
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            for(Item item:itemDAO.getItems()){
-                Log.d("AAA",item.getName());
-            }
-            return null;
-        }
-
     }
 
     public void createCustomDialog(){
@@ -348,7 +342,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         findDialogUI(view);
         setDialogListener();
 
-        spinnerPurchaseAdapter = new SpinnerPurchaseAdapter(getActivity(), shopList);
+        spinnerPurchaseAdapter = new SpinnerPurchaseAdapter(getActivity(), subList);
         spinner.setAdapter(spinnerPurchaseAdapter);
 
         spinerDialog.setView(view);
@@ -393,15 +387,15 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             @Override
             public void onClick(View v) {
                 if (shopName.getVisibility() == View.GONE) {
-                    if (shopList.get(selected).getId() == -1) {
+                    if (subList.get(selected).getId() == -1) {
                         spinerLayout.setVisibility(View.INVISIBLE);
                         shopName.setVisibility(View.VISIBLE);
                     } else {
                         shopList.get(selected).getId();
-                        itemDAO.save(mCurentItem,shopList.get(selected).getId());
+                        itemDAO.save(mCurentItem,subList.get(selected).getId());
                         alertDialog.dismiss();
-                        Toast.makeText(mCallingActivity,  "Item add to shop_id= " + String.valueOf(shopList.get(selected).getId()), Toast.LENGTH_SHORT).show();
-                        new  GetItemTask().execute();
+                        Toast.makeText(mCallingActivity,  "Item add to shop_id= " + String.valueOf(subList.get(selected).getId()), Toast.LENGTH_SHORT).show();
+
                     }
                 } else if (!shopName.getText().toString().isEmpty()) {
                     shopDAO.save(new Shop(shopName.getText().toString()));

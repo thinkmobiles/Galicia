@@ -40,22 +40,16 @@ public class ShopDAO extends GaliciaDBDAO {
         return shops;
     }
 
-    public void loadShops() {
-        Shop shop = new Shop("Good Food");
-        Shop shop1 = new Shop("Zina");
-        Shop shop2 = new Shop("Silpo");
+    public int deleteShop(Shop shop) {
+        database.delete(Constants.TABLE_ITEM,Constants.WHERE_SHOP_ID_EQUALS,  new String[]{shop.getId() + ""});
+        return database.delete(Constants.TABLE_SHOP,
+                Constants.WHERE_ID_EQUALS,
+                new String[]{shop.getId() + ""});
+    }
 
-
-        List<Shop> departments = new ArrayList<Shop>();
-        departments.add(shop);
-        departments.add(shop1);
-        departments.add(shop2);
-
-        for (Shop sho : departments) {
-            ContentValues values = new ContentValues();
-            values.put(Constants.NAME_COLUMN, sho.getName());
-            database.insert(Constants.TABLE_SHOP, null, values);
-        }
+    public void deleteAll(){
+        database.delete(Constants.TABLE_ITEM,null,null);
+        database.delete(Constants.TABLE_SHOP,null,null);
     }
 
 }

@@ -12,6 +12,7 @@ import com.cristaliza.mvc.models.estrella.AppModel;
 import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
+import com.galicia.galicia.fragments.ShopCartFragment;
 import com.galicia.galicia.fragments.StartMenu;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.FragmentReplacer;
@@ -75,9 +76,9 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
         if(view == header){
             FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu());
             menu.toggle();
-//        }else if(view == footer){
-//            FragmentReplacer.replaceFragmentWithStack(activity, new ShoppingCartFragment());
-//            menu.toggle();
+        }else if(view == footer){
+            FragmentReplacer.replaceFragmentWithStack(activity, ShopCartFragment.newInstance());
+            menu.toggle();
         } else {
             FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu().newInstance(position - 1));
                     menu.toggle();
