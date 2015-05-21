@@ -122,6 +122,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         llMoreDetail            = (LinearLayout) _view.findViewById(R.id.llMoreDetailContainer_FPU);
 
         svDescriptionContainer = (ScrollView) _view.findViewById(R.id.svDescriptionContainer_FPU);
+
+        mCallingActivity.setEnableMenu(true);
     }
 
     private void setListener(){
@@ -269,7 +271,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     private void startVideoPlayer(String _path){
         final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(_path));
         intent.setDataAndType(Uri.parse(_path), "video/*");
-        startActivity(intent);
+        startActivity(Intent.createChooser(intent,"Not play"));
+//        startActivity(intent);
     }
 
 

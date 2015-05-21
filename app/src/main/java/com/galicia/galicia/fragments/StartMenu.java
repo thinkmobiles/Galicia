@@ -20,6 +20,7 @@ import com.galicia.galicia.R;
 import com.galicia.galicia.custom.GroupBeverageModel;
 import com.galicia.galicia.custom.custom_list.ItemBeverage;
 import com.galicia.galicia.global.ApiManager;
+import com.galicia.galicia.global.Constants;
 import com.galicia.galicia.global.FragmentReplacer;
 import com.galicia.galicia.models.ItemSerializable;
 
@@ -45,7 +46,7 @@ public class StartMenu extends Fragment implements View.OnClickListener {
     public static StartMenu newInstance(final int _open){
         StartMenu fragment = new StartMenu();
         Bundle attr = new Bundle();
-        attr.putInt("OPEN",_open);
+        attr.putInt(Constants.PARAM_OPEN,_open);
         fragment.setArguments(attr);
         return fragment;
     }
@@ -55,7 +56,7 @@ public class StartMenu extends Fragment implements View.OnClickListener {
         super.onAttach(activity);
         this.mCallingActivity = (MainActivity) activity;
         if(getArguments() != null){
-            idOpen = getArguments().getInt("OPEN");
+            idOpen = getArguments().getInt(Constants.PARAM_OPEN);
         }
     }
 
@@ -79,7 +80,7 @@ public class StartMenu extends Fragment implements View.OnClickListener {
             public void onEvent(Event event) {
                 switch (event.getId()){
                     case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
-                        Toast.makeText(getActivity(), event.getType() + "error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), event.getType() + " error", Toast.LENGTH_SHORT).show();
                         break;
                     case AppModel.ChangeEvent.FIRST_LEVEL_CHANGED_ID:
                         createMenu();
@@ -168,8 +169,7 @@ public class StartMenu extends Fragment implements View.OnClickListener {
     }
 
     private void openItemFragment(final Item _item) {
-        mCallingActivity.setEnableMenu(true);
-            FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FragmentProduct.newInstance(new ItemSerializable(_item)));
+        FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FragmentProduct.newInstance(new ItemSerializable(_item)));
     }
 
     private void clickItem(final int position) {

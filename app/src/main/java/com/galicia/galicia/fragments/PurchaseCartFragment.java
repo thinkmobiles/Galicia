@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.cristaliza.mvc.models.estrella.Item;
+import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.adapters.PurchaseCartAdapter;
 import com.galicia.galicia.global.ItemsPurchaseList;
@@ -25,11 +26,12 @@ public class PurchaseCartFragment extends Fragment implements View.OnClickListen
     private ArrayList<Item> data;
     private ListView purchaseList;
     private ImageView deleteItems;
+    private MainActivity mCallingActivity;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-
+        mCallingActivity = (MainActivity) activity;
         data = ItemsPurchaseList.getInstance(getActivity()).getItems();
     }
 
@@ -53,6 +55,7 @@ public class PurchaseCartFragment extends Fragment implements View.OnClickListen
     public void findUI(View view) {
         deleteItems = (ImageView) view.findViewById(R.id.iv_deleteAll_FS);
         purchaseList = (ListView) view.findViewById(R.id.lv_list_Shopping_FS);
+        mCallingActivity.setEnableMenu(true);
     }
 
     public void setClickListener() {

@@ -53,6 +53,8 @@ public class FichaFragment extends Fragment implements View.OnClickListener {
     private void findUI(final View _view){
         ivFicha = (ImageViewTouch) _view.findViewById(R.id.ivFicha_FF);
         ivClose = (ImageView) _view.findViewById(R.id.ivClose_FF);
+
+        mCallingActivity.setEnableMenu(true);
     }
 
     private void setListener(){
