@@ -277,7 +277,6 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         ivCompanyLogo.setImageBitmap(BitmapCreator.getBitmap(mCurrentItem.getLogo()));
         mCallingActivity.setBackground(mCurrentItem.getBackgroundImage());
         ivCompanyLogo.setImageBitmap(BitmapCreator.getBitmap(mCurrentItem.getLogo()));
-        makeWeb();
 
         if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("")) {
             svDescriptionContainer.setVisibility(View.GONE);
@@ -394,7 +393,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
                         shopName.setVisibility(View.VISIBLE);
                     } else {
                         shopList.get(selected).getId();
-                        itemDAO.save(mCurentItem,shopList.get(selected).getId());
+                        itemDAO.save(mCurrentItem,shopList.get(selected).getId());
                         alertDialog.dismiss();
                         Toast.makeText(mCallingActivity,  "Item add to shop_id= " + String.valueOf(shopList.get(selected).getId()), Toast.LENGTH_SHORT).show();
                         new  GetItemTask().execute();
