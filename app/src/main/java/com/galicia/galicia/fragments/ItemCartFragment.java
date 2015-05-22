@@ -89,7 +89,7 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.iv_deleteAll_FS:
                 if (!data.isEmpty()) {
-                    itemDAO.deleteAll();
+                    itemDAO.deleteAll(shopId);
                     updateDate();
                     Toast.makeText(getActivity(), R.string.delete_all_item, Toast.LENGTH_SHORT).show();
                 } else {

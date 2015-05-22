@@ -75,7 +75,7 @@ public class ItemDAO extends GaliciaDBDAO {
                 Constants.WHERE_ID_EQUALS,
                 new String[]{item.getId() + ""});
     }
-    public void deleteAll(){
-        database.delete(Constants.TABLE_ITEM,null,null);
+    public void deleteAll(String shop_id){
+        database.delete(Constants.TABLE_ITEM,Constants.WHERE_SHOP_ID_EQUALS,new String[]{shop_id + ""});
     }
 }
