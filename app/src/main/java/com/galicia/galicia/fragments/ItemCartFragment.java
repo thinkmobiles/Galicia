@@ -30,7 +30,7 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
     private ImageView deleteItems;
     private ItemDAO itemDAO;
     private String shopId;
-    private FragmentActivity callActivity;
+    private MainActivity callActivity;
     private static ItemCartFragment fragment;
 
     public static ItemCartFragment newInstance(final String shop_id) {
@@ -77,7 +77,7 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
     public void findUI(View view) {
         deleteItems = (ImageView) view.findViewById(R.id.iv_deleteAll_FS);
         purchaseList = (ListView) view.findViewById(R.id.lv_list_Shopping_FS);
-        mCallingActivity.setEnableMenu(true);
+        callActivity.setEnableMenu(true);
     }
 
     public void setClickListener() {
