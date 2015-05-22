@@ -35,6 +35,7 @@
     <string name="delete_item">Item deleted succesfull</string>
     <string name="delete_all_item">All item deleted succesfull</string>
     <string name="delete_all_shop">All shop deleted succesfull</string>
+    <string name="dialog_lable">ANADIR FICHA A</string>
 
     <string-array name="spinner_resource">
         <item>Item1</item>

@@ -1,6 +1,9 @@
 package com.galicia.galicia.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +15,18 @@ import android.widget.Toast;
 import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.R;
 import com.galicia.galicia.fragments.ItemCartFragment;
+import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.FragmentReplacer;
 import com.galicia.galicia.untils.BitmapCreator;
 import com.galicia.galicia.untils.DataBase.ItemDAO;
 
+import java.io.File;
 import java.util.List;
 
 /**
  * Created by Feltsan on 15.05.2015.
  */
-public class ItemCartAdapter extends BaseAdapter implements View.OnClickListener {
+public class ItemCartAdapter extends BaseAdapter{
     private Context context;
     private List<Item> itemsData;
     private LayoutInflater inflater;
@@ -74,7 +79,12 @@ public class ItemCartAdapter extends BaseAdapter implements View.OnClickListener
         holder.previewImage.setImageDrawable(BitmapCreator.getDrawable(itemsData.get(position).getIcon()));
         holder.nameItem.setText(itemsData.get(position).getName());
 
-        holder.sendButton.setOnClickListener(this);
+        holder.sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openEmailClient(itemsData.get(position).getPdf());
+            }
+        });
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,17 +102,25 @@ public class ItemCartAdapter extends BaseAdapter implements View.OnClickListener
     }
 
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_send_shop_item_IS:
-                break;
-        }
-    }
 
     class ViewHolder {
         private TextView nameItem;
         private ImageView previewImage, deleteButton, sendButton;
+    }
+
+    public void openEmailClient(String string){
+
+        File file = new File(ApiManager.getPath() + string);
+        if (!file.exists() || !file.canRead()) {
+            Toast.makeText(context, "Attachment Error", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Uri uri = Uri.parse("file://" + file);
+        Intent mailer = new Intent(Intent.ACTION_SEND);
+        mailer.setType("text/plain");
+        mailer.putExtra(Intent.EXTRA_STREAM, uri);;
+      //  mailer.putExtra(Intent.EXTRA_TEXT, bodyText);
+        context.startActivity(Intent.createChooser(mailer, "Send email..."));
     }
 
 }

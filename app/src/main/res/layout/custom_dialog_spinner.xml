@@ -12,7 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/abc_button_padding_horizontal_material">
+        android:layout_marginBottom="@dimen/abc_button_padding_horizontal_material"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_dialogTitle_CD"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="30pt"
+            android:textColor="#FFFFFF"
+            android:text="@string/dialog_lable"/>
 
         <Spinner
             android:id="@+id/dialogSpinner"
@@ -21,7 +30,9 @@
             android:layout_gravity="center_horizontal"
             android:background="@android:color/white"
             android:gravity="center_horizontal"
-            android:padding="@dimen/abc_button_padding_horizontal_material"></Spinner>
+            android:padding="@dimen/abc_button_padding_horizontal_material">
+
+            </Spinner>
     </LinearLayout>
 
     <LinearLayout
