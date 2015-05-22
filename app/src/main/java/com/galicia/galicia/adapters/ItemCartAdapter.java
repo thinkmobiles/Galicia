@@ -1,6 +1,7 @@
 package com.galicia.galicia.adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,11 @@ public class ItemCartAdapter extends BaseAdapter implements View.OnClickListener
         return 0;
     }
 
+    public void updateList(List<Item> _list){
+        this.itemsData = _list;
+        notifyDataSetChanged();
+    }
+
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
         ViewHolder holder;
@@ -60,37 +66,32 @@ public class ItemCartAdapter extends BaseAdapter implements View.OnClickListener
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.item_product_cart_list, parent, false);
             holder = new ViewHolder();
-
-            holder.previewImage = (ImageView) convertView.findViewById(R.id.ivPrevProduct);
-            holder.nameItem = (TextView) convertView.findViewById(R.id.tv_title_goods_IS);
-            holder.deleteButton = (ImageView) convertView.findViewById(R.id.iv_delete_shop_item_IS);
-            holder.sendButton = (ImageView) convertView.findViewById(R.id.iv_send_shop_item_IS);
+            holder.initHolder(convertView);
 
             convertView.setTag(holder);
 
         } else
             holder = (ViewHolder) convertView.getTag();
 
-        holder.previewImage.setImageDrawable(BitmapCreator.getDrawable(itemsData.get(position).getIcon()));
-        holder.nameItem.setText(itemsData.get(position).getName());
-
+        holder.setData(BitmapCreator.getDrawable(itemsData.get(position).getIcon()), itemsData.get(position).getName());
         holder.sendButton.setOnClickListener(this);
-        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ItemDAO itemDAO = new ItemDAO(context);
-                itemDAO.deleteItem(itemsData.get(position));
-                FragmentReplacer.replaceFragmentWithoutBackStack((android.support.v4.app.FragmentActivity) context, ItemCartFragment.newInstance(shop_id));
-//                    fragment.updateDate();
-                //                  notifyDataSetChanged();
-                Toast.makeText(context, R.string.delete_item, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
+        holder.deleteButton.setOnClickListener(deleteOnClickListener(position));
         return convertView;
     }
 
+    private View.OnClickListener deleteOnClickListener(final int pos){
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ItemDAO itemDAO = new ItemDAO(context);
+                itemDAO.deleteItem(itemsData.get(pos));
+                List<Item> list = itemDAO.getItems(shop_id);
+                updateList(list);
+                Toast.makeText(context, R.string.delete_item, Toast.LENGTH_SHORT).show();
+            }
+        };
+        return listener;
+    }
 
     @Override
     public void onClick(View v) {
@@ -103,6 +104,18 @@ public class ItemCartAdapter extends BaseAdapter implements View.OnClickListener
     class ViewHolder {
         private TextView nameItem;
         private ImageView previewImage, deleteButton, sendButton;
+
+        public void initHolder(View _view){
+            this.previewImage   = (ImageView) _view.findViewById(R.id.ivPrevProduct);
+            this.nameItem       = (TextView) _view.findViewById(R.id.tv_title_goods_IS);
+            this.deleteButton   = (ImageView) _view.findViewById(R.id.iv_delete_shop_item_IS);
+            this.sendButton     = (ImageView) _view.findViewById(R.id.iv_send_shop_item_IS);
+        }
+
+        public void setData(Drawable _icon, String _name){
+            previewImage.setImageDrawable(_icon);
+            nameItem.setText(_name);
+        }
     }
 
 }

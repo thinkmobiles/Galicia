@@ -31,6 +31,10 @@ public abstract class FragmentReplacer {
         _activity.getFragmentManager().popBackStack(null, _activity.getFragmentManager().POP_BACK_STACK_INCLUSIVE);
     }
 
+    public static final void clearSupBackStack(final FragmentActivity _activity){
+        _activity.getSupportFragmentManager().popBackStack(null, _activity.getFragmentManager().POP_BACK_STACK_INCLUSIVE);
+    }
+
     public static final void replaceTopNavigationFragment(final Activity _activity,
                                                           final Fragment _fragment) {
          _activity.getFragmentManager().beginTransaction()
