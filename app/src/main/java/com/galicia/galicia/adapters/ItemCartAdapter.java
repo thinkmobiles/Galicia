@@ -1,9 +1,7 @@
 package com.galicia.galicia.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,19 +12,16 @@ import android.widget.Toast;
 
 import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.R;
-import com.galicia.galicia.fragments.ItemCartFragment;
-import com.galicia.galicia.global.ApiManager;
-import com.galicia.galicia.global.FragmentReplacer;
 import com.galicia.galicia.untils.BitmapCreator;
 import com.galicia.galicia.untils.DataBase.ItemDAO;
+import com.galicia.galicia.untils.PDFSender;
 
-import java.io.File;
 import java.util.List;
 
 /**
  * Created by Feltsan on 15.05.2015.
  */
-public class ItemCartAdapter extends BaseAdapter implements View.OnClickListener {
+public class ItemCartAdapter extends BaseAdapter{
     private Context context;
     private List<Item> itemsData;
     private LayoutInflater inflater;
@@ -78,32 +73,26 @@ public class ItemCartAdapter extends BaseAdapter implements View.OnClickListener
             holder = (ViewHolder) convertView.getTag();
 
         holder.setData(BitmapCreator.getDrawable(itemsData.get(position).getIcon()), itemsData.get(position).getName());
-        holder.sendButton.setOnClickListener(this);
-        holder.deleteButton.setOnClickListener(deleteOnClickListener(position));
+        holder.sendButton.setOnClickListener(itemShopOnClickListener(position));
+        holder.deleteButton.setOnClickListener(itemShopOnClickListener(position));
         return convertView;
     }
 
-    private View.OnClickListener deleteOnClickListener(final int pos){
+    private View.OnClickListener itemShopOnClickListener(final int pos){
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ItemDAO itemDAO = new ItemDAO(context);
-                itemDAO.deleteItem(itemsData.get(pos));
-                List<Item> list = itemDAO.getItems(shop_id);
-                updateList(list);
-                Toast.makeText(context, R.string.delete_item, Toast.LENGTH_SHORT).show();
+                switch (v.getId()) {
+                    case R.id.iv_delete_shop_item_IS:
+                        deleteItem(pos);
+                        break;
+                    case R.id.iv_send_shop_item_IS:
+                        PDFSender.sendItemPDF(context, itemsData.get(pos).getPdf());
+                        break;
+                }
             }
         };
         return listener;
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_send_shop_item_IS:
-                break;
-        }
     }
 
     class ViewHolder {
@@ -122,20 +111,12 @@ public class ItemCartAdapter extends BaseAdapter implements View.OnClickListener
             nameItem.setText(_name);
         }
     }
-
-    public void openEmailClient(String string){
-
-        File file = new File(ApiManager.getPath() + string);
-        if (!file.exists() || !file.canRead()) {
-            Toast.makeText(context, "Attachment Error", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Uri uri = Uri.parse("file://" + file);
-        Intent mailer = new Intent(Intent.ACTION_SEND);
-        mailer.setType("text/plain");
-        mailer.putExtra(Intent.EXTRA_STREAM, uri);;
-      //  mailer.putExtra(Intent.EXTRA_TEXT, bodyText);
-        context.startActivity(Intent.createChooser(mailer, "Send email..."));
+    private void deleteItem(int pos){
+        ItemDAO itemDAO = new ItemDAO(context);
+        itemDAO.deleteItem(itemsData.get(pos));
+        List<Item> list = itemDAO.getItems(shop_id);
+        updateList(list);
+        Toast.makeText(context, R.string.delete_item, Toast.LENGTH_SHORT).show();
     }
 
 }

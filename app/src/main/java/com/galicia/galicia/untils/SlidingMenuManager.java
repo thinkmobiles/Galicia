@@ -98,7 +98,7 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
             FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu());
             menu.toggle();
         }else if(view == footer){
-            FragmentReplacer.clearSupBackStack(activity);
+            //FragmentReplacer.clearSupBackStack(activity);
             FragmentReplacer.replaceFragmentWithStack(activity, ShopCartFragment.newInstance());
             menu.toggle();
         } else {
