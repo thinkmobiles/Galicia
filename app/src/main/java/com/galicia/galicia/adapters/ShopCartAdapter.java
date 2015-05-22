@@ -104,7 +104,7 @@ public class ShopCartAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
                 FragmentReplacer.replaceFragmentWithStack(activity,
-                        ItemCartFragment.newInstance(String.valueOf(shopsData.get(position).getId())));
+                        ItemCartFragment.newInstance(String.valueOf(shopsData.get(position).getId()), shopsData.get(position).getName()));
             }
         });
 

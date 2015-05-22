@@ -29,15 +29,15 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
     private ListView purchaseList;
     private ImageView deleteItems;
     private ItemDAO itemDAO;
-    private String shopId;
+    private String shopId, shopName;
     private MainActivity callActivity;
-    private static ItemCartFragment fragment;
 
-    public static ItemCartFragment newInstance(final String shop_id) {
+    public static ItemCartFragment newInstance(final String shop_id, final String shop_name) {
 
-        fragment = new ItemCartFragment();
+        ItemCartFragment fragment = new ItemCartFragment();
         Bundle bundle = new Bundle();
         bundle.putString(Constants.ITEM_SHOP_ID, shop_id);
+        bundle.putString(Constants.ITEM_SHOP_NAME, shop_name);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -47,24 +47,18 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         callActivity = (MainActivity) activity;
-
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            shopId = getArguments().getString(Constants.ITEM_SHOP_ID);
-            getArguments().remove(Constants.ITEM_SHOP_ID);
+        if(getArguments() != null) {
+            shopId      = getArguments().getString(Constants.ITEM_SHOP_ID);
+            shopName    = getArguments().getString(Constants.ITEM_SHOP_NAME);
         }
-
-        itemDAO = new ItemDAO(callActivity);
-        data = itemDAO.getItems(shopId);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_cart_shopping, container, false);
+
+        itemDAO = new ItemDAO(callActivity);
+        data = itemDAO.getItems(shopId);
 
         findUI(rootView);
         setClickListener();
@@ -77,7 +71,9 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
     public void findUI(View view) {
         deleteItems = (ImageView) view.findViewById(R.id.iv_deleteAll_FS);
         purchaseList = (ListView) view.findViewById(R.id.lv_list_Shopping_FS);
+
         callActivity.setEnableMenu(true);
+        callActivity.setTitle(shopName);
     }
 
     public void setClickListener() {

@@ -40,24 +40,38 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
         makeLitener();
         ApiManager.getFirstLevel(mMenuListener);
 
+        setPropertyMenu(_activity);
+        findView(menu);
+        initAdapter();
+        initViewListeners();
+
+    }
+
+    private void setPropertyMenu(Activity _activity){
         menu.setMode(SlidingMenu.LEFT);
         menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
         menu.setShadowWidthRes(R.dimen.slidingmenu_shadow_width);
         menu.setBehindWidth(getDisplayWidth());
-        menu.setFadeDegree(0.35f);
+        menu.setFadeDegree(0.33f);
         menu.attachToActivity(_activity, SlidingMenu.SLIDING_WINDOW);
         menu.setMenu(R.layout.menu);
         menu.setSlidingEnabled(true);
+    }
 
-        footer = View.inflate(activity,R.layout.slidemenu_footer,null);
-        header = View.inflate(activity,R.layout.slidemenu_header,null);
-        listMenu = (ListView) menu.findViewById(R.id.sidemenu);
+    private void findView(View _view){
+        footer      = View.inflate(activity,R.layout.slidemenu_footer,null);
+        header      = View.inflate(activity,R.layout.slidemenu_header,null);
+        listMenu    = (ListView) _view.findViewById(R.id.sidemenu);
+    }
 
+    private void initAdapter(){
         menuAdapter= new MenuAdapter(mMenuTitle, activity);
         listMenu.addHeaderView(header);
         listMenu.addFooterView(footer);
         listMenu.setAdapter(menuAdapter);
+    }
 
+    private void initViewListeners(){
         listMenu.setOnItemClickListener(this);
     }
 
@@ -84,11 +98,13 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
             FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu());
             menu.toggle();
         }else if(view == footer){
+            FragmentReplacer.clearSupBackStack(activity);
             FragmentReplacer.replaceFragmentWithStack(activity, ShopCartFragment.newInstance());
             menu.toggle();
         } else {
+            FragmentReplacer.clearSupBackStack(activity);
             FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu().newInstance(position - 1));
-                    menu.toggle();
+            menu.toggle();
         }
     }
 

@@ -11,6 +11,7 @@ public abstract class Constants {
     public static final String POSITION                 = "position";
     public static final String PRODUCT_LIST             = "product_list";
     public static final String ITEM_SHOP_ID             = "item_shop";
+    public static final String ITEM_SHOP_NAME           = "shop_name";
     public static final String MIME_TYPE                = "text/html";
     public static final String ENCODING                 = "UTF-8";
     public static final String PARAM_OPEN               = "OPEN";

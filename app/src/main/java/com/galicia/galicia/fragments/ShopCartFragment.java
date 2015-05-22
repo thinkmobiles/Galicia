@@ -32,7 +32,7 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener {
     private ImageView deleteItems;
     private ShopDAO shopDAO;
     private Button guardarButton;
-    private FragmentActivity callActivity;
+    private MainActivity callActivity;
     private static ShopCartFragment fragment;
 
     public static ShopCartFragment newInstance() {
@@ -73,6 +73,9 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener {
         purchaseList = (ListView) view.findViewById(R.id.lv_list_Shopping_FS);
         guardarButton = (Button) view.findViewById(R.id.tw_guardar_button_FS);
         guardarButton.setVisibility(View.INVISIBLE);
+
+        callActivity.setEnableMenu(true);
+        callActivity.setTitle(callActivity.getString(R.string.title_envio));
     }
 
     public void setClickListener() {
@@ -81,9 +84,10 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 FragmentReplacer.replaceFragmentWithStack(callActivity,
-                        ItemCartFragment.newInstance(String.valueOf(data.get(position).getId())));
+                        ItemCartFragment.newInstance(String.valueOf(data.get(position).getId()), data.get(position).getName()));
             }
         });
+
     }
 
     @Override
