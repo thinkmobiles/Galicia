@@ -65,6 +65,14 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
         menu.showMenu();
     }
 
+    public void toggle(){
+        menu.toggle();
+    }
+
+    public boolean isShowing(){
+        return menu.isMenuShowing();
+    }
+
 
     public void enableMenu(final boolean _state){
         menu.setSlidingEnabled(_state);
@@ -72,7 +80,6 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        FragmentReplacer.popSupBackStack(activity);
         if(view == header){
             FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu());
             menu.toggle();

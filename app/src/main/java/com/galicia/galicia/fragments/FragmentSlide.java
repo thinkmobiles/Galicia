@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.cristaliza.mvc.models.estrella.Product;
+import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.adapters.SlidePagerAdapter;
 import com.galicia.galicia.global.Constants;
@@ -27,6 +28,7 @@ public class FragmentSlide extends Fragment implements View.OnClickListener, Vie
     private ViewPager mSlidePager;
     private ArrayList<Fragment> fragments = new ArrayList<>();
     private SlidePagerAdapter mSlidePagerAdapter;
+    private MainActivity mCallingActivity;
 
     public FragmentSlide() {
     }
@@ -43,6 +45,7 @@ public class FragmentSlide extends Fragment implements View.OnClickListener, Vie
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        mCallingActivity = (MainActivity) activity;
         if (getArguments() != null) {
             mProductList = (List<Product>) getArguments().getSerializable(Constants.PRODUCT_LIST);
             mPosition = getArguments().getInt(Constants.POSITION);
@@ -60,6 +63,7 @@ public class FragmentSlide extends Fragment implements View.OnClickListener, Vie
         mBtnNext = (ImageView) view.findViewById(R.id.ivNext);
         mBtnPrev = (ImageView) view.findViewById(R.id.ivPrev);
 
+        mCallingActivity.setEnableMenu(true);
         mSlidePager = (ViewPager) view.findViewById(R.id.vpSlider);
         makeList();
         initFragmentsList();
@@ -129,10 +133,12 @@ public class FragmentSlide extends Fragment implements View.OnClickListener, Vie
         }
         if (_position == mProductList.size() - 1) {
             mBtnNext.setVisibility(View.GONE);
+            mBtnPrev.setVisibility(View.VISIBLE);
             return;
         }
         if (_position == 0) {
             mBtnPrev.setVisibility(View.GONE);
+            mBtnNext.setVisibility(View.VISIBLE);
             return;
         }
 

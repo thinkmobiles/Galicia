@@ -21,7 +21,7 @@ import com.galicia.galicia.untils.BitmapCreator;
 
 public class FragmentItemDetails extends Fragment {
 
-    private FragmentActivity mCallingActivity;
+    private MainActivity mCallingActivity;
     private ProductSerializable mSProduct;
 
     private ImageView mItemImage;
@@ -62,7 +62,7 @@ public class FragmentItemDetails extends Fragment {
         mPackage3           =  (TextView) view.findViewById(R.id.tvItemFormatThree);
         mPackage4           =  (TextView) view.findViewById(R.id.tvItemFormatFour);
 
-
+        mCallingActivity.setEnableMenu(true);
         makeData();
         return view;
     }

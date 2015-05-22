@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cristaliza.mvc.models.estrella.Product;
@@ -21,10 +22,15 @@ public class HorizontalPhotoProductAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<Product> mProductList;
+    private int mItemMargin = 0;
 
     public HorizontalPhotoProductAdapter(Context mContext, List<Product> mProductList) {
         this.mContext = mContext;
         this.mProductList = mProductList;
+    }
+
+    public void setItemMargin(final int _itemMargin){
+        mItemMargin = _itemMargin;
     }
 
     @Override
@@ -54,15 +60,17 @@ public class HorizontalPhotoProductAdapter extends BaseAdapter {
         } else {
             holder = (Holder) convertView.getTag();
         }
+        if (mItemMargin != 0) {
+            final RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            rlParams.setMargins(mItemMargin, 0, mItemMargin, 40);
+            holder.ivImage.setLayoutParams(rlParams);
+        }
 
         holder.ivImage.setImageBitmap(BitmapCreator.getBitmap(mProductList.get(position).getImage()));
         holder.tvProductName.setText(mProductList.get(position).getName());
 
         return convertView;
     }
-
-
-
 
 
     private class Holder {

@@ -77,6 +77,7 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
     public void findUI(View view) {
         deleteItems = (ImageView) view.findViewById(R.id.iv_deleteAll_FS);
         purchaseList = (ListView) view.findViewById(R.id.lv_list_Shopping_FS);
+        mCallingActivity.setEnableMenu(true);
     }
 
     public void setClickListener() {

@@ -27,6 +27,7 @@ public class SplashScreen extends Activity {
 
     private EventListener downloadListener;
     private CircleProgress mProgressView;
+    private boolean mIsLoadContent = false;
 
 
     @Override
@@ -47,10 +48,10 @@ public class SplashScreen extends Activity {
 //            ProgressDialogWorker.createDialog(this);
             makeDownloadListener();
             downloadContent();
-        };
+        }
     }
 
-    private void getlastUpdate(){
+    private void getLastUpdate(){
         makeDownloadListener();
         ScheduledExecutorService worker =
                 Executors.newSingleThreadScheduledExecutor();
@@ -76,6 +77,12 @@ public class SplashScreen extends Activity {
         }
     };
 
+    private void updateContent() {
+        makeDownloadListener();
+        ApiManager.init(this);
+        ApiManager.getLastUpdateServer(downloadListener);
+    }
+
 
     private boolean isHasContent() {
         File f = new File(ApiManager.getPath(this));
@@ -89,6 +96,7 @@ public class SplashScreen extends Activity {
     }
 
     private void downloadContent() {
+        mIsLoadContent = true;
         ApiManager.init(this);
         ApiManager.downloadContent(downloadListener);
         mProgressView.setVisibility(View.VISIBLE);
@@ -137,10 +145,11 @@ public class SplashScreen extends Activity {
 
     }
 
-    private void updateContent() {
-        makeDownloadListener();
-        ApiManager.init(this);
-        ApiManager.getLastUpdateServer(downloadListener);
+    @Override
+    public void onBackPressed() {
+        if (!mIsLoadContent) {
+            super.onBackPressed();
+        }
     }
 
     private boolean hasNewContent() {

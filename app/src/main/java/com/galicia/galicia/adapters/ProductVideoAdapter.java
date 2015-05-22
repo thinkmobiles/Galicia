@@ -70,7 +70,7 @@ public class ProductVideoAdapter extends BaseAdapter {
 
     @TargetApi(Build.VERSION_CODES.FROYO)
     private Bitmap getBitmapFromExtraVideo(String _filePath){
-        if (!mExtraVideoBitmapCache.containsValue(_filePath)) {
+        if (!mExtraVideoBitmapCache.containsKey(_filePath)) {
             mExtraVideoBitmapCache.put(_filePath, ThumbnailUtils.createVideoThumbnail(_filePath,
                     MediaStore.Images.Thumbnails.MINI_KIND));
         }
