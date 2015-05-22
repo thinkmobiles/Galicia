@@ -50,8 +50,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 //        logo.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                setEnableMenu(true);
-//                FragmentReplacer.replaceTopNavigationFragment(MainActivity.this, new ShoppingCartFragment());
+//
 //            }
 //        });
         menuBtn.setOnClickListener(this);
