@@ -3,7 +3,6 @@ package com.galicia.galicia.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,7 @@ import java.util.List;
 /**
  * Created by Feltsan on 12.05.2015.
  */
-public class ShopCartFragment extends Fragment implements View.OnClickListener {
+public class ShopCartFragment extends Fragment {
     private ShopCartAdapter shopCartAdapter;
     private List<Shop> data;
     private ListView purchaseList;
@@ -46,14 +45,14 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         callActivity = (MainActivity) activity;
-
-        shopDAO = new ShopDAO(activity);
-        data = shopDAO.getShops();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        shopDAO = new ShopDAO(callActivity);
+        data = shopDAO.getShops();
     }
 
     @Override
@@ -79,7 +78,13 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener {
     }
 
     public void setClickListener() {
-        deleteItems.setOnClickListener(this);
+        deleteItems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteAllShop();
+            }
+        });
+
         purchaseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -90,25 +95,20 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_deleteAll_FS:
-                if (!data.isEmpty()) {
-                    shopDAO.deleteAll();
-                    updateDate();
-                    Toast.makeText(getActivity(), R.string.delete_all_shop, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(), R.string.empty_cart, Toast.LENGTH_SHORT).show();
-                }
-                break;
-        }
-    }
-
     public void updateDate() {
         data.clear();
         data.addAll(shopDAO.getShops());
         shopCartAdapter.notifyDataSetChanged();
+    }
+
+    public void deleteAllShop() {
+        if (!data.isEmpty()) {
+            shopDAO.deleteAll();
+            updateDate();
+            Toast.makeText(getActivity(), R.string.delete_all_shop, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), R.string.empty_cart, Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

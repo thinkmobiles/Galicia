@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by Feltsan on 15.05.2015.
  */
-public class ItemCartAdapter extends BaseAdapter{
+public class ItemCartAdapter extends BaseAdapter {
     private Context context;
     private List<Item> itemsData;
     private LayoutInflater inflater;
@@ -44,7 +44,7 @@ public class ItemCartAdapter extends BaseAdapter{
     }
 
     @Override
-    public Object getItem(int position) {
+    public Item getItem(int position) {
         return itemsData.get(position);
     }
 
@@ -53,7 +53,7 @@ public class ItemCartAdapter extends BaseAdapter{
         return 0;
     }
 
-    public void updateList(List<Item> _list){
+    public void updateList(List<Item> _list) {
         this.itemsData = _list;
         notifyDataSetChanged();
     }
@@ -65,20 +65,53 @@ public class ItemCartAdapter extends BaseAdapter{
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.item_product_cart_list, parent, false);
             holder = new ViewHolder();
-            holder.initHolder(convertView);          
+            holder.initHolder(convertView);
 
             convertView.setTag(holder);
 
         } else
             holder = (ViewHolder) convertView.getTag();
 
-        holder.setData(BitmapCreator.getDrawable(itemsData.get(position).getIcon()), itemsData.get(position).getName());
-        holder.sendButton.setOnClickListener(itemShopOnClickListener(position));
-        holder.deleteButton.setOnClickListener(itemShopOnClickListener(position));
+        holder.setData(BitmapCreator.getDrawable(getItem(position).getIcon()), getItem(position).getName());
+        holder.setListener(position);
         return convertView;
     }
 
-    private View.OnClickListener itemShopOnClickListener(final int pos){
+    class ViewHolder {
+        private TextView nameItem;
+        private ImageView previewImage, deleteButton, sendButton;
+
+        public void initHolder(View _view) {
+            this.previewImage = (ImageView) _view.findViewById(R.id.ivPrevProduct);
+            this.nameItem = (TextView) _view.findViewById(R.id.tv_title_goods_IS);
+            this.deleteButton = (ImageView) _view.findViewById(R.id.iv_delete_shop_item_IS);
+            this.sendButton = (ImageView) _view.findViewById(R.id.iv_send_shop_item_IS);
+        }
+
+        public void setListener(int position) {
+            sendButton.setOnClickListener(productItemListener(position));
+            deleteButton.setOnClickListener(productItemListener(position));
+        }
+
+        public void setData(Drawable _icon, String _name) {
+            previewImage.setImageDrawable(_icon);
+            nameItem.setText(_name);
+        }
+    }
+
+    private void deleteItem(int pos) {
+        ItemDAO itemDAO = new ItemDAO(context);
+        itemDAO.deleteItem(getItem(pos));
+        List<Item> list = itemDAO.getItems(shop_id);
+        updateList(list);
+        Toast.makeText(context, R.string.delete_item, Toast.LENGTH_SHORT).show();
+    }
+
+    private void sendPDFs(int _pos) {
+        PDFSender.sendItemPDF(context, getItem(_pos).getPdf());
+    }
+
+    private View.OnClickListener productItemListener(final int pos) {
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,36 +120,12 @@ public class ItemCartAdapter extends BaseAdapter{
                         deleteItem(pos);
                         break;
                     case R.id.iv_send_shop_item_IS:
-                        PDFSender.sendItemPDF(context, itemsData.get(pos).getPdf());
+                        sendPDFs(pos);
                         break;
                 }
             }
         };
         return listener;
-    }
-
-    class ViewHolder {
-        private TextView nameItem;
-        private ImageView previewImage, deleteButton, sendButton;
-
-        public void initHolder(View _view){
-            this.previewImage   = (ImageView) _view.findViewById(R.id.ivPrevProduct);
-            this.nameItem       = (TextView) _view.findViewById(R.id.tv_title_goods_IS);
-            this.deleteButton   = (ImageView) _view.findViewById(R.id.iv_delete_shop_item_IS);
-            this.sendButton     = (ImageView) _view.findViewById(R.id.iv_send_shop_item_IS);
-        }
-
-        public void setData(Drawable _icon, String _name){
-            previewImage.setImageDrawable(_icon);
-            nameItem.setText(_name);
-        }
-    }
-    private void deleteItem(int pos){
-        ItemDAO itemDAO = new ItemDAO(context);
-        itemDAO.deleteItem(itemsData.get(pos));
-        List<Item> list = itemDAO.getItems(shop_id);
-        updateList(list);
-        Toast.makeText(context, R.string.delete_item, Toast.LENGTH_SHORT).show();
     }
 
 }
