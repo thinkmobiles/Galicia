@@ -36,7 +36,7 @@ public abstract class ApiManager {
         model = AppModel.getInstance();
         path = Environment.getExternalStorageDirectory() + "/" + context.getPackageName();
         controller = new MainController();
-        controller.setAppNacional();
+        controller.setAppAlimentacion();
     }
 
     public static void downloadContent(EventListener listener){
