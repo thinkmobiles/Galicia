@@ -16,7 +16,7 @@ public class CircleProgress extends View {
 
     private static final int RED = 0xff000000;
     private static final int YELLOW = 0xffffffff;
-    private static final int BLUE = 0xffcccccc;
+    private static final int BLACK = 0xffcccccc;
     private static final int COLOR_NUM = 3;
     private int[] COLORS;
     private TimeInterpolator mInterpolator = new EaseInOutCubicInterpolator();
@@ -61,7 +61,7 @@ public class CircleProgress extends View {
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.CircleProgress, defStyle, 0);
         int color1 = a.getColor(R.styleable.CircleProgress_color1, RED);
         int color2 = a.getColor(R.styleable.CircleProgress_color2, YELLOW);
-        int color3 = a.getColor(R.styleable.CircleProgress_color3, BLUE);
+        int color3 = a.getColor(R.styleable.CircleProgress_color3, BLACK);
         a.recycle();
 
         COLORS = new int[]{color1, color2, color3};
