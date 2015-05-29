@@ -14,7 +14,8 @@
         <ImageView
             android:id="@+id/ivPrevProduct"
             android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:padding="5dp" />
 
         <TextView
             android:id="@+id/tv_title_goods_IS"
@@ -40,21 +41,13 @@
 
 
             <ImageView
-                android:id="@+id/iv_delete_shop_item_IS"
+                android:id="@+id/iv_delete_shop_product_IS"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@drawable/btn_delete" />
 
 
-
-            <ImageView
-                android:id="@+id/iv_send_shop_item_IS"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/btn_circle_send"
-                android:layout_marginLeft="@dimen/abc_control_inset_material"/>
         </LinearLayout>
 
     </LinearLayout>

@@ -10,11 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.R;
+import com.galicia.galicia.orm_database.DBManager;
+import com.galicia.galicia.orm_database.DBProduct;
 import com.galicia.galicia.untils.BitmapCreator;
-import com.galicia.galicia.untils.DataBase.ItemDAO;
-import com.galicia.galicia.untils.PDFSender;
 
 import java.util.List;
 
@@ -23,16 +22,16 @@ import java.util.List;
  */
 public class ItemCartAdapter extends BaseAdapter {
     private Context context;
-    private List<Item> itemsData;
+    private List<DBProduct> itemsData;
     private LayoutInflater inflater;
-    private String shop_id;
+    private long mShopId;
 
 
-    public ItemCartAdapter(Context _context, List<Item> _data, String _shop_id) {
+    public ItemCartAdapter(Context _context, List<DBProduct> _data, long _shopId) {
         if (_context != null) {
             context = _context;
             itemsData = _data;
-            shop_id = _shop_id;
+            mShopId = _shopId;
 
             inflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
@@ -44,7 +43,7 @@ public class ItemCartAdapter extends BaseAdapter {
     }
 
     @Override
-    public Item getItem(int position) {
+    public DBProduct getItem(int position) {
         return itemsData.get(position);
     }
 
@@ -53,7 +52,7 @@ public class ItemCartAdapter extends BaseAdapter {
         return 0;
     }
 
-    public void updateList(List<Item> _list) {
+    public void updateList(List<DBProduct> _list) {
         this.itemsData = _list;
         notifyDataSetChanged();
     }
@@ -72,24 +71,22 @@ public class ItemCartAdapter extends BaseAdapter {
         } else
             holder = (ViewHolder) convertView.getTag();
 
-        holder.setData(BitmapCreator.getDrawable(getItem(position).getIcon()), getItem(position).getName());
+        holder.setData(BitmapCreator.getDrawable(getItem(position).getImage()), getItem(position).getName());
         holder.setListener(position);
         return convertView;
     }
 
     class ViewHolder {
         private TextView nameItem;
-        private ImageView previewImage, deleteButton, sendButton;
+        private ImageView previewImage, deleteButton;
 
         public void initHolder(View _view) {
-            this.previewImage = (ImageView) _view.findViewById(R.id.ivPrevProduct);
-            this.nameItem = (TextView) _view.findViewById(R.id.tv_title_goods_IS);
-            this.deleteButton = (ImageView) _view.findViewById(R.id.iv_delete_shop_item_IS);
-            this.sendButton = (ImageView) _view.findViewById(R.id.iv_send_shop_item_IS);
+            this.previewImage  = (ImageView) _view.findViewById(R.id.ivPrevProduct);
+            this.nameItem      = (TextView) _view.findViewById(R.id.tv_title_goods_IS);
+            this.deleteButton  = (ImageView) _view.findViewById(R.id.iv_delete_shop_product_IS);
         }
 
         public void setListener(int position) {
-            sendButton.setOnClickListener(productItemListener(position));
             deleteButton.setOnClickListener(productItemListener(position));
         }
 
@@ -100,15 +97,13 @@ public class ItemCartAdapter extends BaseAdapter {
     }
 
     private void deleteItem(int pos) {
-        ItemDAO itemDAO = new ItemDAO(context);
-        itemDAO.deleteItem(getItem(pos));
-        List<Item> list = itemDAO.getItems(shop_id);
-        updateList(list);
+//        ItemDAO itemDAO = new ItemDAO(context);
+//        itemDAO.deleteItem(getItem(pos));
+        DBManager.deleteProduct(itemsData.get(pos).getId());
+//        List<Item> list = itemDAO.getItems(shopId);
+        List<DBProduct> products = DBManager.getProducts(mShopId);
+        updateList(products);
         Toast.makeText(context, R.string.delete_item, Toast.LENGTH_SHORT).show();
-    }
-
-    private void sendPDFs(int _pos) {
-        PDFSender.sendItemPDF(context, getItem(_pos).getPdf());
     }
 
     private View.OnClickListener productItemListener(final int pos) {
@@ -116,11 +111,8 @@ public class ItemCartAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.iv_delete_shop_item_IS:
+                    case R.id.iv_delete_shop_product_IS:
                         deleteItem(pos);
-                        break;
-                    case R.id.iv_send_shop_item_IS:
-                        sendPDFs(pos);
                         break;
                 }
             }

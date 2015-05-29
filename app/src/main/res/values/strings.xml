@@ -28,15 +28,15 @@
     <string name="version">0.1</string>
     <string name="added_item">Item added to cart</string>
     <string name="empty_cart">Cart is empty</string>
-    <string name="button_cancel">Cancelar</string>
-    <string name="button_accept">Aceptar</string>
+    <string name="button_cancel">CANCELAR</string>
+    <string name="button_accept">ACEPTAR</string>
     <string name="enter_shop">Enter shop</string>
     <string name="added_to_cart">Added to cart</string>
     <string name="delete_shop">Shop deleted succesfull</string>
     <string name="delete_item">Item deleted succesfull</string>
     <string name="delete_all_item">All item deleted succesfull</string>
     <string name="delete_all_shop">All shop deleted succesfull</string>
-    <string name="dialog_lable">ANADIR FICHA A</string>
+    <string name="dialog_lable">ANADIR FICHA A:</string>
 
     <string-array name="spinner_resource">
         <item>Item1</item>

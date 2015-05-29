@@ -66,7 +66,7 @@ public class CustomSpinerDialog {
         findDialogUI(view);
         setDialogListener();
 
-        spinnerPurchaseAdapter = new SpinnerPurchaseAdapter(mCallingActivity, subList);
+//        spinnerPurchaseAdapter = new SpinnerPurchaseAdapter(mCallingActivity, subList);
         spinner.setAdapter(spinnerPurchaseAdapter);
 
         spinerDialog.setView(view);
@@ -76,11 +76,11 @@ public class CustomSpinerDialog {
     }
 
     private void findDialogUI(View view) {
-        spinerLayout = (LinearLayout) view.findViewById(R.id.ll_spinner);
-        spinner = (Spinner) view.findViewById(R.id.dialogSpinner);
+        spinerLayout  = (LinearLayout) view.findViewById(R.id.ll_spinner);
+        spinner       = (Spinner) view.findViewById(R.id.dialogSpinner);
         negativButton = (TextView) view.findViewById(R.id.tv_cancel_action_CD);
         positivButton = (TextView) view.findViewById(R.id.tv_accept_action_CD);
-        shopName = (EditText) view.findViewById(R.id.et_new_Shop_CD);
+        shopName      = (EditText) view.findViewById(R.id.et_new_Shop_CD);
     }
 
     private void setDialogListener() {

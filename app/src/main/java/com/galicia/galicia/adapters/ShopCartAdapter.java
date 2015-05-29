@@ -14,7 +14,9 @@ import com.galicia.galicia.R;
 import com.galicia.galicia.fragments.ItemCartFragment;
 import com.galicia.galicia.fragments.ShopCartFragment;
 import com.galicia.galicia.global.FragmentReplacer;
-import com.galicia.galicia.models.Shop;
+
+import com.galicia.galicia.orm_database.DBManager;
+import com.galicia.galicia.orm_database.Shop;
 import com.galicia.galicia.untils.DataBase.ShopDAO;
 import com.galicia.galicia.untils.PDFSender;
 
@@ -96,7 +98,8 @@ public class ShopCartAdapter extends BaseAdapter {
 
     private void deleteShop(int _pos) {
         ShopDAO shopDAO = new ShopDAO(activity);
-        shopDAO.deleteShop(getItem(_pos));
+//        shopDAO.deleteShop(getItem(_pos));
+        DBManager.deleteShop(getItem(_pos));
         ShopCartFragment.newInstance().updateDate();
         notifyDataSetChanged();
         Toast.makeText(activity, R.string.delete_shop, Toast.LENGTH_SHORT).show();
@@ -104,11 +107,11 @@ public class ShopCartAdapter extends BaseAdapter {
 
     private void seeDetailItem(int _pos) {
         FragmentReplacer.replaceFragmentWithStack(activity,
-                ItemCartFragment.newInstance(String.valueOf(getItem(_pos).getId()), getItem(_pos).getName()));
+                ItemCartFragment.newInstance(getItem(_pos).getId(), getItem(_pos).getName()));
     }
 
     private void sendPDF(int _pos) {
-        PDFSender.sendShopPDFs(activity, getItem(_pos).getId());
+//        PDFSender.sendShopPDFs(activity, getItem(_pos).getId());
     }
 
     private View.OnClickListener shopItemListener(final int _pos) {

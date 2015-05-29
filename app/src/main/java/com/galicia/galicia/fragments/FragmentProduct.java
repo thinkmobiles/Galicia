@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,7 @@ import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.adapters.HorizontalPhotoProductAdapter;
 import com.galicia.galicia.adapters.ProductVideoAdapter;
-import com.galicia.galicia.custom.CustomSpinerDialog;
+import com.galicia.galicia.custom.AddProductToShopDialog;
 import com.galicia.galicia.custom.HorizontalListView;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.Constants;
@@ -143,7 +144,11 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivAddProduct_FPU:
-                new CustomSpinerDialog(mCallingActivity, mCurrentItem).addProduct();
+//                new CustomSpinerDialog(mCallingActivity, mCurrentItem).addProduct();
+                AddProductToShopDialog
+                        .newInstance(new ItemSerializable(mCurrentItem))
+                        .show(mCallingActivity);
+
                 break;
             case R.id.ivFichaCata_FPU:
                 FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FichaFragment.newInstance(mCurrentItem.getFichaCata()));

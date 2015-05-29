@@ -15,6 +15,7 @@ public abstract class Constants {
     public static final String MIME_TYPE                = "text/html";
     public static final String ENCODING                 = "UTF-8";
     public static final String PARAM_OPEN               = "OPEN";
+    public static final String PARAMS                   = "params";
 
 //<----------------------------------DB------------------------------------------------->
 

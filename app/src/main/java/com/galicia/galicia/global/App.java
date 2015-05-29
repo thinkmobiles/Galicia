@@ -1,11 +1,10 @@
 package com.galicia.galicia.global;
 
-import android.app.Application;
 import android.content.Context;
-
 import com.galicia.galicia.untils.TypefaceUtil;
+import com.orm.SugarApp;
 
-public class App extends Application {
+public class App extends SugarApp {
     private Context context;
     @Override
     public void onCreate() {

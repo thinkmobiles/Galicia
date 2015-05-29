@@ -15,8 +15,10 @@ import android.widget.Toast;
 import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.adapters.ShopCartAdapter;
+import com.galicia.galicia.custom.CustomDialog;
 import com.galicia.galicia.global.FragmentReplacer;
-import com.galicia.galicia.models.Shop;
+import com.galicia.galicia.orm_database.DBManager;
+import com.galicia.galicia.orm_database.Shop;
 import com.galicia.galicia.untils.DataBase.ShopDAO;
 
 import java.util.List;
@@ -24,7 +26,7 @@ import java.util.List;
 /**
  * Created by Feltsan on 12.05.2015.
  */
-public class ShopCartFragment extends Fragment {
+public class ShopCartFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
     private ShopCartAdapter shopCartAdapter;
     private List<Shop> data;
     private ListView purchaseList;
@@ -52,7 +54,8 @@ public class ShopCartFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         shopDAO = new ShopDAO(callActivity);
-        data = shopDAO.getShops();
+//        data = shopDAO.getShops();
+        data = DBManager.getShops();
     }
 
     @Override
@@ -78,37 +81,70 @@ public class ShopCartFragment extends Fragment {
     }
 
     public void setClickListener() {
-        deleteItems.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteAllShop();
-            }
-        });
+//        deleteItems.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                deleteAllShop();
+//            }
+//        });
+        deleteItems.setOnClickListener(this);
+        purchaseList.setOnItemClickListener(this);
+//        purchaseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                FragmentReplacer.replaceFragmentWithStack(callActivity,
+//                        ItemCartFragment.newInstance(String.valueOf(data.get(position).getId()), data.get(position).getName()));
+//            }
+//        });
 
-        purchaseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                FragmentReplacer.replaceFragmentWithStack(callActivity,
-                        ItemCartFragment.newInstance(String.valueOf(data.get(position).getId()), data.get(position).getName()));
-            }
-        });
+    }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.iv_deleteAll_FS:
+                startDeleteDialog();
+//                deleteAllShop();
+                break;
+        }
+    }
+
+    private void startDeleteDialog(){
+        if (DBManager.getShops().size() == 0)
+            return;
+        final CustomDialog.Builder builder = new CustomDialog.Builder()
+                .setMessage("delete all shop&")
+                .setPositiveButton("Ok", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        deleteAllShop();
+                    }
+                })
+                .setNegativeButton("cancel", null);
+        builder.createDialog().show(getActivity());
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        FragmentReplacer.replaceFragmentWithStack(callActivity,
+                ItemCartFragment.newInstance(data.get(position).getId(), data.get(position).getName()));
     }
 
     public void updateDate() {
         data.clear();
-        data.addAll(shopDAO.getShops());
+//        data.addAll(shopDAO.getShops());
+        data.addAll(DBManager.getShops());
         shopCartAdapter.notifyDataSetChanged();
     }
 
     public void deleteAllShop() {
         if (!data.isEmpty()) {
-            shopDAO.deleteAll();
+//            shopDAO.deleteAll();
+            DBManager.deleteAllShop();
             updateDate();
             Toast.makeText(getActivity(), R.string.delete_all_shop, Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getActivity(), R.string.empty_cart, Toast.LENGTH_SHORT).show();
         }
     }
-
 }

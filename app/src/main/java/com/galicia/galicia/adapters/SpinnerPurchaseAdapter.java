@@ -8,9 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.galicia.galicia.R;
-import com.galicia.galicia.models.Shop;
+import com.galicia.galicia.orm_database.Shop;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
