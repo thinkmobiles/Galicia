@@ -12,7 +12,6 @@ import com.cristaliza.mvc.events.EventListener;
 import com.cristaliza.mvc.models.estrella.AppModel;
 import com.galicia.galicia.custom.circleprogress.CircleProgress;
 import com.galicia.galicia.global.ApiManager;
-import com.galicia.galicia.global.ProgressDialogWorker;
 import com.galicia.galicia.global.SharedPreferencesManager;
 
 import java.io.File;
@@ -34,28 +33,14 @@ public class SplashScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
+        makeDownloadListener();
         mProgressView = (CircleProgress) findViewById(R.id.progress);
-
         if (isHasContent()) {
-//            if(hasNewContent()){
-//                makeDownloadListener();
-//                updateContent();
-//            } else {
 //            updateContent();
-                openMainActivityDelay();
-//            }
+            openNewActivity();
         } else {
-//            ProgressDialogWorker.createDialog(this);
-            makeDownloadListener();
             downloadContent();
         }
-    }
-
-    private void getLastUpdate(){
-        makeDownloadListener();
-        ScheduledExecutorService worker =
-                Executors.newSingleThreadScheduledExecutor();
-        worker.schedule(mUpdateRunnable, 2, TimeUnit.SECONDS);
     }
 
     private void openMainActivityDelay(){
@@ -70,19 +55,11 @@ public class SplashScreen extends Activity {
     }
 
 
-    private Runnable mUpdateRunnable = new Runnable() {
-        @Override
-        public void run() {
-            updateContent();
-        }
-    };
 
     private void updateContent() {
-        makeDownloadListener();
         ApiManager.init(this);
         ApiManager.getLastUpdateServer(downloadListener);
     }
-
 
     private boolean isHasContent() {
         File f = new File(ApiManager.getPath(this));
@@ -105,6 +82,7 @@ public class SplashScreen extends Activity {
 
     private void makeDownloadListener() {
         downloadListener = new EventListener() {
+
             @Override
             public void onEvent(Event event) {
                 Log.d("tag", "e = " + event);
@@ -113,31 +91,20 @@ public class SplashScreen extends Activity {
                         Toast.makeText(getBaseContext(), event.getType() + " error", Toast.LENGTH_LONG).show();
                         break;
                     case AppModel.ChangeEvent.DOWNLOAD_ALL_CHANGED_ID:
-//                        todo if download finish
-//                        runOnUiThread (new Thread(new Runnable() {
-//                            @Override
-//                            public void run() {
-                                SharedPreferencesManager.saveUpdateDate(getBaseContext(), System.currentTimeMillis());
-//                                ProgressDialogWorker.dismissDialog();
-                                ApiManager.setOfflineMode();
-                                openNewActivity();
-//                            }
-//                        }));
-
+                        SharedPreferencesManager.saveUpdateDate(getBaseContext(), System.currentTimeMillis());
+                        ApiManager.setOfflineMode();
+                        openNewActivity();
+                        break;
+                    case AppModel.ChangeEvent.DOWNLOAD_FILE_CHANGED_ID:
+//                        ApiManager.getLastUpdateServer(this);
+//                        Toast.makeText(getBaseContext(), "", Toast.LENGTH_SHORT).show();
                         break;
                     case AppModel.ChangeEvent.LAST_UPDATE_CHANGED_ID:
-//                        todo Last Update
-                        runOnUiThread (new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                SharedPreferencesManager.saveUpdateDate(getBaseContext(), System.currentTimeMillis());
-                                ProgressDialogWorker.dismissDialog();
-                                ApiManager.setOfflineMode();
-                                openNewActivity();
-                                String date  = ApiManager.getDateUpdate();
-                                Log.d("tag", "update date" + date);
-                            }
-                        }));
+                        if(hasNewContent()){
+                            ApiManager.downloadContent(this);
+                        } else {
+                            openMainActivityDelay();
+                        }
                         break;
                 }
             }
@@ -153,11 +120,10 @@ public class SplashScreen extends Activity {
     }
 
     private boolean hasNewContent() {
-        ApiManager.init(this);
         final Date currentUpdate = new Date(SharedPreferencesManager.getUpdateDate(getBaseContext()));
         final Date lastUpdate = getDate(ApiManager.getDateUpdate());
-//        if(currentUpdate.before(lastUpdate))
-//            return true;
+        if(currentUpdate.before(lastUpdate))
+            return true;
         return false;
 
     }

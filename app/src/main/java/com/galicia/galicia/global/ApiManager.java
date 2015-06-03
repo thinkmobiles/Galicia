@@ -36,7 +36,8 @@ public abstract class ApiManager {
         model = AppModel.getInstance();
         path = Environment.getExternalStorageDirectory() + "/" + context.getPackageName();
         controller = new MainController();
-        controller.setAppNacional();
+        controller.setAppGalicia();
+//        controller.onExecuteWSAppConfig();
     }
 
     public static void downloadContent(EventListener listener){
@@ -49,9 +50,22 @@ public abstract class ApiManager {
         controller.downloadAllAppData(listener, path);
     }
 
+    public static void getLastUpdateServer(EventListener listener) {
+        controller.onExecuteWSAppConfig();
+        model.setOnlineMode(true);
+        model.addListener(AppModel.ChangeEvent.LAST_UPDATE_CHANGED, listener);
+        controller.onExecuteWSAppLastUpdate();
+    }
+
+
+    public static String getDateUpdate() {
+        return model.getLastUpdate();
+    }
+
     public static void setOfflineMode(){
         controller.setSynchronousMode();
         model.setOfflinePath(path);
+        model.setOnlineMode(false);
     }
 
     public static void getFirstLevel(EventListener listener){
@@ -70,17 +84,6 @@ public abstract class ApiManager {
         model.removeListeners();
         model.addListener(AppModel.ChangeEvent.THIRD_LEVEL_CHANGED, listener);
         controller.onExecuteWSThirdLevel(item);
-    }
-
-    public static void getLastUpdateServer(EventListener listener) {
-        model.removeListeners();
-        controller.setSynchronousMode();
-        model.addListener(AppModel.ChangeEvent.LAST_UPDATE_CHANGED, listener);
-        controller.onExecuteWSAppLastUpdate();
-    }
-
-    public static String getDateUpdate() {
-        return model.getLastUpdate();
     }
 
     public static List<Item> getFirstList() {
