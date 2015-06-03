@@ -6,11 +6,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -43,7 +48,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
 
     private MainActivity mCallingActivity;
     private Item mCurrentItem;
-    private ImageView ivProductPhoto, ivCompanyLogo, ivAddProduct, ivFicha;
+    private ImageView ivProductPhoto, ivCompanyLogo, ivAddProduct, ivFicha, ivGoBack, ivDownScroll;
     private HorizontalListView hlvAllProduct;
     private ListView lvProductVideo;
     private TextView tvProductPhotoTitle;
@@ -52,7 +57,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     private ArrayList<Product> mProductList;
     private List<Item> mThirdList;
     private RelativeLayout rlProductPhotoContainer;
-    private LinearLayout llCompanyLogo, llDetail, llMoreDetail;
+    private LinearLayout llCompanyLogo, llDetail, llMoreDetail, llVideo;
     private ScrollView svDescriptionContainer;
 
     public static FragmentProduct newInstance(final ItemSerializable _item) {
@@ -91,12 +96,15 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         tvProductPhotoTitle = (TextView) _view.findViewById(R.id.tvThirdProductTitle_FPU);
         hlvAllProduct = (HorizontalListView) _view.findViewById(R.id.hlvAllProduct_FPU);
         lvProductVideo = (ListView) _view.findViewById(R.id.lvProductVideo_FPU);
+        llVideo = (LinearLayout) _view.findViewById(R.id.ll_video_container_FP);
         ivProductPhoto = (ImageView) _view.findViewById(R.id.ivProductPhoto_FPU);
         rlProductPhotoContainer = (RelativeLayout) _view.findViewById(R.id.rlProductPhotoContainer_FPU);
         ivCompanyLogo = (ImageView) _view.findViewById(R.id.ivCompanyLogo_FPU);
         llCompanyLogo = (LinearLayout) _view.findViewById(R.id.llCompanyLogo_FPU);
         llDetail = (LinearLayout) _view.findViewById(R.id.llDetailContainer_FPU);
         llMoreDetail = (LinearLayout) _view.findViewById(R.id.llMoreDetailContainer_FPU);
+        ivGoBack = (ImageView) _view.findViewById(R.id.iv_back_FPU);
+        ivDownScroll = (ImageView) _view.findViewById(R.id.iv_downScroll_FP);
 
         svDescriptionContainer = (ScrollView) _view.findViewById(R.id.svDescriptionContainer_FPU);
 
@@ -107,6 +115,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         ivAddProduct.setOnClickListener(this);
         ivFicha.setOnClickListener(this);
         llMoreDetail.setOnClickListener(this);
+        ivGoBack.setOnClickListener(this);
+        ivDownScroll.setOnClickListener(this);
         makeDownloadListener();
     }
 
@@ -156,6 +166,11 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             case R.id.llMoreDetailContainer_FPU:
                 startSlideFragment(0);
                 break;
+            case R.id.iv_back_FPU:
+                super.getActivity().onBackPressed();
+                break;
+            case R.id.iv_downScroll_FP:
+                downScrollList();
         }
     }
 
@@ -163,6 +178,11 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         if (mCurrentItem.getFichaCata() == null) {
             ivFicha.setVisibility(View.GONE);
         }
+    }
+
+    private void downScrollList(){
+        int position = lvProductVideo.getFirstVisiblePosition();
+        lvProductVideo.setSelection(++position);
     }
 
     private void initProductDetail() {
@@ -226,7 +246,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     }
 
     private void initVideoList() {
-        lvProductVideo.setBackground(BitmapCreator.getDrawable(mCurrentItem.getExtraBackgroundImage()));
+        llVideo.setBackground(BitmapCreator.getDrawable(mCurrentItem.getExtraBackgroundImage()));
         final ProductVideoAdapter apter = new ProductVideoAdapter(mCallingActivity, mCurrentItem);
         lvProductVideo.setAdapter(apter);
         lvProductVideo.setOnItemClickListener(this);
@@ -235,7 +255,23 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (parent.getAdapter().getClass().getName().equals(ProductVideoAdapter.class.getName())) {
-            startVideoPlayer(BitmapCreator.getAbsolutePath(mCurrentItem.getExtraVideos().get(position)));
+            wvProductDescription.loadUrl("https://www.youtube.com/watch?v=" +
+                    ProductVideoAdapter.getYouTubeImageId(mCurrentItem.getExtraVideos().get(position)));
+
+            wvProductDescription.setWebViewClient( new WebViewClient());
+            wvProductDescription.getSettings().setJavaScriptEnabled(true);
+            // web.getSettings().setDomStorageEnabled(true);
+
+            wvProductDescription.getSettings().setAllowContentAccess(true);
+            WebSettings webSettings = wvProductDescription.getSettings();
+            webSettings.setPluginState(WebSettings.PluginState.ON);
+            webSettings.setUseWideViewPort(true);
+            webSettings.setLoadWithOverviewMode(true);
+            wvProductDescription.canGoBack();
+            wvProductDescription.setWebChromeClient(new WebChromeClient() {
+            });
+
+           // startVideoPlayer(BitmapCreator.getAbsolutePath(mCurrentItem.getExtraVideos().get(position)));
         }
 
 
@@ -280,6 +316,48 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         FragmentReplacer.replaceFragmentWithStack(
                 mCallingActivity,
                 FragmentSlide.newInstance(mProductList, _position));
+    }
+    private class HelloWebViewClient extends WebViewClient  {
+        private WebChromeClient.CustomViewCallback mCustomViewCallback;
+        FrameLayout.LayoutParams COVER_SCREEN_GRAVITY_CENTER = new FrameLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER);
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView webview, String url)
+        {
+            webview.setWebChromeClient(new WebChromeClient() {
+
+                private View mCustomView;
+
+                @Override
+                public void onShowCustomView(View view, CustomViewCallback callback)
+                {
+                    // if a view already exists then immediately terminate the new one
+                    if (mCustomView != null)
+                    {
+                        callback.onCustomViewHidden();
+                        return;
+                    }
+
+                    // Add the custom view to its container.
+                    svDescriptionContainer.addView(view, COVER_SCREEN_GRAVITY_CENTER);
+                    mCustomView = view;
+                    mCustomViewCallback = callback;
+
+                    // hide main browser view
+//                    mContentView.setVisibility(View.GONE);
+
+                    // Finally show the custom view container.
+                    svDescriptionContainer.setVisibility(View.VISIBLE);
+                    svDescriptionContainer.bringToFront();
+                }
+
+            });
+
+            webview.loadUrl(url);
+
+            return true;
+        }
     }
 
 }

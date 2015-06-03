@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.R;
 import com.galicia.galicia.untils.BitmapCreator;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
@@ -63,7 +65,13 @@ public class ProductVideoAdapter extends BaseAdapter {
         }
         if (mItem.getExtraImages() != null)
             holder.ivExtraVideo.setImageBitmap(BitmapCreator.getBitmap(mItem.getExtraImages().get(position)));
-        else holder.ivExtraVideo.setImageBitmap(getBitmapFromExtraVideo(BitmapCreator.getAbsolutePath(mItem.getExtraVideos().get(position))));
+        else
+            Picasso.with(mContext)
+                    .load("http://img.youtube.com/vi/" + getYouTubeImageId(mItem.getExtraVideos().get(position)) +"/0.jpg")
+                    .into(holder.ivExtraVideo);
+
+         // .setImageBitmap(getBitmapFromExtraVideo(BitmapCreator.getAbsolutePath()));
+
         holder.tvVideoDescription.setText(mItem.getExtraVideosDescripton().get(position));
         return convertView;
     }
@@ -75,6 +83,14 @@ public class ProductVideoAdapter extends BaseAdapter {
                     MediaStore.Images.Thumbnails.MINI_KIND));
         }
         return mExtraVideoBitmapCache.get(_filePath);
+    }
+
+    public static String getYouTubeImageId(String str){
+        int start_index = str.lastIndexOf("/")+1;
+        int end_index = str.length();
+        String videoId = str.substring(start_index,end_index);
+        Log.i("TER",videoId);
+        return  videoId;
     }
 
 

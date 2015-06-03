@@ -14,11 +14,30 @@
         android:textColor="@android:color/white"
         android:padding="@dimen/default_padding" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ivVideoImage_IPV"
+    <RelativeLayout
         android:layout_below="@+id/tvVideoTitle_IPV"
-        android:layout_centerHorizontal="true"
-        android:paddingBottom="@dimen/default_padding" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivVideoImage_IPV"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="@dimen/default_padding" />
+
+        <ImageView
+            android:id="@+id/iv_playButton_IPV"
+            android:layout_width="@dimen/action_bar_title_txt"
+            android:layout_height="@dimen/action_bar_title_txt"
+            android:src="@drawable/new12"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            />
+
+
+        </RelativeLayout>
+
+
+
 </RelativeLayout>
