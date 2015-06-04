@@ -30,6 +30,7 @@ import com.cristaliza.mvc.models.estrella.AppModel;
 import com.cristaliza.mvc.models.estrella.Item;
 import com.cristaliza.mvc.models.estrella.Product;
 import com.galicia.galicia.MainActivity;
+import com.galicia.galicia.PlayVideoActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.adapters.HorizontalPhotoProductAdapter;
 import com.galicia.galicia.adapters.ProductVideoAdapter;
@@ -256,22 +257,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (parent.getAdapter().getClass().getName().equals(ProductVideoAdapter.class.getName())) {
-            wvProductDescription.loadUrl("https://www.youtube.com/watch?v=" +
-                    ProductVideoAdapter.getYouTubeImageId(mCurrentItem.getExtraVideos().get(position)));
 
-            wvProductDescription.setWebViewClient( new WebViewClient());
-            wvProductDescription.getSettings().setJavaScriptEnabled(true);
-            // web.getSettings().setDomStorageEnabled(true);
-
-            wvProductDescription.getSettings().setAllowContentAccess(true);
-            WebSettings webSettings = wvProductDescription.getSettings();
-            webSettings.setPluginState(WebSettings.PluginState.ON);
-            webSettings.setUseWideViewPort(true);
-            webSettings.setLoadWithOverviewMode(true);
-            wvProductDescription.canGoBack();
-            wvProductDescription.setWebChromeClient(new WebChromeClient() {
-            });
-
+            startVideoActtivity(mCurrentItem.getExtraVideos().get(position));
            // startVideoPlayer(BitmapCreator.getAbsolutePath(mCurrentItem.getExtraVideos().get(position)));
         }
 
@@ -282,6 +269,11 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
 
     }
 
+    private void startVideoActtivity(String _path) {
+        Intent intent = new Intent(mCallingActivity, PlayVideoActivity.class);
+        intent.putExtra(PlayVideoActivity.YOUTUBE_VIDEO_ID, _path);
+        startActivity(intent);
+    }
 
     private void startVideoPlayer(String _path) {
         final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(_path));
@@ -319,47 +311,6 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
                 mCallingActivity,
                 FragmentSlide.newInstance(mProductList, _position));
     }
-    private class HelloWebViewClient extends WebViewClient  {
-        private WebChromeClient.CustomViewCallback mCustomViewCallback;
-        FrameLayout.LayoutParams COVER_SCREEN_GRAVITY_CENTER = new FrameLayout.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER);
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView webview, String url)
-        {
-            webview.setWebChromeClient(new WebChromeClient() {
 
-                private View mCustomView;
-
-                @Override
-                public void onShowCustomView(View view, CustomViewCallback callback)
-                {
-                    // if a view already exists then immediately terminate the new one
-                    if (mCustomView != null)
-                    {
-                        callback.onCustomViewHidden();
-                        return;
-                    }
-
-                    // Add the custom view to its container.
-                    svDescriptionContainer.addView(view, COVER_SCREEN_GRAVITY_CENTER);
-                    mCustomView = view;
-                    mCustomViewCallback = callback;
-
-                    // hide main browser view
-//                    mContentView.setVisibility(View.GONE);
-
-                    // Finally show the custom view container.
-                    svDescriptionContainer.setVisibility(View.VISIBLE);
-                    svDescriptionContainer.bringToFront();
-                }
-
-            });
-
-            webview.loadUrl(url);
-
-            return true;
-        }
-    }
 
 }

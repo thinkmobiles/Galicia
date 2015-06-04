@@ -40,7 +40,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity" android:screenOrientation="landscape"
+        <activity android:name=".MainActivity" android:screenOrientation="landscape"/>
+        <activity android:name=".PlayVideoActivity" android:screenOrientation="landscape"
             android:hardwareAccelerated="true"/>
     </application>
 
