@@ -21,6 +21,10 @@
     <dimen name="menu_padding_left">5dp</dimen>
     <dimen name="menu_text_size">16sp</dimen>
 
+    <!--Pager Beverages-->
+    <dimen name="disc_margin_top">180dp</dimen>
+    <dimen name="disc_big_margin_top">280dp</dimen>
+    <dimen name="disc_margin_left">150dp</dimen>
 
     <!--Video description-->
     <dimen name="video_txt_size">14sp</dimen>
