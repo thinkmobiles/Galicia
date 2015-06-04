@@ -67,7 +67,7 @@ public class HorizontalPhotoProductAdapter extends BaseAdapter {
         }
 
         holder.ivImage.setImageBitmap(BitmapCreator.getBitmap(mProductList.get(position).getImage()));
-        holder.tvProductName.setText(mProductList.get(position).getName());
+//        holder.tvProductName.setText(mProductList.get(position).getName());
 
         return convertView;
     }

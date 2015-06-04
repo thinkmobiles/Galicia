@@ -10,12 +10,14 @@ public class DBItem extends SugarRecord<DBItem> {
     private String pdf;
     private Shop shop;
 
+
     public DBItem() {
     }
 
     public DBItem(final String _pdf, Shop _shop){
         shop = _shop;
         pdf = _pdf;
+
     }
 
     public Shop getShop() {

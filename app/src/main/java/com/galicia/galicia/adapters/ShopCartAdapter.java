@@ -111,7 +111,7 @@ public class ShopCartAdapter extends BaseAdapter {
     }
 
     private void sendPDF(int _pos) {
-//        PDFSender.sendShopPDFs(activity, getItem(_pos).getId());
+        PDFSender.sendShopPDFs(activity, getItem(_pos).getId());
     }
 
     private View.OnClickListener shopItemListener(final int _pos) {

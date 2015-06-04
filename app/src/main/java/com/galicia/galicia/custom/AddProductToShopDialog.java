@@ -125,6 +125,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
                 break;
             case R.id.tvAccept_PSD:
                 onClickPositiveButton();
+
                 break;
             case R.id.flTop_PSD:
             case R.id.flBottom_PSD:
@@ -174,6 +175,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
                             DBManager.addItem(
                                     mCurrentItem.getPdf(),
                                     subList.get(selected),
+                                    mCurrentItem.getName(),
                                     mProductList
                             );
                         }

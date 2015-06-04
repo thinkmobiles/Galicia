@@ -38,7 +38,7 @@ public  class DBManager {
 
     // ITEM
 
-    public static final void addItem(final String _pdf, final Shop _shop, final List<Product> _products){
+    public static final void addItem(final String _pdf, final Shop _shop, String _name, final List<Product> _products){
         if (_products == null)
             return;
         final List<DBItem> item = DBItem.find(
@@ -51,7 +51,7 @@ public  class DBManager {
 
         final DBItem dbItem = new DBItem(_pdf, _shop);
         dbItem.save();
-        addProduct(_products, dbItem);
+        addProduct(_products,_name, dbItem);
     }
 
     public static final void deleteAllItems(final long _shopId){
@@ -61,7 +61,7 @@ public  class DBManager {
         }
     }
 
-    private  static final List<DBItem> getItems(final long _shopId){
+    public   static final List<DBItem> getItems(final long _shopId){
         final String id = Long.toString(_shopId);
         return DBItem.find(DBItem.class, "shop = ?", new String[]{id});
     }
@@ -77,15 +77,15 @@ public  class DBManager {
 
     // PRODUCT
 
-    public static final void addProduct(final List<Product> products, final DBItem _item){
-        for (int i = 0; i < products.size(); i ++){
+    public static final void addProduct(final List<Product> products, String _name, final DBItem _item){
+//        for (int i = 0; i < products.size(); i ++){
             final DBProduct product = new DBProduct(
-                    products.get(i).getName(),
-                    products.get(i).getImage(),
+                    _name,
+                    products.get(0).getImage(),
                     _item
             );
             product.save();
-        }
+//        }
     }
 
     public static final List<DBProduct> getProducts(final long _shopId){
