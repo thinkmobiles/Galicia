@@ -56,7 +56,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     private EventListener mListener;
     private ArrayList<Product> mProductList;
     private List<Item> mThirdList;
-    private RelativeLayout rlProductPhotoContainer;
+    private RelativeLayout rlProductPhotoContainer, rlDevider;
     private LinearLayout llCompanyLogo, llDetail, llMoreDetail, llVideo;
     private ScrollView svDescriptionContainer;
 
@@ -90,21 +90,22 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     }
 
     private void findUI(final View _view) {
-        ivAddProduct = (ImageView) _view.findViewById(R.id.ivAddProduct_FPU);
-        ivFicha = (ImageView) _view.findViewById(R.id.ivFichaCata_FPU);
-        wvProductDescription = (WebView) _view.findViewById(R.id.wvProductDescription_FPU);
-        tvProductPhotoTitle = (TextView) _view.findViewById(R.id.tvThirdProductTitle_FPU);
-        hlvAllProduct = (HorizontalListView) _view.findViewById(R.id.hlvAllProduct_FPU);
-        lvProductVideo = (ListView) _view.findViewById(R.id.lvProductVideo_FPU);
-        llVideo = (LinearLayout) _view.findViewById(R.id.ll_video_container_FP);
-        ivProductPhoto = (ImageView) _view.findViewById(R.id.ivProductPhoto_FPU);
+        ivAddProduct            = (ImageView) _view.findViewById(R.id.ivAddProduct_FPU);
+        ivFicha                 = (ImageView) _view.findViewById(R.id.ivFichaCata_FPU);
+        ivGoBack                = (ImageView) _view.findViewById(R.id.iv_back_FPU);
+        ivDownScroll            = (ImageView) _view.findViewById(R.id.iv_downScroll_FP);
+        ivCompanyLogo           = (ImageView) _view.findViewById(R.id.ivCompanyLogo_FPU);
+        ivProductPhoto          = (ImageView) _view.findViewById(R.id.ivProductPhoto_FPU);
+        wvProductDescription    = (WebView) _view.findViewById(R.id.wvProductDescription_FPU);
+        tvProductPhotoTitle     = (TextView) _view.findViewById(R.id.tvThirdProductTitle_FPU);
+        hlvAllProduct           = (HorizontalListView) _view.findViewById(R.id.hlvAllProduct_FPU);
+        lvProductVideo          = (ListView) _view.findViewById(R.id.lvProductVideo_FPU);
         rlProductPhotoContainer = (RelativeLayout) _view.findViewById(R.id.rlProductPhotoContainer_FPU);
-        ivCompanyLogo = (ImageView) _view.findViewById(R.id.ivCompanyLogo_FPU);
-        llCompanyLogo = (LinearLayout) _view.findViewById(R.id.llCompanyLogo_FPU);
-        llDetail = (LinearLayout) _view.findViewById(R.id.llDetailContainer_FPU);
-        llMoreDetail = (LinearLayout) _view.findViewById(R.id.llMoreDetailContainer_FPU);
-        ivGoBack = (ImageView) _view.findViewById(R.id.iv_back_FPU);
-        ivDownScroll = (ImageView) _view.findViewById(R.id.iv_downScroll_FP);
+        rlDevider               = (RelativeLayout) _view.findViewById(R.id.rlDevider);
+        llVideo                 = (LinearLayout) _view.findViewById(R.id.ll_video_container_FP);
+        llCompanyLogo           = (LinearLayout) _view.findViewById(R.id.llCompanyLogo_FPU);
+        llDetail                = (LinearLayout) _view.findViewById(R.id.llDetailContainer_FPU);
+        llMoreDetail            = (LinearLayout) _view.findViewById(R.id.llMoreDetailContainer_FPU);
 
         svDescriptionContainer = (ScrollView) _view.findViewById(R.id.svDescriptionContainer_FPU);
 
@@ -239,7 +240,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         }
         final HorizontalPhotoProductAdapter adapter = new HorizontalPhotoProductAdapter(mCallingActivity, mProductList);
         if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("")) {
-            adapter.setItemMargin(150);
+            adapter.setItemMargin(20);
         }
         hlvAllProduct.setAdapter(adapter);
         hlvAllProduct.setOnItemClickListener(this);
@@ -297,6 +298,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
 
         if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("")) {
             svDescriptionContainer.setVisibility(View.GONE);
+            rlDevider.setVisibility(View.VISIBLE);
         } else {
             wvProductDescription.loadDataWithBaseURL(
                     "",

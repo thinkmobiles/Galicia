@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.galicia.galicia" >
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.galicia.galicia">
 
     <supports-screens
         android:largeScreens="true"
@@ -15,7 +16,8 @@
 
     <application
         android:allowBackup="true"
-
+        tools:replace="android:icon"
+        android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:name=".global.App"

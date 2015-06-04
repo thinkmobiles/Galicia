@@ -26,7 +26,6 @@ public class FragmentItemDetails extends Fragment {
 
     private ImageView mItemImage;
     private TextView mItemName, mPackage1, mPackage2, mPackage3, mPackage4;
-    private LinearLayout mPackagesContainer;
 
     public FragmentItemDetails() {
     }
@@ -52,15 +51,14 @@ public class FragmentItemDetails extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_fifth_style_item, container, false);
+        View view = inflater.inflate(R.layout.fragment_custom_style_item, container, false);
 
-        mItemName           = (TextView) view.findViewById(R.id.tvItemTitle_fifth_SI);
-        mItemImage          = (ImageView) view.findViewById(R.id.ivItemImage_fifth_SI);
-        mPackagesContainer  = (LinearLayout) view.findViewById(R.id.llPackages);
-        mPackage1           = (TextView) view.findViewById(R.id.tvItemFormatOne);
-        mPackage2           =  (TextView) view.findViewById(R.id.tvItemFormatTwo);
-        mPackage3           =  (TextView) view.findViewById(R.id.tvItemFormatThree);
-        mPackage4           =  (TextView) view.findViewById(R.id.tvItemFormatFour);
+        mItemName           = (TextView) view.findViewById(R.id.tvItemTitle_CS);
+        mItemImage          = (ImageView) view.findViewById(R.id.ivItemImage_CS);
+        mPackage1           = (TextView) view.findViewById(R.id.tvItemFormatOne_CS);
+        mPackage2           = (TextView) view.findViewById(R.id.tvItemFormatTwo_CS);
+        mPackage3           = (TextView) view.findViewById(R.id.tvItemFormatThree_CS);
+        mPackage4           = (TextView) view.findViewById(R.id.tvItemFormatFour_CS);
 
         mCallingActivity.setEnableMenu(true);
         makeData();
@@ -71,26 +69,23 @@ public class FragmentItemDetails extends Fragment {
         mItemName.setText(mSProduct.getProduct().getName());
         mItemImage.setImageBitmap(BitmapCreator.getBitmap(mSProduct.getProduct().getImage()));
 
-        if (mSProduct.getProduct().getPackaging() == null)
-            mPackagesContainer.setVisibility(View.GONE);
-        else
+        if (mSProduct.getProduct().getPackaging() != null)
             switch (mSProduct.getProduct().getPackaging().size()){
-
-                case 0:
-                    mPackagesContainer.setVisibility(View.GONE);
-                    break;
                 case 1:
                     mPackage1.setText(Html.fromHtml(mSProduct.getProduct().getPackaging().get(0)).toString());
+                    mPackage1.setVisibility(View.VISIBLE);
                     break;
                 case 2:
                     mPackage1.setText(Html.fromHtml(mSProduct.getProduct().getPackaging().get(0)).toString());
                     mPackage2.setText(Html.fromHtml(mSProduct.getProduct().getPackaging().get(1)));
+                    mPackage1.setVisibility(View.VISIBLE);
                     mPackage2.setVisibility(View.VISIBLE);
                     break;
                 case 3:
                     mPackage1.setText(Html.fromHtml(mSProduct.getProduct().getPackaging().get(0)).toString());
                     mPackage2.setText(Html.fromHtml(mSProduct.getProduct().getPackaging().get(1)).toString());
                     mPackage3.setText(Html.fromHtml(mSProduct.getProduct().getPackaging().get(2)).toString());
+                    mPackage1.setVisibility(View.VISIBLE);
                     mPackage2.setVisibility(View.VISIBLE);
                     mPackage3.setVisibility(View.VISIBLE);
                     break;
@@ -99,12 +94,10 @@ public class FragmentItemDetails extends Fragment {
                     mPackage2.setText(Html.fromHtml(mSProduct.getProduct().getPackaging().get(1)).toString());
                     mPackage3.setText(Html.fromHtml(mSProduct.getProduct().getPackaging().get(2)).toString());
                     mPackage4.setText(Html.fromHtml(mSProduct.getProduct().getPackaging().get(3)).toString());
+                    mPackage1.setVisibility(View.VISIBLE);
                     mPackage2.setVisibility(View.VISIBLE);
                     mPackage3.setVisibility(View.VISIBLE);
                     mPackage4.setVisibility(View.VISIBLE);
-                    break;
-                default:
-                    mPackagesContainer.setVisibility(View.GONE);
                     break;
             }
     }
