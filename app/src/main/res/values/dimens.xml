@@ -22,7 +22,12 @@
     <dimen name="dialog_big_margin">100dp</dimen>
     <dimen name="down_arrow">25dp</dimen>
 
+    <!--Pager Beverages-->
+    <dimen name="disc_margin_top">280dp</dimen>
+    <dimen name="disc_big_margin_top">430dp</dimen>
+    <dimen name="disc_margin_left">180dp</dimen>
 
+    <dimen name="default_padding">10dp</dimen>
 
     <!--SlideMenu-->
     <!--<dimen name="menu_width">300dp</dimen>-->

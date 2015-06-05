@@ -24,17 +24,17 @@
                 android:id="@+id/tvItemFormatOne_CS"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_marginTop="280dp"
-                android:layout_marginLeft="180dp" />
+                android:visibility="visible"
+                android:layout_marginTop="@dimen/disc_margin_top"
+                android:layout_marginLeft="@dimen/disc_margin_left" />
 
             <TextView
                 android:id="@+id/tvItemFormatThree_CS"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_marginTop="450dp"
-                android:layout_marginLeft="180dp" />
+                android:visibility="visible"
+                android:layout_marginTop="@dimen/disc_big_margin_top"
+                android:layout_marginLeft="@dimen/disc_margin_left" />
         </RelativeLayout>
 
         <ImageView
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 android:layout_alignParentLeft="true"
-                android:layout_marginTop="280dp" />
+                android:layout_marginTop="@dimen/disc_margin_top" />
 
             <TextView
                 android:id="@+id/tvItemFormatFour_CS"
@@ -62,9 +62,18 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 android:layout_alignParentLeft="true"
-                android:layout_marginTop="450dp" />
+                android:layout_marginTop="@dimen/disc_big_margin_top" />
         </RelativeLayout>
 
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivClose_CS"
+        android:src="@drawable/btn_close_state_normal"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp" />
 
 </RelativeLayout>
