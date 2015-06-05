@@ -48,12 +48,11 @@
                 <AutoCompleteTextView
                     android:id="@+id/etNewShop_PSD1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:background="@android:color/white"
                     android:paddingLeft="@dimen/abc_control_inset_material"
                     android:hint="Escribe el nombre del local"
-                    android:completionThreshold="1"
-                    android:ems="3"/>
+                    android:completionThreshold="1" />
 
             </RelativeLayout>
 
@@ -68,7 +67,8 @@
                 android:gravity="center_horizontal"
                 android:padding="@dimen/abc_button_padding_horizontal_material"
                 android:spinnerMode="dropdown"
-                android:visibility="gone">
+                android:visibility="gone"
+                android:focusable="false">
 
             </Spinner>
         </LinearLayout>
@@ -118,8 +118,8 @@
 
         <ImageView
             android:id="@+id/iv_all_ItemShop_PSD"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/d_arrow"
             android:layout_centerVertical="true"
             android:layout_alignRight="@+id/llSpinner_PSD"

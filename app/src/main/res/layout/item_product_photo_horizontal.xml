@@ -10,6 +10,7 @@
         android:id="@+id/tvDescription_IPI"
         android:textColor="@android:color/black"
         android:layout_alignParentBottom="true"
+        android:text="+INFO"
         android:singleLine="true"
         android:gravity="center_horizontal"
         android:layout_centerHorizontal="true"
@@ -17,7 +18,7 @@
         android:layout_marginBottom="5dp"/>
 
     <ImageView
-        android:layout_width="130dp"
+        android:layout_width="@dimen/width_item_hlv_mini"
         android:layout_height="match_parent"
         android:id="@+id/ivIcon_IPI"
         android:layout_centerHorizontal="true"
