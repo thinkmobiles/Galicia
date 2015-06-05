@@ -18,7 +18,7 @@
     <RelativeLayout
         android:id="@+id/rlSpace"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="@dimen/menu_space_height"
         android:background="@color/menu_background_black"
         android:layout_alignParentBottom="true">
 
