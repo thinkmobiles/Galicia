@@ -60,6 +60,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
     private AutoCompleteTextView autoCompleteTextView;
     private ImageView allShop;
     private boolean isSelectChek, questionCheck=false;
+    private boolean isShowListShop = false;
     ArrayAdapter<String> adapter;
 
     public static AddProductToShopDialog newInstance(final ItemSerializable _item) {
@@ -161,10 +162,8 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
                 if(questionCheck) {
                     FragmentReplacer.popSupBackStack(getActivity());
                     questionCheck = false;
-                }
-                else
+                } else
                      onClickPositiveButton();
-
                 break;
             case R.id.flTop_PSD:
                 break;
@@ -173,8 +172,19 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
                 break;
 
             case R.id.iv_all_ItemShop_PSD :
-                autoCompleteTextView.showDropDown();
+                changeDownUpList();
+
+                break;
         }
+    }
+
+    private void changeDownUpList(){
+        if(isShowListShop){
+            autoCompleteTextView.dismissDropDown();
+        }else{
+            autoCompleteTextView.showDropDown();
+        }
+        isShowListShop = !isShowListShop;
     }
 
     private void onClickPositiveButton(){
