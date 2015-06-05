@@ -15,9 +15,10 @@ public  class DBManager {
         return Shop.listAll(Shop.class);
     }
 
-    public static final void addShop(final String _shopName){
+    public static final Shop addShop(final String _shopName){
         final Shop shop = new Shop(_shopName);
         shop.save();
+        return shop;
     }
 
     public static final void deleteShop(final Shop _shop){
@@ -38,8 +39,8 @@ public  class DBManager {
 
     // ITEM
 
-    public static final void addItem(final String _pdf, final Shop _shop, final List<Product> _products){
-        if (_products == null)
+    public static final void addItem(final String _pdf, final Shop _shop, String _name, final String _icon){
+        if (_icon == null)
             return;
         final List<DBItem> item = DBItem.find(
                 DBItem.class,
@@ -51,7 +52,7 @@ public  class DBManager {
 
         final DBItem dbItem = new DBItem(_pdf, _shop);
         dbItem.save();
-        addProduct(_products, dbItem);
+        addProduct(_icon,_name, dbItem);
     }
 
     public static final void deleteAllItems(final long _shopId){
@@ -61,7 +62,7 @@ public  class DBManager {
         }
     }
 
-    private  static final List<DBItem> getItems(final long _shopId){
+    public   static final List<DBItem> getItems(final long _shopId){
         final String id = Long.toString(_shopId);
         return DBItem.find(DBItem.class, "shop = ?", new String[]{id});
     }
@@ -77,15 +78,15 @@ public  class DBManager {
 
     // PRODUCT
 
-    public static final void addProduct(final List<Product> products, final DBItem _item){
-        for (int i = 0; i < products.size(); i ++){
+    public static final void addProduct(final String _icon, String _name, final DBItem _item){
+//        for (int i = 0; i < products.size(); i ++){
             final DBProduct product = new DBProduct(
-                    products.get(i).getName(),
-                    products.get(i).getImage(),
+                    _name,
+                    _icon,
                     _item
             );
             product.save();
-        }
+//        }
     }
 
     public static final List<DBProduct> getProducts(final long _shopId){

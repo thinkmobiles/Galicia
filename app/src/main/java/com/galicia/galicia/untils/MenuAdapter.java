@@ -41,19 +41,19 @@ public class MenuAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Holder holder = new Holder();
+        ViewHolder holder = new ViewHolder();
         if(convertView == null){
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_menu,null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_menu,parent,false);
             holder.textView = (TextView) convertView.findViewById(R.id.tvMenuItem);
-            convertView.setTag(position);
+            convertView.setTag(holder);
         } else {
-            holder = (Holder) convertView.getTag();
+            holder = (ViewHolder) convertView.getTag();
         }
         holder.textView.setText(list.get(position));
         return convertView;
     }
 
-    class Holder {
+    class ViewHolder {
         TextView textView;
     }
 

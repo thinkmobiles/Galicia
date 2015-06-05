@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.global.ApiManager;
+import com.galicia.galicia.orm_database.DBItem;
+import com.galicia.galicia.orm_database.DBManager;
 import com.galicia.galicia.untils.DataBase.ItemDAO;
 
 import java.io.File;
@@ -19,10 +21,11 @@ import java.util.List;
  */
 public abstract class PDFSender {
 
-   public static void sendShopPDFs (Activity activity, int pos){
-        ItemDAO i = new ItemDAO(activity);
+   public static void sendShopPDFs (Activity activity, long pos){
+       // ItemDAO i = new ItemDAO(activity);
+        List<DBItem> items = DBManager.getItems(pos);
         ArrayList<Uri> uris =new ArrayList<>();
-        List<Item> items = i.getItems(String.valueOf(pos));
+      //  List<Item> items = i.getItems(String.valueOf(pos));
 
         for (int k=0; k<items.size(); k++){
             File file = new File(ApiManager.getPath() + items.get(k).getPdf());
