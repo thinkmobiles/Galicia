@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,7 +58,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     private ArrayList<Product> mProductList;
     private List<Item> mThirdList;
     private RelativeLayout rlProductPhotoContainer, rlDevider;
-    private LinearLayout llCompanyLogo, llDetail, llMoreDetail, llVideo;
+    private LinearLayout llCompanyLogo, llDetail, llMoreDetail, llVideo, llDeac;
     private ScrollView svDescriptionContainer;
 
     public static FragmentProduct newInstance(final ItemSerializable _item) {
@@ -106,8 +107,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         llCompanyLogo           = (LinearLayout) _view.findViewById(R.id.llCompanyLogo_FPU);
         llDetail                = (LinearLayout) _view.findViewById(R.id.llDetailContainer_FPU);
         llMoreDetail            = (LinearLayout) _view.findViewById(R.id.llMoreDetailContainer_FPU);
-
-        svDescriptionContainer = (ScrollView) _view.findViewById(R.id.svDescriptionContainer_FPU);
+        llDeac                  = (LinearLayout) _view.findViewById(R.id.llDesc_FPU);
+        svDescriptionContainer  = (ScrollView) _view.findViewById(R.id.svDescriptionContainer_FPU);
 
         mCallingActivity.setEnableMenu(true);
     }
@@ -172,6 +173,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
                 break;
             case R.id.iv_downScroll_FP:
                 downScrollList();
+                break;
         }
     }
 
@@ -231,6 +233,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         lvProductVideo.setVisibility(View.GONE);
         ivProductPhoto.setImageBitmap(BitmapCreator.getBitmap(mProductList.get(0).getImage()));
         tvProductPhotoTitle.setText(mThirdList.get(0).getName());
+
+        llDeac.setPadding(0, 0, 0, mCallingActivity.getResources().getInteger(R.integer.desc_padding_bottom));
     }
 
     private void initHorizontalImageList() {

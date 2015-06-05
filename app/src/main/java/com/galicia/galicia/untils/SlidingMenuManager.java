@@ -1,9 +1,13 @@
 package com.galicia.galicia.untils;
 
 import android.app.Activity;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cristaliza.mvc.events.Event;
@@ -31,6 +35,8 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
     private List<Item> mMenuItemList;
     private List<String> mMenuTitle;
     private MenuAdapter menuAdapter;
+    private RelativeLayout mSpace;
+    private TextView tvEnvios;
 
     public void initMenu(Activity _activity) {
 
@@ -60,7 +66,9 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
 
     private void findView(View _view){
         footer      = View.inflate(activity,R.layout.slidemenu_footer,null);
-        header      = View.inflate(activity,R.layout.slidemenu_header,null);
+        header      = View.inflate(activity, R.layout.slidemenu_header, null);
+
+        mSpace      = (RelativeLayout) _view.findViewById(R.id.rlSpace);
         listMenu    = (ListView) _view.findViewById(R.id.sidemenu);
     }
 
@@ -73,6 +81,13 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
 
     private void initViewListeners(){
         listMenu.setOnItemClickListener(this);
+
+        mSpace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menu.toggle();
+            }
+        });
     }
 
     public void show(){
@@ -97,8 +112,7 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
         if(view == header){
             FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu());
             menu.toggle();
-        }else if(view == footer){
-            //FragmentReplacer.clearSupBackStack(activity);
+        }else if(view == footer) {
             FragmentReplacer.replaceFragmentWithStack(activity, ShopCartFragment.newInstance());
             menu.toggle();
         } else {

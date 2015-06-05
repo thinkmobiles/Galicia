@@ -82,7 +82,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/iv_back_FPU"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:id="@+id/llDesc_FPU">
 
                 <ScrollView
                     android:id="@+id/svDescriptionContainer_FPU"

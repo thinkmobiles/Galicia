@@ -28,13 +28,15 @@
     <dimen name="disc_margin_left">180dp</dimen>
 
     <dimen name="default_padding">10dp</dimen>
+    <integer name="desc_padding_bottom">40</integer>
 
     <!--SlideMenu-->
-    <!--<dimen name="menu_width">300dp</dimen>-->
-    <!--<dimen name="menu_height">55dp</dimen>-->
-    <!--<dimen name="menu_margin_top">70dp</dimen>-->
-    <!--<dimen name="menu_padding_left">5dp</dimen>-->
-    <!--<dimen name="menu_text_size">15sp</dimen>-->
+    <dimen name="menu_width">300dp</dimen>
+    <dimen name="menu_height">55dp</dimen>
+    <dimen name="menu_margin_top">70dp</dimen>
+    <dimen name="menu_padding_left">5dp</dimen>
+    <dimen name="menu_text_size">15sp</dimen>
+    <dimen name="menu_space_height">230dp</dimen>
 
 
     <!-- fragment product universal-->
