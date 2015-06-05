@@ -113,7 +113,7 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener, 
         if (DBManager.getShops().size() == 0)
             return;
         final CustomDialog.Builder builder = new CustomDialog.Builder()
-                .setMessage("delete all shop&")
+                .setMessage("delete all shop?")
                 .setPositiveButton("Ok", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

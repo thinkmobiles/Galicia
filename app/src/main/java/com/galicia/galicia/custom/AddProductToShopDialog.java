@@ -8,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,6 +26,7 @@ import com.cristaliza.mvc.models.estrella.Product;
 import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.adapters.SpinnerPurchaseAdapter;
+import com.galicia.galicia.fragments.ShopCartFragment;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.Constants;
 import com.galicia.galicia.global.FragmentReplacer;
@@ -46,13 +50,17 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
     private LinearLayout spinnerLayout;
     private Spinner spinner;
     private SpinnerPurchaseAdapter spinnerPurchaseAdapter;
-    private TextView tvAccept, tvCancel;
+    private TextView tvAccept, tvCancel, tvTitle;
     private EditText shopName;
     private Item mCurrentItem;
     private FrameLayout flTop, flBottom, flBackground;
     private EventListener mListener;
     private List<Product> mProductList;
     private List<Item> mThirdList;
+    private AutoCompleteTextView autoCompleteTextView;
+    private ImageView allShop;
+    private boolean isSelectChek, questionCheck=false;
+    ArrayAdapter<String> adapter;
 
     public static AddProductToShopDialog newInstance(final ItemSerializable _item) {
         final AddProductToShopDialog fragment = new AddProductToShopDialog();
@@ -82,16 +90,32 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
         findViews(inflaterView);
         setListeners();
         addProduct();
+        setViewSettings();
         mCallingActivity.setEnableMenu(false);
         return inflaterView;
     }
 
     private void initSpinner(){
+        allShop.setVisibility(View.VISIBLE);
+
+        String[] names = new String[subList.size()];
+        for (int i = 0; i<subList.size(); i++ ){
+            names[i] = subList.get(i).getName();
+        }
+        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, names);
         spinnerPurchaseAdapter = new SpinnerPurchaseAdapter(mCallingActivity, subList);
         spinner.setAdapter(spinnerPurchaseAdapter);
+        autoCompleteTextView.setAdapter(adapter);
+    }
+
+    public void setVisible(){
+            tvTitle.setText("Want to continue");
+            autoCompleteTextView.setVisibility(View.GONE);
+
     }
 
     private void findViews(final View _view) {
+        tvTitle         = (TextView) _view.findViewById(R.id.tv_dialogTitle_CD);
         spinnerLayout   = (LinearLayout) _view.findViewById(R.id.llSpinner_PSD);
         spinner         = (Spinner) _view.findViewById(R.id.spinner_PSD);
         tvCancel        = (TextView) _view.findViewById(R.id.tvCancel_PSD);
@@ -100,6 +124,13 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
         flTop           = (FrameLayout) _view.findViewById(R.id.flTop_PSD);
         flBottom        = (FrameLayout) _view.findViewById(R.id.flBottom_PSD);
         flBackground    = (FrameLayout) _view.findViewById(R.id.flBackground_PSD);
+        autoCompleteTextView = (AutoCompleteTextView) _view.findViewById(R.id.etNewShop_PSD1);
+        allShop         = (ImageView) _view.findViewById(R.id.iv_all_ItemShop_PSD);
+    }
+    private void setViewSettings(){
+        autoCompleteTextView.setDropDownBackgroundResource(R.color.bg_grey);
+        if(subList.isEmpty())
+            allShop.setVisibility(View.GONE);
     }
 
     private void setListeners() {
@@ -109,52 +140,104 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
         flBottom.setOnClickListener(this);
         flTop.setOnClickListener(this);
         flBackground.setOnClickListener(this);
+        allShop.setOnClickListener(this);
         makeDownloadListener();
+        makeAutocompleteItemClickListener();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tvCancel_PSD:
-                if (shopName.getVisibility() == View.VISIBLE) {
-                    spinnerLayout.setVisibility(View.VISIBLE);
-                    shopName.setVisibility(View.GONE);
+                if (questionCheck){
+                    FragmentReplacer.replaceFragmentWithStack(getActivity(), new ShopCartFragment());
+                    questionCheck = false;
                 } else {
                     FragmentReplacer.popSupBackStack(getActivity());
                 }
+
                 break;
             case R.id.tvAccept_PSD:
-                onClickPositiveButton();
+                if(questionCheck) {
+                    FragmentReplacer.popSupBackStack(getActivity());
+                    questionCheck = false;
+                }
+                else
+                     onClickPositiveButton();
 
                 break;
             case R.id.flTop_PSD:
+                break;
             case R.id.flBottom_PSD:
                 FragmentReplacer.popSupBackStack(getActivity());
                 break;
+
+            case R.id.iv_all_ItemShop_PSD :
+                autoCompleteTextView.showDropDown();
         }
     }
 
     private void onClickPositiveButton(){
-        if (shopName.getVisibility() == View.GONE) {
-            if (subList.get(selected).getId() == null) {
-                spinnerLayout.setVisibility(View.INVISIBLE);
-                shopName.setVisibility(View.VISIBLE);
-            } else {
-                shopList.get(selected).getId();
-                ApiManager.getThirdLevel(mListener, mCurrentItem);
-                FragmentReplacer.popSupBackStack(getActivity());
-                Toast.makeText(mCallingActivity, "Item add to shop_id= " + String.valueOf(subList.get(selected).getId()), Toast.LENGTH_SHORT).show();
+//        if (shopName.getVisibility() == View.GONE) {
+//            if (subList.get(selected).getId() == null) {
+//                spinnerLayout.setVisibility(View.INVISIBLE);
+//                shopName.setVisibility(View.VISIBLE);
+//            } else {
 
-            }
-        } else if (!shopName.getText().toString().isEmpty()) {
-            DBManager.addShop(shopName.getText().toString());
-            spinnerLayout.setVisibility(View.VISIBLE);
-            shopName.setVisibility(View.GONE);
-            addProduct();
+
+//            }
+         if (!autoCompleteTextView.getText().toString().isEmpty()) {
+             questionCheck = true;
+             if (isSelectChek) {
+                shopList.get(selected).getId();
+
+                     DBManager.addItem(
+                             mCurrentItem.getPdf(),
+                             subList.get(selected),
+                             mCurrentItem.getName(),
+                             mCurrentItem.getIcon()
+                     );
+
+                isSelectChek = false;
+                setVisible();
+             } else {
+                 Shop shop = DBManager.addShop(autoCompleteTextView.getText().toString());
+                 spinnerLayout.setVisibility(View.VISIBLE);
+                 shopName.setVisibility(View.GONE);
+                 addProduct();
+
+
+                     DBManager.addItem(
+                             mCurrentItem.getPdf(),
+                             shop,
+                             mCurrentItem.getName(),
+                             mCurrentItem.getIcon());
+
+
+//                 ApiManager.getThirdLevel(mListener, mCurrentItem);
+                 Toast.makeText(mCallingActivity, "Shop add successfull",Toast.LENGTH_SHORT ).show();
+                 autoCompleteTextView.setText("");
+                 adapter.notifyDataSetChanged();
+                 autoCompleteTextView.showDropDown();
+                 setVisible();
+             }
+
+         }else {
+             Toast.makeText(mCallingActivity, "enter shop", Toast.LENGTH_SHORT).show();
+         }
+
+//            spinnerLayout.setVisibility(View.VISIBLE);
+//            shopName.setVisibility(View.GONE);
+           // addProduct();
 //            FragmentReplacer.popSupBackStack(getActivity());
-        } else {
-            Toast.makeText(mCallingActivity, "enter shop", Toast.LENGTH_SHORT).show();
-        }
+//        } else {
+//            Toast.makeText(mCallingActivity, "enter shop", Toast.LENGTH_SHORT).show();
+
+    }
+    private void addProductToCart(){
+        ApiManager.getThirdLevel(mListener, mCurrentItem);
+//        FragmentReplacer.popSupBackStack(getActivity());
+        Toast.makeText(mCallingActivity, "Item add to shop_id= " + String.valueOf(subList.get(selected).getId()), Toast.LENGTH_SHORT).show();
     }
 
     private void makeDownloadListener() {
@@ -171,18 +254,28 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
                         break;
                     case AppModel.ChangeEvent.PRODUCTS_CHANGED_ID:
                         mProductList.add(ApiManager.getProductsList().get(0));
-                        if (mProductList.size() == mThirdList.size()){
-                            DBManager.addItem(
-                                    mCurrentItem.getPdf(),
-                                    subList.get(selected),
-                                    mCurrentItem.getName(),
-                                    mProductList
-                            );
-                        }
+//                        if (mProductList.size() == mThirdList.size()){
+//                            DBManager.addItem(
+//                                    mCurrentItem.getPdf(),
+//                                    subList.get(selected),
+//                                    mCurrentItem.getName(),
+//                                    mProductList
+//                            );
+//                        }
 
                 }
             }
         };
+    }
+
+    private void makeAutocompleteItemClickListener(){
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selected = position;
+                isSelectChek=true;
+            }
+        });
     }
 
     private void getProduct() {
@@ -213,7 +306,8 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
             shopList.add(0, lastElement);
             subList = shopList.subList(0, shopList.size() - 1);
         }
-        subList.add(new Shop("Create new shop"));
+//        subList.add(new Shop("Create new shop"));
+
         initSpinner();
     }
 
