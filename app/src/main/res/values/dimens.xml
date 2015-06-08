@@ -38,7 +38,10 @@
     <dimen name="menu_text_size">15sp</dimen>
     <dimen name="menu_space_height">230dp</dimen>
 
-    <dimen name="width_item_hlv_mini">100dp</dimen>
+    <dimen name="width_item_hlv_mini">70dp</dimen>
+
+    <dimen name="product_devider_height">0dp</dimen>
+    <integer name="product_slide_margin">25</integer>
 
     <!-- fragment product universal-->
     <!--<dimen name="default_padding">10dp</dimen>-->

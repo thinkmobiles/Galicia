@@ -21,7 +21,6 @@
     <dimen name="menu_margin_top">20dp</dimen>
     <dimen name="menu_padding_left">5dp</dimen>
     <dimen name="menu_text_size">13sp</dimen>
-    <dimen name="menu_space_height">10dp</dimen>
 
     <!--Pager Beverages-->
     <dimen name="disc_margin_top">280dp</dimen>

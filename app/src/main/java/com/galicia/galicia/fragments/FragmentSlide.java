@@ -24,7 +24,7 @@ public class FragmentSlide extends Fragment implements View.OnClickListener, Vie
     private List<Product> mProductList;
     private int mPosition;
 
-    private ImageView mBtnNext, mBtnPrev;
+    private ImageView mBtnNext, mBtnPrev, mClose;
     private ViewPager mSlidePager;
     private ArrayList<Fragment> fragments = new ArrayList<>();
     private SlidePagerAdapter mSlidePagerAdapter;
@@ -60,11 +60,9 @@ public class FragmentSlide extends Fragment implements View.OnClickListener, Vie
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_slide_product, container, false);
 
-        mBtnNext = (ImageView) view.findViewById(R.id.ivNext);
-        mBtnPrev = (ImageView) view.findViewById(R.id.ivPrev);
 
-        mCallingActivity.setEnableMenu(true);
-        mSlidePager = (ViewPager) view.findViewById(R.id.vpSlider);
+
+        findUI(view);
         makeList();
         initFragmentsList();
         setListeners();
@@ -72,9 +70,19 @@ public class FragmentSlide extends Fragment implements View.OnClickListener, Vie
         return view;
     }
 
+    private void findUI(View _view){
+        mBtnNext = (ImageView) _view.findViewById(R.id.ivNext);
+        mBtnPrev = (ImageView) _view.findViewById(R.id.ivPrev);
+        mClose = (ImageView) _view.findViewById(R.id.ivClose);
+        mSlidePager = (ViewPager) _view.findViewById(R.id.vpSlider);
+
+        mCallingActivity.setEnableMenu(true);
+    }
+
     private void setListeners(){
         mBtnNext.setOnClickListener(this);
         mBtnPrev.setOnClickListener(this);
+        mClose.setOnClickListener(this);
     }
 
 
@@ -86,6 +94,9 @@ public class FragmentSlide extends Fragment implements View.OnClickListener, Vie
                 break;
             case R.id.ivPrev:
                 mSlidePager.setCurrentItem(mSlidePager.getCurrentItem()-1, true);
+                break;
+            case R.id.ivClose:
+                mCallingActivity.onBackPressed();
                 break;
         }
 

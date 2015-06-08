@@ -54,6 +54,14 @@
                     android:hint="Escribe el nombre del local"
                     android:completionThreshold="1" />
 
+                <ImageView
+                    android:id="@+id/iv_all_ItemShop_PSD"
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/d_arrow"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true" />
+
             </RelativeLayout>
 
 
@@ -113,15 +121,6 @@
             android:hint="enter shop"
             android:padding="@dimen/abc_button_padding_horizontal_material"
             android:visibility="gone"
-            android:layout_alignRight="@+id/llSpinner_PSD"
-            android:layout_alignEnd="@+id/llSpinner_PSD" />
-
-        <ImageView
-            android:id="@+id/iv_all_ItemShop_PSD"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/d_arrow"
-            android:layout_centerVertical="true"
             android:layout_alignRight="@+id/llSpinner_PSD"
             android:layout_alignEnd="@+id/llSpinner_PSD" />
 

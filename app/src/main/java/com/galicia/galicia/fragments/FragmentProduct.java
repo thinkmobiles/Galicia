@@ -58,9 +58,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     private EventListener mListener;
     private ArrayList<Product> mProductList;
     private List<Item> mThirdList;
-    private RelativeLayout rlProductPhotoContainer, rlDevider;
+    private RelativeLayout rlProductPhotoContainer;
     private LinearLayout llCompanyLogo, llDetail, llMoreDetail, llVideo, llDeac;
-    private ScrollView svDescriptionContainer;
 
     public static FragmentProduct newInstance(final ItemSerializable _item) {
         final FragmentProduct fragment = new FragmentProduct();
@@ -103,13 +102,11 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         hlvAllProduct           = (HorizontalListView) _view.findViewById(R.id.hlvAllProduct_FPU);
         lvProductVideo          = (ListView) _view.findViewById(R.id.lvProductVideo_FPU);
         rlProductPhotoContainer = (RelativeLayout) _view.findViewById(R.id.rlProductPhotoContainer_FPU);
-        rlDevider               = (RelativeLayout) _view.findViewById(R.id.rlDevider);
         llVideo                 = (LinearLayout) _view.findViewById(R.id.ll_video_container_FP);
         llCompanyLogo           = (LinearLayout) _view.findViewById(R.id.llCompanyLogo_FPU);
         llDetail                = (LinearLayout) _view.findViewById(R.id.llDetailContainer_FPU);
         llMoreDetail            = (LinearLayout) _view.findViewById(R.id.llMoreDetailContainer_FPU);
         llDeac                  = (LinearLayout) _view.findViewById(R.id.llDesc_FPU);
-        svDescriptionContainer  = (ScrollView) _view.findViewById(R.id.svDescriptionContainer_FPU);
 
         mCallingActivity.setEnableMenu(true);
     }
@@ -244,8 +241,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             return;
         }
         final HorizontalPhotoProductAdapter adapter = new HorizontalPhotoProductAdapter(mCallingActivity, mProductList);
-        if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("")) {
-            adapter.setItemMargin(20);
+        if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("<span style='font-family: Helvetica Neue, Helvetica, Arial, sans-serif;'></span>")) {
+            adapter.setItemMargin(mCallingActivity.getResources().getInteger(R.integer.product_slide_margin));
         }
         hlvAllProduct.setAdapter(adapter);
         hlvAllProduct.setOnItemClickListener(this);
@@ -290,11 +287,9 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     private void makeData() {
         ivCompanyLogo.setImageBitmap(BitmapCreator.getBitmap(mCurrentItem.getLogo()));
         mCallingActivity.setBackground(mCurrentItem.getBackgroundImage());
-        ivCompanyLogo.setImageBitmap(BitmapCreator.getBitmap(mCurrentItem.getLogo()));
 
-        if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("")) {
-            svDescriptionContainer.setVisibility(View.GONE);
-            rlDevider.setVisibility(View.VISIBLE);
+        if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("<span style='font-family: Helvetica Neue, Helvetica, Arial, sans-serif;'></span>")) {
+            wvProductDescription.setVisibility(View.GONE);
         } else {
             wvProductDescription.loadDataWithBaseURL(
                     "",

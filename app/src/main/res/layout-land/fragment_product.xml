@@ -73,42 +73,28 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/abc_text_size_title_material_toolbar"
                 android:layout_marginTop="@dimen/abc_text_size_title_material_toolbar"
-                android:src="@drawable/btn_volver"
-                android:clickable="true">
+                android:clickable="true"
+                android:src="@drawable/btn_volver">
 
             </ImageView>
 
             <LinearLayout
+                android:id="@+id/llDesc_FPU"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/iv_back_FPU"
-                android:orientation="vertical"
-                android:id="@+id/llDesc_FPU">
+                android:orientation="vertical">
 
-                <ScrollView
-                    android:id="@+id/svDescriptionContainer_FPU"
+                <WebView
+                    android:id="@+id/wvProductDescription_FPU"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_above="@+id/hlvAllProduct_FPU"
-                    android:layout_below="@+id/ivAddProduct_FPU"
                     android:layout_weight="1"
                     android:fadeScrollbars="false"
-                    android:fastScrollAlwaysVisible="true"
-                    android:scrollbarAlwaysDrawVerticalTrack="true">
+                    android:focusableInTouchMode="false"
+                    android:scrollbarAlwaysDrawHorizontalTrack="true"
+                    android:textColor="@android:color/black" />
 
-                    <WebView
-                        android:id="@+id/wvProductDescription_FPU"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:focusableInTouchMode="false"
-                        android:textColor="@android:color/black" />
-                </ScrollView>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:id="@+id/rlDevider"
-                    android:visibility="gone"></RelativeLayout>
 
                 <com.galicia.galicia.custom.HorizontalListView
                     android:id="@+id/hlvAllProduct_FPU"

@@ -54,7 +54,6 @@ public class FragmentItemDetails extends Fragment {
         View view = inflater.inflate(R.layout.fragment_custom_style_item, container, false);
 
         findViews(view);
-        setListener();
         makeData();
         return view;
     }
@@ -66,18 +65,8 @@ public class FragmentItemDetails extends Fragment {
         mPackage3           = (TextView) _view.findViewById(R.id.tvItemFormatThree_CS);
         mPackage4           = (TextView) _view.findViewById(R.id.tvItemFormatFour_CS);
         mItemImage          = (ImageView) _view.findViewById(R.id.ivItemImage_CS);
-        mClose              = (ImageView) _view.findViewById(R.id.ivClose_CS);
 
         mCallingActivity.setEnableMenu(true);
-    }
-
-    private void setListener(){
-        mClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCallingActivity.onBackPressed();
-            }
-        });
     }
 
     private void makeData() {

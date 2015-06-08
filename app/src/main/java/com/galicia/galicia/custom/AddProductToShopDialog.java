@@ -110,8 +110,9 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
     }
 
     public void setVisible(){
-            tvTitle.setText("Want to continue");
-            autoCompleteTextView.setVisibility(View.GONE);
+        tvTitle.setText("Want to continue");
+        allShop.setVisibility(View.GONE);
+        autoCompleteTextView.setVisibility(View.GONE);
 
     }
 
@@ -151,6 +152,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
         switch (v.getId()){
             case R.id.tvCancel_PSD:
                 if (questionCheck){
+                    FragmentReplacer.popSupBackStack(getActivity());
                     FragmentReplacer.replaceFragmentWithStack(getActivity(), new ShopCartFragment());
                     questionCheck = false;
                 } else {
