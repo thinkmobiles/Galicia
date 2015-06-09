@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.R;
+import com.galicia.galicia.global.Constants;
 import com.galicia.galicia.untils.BitmapCreator;
 import com.squareup.picasso.Picasso;
 
@@ -67,7 +68,7 @@ public class ProductVideoAdapter extends BaseAdapter {
             holder.ivExtraVideo.setImageBitmap(BitmapCreator.getBitmap(mItem.getExtraImages().get(position)));
         else
             Picasso.with(mContext)
-                    .load("http://img.youtube.com/vi/" + getYouTubeImageId(mItem.getExtraVideos().get(position)) +"/0.jpg")
+                    .load(Constants.URL_YOUTUBE_IMG + getYouTubeImageId(mItem.getExtraVideos().get(position)) + Constants.URL_YOUTUBE_IMG_INDEX)
                     .into(holder.ivExtraVideo);
 
          // .setImageBitmap(getBitmapFromExtraVideo(BitmapCreator.getAbsolutePath()));

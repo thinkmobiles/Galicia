@@ -123,7 +123,7 @@ public class CustomSpinerDialog {
                         shopList.get(selected).getId();
                         itemDAO.save(mCurentItem, subList.get(selected).getId());
                         alertDialog.dismiss();
-                        Toast.makeText(mCallingActivity, "Item add to shop_id= " + String.valueOf(subList.get(selected).getId()), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mCallingActivity, mCallingActivity.getString(R.string.add_item_to_shop) + String.valueOf(subList.get(selected).getId()), Toast.LENGTH_SHORT).show();
 
                     }
                 } else if (!shopName.getText().toString().isEmpty()) {
@@ -153,7 +153,7 @@ public class CustomSpinerDialog {
                 subList = shopList.subList(0, shopList.size() - 1);
             }
 
-            subList.add(new Shop(-1, "Create new shop"));
+            subList.add(new Shop(-1, mCallingActivity.getString(R.string.create_new__shop)));
             return null;
         }
 

@@ -9,7 +9,7 @@ public class App extends SugarApp {
     @Override
     public void onCreate() {
         super.onCreate();
-        TypefaceUtil.overrideFont(getApplicationContext(), "HELVETICA", "assets/fonts/helvetica_roman.ttf"); // font from assets: "assets/fonts/century_gothic.ttf
+        TypefaceUtil.overrideFont(getApplicationContext(), Constants.NAME_FONT_FAMILY, Constants.PATH_FONT); // font from assets: "assets/fonts/century_gothic.ttf
 
         context = this;
     }

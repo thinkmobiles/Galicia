@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,7 +54,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
     private TextView tvAccept, tvCancel, tvTitle;
     private EditText shopName;
     private Item mCurrentItem;
-    private FrameLayout flTop, flBottom, flBackground;
+    private FrameLayout flTop, flBottom;
     private EventListener mListener;
     private List<Product> mProductList;
     private List<Item> mThirdList;
@@ -110,7 +111,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
     }
 
     public void setVisible(){
-        tvTitle.setText("Want to continue");
+        tvTitle.setText(mCallingActivity.getString(R.string.want_continue));
         allShop.setVisibility(View.GONE);
         autoCompleteTextView.setVisibility(View.GONE);
 
@@ -122,10 +123,8 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
         spinner         = (Spinner) _view.findViewById(R.id.spinner_PSD);
         tvCancel        = (TextView) _view.findViewById(R.id.tvCancel_PSD);
         tvAccept        = (TextView) _view.findViewById(R.id.tvAccept_PSD);
-        shopName        = (EditText) _view.findViewById(R.id.etNewShop_PSD);
         flTop           = (FrameLayout) _view.findViewById(R.id.flTop_PSD);
         flBottom        = (FrameLayout) _view.findViewById(R.id.flBottom_PSD);
-        flBackground    = (FrameLayout) _view.findViewById(R.id.flBackground_PSD);
         autoCompleteTextView = (AutoCompleteTextView) _view.findViewById(R.id.etNewShop_PSD1);
         allShop         = (ImageView) _view.findViewById(R.id.iv_all_ItemShop_PSD);
     }
@@ -141,7 +140,6 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
         tvAccept.setOnClickListener(this);
         flBottom.setOnClickListener(this);
         flTop.setOnClickListener(this);
-        flBackground.setOnClickListener(this);
         allShop.setOnClickListener(this);
         makeDownloadListener();
         makeAutocompleteItemClickListener();
@@ -158,7 +156,6 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
                 } else {
                     FragmentReplacer.popSupBackStack(getActivity());
                 }
-
                 break;
             case R.id.tvAccept_PSD:
                 if(questionCheck) {
@@ -172,10 +169,8 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
             case R.id.flBottom_PSD:
                 FragmentReplacer.popSupBackStack(getActivity());
                 break;
-
             case R.id.iv_all_ItemShop_PSD :
                 changeDownUpList();
-
                 break;
         }
     }
@@ -215,7 +210,6 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
              } else {
                  Shop shop = DBManager.addShop(autoCompleteTextView.getText().toString());
                  spinnerLayout.setVisibility(View.VISIBLE);
-                 shopName.setVisibility(View.GONE);
                  addProduct();
 
 
@@ -227,7 +221,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
 
 
 //                 ApiManager.getThirdLevel(mListener, mCurrentItem);
-                 Toast.makeText(mCallingActivity, "Shop add successfull",Toast.LENGTH_SHORT ).show();
+                 Toast.makeText(mCallingActivity, mCallingActivity.getString(R.string.add_shop_succesfull),Toast.LENGTH_SHORT ).show();
                  autoCompleteTextView.setText("");
                  adapter.notifyDataSetChanged();
                  autoCompleteTextView.showDropDown();
@@ -235,7 +229,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
              }
 
          }else {
-             Toast.makeText(mCallingActivity, "enter shop", Toast.LENGTH_SHORT).show();
+             Toast.makeText(mCallingActivity, mCallingActivity.getString(R.string.enter_shop), Toast.LENGTH_SHORT).show();
          }
 
 //            spinnerLayout.setVisibility(View.VISIBLE);
@@ -249,7 +243,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
     private void addProductToCart(){
         ApiManager.getThirdLevel(mListener, mCurrentItem);
 //        FragmentReplacer.popSupBackStack(getActivity());
-        Toast.makeText(mCallingActivity, "Item add to shop_id= " + String.valueOf(subList.get(selected).getId()), Toast.LENGTH_SHORT).show();
+        Toast.makeText(mCallingActivity, mCallingActivity.getString(R.string.add_item_to_shop) + String.valueOf(subList.get(selected).getId()), Toast.LENGTH_SHORT).show();
     }
 
     private void makeDownloadListener() {
@@ -258,7 +252,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
             public void onEvent(Event event) {
                 switch (event.getId()) {
                     case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
-                        Toast.makeText(getActivity(), event.getType() + "error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), event.getType() + mCallingActivity.getString(R.string.error), Toast.LENGTH_SHORT).show();
                         break;
                     case AppModel.ChangeEvent.THIRD_LEVEL_CHANGED_ID:
                         mThirdList = ApiManager.getThirdList();

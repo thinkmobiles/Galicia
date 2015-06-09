@@ -27,7 +27,7 @@ public class GaliciaDataBaseHelper extends SQLiteOpenHelper{
     @Override
     public void onOpen(SQLiteDatabase db) {
         super.onOpen(db);
-        db.execSQL("PRAGMA foreign_keys=ON;");
+        db.execSQL(Constants.OPEN_TABLE);
     }
 
     @Override

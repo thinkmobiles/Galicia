@@ -88,7 +88,7 @@ public class SplashScreen extends Activity {
                 Log.d("tag", "e = " + event);
                 switch (event.getId()) {
                     case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
-                        Toast.makeText(getBaseContext(), event.getType() + " error", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), event.getType() + getString(R.string.error), Toast.LENGTH_LONG).show();
                         break;
                     case AppModel.ChangeEvent.DOWNLOAD_ALL_CHANGED_ID:
                         SharedPreferencesManager.saveUpdateDate(getBaseContext(), System.currentTimeMillis());
