@@ -80,7 +80,7 @@ public class StartMenu extends Fragment implements View.OnClickListener {
             public void onEvent(Event event) {
                 switch (event.getId()){
                     case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
-                        Toast.makeText(getActivity(), event.getType() + " error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), event.getType() + getActivity().getString(R.string.error), Toast.LENGTH_SHORT).show();
                         break;
                     case AppModel.ChangeEvent.FIRST_LEVEL_CHANGED_ID:
                         createMenu();
@@ -153,7 +153,6 @@ public class StartMenu extends Fragment implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             final Item item = (Item) v.getTag();
-            mCallingActivity.setTitle(mBaseTitle);
             closeItemMenu();
             openItemFragment(item);
         }

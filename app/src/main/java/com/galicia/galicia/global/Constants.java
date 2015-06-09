@@ -52,7 +52,26 @@ public abstract class Constants {
 
     public static final String DELETE_SHOP_TABLE = "DROP TABLE IF EXISTS " + TABLE_SHOP;
     public static final String DELETE_ITEM_TABLE = "DROP TABLE IF EXISTS " + TABLE_ITEM;
+    public static final String OPEN_TABLE = "PRAGMA foreign_keys=ON;";
 
     public static final String WHERE_ID_EQUALS = ID_COLUMN + " =?";
     public static final String WHERE_SHOP_ID_EQUALS = COLUMN_ID_SHOP + " =?";
+
+    //----------------------------Video----------------------------------
+    public static final String YOUTUBE_VIDEO_ID = "YOUTUBE_VIDEO_ID";
+    public static final String URL_YOUTUBE_EMBED = "https://www.youtube.com/embed/";
+    public static final String URL_YOUTUBE_AUTOPLAY = "?autoplay=1";
+    public static final String ViDEO_TYPE_DATA = "video/*";
+
+    //----------------------------Image---------------------------------------
+    public static final String URL_YOUTUBE_IMG = "http://img.youtube.com/vi/";
+    public static final String URL_YOUTUBE_IMG_INDEX = "/0.jpg";
+
+    //-----------------------------Font------------------------------------
+    public static final String NAME_FONT_FAMILY = "HELVETICA";
+    public static final String PATH_FONT = "assets/fonts/helvetica_roman.ttf";
+
+    public static final String PATH_FILE = "file://";
+
+    public static final String TYPE_MESSAGE = "message/rfc822";
 }

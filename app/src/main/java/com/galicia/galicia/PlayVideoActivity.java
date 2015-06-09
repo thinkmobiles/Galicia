@@ -10,6 +10,7 @@ import android.webkit.WebViewClient;
 import android.webkit.WebViewDatabase;
 
 import com.galicia.galicia.adapters.ProductVideoAdapter;
+import com.galicia.galicia.global.Constants;
 
 /**
  * Created by Feltsan on 04.06.2015.
@@ -17,7 +18,6 @@ import com.galicia.galicia.adapters.ProductVideoAdapter;
 public class PlayVideoActivity extends Activity {
     WebView videoContainer;
     String videoId;
-    public static final String YOUTUBE_VIDEO_ID = "YOUTUBE_VIDEO_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class PlayVideoActivity extends Activity {
         findView();
 
         Intent intent = getIntent();
-        videoId = (String)intent.getExtras().get(YOUTUBE_VIDEO_ID);
+        videoId = (String)intent.getExtras().get(Constants.YOUTUBE_VIDEO_ID);
 
         if(!videoId.isEmpty()){
             playVideo(videoId);
@@ -39,8 +39,9 @@ public class PlayVideoActivity extends Activity {
     }
 
     public void playVideo(String _videoId){
-        videoContainer.loadUrl("https://www.youtube.com/embed/" +
-                ProductVideoAdapter.getYouTubeImageId(_videoId)+"?autoplay=1");
+        videoContainer.loadUrl(Constants.URL_YOUTUBE_EMBED +
+                ProductVideoAdapter.getYouTubeImageId(_videoId) +
+                Constants.URL_YOUTUBE_AUTOPLAY);
 
 //        videoContainer.setWebViewClient(new WebViewClient());
         videoContainer.getSettings().setJavaScriptEnabled(true);

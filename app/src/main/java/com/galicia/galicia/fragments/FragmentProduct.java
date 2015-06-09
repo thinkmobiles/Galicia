@@ -4,24 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -109,6 +102,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         llDeac                  = (LinearLayout) _view.findViewById(R.id.llDesc_FPU);
 
         mCallingActivity.setEnableMenu(true);
+        mCallingActivity.setTitle(mCurrentItem.getName());
     }
 
     private void setListener() {
@@ -126,7 +120,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             public void onEvent(Event event) {
                 switch (event.getId()) {
                     case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
-                        Toast.makeText(getActivity(), event.getType() + "error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), event.getType() + getActivity().getString(R.string.error), Toast.LENGTH_SHORT).show();
                         break;
                     case AppModel.ChangeEvent.THIRD_LEVEL_CHANGED_ID:
                         mThirdList = ApiManager.getThirdList();
@@ -163,9 +157,9 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             case R.id.ivFichaCata_FPU:
                 FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FichaFragment.newInstance(mCurrentItem.getFichaCata()));
                 break;
-            case R.id.llMoreDetailContainer_FPU:
-                startSlideFragment(0);
-                break;
+//            case R.id.llMoreDetailContainer_FPU:
+//                startSlideFragment(0);
+//                break;
             case R.id.iv_back_FPU:
                 super.getActivity().onBackPressed();
                 break;
@@ -204,6 +198,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     }
 
     private void setProductNoVideoDetail() {
+        tvProductPhotoTitle.setVisibility(View.VISIBLE);
         if (mThirdList == null)
             return;
         if (mThirdList.size() == 1) {
@@ -230,7 +225,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         hlvAllProduct.setVisibility(View.GONE);
         lvProductVideo.setVisibility(View.GONE);
         ivProductPhoto.setImageBitmap(BitmapCreator.getBitmap(mProductList.get(0).getImage()));
-        tvProductPhotoTitle.setText(mThirdList.get(0).getName());
+        tvProductPhotoTitle.setText(mCallingActivity.getString(R.string.plus_info));
 
         llDeac.setPadding(0, 0, 0, mCallingActivity.getResources().getInteger(R.integer.desc_padding_bottom));
     }
@@ -272,14 +267,14 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
 
     private void startVideoActtivity(String _path) {
         Intent intent = new Intent(mCallingActivity, PlayVideoActivity.class);
-        intent.putExtra(PlayVideoActivity.YOUTUBE_VIDEO_ID, _path);
+        intent.putExtra(Constants.YOUTUBE_VIDEO_ID, _path);
         startActivity(intent);
     }
 
     private void startVideoPlayer(String _path) {
         final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(_path));
-        intent.setDataAndType(Uri.parse(_path), "video/*");
-        startActivity(Intent.createChooser(intent, "Not play"));
+        intent.setDataAndType(Uri.parse(_path), Constants.ViDEO_TYPE_DATA);
+        startActivity(Intent.createChooser(intent, mCallingActivity.getString(R.string.not_play)));
 //        startActivity(intent);
     }
 
