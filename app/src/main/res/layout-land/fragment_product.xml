@@ -97,8 +97,9 @@
                     android:fadeScrollbars="false"
                     android:focusableInTouchMode="false"
                     android:scrollbarAlwaysDrawVerticalTrack="true"
-                    android:scrollbarStyle="outsideOverlay"
-                    android:paddingRight="10dp"
+                    android:scrollbarStyle="outsideInset"
+                    android:paddingRight="20px"
+                    android:paddingLeft="1px"
                     android:textColor="@android:color/black" />
 
 
@@ -157,12 +158,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/tv_titleVideoExtra_FP"
-                    android:layout_margin="@dimen/default_margin"
                     android:layout_weight="1"
                     android:fadeScrollbars="false"
                     android:scrollbarStyle="outsideOverlay"
-                    android:paddingRight="10dp"
-                    android:scrollbarAlwaysDrawVerticalTrack="true" />
+                    android:paddingRight="15dp"
+                    android:scrollbarAlwaysDrawVerticalTrack="true"
+                    android:footerDividersEnabled="false"
+                    android:headerDividersEnabled="false"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:layout_marginBottom="@dimen/default_margin"
+                    android:layout_marginRight="3dp" />
 
                 <ImageView
                     android:id="@+id/iv_downScroll_FP"
@@ -170,7 +176,8 @@
                     android:layout_height="@dimen/abc_action_button_min_width_overflow_material"
                     android:layout_below="@id/lvProductVideo_FPU"
                     android:rotation="-90"
-                    android:src="@drawable/btn_prev_state_pressed" />
+                    android:src="@drawable/btn_prev_state_pressed"
+                    android:layout_marginBottom="30px" />
 
             </LinearLayout>
 

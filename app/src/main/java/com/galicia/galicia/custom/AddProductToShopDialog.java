@@ -27,7 +27,6 @@ import com.cristaliza.mvc.models.estrella.Product;
 import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.adapters.SpinnerPurchaseAdapter;
-import com.galicia.galicia.fragments.FragmentProduct;
 import com.galicia.galicia.fragments.ShopCartFragment;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.Constants;
@@ -202,6 +201,8 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
 //                spinnerLayout.setVisibility(View.INVISIBLE);
 //                shopName.setVisibility(View.VISIBLE);
 //            } else {
+
+
 //            }
 
          if (!autoCompleteTextView.getText().toString().isEmpty()) {
@@ -223,6 +224,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
                  Shop shop = DBManager.addShop(autoCompleteTextView.getText().toString());
                  spinnerLayout.setVisibility(View.VISIBLE);
                  addProduct();
+
 
                      DBManager.addItem(
                              mCurrentItem.getPdf(),
