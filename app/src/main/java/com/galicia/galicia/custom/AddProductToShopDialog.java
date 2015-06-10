@@ -112,6 +112,8 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
 
     public void setVisible(){
         tvTitle.setText(mCallingActivity.getString(R.string.want_continue));
+        tvCancel.setText(R.string.ver_envio);
+        tvAccept.setText(R.string.continuar);
         allShop.setVisibility(View.GONE);
         autoCompleteTextView.setVisibility(View.GONE);
 
