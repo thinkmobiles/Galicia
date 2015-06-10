@@ -74,4 +74,8 @@ public abstract class Constants {
     public static final String PATH_FILE = "file://";
 
     public static final String TYPE_MESSAGE = "message/rfc822";
+
+    //--------------------
+    public static final int TYPE_DIALOG_ADD     = 0;
+    public static final int TYPE_DIALOG_ADDED   = 1;
 }

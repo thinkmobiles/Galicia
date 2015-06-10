@@ -27,6 +27,7 @@ import com.cristaliza.mvc.models.estrella.Product;
 import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.adapters.SpinnerPurchaseAdapter;
+import com.galicia.galicia.fragments.FragmentProduct;
 import com.galicia.galicia.fragments.ShopCartFragment;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.Constants;
@@ -62,6 +63,8 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
     private ImageView allShop;
     private boolean isSelectChek, questionCheck=false;
     private boolean isShowListShop = false;
+    private int typeDialog;
+    private FragmentProduct mFragmentBack;
     ArrayAdapter<String> adapter;
 
     public static AddProductToShopDialog newInstance(final ItemSerializable _item) {
@@ -72,7 +75,9 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
         return fragment;
     }
 
-    public void show(MainActivity _mActivity){
+    public void show(MainActivity _mActivity,FragmentProduct _fragment, int _typeDialog){
+        mFragmentBack = _fragment;
+        typeDialog = _typeDialog;
         FragmentReplacer.addFragment(_mActivity, this);
     }
 
@@ -91,8 +96,13 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
         final View inflaterView = inflater.inflate(R.layout.product_to_shop_dialog, container, false);
         findViews(inflaterView);
         setListeners();
-        addProduct();
-        setViewSettings();
+        if(typeDialog == Constants.TYPE_DIALOG_ADD) {
+            addProduct();
+            setViewSettings();
+        } else {
+            questionCheck = true;
+            setVisible();
+        }
         mCallingActivity.setEnableMenu(false);
         return inflaterView;
     }
@@ -112,6 +122,8 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
 
     public void setVisible(){
         tvTitle.setText(mCallingActivity.getString(R.string.want_continue));
+        tvCancel.setText(mCallingActivity.getString(R.string.ver_envio));
+        tvAccept.setText(mCallingActivity.getString(R.string.continuar));
         allShop.setVisibility(View.GONE);
         autoCompleteTextView.setVisibility(View.GONE);
 
@@ -190,9 +202,8 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
 //                spinnerLayout.setVisibility(View.INVISIBLE);
 //                shopName.setVisibility(View.VISIBLE);
 //            } else {
-
-
 //            }
+
          if (!autoCompleteTextView.getText().toString().isEmpty()) {
              questionCheck = true;
              if (isSelectChek) {
@@ -206,12 +217,12 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
                      );
 
                 isSelectChek = false;
+                mFragmentBack.setTypeDialog(Constants.TYPE_DIALOG_ADDED);
                 setVisible();
              } else {
                  Shop shop = DBManager.addShop(autoCompleteTextView.getText().toString());
                  spinnerLayout.setVisibility(View.VISIBLE);
                  addProduct();
-
 
                      DBManager.addItem(
                              mCurrentItem.getPdf(),
@@ -225,6 +236,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
                  autoCompleteTextView.setText("");
                  adapter.notifyDataSetChanged();
                  autoCompleteTextView.showDropDown();
+                 mFragmentBack.setTypeDialog(Constants.TYPE_DIALOG_ADDED);
                  setVisible();
              }
 

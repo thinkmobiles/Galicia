@@ -10,7 +10,7 @@
         android:alpha="0.8"
         android:id="@+id/flBackground_PSD"
         android:layout_below="@+id/flTop_PSD"
-        android:layout_above="@+id/flBottom_PSD"></FrameLayout>
+        android:layout_above="@+id/flBottom_PSD"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,6 +22,15 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
+        <TextView
+            android:id="@+id/tv_dialogTitle_CD"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="30pt"
+            android:textColor="#FFFFFF"
+            android:text="@string/dialog_lable"
+            android:textSize="@dimen/dialog_title_text_size" />
+
         <LinearLayout
             android:id="@+id/llSpinner_PSD"
             android:layout_width="match_parent"
@@ -30,16 +39,10 @@
             android:layout_marginBottom="@dimen/abc_button_padding_horizontal_material"
             android:orientation="vertical"
             android:layout_alignRight="@+id/ll_buttons"
-            android:layout_alignEnd="@+id/ll_buttons">
-
-            <TextView
-                android:id="@+id/tv_dialogTitle_CD"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="30pt"
-                android:textColor="#FFFFFF"
-                android:text="@string/dialog_lable"
-                android:textSize="@dimen/dialog_title_text_size" />
+            android:layout_alignEnd="@+id/ll_buttons"
+            android:layout_below="@+id/tv_dialogTitle_CD"
+            android:layout_centerHorizontal="true"
+            android:layout_alignLeft="@+id/ll_buttons">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -86,7 +89,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/llSpinner_PSD"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true">
 
             <TextView
                 android:id="@+id/tvCancel_PSD"

@@ -141,7 +141,8 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener, 
         if (!data.isEmpty()) {
 //            shopDAO.deleteAll();
             DBManager.deleteAllShop();
-            updateDate();
+            shopCartAdapter.updateList(DBManager.getShops());
+//            updateDate();
             Toast.makeText(getActivity(), R.string.delete_all_shop, Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getActivity(), R.string.empty_cart, Toast.LENGTH_SHORT).show();
