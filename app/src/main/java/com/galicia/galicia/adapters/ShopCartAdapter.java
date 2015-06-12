@@ -53,6 +53,11 @@ public class ShopCartAdapter extends BaseAdapter {
         return 0;
     }
 
+    public void updateList(List<Shop> _list){
+        this.shopsData = _list;
+        notifyDataSetChanged();
+    }
+
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
         ViewHolder holder;
@@ -97,11 +102,12 @@ public class ShopCartAdapter extends BaseAdapter {
     }
 
     private void deleteShop(int _pos) {
-        ShopDAO shopDAO = new ShopDAO(activity);
+//        ShopDAO shopDAO = new ShopDAO(activity);
 //        shopDAO.deleteShop(getItem(_pos));
         DBManager.deleteShop(getItem(_pos));
-        ShopCartFragment.newInstance().updateDate();
-        notifyDataSetChanged();
+        updateList(DBManager.getShops());
+//        ShopCartFragment.newInstance().updateDate();
+//        notifyDataSetChanged();
         Toast.makeText(activity, R.string.delete_shop, Toast.LENGTH_SHORT).show();
     }
 

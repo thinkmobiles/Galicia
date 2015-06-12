@@ -51,8 +51,10 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     private EventListener mListener;
     private ArrayList<Product> mProductList;
     private List<Item> mThirdList;
-    private RelativeLayout rlProductPhotoContainer;
-    private LinearLayout llCompanyLogo, llDetail, llMoreDetail, llVideo, llDeac;
+    private RelativeLayout rlProductPhotoContainer, llCompanyLogo;
+    private LinearLayout llDetail, llMoreDetail, llVideo, llDeac;
+
+    private int typeDialog = Constants.TYPE_DIALOG_ADD;
 
     public static FragmentProduct newInstance(final ItemSerializable _item) {
         final FragmentProduct fragment = new FragmentProduct();
@@ -95,8 +97,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         hlvAllProduct           = (HorizontalListView) _view.findViewById(R.id.hlvAllProduct_FPU);
         lvProductVideo          = (ListView) _view.findViewById(R.id.lvProductVideo_FPU);
         rlProductPhotoContainer = (RelativeLayout) _view.findViewById(R.id.rlProductPhotoContainer_FPU);
+        llCompanyLogo           = (RelativeLayout) _view.findViewById(R.id.llCompanyLogo_FPU);
         llVideo                 = (LinearLayout) _view.findViewById(R.id.ll_video_container_FP);
-        llCompanyLogo           = (LinearLayout) _view.findViewById(R.id.llCompanyLogo_FPU);
         llDetail                = (LinearLayout) _view.findViewById(R.id.llDetailContainer_FPU);
         llMoreDetail            = (LinearLayout) _view.findViewById(R.id.llMoreDetailContainer_FPU);
         llDeac                  = (LinearLayout) _view.findViewById(R.id.llDesc_FPU);
@@ -134,6 +136,11 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         };
     }
 
+    public void setTypeDialog(int _type){
+        typeDialog = _type;
+        ivAddProduct.setImageResource(R.drawable.selector_btn_added_envio);
+    }
+
     private void getProduct() {
         if (mProductList == null) {
             mProductList = new ArrayList<Product>();
@@ -151,7 +158,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
 //                new CustomSpinerDialog(mCallingActivity, mCurrentItem).addProduct();
                 AddProductToShopDialog
                         .newInstance(new ItemSerializable(mCurrentItem))
-                        .show(mCallingActivity);
+                        .show(mCallingActivity, this, typeDialog);
 
                 break;
             case R.id.ivFichaCata_FPU:

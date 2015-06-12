@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="@string/title_envios"
+        android:text="@string/title_envio"
         android:background="@drawable/line_top"
         android:id="@+id/tvEnvios"
         style="@style/TitleItemSlideMenu" />

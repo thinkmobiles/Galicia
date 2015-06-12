@@ -153,7 +153,7 @@ public class CustomSpinerDialog {
                 subList = shopList.subList(0, shopList.size() - 1);
             }
 
-            subList.add(new Shop(-1, mCallingActivity.getString(R.string.create_new__shop)));
+            subList.add(new Shop(-1, mCallingActivity.getString(R.string.create_new_shop)));
             return null;
         }
 

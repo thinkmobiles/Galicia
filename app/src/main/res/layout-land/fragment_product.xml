@@ -5,7 +5,7 @@
     android:background="@android:color/white"
     android:orientation="horizontal">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/llCompanyLogo_FPU"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,19 +19,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:src="@drawable/logo" />
+            android:src="@drawable/logo"
+            android:layout_alignParentTop="true" />
 
         <ImageView
             android:id="@+id/ivCompanyAward_FPU"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_below="@+id/ivCompanyLogo_FPU"
+            android:layout_above="@+id/rlContBtn" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="@dimen/abc_dropdownitem_icon_width">
+            android:layout_marginBottom="@dimen/abc_dropdownitem_icon_width"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/rlContBtn">
 
             <ImageView
                 android:id="@+id/ivAddProduct_FPU"
@@ -40,7 +44,7 @@
                 android:layout_marginBottom="@dimen/abc_button_padding_horizontal_material"
                 android:layout_marginLeft="@dimen/abc_action_bar_icon_vertical_padding_material"
                 android:layout_marginRight="@dimen/abc_action_bar_icon_vertical_padding_material"
-                android:src="@drawable/btn_add_envio" />
+                android:src="@drawable/selector_btn_add_envio" />
 
             <ImageView
                 android:id="@+id/ivFichaCata_FPU"
@@ -49,10 +53,10 @@
                 android:layout_below="@+id/ivAddProduct_FPU"
                 android:layout_marginLeft="@dimen/abc_action_bar_icon_vertical_padding_material"
                 android:layout_marginRight="@dimen/abc_action_bar_icon_vertical_padding_material"
-                android:src="@drawable/btn_cata" />
+                android:src="@drawable/selector_btn_cata" />
 
         </RelativeLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/llDetailContainer_FPU"
