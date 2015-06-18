@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,6 +90,28 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         ApiManager.getThirdLevel(mListener, mCurrentItem);
         verifyFichaCata();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        rlContHSV.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        int maxWidth = getDisplayWidth() / 2;
+        if(bigPart){
+            maxWidth = getDisplayWidth() / 4 * 3;
+        }
+        Log.e("widths", maxWidth + "");
+        if(mProductList.size() != 0) {
+            long s = -50;
+            for(int i = 0 ;i < mProductList.size(); ++i){
+                s = s + llContProd.getChildAt(i).getMeasuredWidth();
+            }
+            Log.e("sum", s + "");
+            if (s < maxWidth) {
+                rlNext.setVisibility(View.GONE);
+                rlPrev.setVisibility(View.GONE);
+            }
+        }
     }
 
     private void findUI(final View _view) {
@@ -245,7 +269,10 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         }
     }
 
+    private boolean bigPart = false;
+
     private void calculateContainerSizeIfProductNoDetail() {
+        bigPart = true;
         int companyLogoWidth = getDisplayWidth() / 8 * 2;
         int productDetailWidth = getDisplayWidth() / 8 * 6;
         final LinearLayout.LayoutParams companyLogoParams = new LinearLayout.LayoutParams(companyLogoWidth, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -273,8 +300,6 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         if(llContProd.getChildCount() != 0){
             llContProd.removeAllViewsInLayout();
         }
-
-        Log.e("width", rlContHSV.getWidth() + "");
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("<span style='font-family: Helvetica Neue, Helvetica, Arial, sans-serif;'></span>")) {
