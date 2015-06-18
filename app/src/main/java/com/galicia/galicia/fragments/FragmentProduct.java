@@ -383,7 +383,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         }
 
         if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("<span style='font-family: Helvetica Neue, Helvetica, Arial, sans-serif;'></span>")) {
-            wvProductDescription.setVisibility(View.GONE);
+            rlContWeb.setVisibility(View.GONE);
         } else {
             wvProductDescription.loadDataWithBaseURL(
                     "",
