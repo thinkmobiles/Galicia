@@ -15,38 +15,38 @@
         android:padding="@dimen/default_padding">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
             android:layout_above="@+id/rlContBtn"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp">
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp">
 
             <ImageView
                 android:id="@+id/ivCompanyLogo_FPU"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/logo"
                 android:layout_alignParentTop="true"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:src="@drawable/logo" />
 
             <ImageView
                 android:id="@+id/ivCompanyAward_FPU"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/ivCompanyLogo_FPU"
                 android:layout_above="@+id/rlContBtn"
+                android:layout_below="@+id/ivCompanyLogo_FPU"
                 android:layout_weight="1" />
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/rlContBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="@dimen/abc_dropdownitem_icon_width"
             android:layout_alignParentBottom="true"
-            android:id="@+id/rlContBtn">
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/abc_dropdownitem_icon_width">
 
             <ImageView
                 android:id="@+id/ivAddProduct_FPU"
@@ -77,10 +77,10 @@
         android:background="@android:color/white"
         android:padding="@dimen/default_padding">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
 
             <ImageView
@@ -90,11 +90,12 @@
                 android:layout_marginBottom="@dimen/abc_text_size_title_material_toolbar"
                 android:layout_marginTop="@dimen/abc_text_size_title_material_toolbar"
                 android:clickable="true"
-                android:paddingTop="@dimen/abc_button_padding_horizontal_material"
                 android:paddingBottom="@dimen/abc_button_padding_horizontal_material"
+                android:paddingTop="@dimen/abc_button_padding_horizontal_material"
                 android:src="@drawable/btn_volver">
 
             </ImageView>
+
 
             <LinearLayout
                 android:id="@+id/llDesc_FPU"
@@ -106,18 +107,20 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="2"
+                    android:id="@+id/rlContWeb">
+
                     <WebView
                         android:id="@+id/wvProductDescription_FPU"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fadeScrollbars="false"
                         android:focusableInTouchMode="false"
+                        android:paddingLeft="1px"
+                        android:paddingRight="20px"
                         android:scrollbarAlwaysDrawVerticalTrack="true"
                         android:scrollbarStyle="outsideInset"
-                        android:paddingRight="20px"
-                        android:paddingLeft="1px"
-                        android:textColor="@android:color/black"/>
+                        android:textColor="@android:color/black" />
 
                     <View
                         android:layout_width="match_parent"
@@ -128,106 +131,87 @@
 
                     </View>
 
-                    </RelativeLayout>
+                </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rlContHSV"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:id="@+id/rlContHSV">
+                    android:layout_weight="3">
 
-                    <com.galicia.galicia.custom.HorizontalListView
-                        android:id="@+id/hlvAllProduct_FPU"
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginBottom="@dimen/default_margin"
-                        android:fadeScrollbars="false"
-                        android:fillViewport="false">
-
-                    </com.galicia.galicia.custom.HorizontalListView>
-
-                    <View
-                        android:layout_width="@dimen/abc_action_bar_progress_bar_size"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:background="@drawable/horizontal_gradient_shape"
-                        android:paddingBottom="@dimen/menu_item_size_txt">
-
-                    </View>
-                    </RelativeLayout>
-
-
-                    <HorizontalScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/hsvList"
-                        android:scrollbars="none"
-                        android:layout_toRightOf="@+id/rlPrev_FPU"
-                        android:layout_toLeftOf="@+id/rlNext_FPU"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:paddingTop="5dp">
-
-                        <LinearLayout
-                            android:orientation="horizontal"
+                        android:layout_height="match_parent">
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:id="@+id/llContProd" />
-                    </HorizontalScrollView>
+                            android:layout_toLeftOf="@+id/rlNext_FPU"
+                            android:layout_toRightOf="@+id/rlPrev_FPU"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp">
+                            <HorizontalScrollView
+                                android:id="@+id/hsvList"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:paddingTop="5dp"
+                                android:scrollbars="none">
 
-                    <com.galicia.galicia.custom.HorizontalListView
-                        android:id="@+id/hlvAllProduct_FPU"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="@dimen/default_margin"
-                        android:fadeScrollbars="false"
-                        android:fillViewport="false"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:visibility="gone">
+                                <LinearLayout
+                                    android:id="@+id/llContProd"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal" />
+                            </HorizontalScrollView>
+                            <View
+                                android:layout_width="@dimen/abc_action_bar_progress_bar_size"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentRight="true"
+                                android:background="@drawable/horizontal_gradient_shape"
+                                android:paddingBottom="@dimen/menu_item_size_txt">
 
-                    </com.galicia.galicia.custom.HorizontalListView>
+                            </View>
+                        </RelativeLayout>
 
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:id="@+id/rlNext_FPU"
-                        android:layout_alignParentRight="true">
 
-                        <ImageView
+
+                        <RelativeLayout
+                            android:id="@+id/rlNext_FPU"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/ivNext_FPU"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/btn_next_state_mormal"
-                            android:layout_margin="10dp"
-                            android:layout_centerInParent="true" />
-                    </RelativeLayout>
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true">
 
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:id="@+id/rlPrev_FPU"
-                        android:layout_alignParentLeft="true">
+                            <ImageView
+                                android:id="@+id/ivNext_FPU"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_gravity="center_vertical"
+                                android:layout_margin="10dp"
+                                android:src="@drawable/btn_next_state_mormal" />
+                        </RelativeLayout>
 
-                        <ImageView
+                        <RelativeLayout
+                            android:id="@+id/rlPrev_FPU"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/ivPrev_FPU"
-                            android:src="@drawable/btn_prev_state_normal"
-                            android:layout_gravity="center_vertical"
-                            android:layout_margin="10dp"
-                            android:layout_centerInParent="true" />
+                            android:layout_height="match_parent"
+                            android:layout_alignParentLeft="true">
+
+                            <ImageView
+                                android:id="@+id/ivPrev_FPU"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_gravity="center_vertical"
+                                android:layout_margin="10dp"
+                                android:src="@drawable/btn_prev_state_normal" />
+                        </RelativeLayout>
                     </RelativeLayout>
                 </RelativeLayout>
 
             </LinearLayout>
-        </RelativeLayout>
 
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -267,34 +251,34 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/tv_titleVideoExtra_FP"
+                    android:layout_marginBottom="@dimen/default_margin"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginTop="@dimen/default_margin"
                     android:layout_weight="1"
                     android:fadeScrollbars="false"
-                    android:scrollbarStyle="outsideOverlay"
-                    android:paddingRight="15dp"
-                    android:scrollbarAlwaysDrawVerticalTrack="true"
                     android:footerDividersEnabled="false"
                     android:headerDividersEnabled="false"
-                    android:layout_marginLeft="@dimen/default_margin"
-                    android:layout_marginTop="@dimen/default_margin"
-                    android:layout_marginBottom="@dimen/default_margin"
-                    android:layout_marginRight="3dp" />
+                    android:paddingRight="15dp"
+                    android:scrollbarAlwaysDrawVerticalTrack="true"
+                    android:scrollbarStyle="outsideOverlay" />
 
                 <RelativeLayout
+                    android:id="@+id/rlDownScroll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/rlDownScroll"
-                    android:layout_marginLeft="@dimen/default_margin"
-                    android:layout_marginTop="@dimen/default_margin"
                     android:layout_marginBottom="@dimen/default_margin"
-                    android:layout_marginRight="3dp" >
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginTop="@dimen/default_margin">
 
                     <ImageView
                         android:id="@+id/iv_downScroll_FP"
                         android:layout_width="@dimen/down_arrow"
                         android:layout_height="@dimen/abc_action_button_min_width_overflow_material"
+                        android:layout_centerHorizontal="true"
                         android:rotation="-90"
-                        android:src="@drawable/btn_prev_state_pressed"
-                        android:layout_centerHorizontal="true" />
+                        android:src="@drawable/btn_prev_state_pressed" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -330,7 +314,7 @@
                     android:padding="10dp"
                     android:singleLine="false"
                     android:textColor="@android:color/black"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
             </RelativeLayout>
         </RelativeLayout>

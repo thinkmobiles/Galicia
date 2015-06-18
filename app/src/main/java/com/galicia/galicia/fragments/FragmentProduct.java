@@ -53,7 +53,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     private EventListener mListener;
     private ArrayList<Product> mProductList;
     private List<Item> mThirdList;
-    private RelativeLayout rlProductPhotoContainer, llCompanyLogo, rlDownScroll, rlNext, rlPrev, rlContHSV;
+    private RelativeLayout rlProductPhotoContainer, llCompanyLogo, rlDownScroll, rlNext, rlPrev, rlContHSV, rlContWeb;
     private LinearLayout llDetail, llMoreDetail, llVideo, llDeac, llContProd;
 
     private int typeDialog = Constants.TYPE_DIALOG_ADD;
@@ -111,6 +111,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         rlPrev = (RelativeLayout) _view.findViewById(R.id.rlPrev_FPU);
         rlNext = (RelativeLayout) _view.findViewById(R.id.rlNext_FPU);
         rlContHSV = (RelativeLayout) _view.findViewById(R.id.rlContHSV);
+        rlContWeb = (RelativeLayout) _view.findViewById(R.id.rlContWeb);
         llVideo = (LinearLayout) _view.findViewById(R.id.ll_video_container_FP);
         llDetail = (LinearLayout) _view.findViewById(R.id.llDetailContainer_FPU);
         llMoreDetail = (LinearLayout) _view.findViewById(R.id.llMoreDetailContainer_FPU);
@@ -352,7 +353,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             LinearLayout.LayoutParams param25 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 3.0f);
             LinearLayout.LayoutParams param75 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
 
-            wvProductDescription.setLayoutParams(param25);
+            rlContWeb.setLayoutParams(param25);
             rlContHSV.setLayoutParams(param75);
         }
 
