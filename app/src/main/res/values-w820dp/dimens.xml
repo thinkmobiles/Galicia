@@ -23,8 +23,8 @@
     <dimen name="menu_space_height">20dp</dimen>
 
     <!--Pager Beverages-->
-    <dimen name="disc_margin_top">180dp</dimen>
-    <dimen name="disc_big_margin_top">280dp</dimen>
+    <dimen name="disc_margin_top">160dp</dimen>
+    <dimen name="disc_big_margin_top">320dp</dimen>
     <dimen name="disc_margin_left">150dp</dimen>
 
     <!--Video description-->

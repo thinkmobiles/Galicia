@@ -5,7 +5,6 @@
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light">
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="android:typeface">serif</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
 

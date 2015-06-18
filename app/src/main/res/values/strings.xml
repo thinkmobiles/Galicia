@@ -72,4 +72,19 @@
     <string name="plus_info">+INFO</string>
     <string name="vaciar">VACIAR</string>
 
+    <string-array name="list_id_big_image">
+        <item>144</item>
+        <item>146</item>
+        <item>185</item>
+        <item>239</item>
+        <item>250</item>
+        <item>253</item>
+        <item>300</item>
+        <item>301</item>
+        <item>303</item>
+        <item>360</item>
+        <item>299</item>
+        <item>298</item>
+    </string-array>
+
 </resources>

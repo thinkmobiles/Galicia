@@ -23,8 +23,8 @@
     <dimen name="menu_text_size">13sp</dimen>
 
     <!--Pager Beverages-->
-    <dimen name="disc_margin_top">280dp</dimen>
-    <dimen name="disc_big_margin_top">430dp</dimen>
+    <dimen name="disc_margin_top">260dp</dimen>
+    <dimen name="disc_big_margin_top">470dp</dimen>
     <dimen name="disc_margin_left">180dp</dimen>
 
     <!--Video description-->

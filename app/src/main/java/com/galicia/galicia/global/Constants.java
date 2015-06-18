@@ -69,7 +69,7 @@ public abstract class Constants {
 
     //-----------------------------Font------------------------------------
     public static final String NAME_FONT_FAMILY = "HELVETICA";
-    public static final String PATH_FONT = "assets/fonts/helvetica_roman.ttf";
+    public static final String PATH_FONT = "fonts/helvetica_roman.ttf";
 
     public static final String PATH_FILE = "file://";
 

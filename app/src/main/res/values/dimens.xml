@@ -23,8 +23,8 @@
     <dimen name="down_arrow">25dp</dimen>
 
     <!--Pager Beverages-->
-    <dimen name="disc_margin_top">280dp</dimen>
-    <dimen name="disc_big_margin_top">430dp</dimen>
+    <dimen name="disc_margin_top">260dp</dimen>
+    <dimen name="disc_big_margin_top">470dp</dimen>
     <dimen name="disc_margin_left">180dp</dimen>
 
     <dimen name="default_padding">10dp</dimen>
@@ -41,7 +41,7 @@
     <dimen name="width_item_hlv_mini">150dp</dimen>
 
     <dimen name="product_devider_height">0dp</dimen>
-    <integer name="product_slide_margin">25</integer>
+    <integer name="product_slide_margin">17</integer>
 
     <!-- fragment product universal-->
     <!--<dimen name="default_padding">10dp</dimen>-->

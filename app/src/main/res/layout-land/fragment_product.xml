@@ -14,20 +14,31 @@
         android:orientation="vertical"
         android:padding="@dimen/default_padding">
 
-        <ImageView
-            android:id="@+id/ivCompanyLogo_FPU"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="20dp"
-            android:src="@drawable/logo"
-            android:layout_alignParentTop="true" />
+            android:layout_above="@+id/rlContBtn"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp">
 
-        <ImageView
-            android:id="@+id/ivCompanyAward_FPU"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ivCompanyLogo_FPU"
-            android:layout_above="@+id/rlContBtn" />
+            <ImageView
+                android:id="@+id/ivCompanyLogo_FPU"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/logo"
+                android:layout_alignParentTop="true"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/ivCompanyAward_FPU"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/ivCompanyLogo_FPU"
+                android:layout_above="@+id/rlContBtn"
+                android:layout_weight="1" />
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -93,7 +104,7 @@
                     android:id="@+id/wvProductDescription_FPU"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:fadeScrollbars="false"
                     android:focusableInTouchMode="false"
                     android:scrollbarAlwaysDrawVerticalTrack="true"
@@ -103,19 +114,78 @@
                     android:textColor="@android:color/black" />
 
 
-                <com.galicia.galicia.custom.HorizontalListView
-                    android:id="@+id/hlvAllProduct_FPU"
+                <RelativeLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="@dimen/default_margin"
-                    android:layout_weight="1"
-                    android:fadeScrollbars="false"
-                    android:fillViewport="false">
+                    android:layout_weight="3"
+                    android:id="@+id/rlContHSV">
 
-                </com.galicia.galicia.custom.HorizontalListView>
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/hsvList"
+                        android:scrollbars="none"
+                        android:layout_toRightOf="@+id/rlPrev_FPU"
+                        android:layout_toLeftOf="@+id/rlNext_FPU"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:paddingTop="5dp">
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/llContProd" />
+                    </HorizontalScrollView>
+
+                    <com.galicia.galicia.custom.HorizontalListView
+                        android:id="@+id/hlvAllProduct_FPU"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/default_margin"
+                        android:fadeScrollbars="false"
+                        android:fillViewport="false"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:visibility="gone">
+
+                    </com.galicia.galicia.custom.HorizontalListView>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/rlNext_FPU"
+                        android:layout_alignParentRight="true">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/ivNext_FPU"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/btn_next_state_mormal"
+                            android:layout_margin="10dp"
+                            android:layout_centerInParent="true" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/rlPrev_FPU"
+                        android:layout_alignParentLeft="true">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/ivPrev_FPU"
+                            android:src="@drawable/btn_prev_state_normal"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"
+                            android:layout_centerInParent="true" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
             </LinearLayout>
         </RelativeLayout>
 
@@ -170,14 +240,23 @@
                     android:layout_marginBottom="@dimen/default_margin"
                     android:layout_marginRight="3dp" />
 
-                <ImageView
-                    android:id="@+id/iv_downScroll_FP"
-                    android:layout_width="@dimen/down_arrow"
-                    android:layout_height="@dimen/abc_action_button_min_width_overflow_material"
-                    android:layout_below="@id/lvProductVideo_FPU"
-                    android:rotation="-90"
-                    android:src="@drawable/btn_prev_state_pressed"
-                    android:layout_marginBottom="30px" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rlDownScroll"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:layout_marginBottom="@dimen/default_margin"
+                    android:layout_marginRight="3dp" >
+
+                    <ImageView
+                        android:id="@+id/iv_downScroll_FP"
+                        android:layout_width="@dimen/down_arrow"
+                        android:layout_height="@dimen/abc_action_button_min_width_overflow_material"
+                        android:rotation="-90"
+                        android:src="@drawable/btn_prev_state_pressed"
+                        android:layout_centerHorizontal="true" />
+                </RelativeLayout>
 
             </LinearLayout>
 

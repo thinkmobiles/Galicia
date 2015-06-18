@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.AdapterView;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -43,18 +44,21 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
 
     private MainActivity mCallingActivity;
     private Item mCurrentItem;
-    private ImageView ivProductPhoto, ivCompanyLogo, ivAddProduct, ivFicha, ivGoBack, ivDownScroll;
-    private HorizontalListView hlvAllProduct;
+    private ImageView ivProductPhoto, ivCompanyLogo, ivAddProduct, ivFicha, ivGoBack, ivDownScroll, ivProductAward, ivNext, ivPrev;
+//    private HorizontalListView hlvAllProduct;
+    private HorizontalScrollView hsvList;
     private ListView lvProductVideo;
     private TextView tvProductPhotoTitle;
     private WebView wvProductDescription;
     private EventListener mListener;
     private ArrayList<Product> mProductList;
     private List<Item> mThirdList;
-    private RelativeLayout rlProductPhotoContainer, llCompanyLogo;
-    private LinearLayout llDetail, llMoreDetail, llVideo, llDeac;
+    private RelativeLayout rlProductPhotoContainer, llCompanyLogo, rlDownScroll, rlNext, rlPrev, rlContHSV;
+    private LinearLayout llDetail, llMoreDetail, llVideo, llDeac, llContProd;
 
     private int typeDialog = Constants.TYPE_DIALOG_ADD;
+
+    private String[] listId;
 
     public static FragmentProduct newInstance(final ItemSerializable _item) {
         final FragmentProduct fragment = new FragmentProduct();
@@ -68,6 +72,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mCallingActivity = (MainActivity) activity;
+        listId = mCallingActivity.getResources().getStringArray(R.array.list_id_big_image);
         if (getArguments() != null) {
             mCurrentItem = ((ItemSerializable) getArguments().getSerializable(Constants.ITEM_SERIAZ)).getItem();
             getArguments().remove(Constants.ITEM_SERIAZ);
@@ -86,22 +91,31 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     }
 
     private void findUI(final View _view) {
-        ivAddProduct            = (ImageView) _view.findViewById(R.id.ivAddProduct_FPU);
-        ivFicha                 = (ImageView) _view.findViewById(R.id.ivFichaCata_FPU);
-        ivGoBack                = (ImageView) _view.findViewById(R.id.iv_back_FPU);
-        ivDownScroll            = (ImageView) _view.findViewById(R.id.iv_downScroll_FP);
-        ivCompanyLogo           = (ImageView) _view.findViewById(R.id.ivCompanyLogo_FPU);
-        ivProductPhoto          = (ImageView) _view.findViewById(R.id.ivProductPhoto_FPU);
-        wvProductDescription    = (WebView) _view.findViewById(R.id.wvProductDescription_FPU);
-        tvProductPhotoTitle     = (TextView) _view.findViewById(R.id.tvThirdProductTitle_FPU);
-        hlvAllProduct           = (HorizontalListView) _view.findViewById(R.id.hlvAllProduct_FPU);
-        lvProductVideo          = (ListView) _view.findViewById(R.id.lvProductVideo_FPU);
+        ivAddProduct = (ImageView) _view.findViewById(R.id.ivAddProduct_FPU);
+        ivFicha = (ImageView) _view.findViewById(R.id.ivFichaCata_FPU);
+        ivGoBack = (ImageView) _view.findViewById(R.id.iv_back_FPU);
+        ivDownScroll = (ImageView) _view.findViewById(R.id.iv_downScroll_FP);
+        ivCompanyLogo = (ImageView) _view.findViewById(R.id.ivCompanyLogo_FPU);
+        ivProductPhoto = (ImageView) _view.findViewById(R.id.ivProductPhoto_FPU);
+        ivProductAward = (ImageView) _view.findViewById(R.id.ivCompanyAward_FPU);
+        ivPrev = (ImageView) _view.findViewById(R.id.ivPrev_FPU);
+        ivNext = (ImageView) _view.findViewById(R.id.ivNext_FPU);
+        wvProductDescription = (WebView) _view.findViewById(R.id.wvProductDescription_FPU);
+        tvProductPhotoTitle = (TextView) _view.findViewById(R.id.tvThirdProductTitle_FPU);
+//        hlvAllProduct = (HorizontalListView) _view.findViewById(R.id.hlvAllProduct_FPU);
+        hsvList = (HorizontalScrollView) _view.findViewById(R.id.hsvList);
+        lvProductVideo = (ListView) _view.findViewById(R.id.lvProductVideo_FPU);
         rlProductPhotoContainer = (RelativeLayout) _view.findViewById(R.id.rlProductPhotoContainer_FPU);
-        llCompanyLogo           = (RelativeLayout) _view.findViewById(R.id.llCompanyLogo_FPU);
-        llVideo                 = (LinearLayout) _view.findViewById(R.id.ll_video_container_FP);
-        llDetail                = (LinearLayout) _view.findViewById(R.id.llDetailContainer_FPU);
-        llMoreDetail            = (LinearLayout) _view.findViewById(R.id.llMoreDetailContainer_FPU);
-        llDeac                  = (LinearLayout) _view.findViewById(R.id.llDesc_FPU);
+        llCompanyLogo = (RelativeLayout) _view.findViewById(R.id.llCompanyLogo_FPU);
+        rlDownScroll = (RelativeLayout) _view.findViewById(R.id.rlDownScroll);
+        rlPrev = (RelativeLayout) _view.findViewById(R.id.rlPrev_FPU);
+        rlNext = (RelativeLayout) _view.findViewById(R.id.rlNext_FPU);
+        rlContHSV = (RelativeLayout) _view.findViewById(R.id.rlContHSV);
+        llVideo = (LinearLayout) _view.findViewById(R.id.ll_video_container_FP);
+        llDetail = (LinearLayout) _view.findViewById(R.id.llDetailContainer_FPU);
+        llMoreDetail = (LinearLayout) _view.findViewById(R.id.llMoreDetailContainer_FPU);
+        llDeac = (LinearLayout) _view.findViewById(R.id.llDesc_FPU);
+        llContProd = (LinearLayout) _view.findViewById(R.id.llContProd);
 
         mCallingActivity.setEnableMenu(true);
         mCallingActivity.setTitle(mCurrentItem.getName());
@@ -113,6 +127,11 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         llMoreDetail.setOnClickListener(this);
         ivGoBack.setOnClickListener(this);
         ivDownScroll.setOnClickListener(this);
+        rlDownScroll.setOnClickListener(this);
+        ivPrev.setOnClickListener(this);
+        ivNext.setOnClickListener(this);
+        rlPrev.setOnClickListener(this);
+        rlNext.setOnClickListener(this);
         makeDownloadListener();
     }
 
@@ -136,7 +155,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         };
     }
 
-    public void setTypeDialog(int _type){
+    public void setTypeDialog(int _type) {
         typeDialog = _type;
         ivAddProduct.setImageResource(R.drawable.selector_btn_added_envio);
     }
@@ -150,28 +169,34 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         } else initProductDetail();
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivAddProduct_FPU:
-//                new CustomSpinerDialog(mCallingActivity, mCurrentItem).addProduct();
                 AddProductToShopDialog
                         .newInstance(new ItemSerializable(mCurrentItem))
                         .show(mCallingActivity, this, typeDialog);
-
                 break;
             case R.id.ivFichaCata_FPU:
                 FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FichaFragment.newInstance(mCurrentItem.getFichaCata()));
                 break;
-//            case R.id.llMoreDetailContainer_FPU:
-//                startSlideFragment(0);
-//                break;
+            case R.id.llMoreDetailContainer_FPU:
+                startSlideFragment(0);
+                break;
             case R.id.iv_back_FPU:
                 super.getActivity().onBackPressed();
                 break;
             case R.id.iv_downScroll_FP:
+            case R.id.rlDownScroll:
                 downScrollList();
+                break;
+            case R.id.ivPrev_FPU:
+            case R.id.rlPrev_FPU:
+                hsvList.pageScroll(View.FOCUS_LEFT);
+                break;
+            case R.id.ivNext_FPU:
+            case R.id.rlNext_FPU:
+                hsvList.pageScroll(View.FOCUS_RIGHT);
                 break;
         }
     }
@@ -182,7 +207,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         }
     }
 
-    private void downScrollList(){
+
+    private void downScrollList() {
         int position = lvProductVideo.getFirstVisiblePosition();
         lvProductVideo.setSelection(++position);
     }
@@ -213,7 +239,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         } else {
             llMoreDetail.setVisibility(View.GONE);
             calculateContainerSizeIfProductNoDetail();
-            hlvAllProduct.setVisibility(View.VISIBLE);
+//            hlvAllProduct.setVisibility(View.VISIBLE);
             initHorizontalImageList();
         }
     }
@@ -229,7 +255,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
 
     private void setOneProductDetail() {
         llMoreDetail.setVisibility(View.VISIBLE);
-        hlvAllProduct.setVisibility(View.GONE);
+        rlContHSV.setVisibility(View.GONE);
         lvProductVideo.setVisibility(View.GONE);
         ivProductPhoto.setImageBitmap(BitmapCreator.getBitmap(mProductList.get(0).getImage()));
         tvProductPhotoTitle.setText(mCallingActivity.getString(R.string.plus_info));
@@ -239,15 +265,50 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
 
     private void initHorizontalImageList() {
         if (mProductList.size() == 0) {
-            hlvAllProduct.setVisibility(View.GONE);
+            rlContHSV.setVisibility(View.GONE);
             return;
         }
-        final HorizontalPhotoProductAdapter adapter = new HorizontalPhotoProductAdapter(mCallingActivity, mProductList);
-        if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("<span style='font-family: Helvetica Neue, Helvetica, Arial, sans-serif;'></span>")) {
-            adapter.setItemMargin(mCallingActivity.getResources().getInteger(R.integer.product_slide_margin));
+
+        if(llContProd.getChildCount() != 0){
+            llContProd.removeAllViewsInLayout();
         }
-        hlvAllProduct.setAdapter(adapter);
-        hlvAllProduct.setOnItemClickListener(this);
+
+        Log.e("width", rlContHSV.getWidth() + "");
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("<span style='font-family: Helvetica Neue, Helvetica, Arial, sans-serif;'></span>")) {
+            params.setMargins(
+                    mCallingActivity.getResources().getInteger(R.integer.product_slide_margin),
+                    0,
+                    mCallingActivity.getResources().getInteger(R.integer.product_slide_margin),
+                    0);
+        }
+
+        for (int i = 0; i < mProductList.size(); ++i) {
+            View view = View.inflate(mCallingActivity, R.layout.item_horizontal_list_product, null);
+            ImageView image = (ImageView) view.findViewById(R.id.ivPhotoProd);
+            image.setImageBitmap(BitmapCreator.getBitmap(mProductList.get(i).getImageSmall()));
+            view.setLayoutParams(params);
+            view.setOnClickListener(getListener(i));
+            llContProd.addView(view);
+        }
+
+//        final HorizontalPhotoProductAdapter adapter = new HorizontalPhotoProductAdapter(mCallingActivity, mProductList);
+//        if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("<span style='font-family: Helvetica Neue, Helvetica, Arial, sans-serif;'></span>")) {
+//            adapter.setItemMargin(mCallingActivity.getResources().getInteger(R.integer.product_slide_margin));
+//        }
+//        hlvAllProduct.setAdapter(adapter);
+//        hlvAllProduct.setOnItemClickListener(this);
+    }
+
+    private View.OnClickListener getListener(final int position) {
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startSlideFragment(position);
+            }
+        };
+        return listener;
     }
 
     private void initVideoList() {
@@ -262,7 +323,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         if (parent.getAdapter().getClass().getName().equals(ProductVideoAdapter.class.getName())) {
 
             startVideoActtivity(mCurrentItem.getExtraVideos().get(position));
-           // startVideoPlayer(BitmapCreator.getAbsolutePath(mCurrentItem.getExtraVideos().get(position)));
+            // startVideoPlayer(BitmapCreator.getAbsolutePath(mCurrentItem.getExtraVideos().get(position)));
         }
 
 
@@ -288,8 +349,20 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
 
     private void makeData() {
         ivCompanyLogo.setImageBitmap(BitmapCreator.getBitmap(mCurrentItem.getLogo()));
+        if (mCurrentItem.getPrizes() != null) {
+            ivProductAward.setImageBitmap(BitmapCreator.getBitmap(mCurrentItem.getPrizes().get(0)));
+        }
+
         mCallingActivity.setTitle(mCurrentItem.getName());
         mCallingActivity.setBackground(mCurrentItem.getBackgroundImage());
+
+        if(hasBigImage(mCurrentItem.getId())){
+            LinearLayout.LayoutParams param25 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 3.0f);
+            LinearLayout.LayoutParams param75 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
+
+            wvProductDescription.setLayoutParams(param25);
+            rlContHSV.setLayoutParams(param75);
+        }
 
         if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("<span style='font-family: Helvetica Neue, Helvetica, Arial, sans-serif;'></span>")) {
             wvProductDescription.setVisibility(View.GONE);
@@ -302,6 +375,14 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
                     ""
             );
         }
+    }
+
+    private boolean hasBigImage(String _id){
+        for(int i = 0; i < listId.length; ++i){
+            if(listId[i].equals(_id))
+                return true;
+        }
+        return false;
     }
 
     private int getDisplayWidth() {

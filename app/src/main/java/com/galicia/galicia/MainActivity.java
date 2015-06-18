@@ -81,7 +81,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     public void setBackground() {
-        mBackgroundLayout.setBackground(getResources().getDrawable(R.drawable.splashscreen));
+        mBackgroundLayout.setBackground(getResources().getDrawable(R.drawable.background));
     }
 
     public void openStartMenu(){
