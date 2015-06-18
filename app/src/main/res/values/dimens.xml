@@ -12,6 +12,7 @@
     <!--&lt;!&ndash;<dimen name="beverage_item_w">90dp</dimen>&ndash;&gt;-->
 
     <dimen name="default_circle_view_size">200dp</dimen>
+    <dimen name="gradient_view_size">70dp</dimen>
 
     <!-- dialogs-->
     <dimen name="dialog_title_text_size">24sp</dimen>

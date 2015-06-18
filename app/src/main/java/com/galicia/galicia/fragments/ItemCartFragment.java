@@ -29,7 +29,7 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
     private ItemCartAdapter itemCartAdapter;
     private List<DBProduct> data;
     private ListView purchaseList;
-    private ImageView deleteItems;
+    private ImageView deleteItems, ivGoBack;
 //    private ItemDAO itemDAO;
     private String shopName;
     private long shopId;
@@ -79,11 +79,13 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
     public void findUI(View view) {
         deleteItems = (ImageView) view.findViewById(R.id.iv_deleteAll_FS);
         purchaseList = (ListView) view.findViewById(R.id.lv_list_Shopping_FS);
+        ivGoBack = (ImageView) view.findViewById(R.id.iv_back_FPU);
 
     }
 
     private void setListeners(){
         deleteItems.setOnClickListener(this);
+        ivGoBack.setOnClickListener(this);
     }
 
     private void initUI(){
@@ -96,6 +98,9 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.iv_deleteAll_FS:
                 startDeleteDialog();
+                break;
+            case R.id.iv_back_FPU:
+                super.getActivity().onBackPressed();
                 break;
         }
     }

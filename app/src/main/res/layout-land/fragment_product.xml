@@ -71,6 +71,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
+
             <ImageView
                 android:id="@+id/iv_back_FPU"
                 android:layout_width="wrap_content"
@@ -78,6 +79,8 @@
                 android:layout_marginBottom="@dimen/abc_text_size_title_material_toolbar"
                 android:layout_marginTop="@dimen/abc_text_size_title_material_toolbar"
                 android:clickable="true"
+                android:paddingTop="@dimen/abc_button_padding_horizontal_material"
+                android:paddingBottom="@dimen/abc_button_padding_horizontal_material"
                 android:src="@drawable/btn_volver">
 
             </ImageView>
@@ -89,33 +92,62 @@
                 android:layout_below="@+id/iv_back_FPU"
                 android:orientation="vertical">
 
-                <WebView
-                    android:id="@+id/wvProductDescription_FPU"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:fadeScrollbars="false"
-                    android:focusableInTouchMode="false"
-                    android:scrollbarAlwaysDrawVerticalTrack="true"
-                    android:scrollbarStyle="outsideInset"
-                    android:paddingRight="20px"
-                    android:paddingLeft="1px"
-                    android:textColor="@android:color/black" />
+                    android:layout_weight="1">
+                    <WebView
+                        android:id="@+id/wvProductDescription_FPU"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fadeScrollbars="false"
+                        android:focusableInTouchMode="false"
+                        android:scrollbarAlwaysDrawVerticalTrack="true"
+                        android:scrollbarStyle="outsideInset"
+                        android:paddingRight="20px"
+                        android:paddingLeft="1px"
+                        android:textColor="@android:color/black"/>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/abc_text_size_title_material_toolbar"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/vertical_gradient_shape"
+                        android:paddingBottom="@dimen/menu_item_size_txt">
 
-                <com.galicia.galicia.custom.HorizontalListView
-                    android:id="@+id/hlvAllProduct_FPU"
+                    </View>
+
+                    </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="@dimen/default_margin"
-                    android:layout_weight="1"
-                    android:fadeScrollbars="false"
-                    android:fillViewport="false">
+                    android:layout_weight="1">
 
-                </com.galicia.galicia.custom.HorizontalListView>
+                    <com.galicia.galicia.custom.HorizontalListView
+                        android:id="@+id/hlvAllProduct_FPU"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="@dimen/default_margin"
+                        android:fadeScrollbars="false"
+                        android:fillViewport="false">
+
+                    </com.galicia.galicia.custom.HorizontalListView>
+
+                    <View
+                        android:layout_width="@dimen/abc_action_bar_progress_bar_size"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/horizontal_gradient_shape"
+                        android:paddingBottom="@dimen/menu_item_size_txt">
+
+                    </View>
+                    </RelativeLayout>
+
+
             </LinearLayout>
         </RelativeLayout>
 
@@ -150,7 +182,7 @@
                     android:layout_alignParentTop="true"
                     android:gravity="center"
                     android:padding="@dimen/abc_button_padding_horizontal_material"
-                    android:text="Videos"
+                    android:text="@string/title_videos"
                     android:textColor="@android:color/secondary_text_light_nodisable" />
 
                 <ListView

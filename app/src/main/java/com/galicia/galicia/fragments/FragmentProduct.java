@@ -278,14 +278,6 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         startActivity(intent);
     }
 
-    private void startVideoPlayer(String _path) {
-        final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(_path));
-        intent.setDataAndType(Uri.parse(_path), Constants.ViDEO_TYPE_DATA);
-        startActivity(Intent.createChooser(intent, mCallingActivity.getString(R.string.not_play)));
-//        startActivity(intent);
-    }
-
-
     private void makeData() {
         ivCompanyLogo.setImageBitmap(BitmapCreator.getBitmap(mCurrentItem.getLogo()));
         mCallingActivity.setTitle(mCurrentItem.getName());

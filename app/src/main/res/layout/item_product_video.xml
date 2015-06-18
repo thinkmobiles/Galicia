@@ -9,10 +9,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/tvVideoTitle_IPV"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:textSize="@dimen/video_txt_size"
         android:textColor="@android:color/white"
-        android:padding="@dimen/default_padding" />
+        />
 
     <RelativeLayout
         android:layout_below="@+id/tvVideoTitle_IPV"
@@ -24,7 +23,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/ivVideoImage_IPV"
             android:layout_centerHorizontal="true"
-            android:paddingBottom="@dimen/default_padding" />
+             />
 
         <ImageView
             android:id="@+id/iv_playButton_IPV"

@@ -4,12 +4,15 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.R;
@@ -49,17 +52,29 @@ public class ItemListBeverage extends RelativeLayout {
         if (beverageModels.size() * ITEM_WIDTH > MAX_PHYSICAL_WIDTH)
             prepareScrollParent();
         else prepareRelativeParent();
+//        final float scale = getResources().getDisplayMetrics().density;
+//        int my_dp = (int) (20 * scale + 0.5f);
+//        View view = new View(getContext());
+//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(my_dp,ViewGroup.LayoutParams.MATCH_PARENT);
+//        params.gravity = Gravity.END;
+//        view.setLayoutParams(params);
+//        view.setBackgroundResource(R.drawable.horizontal_gradient_shape);
+//        addView(view);
+
     }
 
     private void prepareScrollParent(){
+
         HorizontalScrollView hsv = new HorizontalScrollView(getContext());
         hsv.setLayoutParams(new HorizontalScrollView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         hsv.addView(llContainer);
         addView(hsv);
+
     }
 
     private void prepareRelativeParent(){
         addView(llContainer);
+
     }
 
     private Bitmap getBitmap(String _path) {
