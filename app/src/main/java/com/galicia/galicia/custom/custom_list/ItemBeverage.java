@@ -36,7 +36,7 @@ public class ItemBeverage extends LinearLayout {
     private void findViews(OnClickListener _Listener){
         title       = (TextView)            findViewById(R.id.tvTitle_BI);
         description = (ItemListBeverage)    findViewById(R.id.vDescription_BI);
-        view        = (View)                findViewById(R.id.gradientView);
+//        view        = (View)                findViewById(R.id.gradientView);
 
         title.setText(gbm.title);
         description.updateContent(gbm.beverageModels, _Listener);
@@ -45,7 +45,7 @@ public class ItemBeverage extends LinearLayout {
     public void expandDescription() {
         if (!descriptionIsShowed) {
             AnimationUtils.expand(description, MIN_SIZE_DESC, MAX_SIZE_DESC, 300);
-            AnimationUtils.expand(view, MIN_SIZE_DESC, MAX_SIZE_DESC, 300);
+//            AnimationUtils.expand(view, MIN_SIZE_DESC, MAX_SIZE_DESC, 300);
             descriptionIsShowed = true;
         }
     }
@@ -53,7 +53,7 @@ public class ItemBeverage extends LinearLayout {
     public void collapseDescription() {
         if (descriptionIsShowed) {
             AnimationUtils.collapse(description, MIN_SIZE_DESC, MAX_SIZE_DESC, 300, true);
-            AnimationUtils.collapse(view, MIN_SIZE_DESC, MAX_SIZE_DESC, 300, true);
+//            AnimationUtils.collapse(view, MIN_SIZE_DESC, MAX_SIZE_DESC, 300, true);
             descriptionIsShowed = false;
 
         }

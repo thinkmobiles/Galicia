@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cristaliza.mvc.events.Event;
@@ -26,8 +27,8 @@ public class SplashScreen extends Activity {
 
     private EventListener downloadListener;
     private CircleProgress mProgressView;
+    private TextView mInfo;
     private boolean mIsLoadContent = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class SplashScreen extends Activity {
         setContentView(R.layout.splash_screen);
         makeDownloadListener();
         mProgressView = (CircleProgress) findViewById(R.id.progress);
+        mInfo = (TextView) findViewById(R.id.tvDownloadProcess);
         if (isHasContent()) {
 //            updateContent();
             openNewActivity();
@@ -84,8 +86,9 @@ public class SplashScreen extends Activity {
         downloadListener = new EventListener() {
 
             @Override
-            public void onEvent(Event event) {
+            public void onEvent(final Event event) {
                 Log.d("tag", "e = " + event);
+                final String eventMsg = event.getMessage().toString();
                 switch (event.getId()) {
                     case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
                         Toast.makeText(getBaseContext(), event.getType() + getString(R.string.error), Toast.LENGTH_LONG).show();
@@ -96,8 +99,11 @@ public class SplashScreen extends Activity {
                         openNewActivity();
                         break;
                     case AppModel.ChangeEvent.DOWNLOAD_FILE_CHANGED_ID:
-//                        ApiManager.getLastUpdateServer(this);
-//                        Toast.makeText(getBaseContext(), "", Toast.LENGTH_SHORT).show();
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                mInfo.setText(eventMsg);
+                            }
+                        });
                         break;
                     case AppModel.ChangeEvent.LAST_UPDATE_CHANGED_ID:
                         if(hasNewContent()){
