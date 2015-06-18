@@ -54,6 +54,8 @@ public abstract class ApiManager {
         controller.onExecuteWSAppConfig();
         model.setOnlineMode(true);
         model.addListener(AppModel.ChangeEvent.LAST_UPDATE_CHANGED, listener);
+        controller.setAsynchronousMode();
+        model.setOfflinePath(path);
         controller.onExecuteWSAppLastUpdate();
     }
 

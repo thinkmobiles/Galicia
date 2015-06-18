@@ -45,7 +45,7 @@ public class SplashScreen extends Activity {
         }
     }
 
-    private void openMainActivityDelay(){
+    private void openMainActivityDelay() {
         ScheduledExecutorService worker =
                 Executors.newSingleThreadScheduledExecutor();
         Runnable task = new Runnable() {
@@ -87,30 +87,35 @@ public class SplashScreen extends Activity {
 
             @Override
             public void onEvent(final Event event) {
-                Log.d("tag", "e = " + event);
-                final String eventMsg = event.getMessage().toString();
                 switch (event.getId()) {
                     case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
                         Toast.makeText(getBaseContext(), event.getType() + getString(R.string.error), Toast.LENGTH_LONG).show();
                         break;
+
                     case AppModel.ChangeEvent.DOWNLOAD_ALL_CHANGED_ID:
                         SharedPreferencesManager.saveUpdateDate(getBaseContext(), System.currentTimeMillis());
                         ApiManager.setOfflineMode();
                         openNewActivity();
                         break;
+
                     case AppModel.ChangeEvent.DOWNLOAD_FILE_CHANGED_ID:
                         runOnUiThread(new Runnable() {
                             public void run() {
-                                mInfo.setText(eventMsg);
+                                mInfo.setText(event.getMessage());
                             }
                         });
                         break;
+
                     case AppModel.ChangeEvent.LAST_UPDATE_CHANGED_ID:
-                        if(hasNewContent()){
-                            ApiManager.downloadContent(this);
-                        } else {
-                            openMainActivityDelay();
-                        }
+                        Log.d("Update", "Update");
+                        runOnUiThread (new Thread(new Runnable() {
+                            public void run() {
+                                if (hasNewContent())
+                                    downloadContent();
+                                else
+                                    openMainActivityDelay();
+                            }
+                        }));
                         break;
                 }
             }
@@ -146,4 +151,5 @@ public class SplashScreen extends Activity {
         }
         return date;
     }
+
 }
