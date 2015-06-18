@@ -71,6 +71,7 @@
     <!-- Views-->
     <string name="plus_info">+INFO</string>
     <string name="vaciar">VACIAR</string>
+    <string name="title_videos">VIDEOS</string>
 
     <string-array name="list_id_big_image">
         <item>144</item>
