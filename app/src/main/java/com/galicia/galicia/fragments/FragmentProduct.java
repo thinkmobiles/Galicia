@@ -100,13 +100,11 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         if(bigPart){
             maxWidth = getDisplayWidth() / 4 * 3;
         }
-        Log.e("widths", maxWidth + "");
-        if(mProductList.size() != 0) {
+        if(mThirdList.size() > 1) {
             long s = -50;
             for(int i = 0 ;i < mProductList.size(); ++i){
                 s = s + llContProd.getChildAt(i).getMeasuredWidth();
             }
-            Log.e("sum", s + "");
             if (s < maxWidth) {
                 rlNext.setVisibility(View.GONE);
                 rlPrev.setVisibility(View.GONE);
@@ -318,13 +316,6 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             view.setOnClickListener(getListener(i));
             llContProd.addView(view);
         }
-
-//        final HorizontalPhotoProductAdapter adapter = new HorizontalPhotoProductAdapter(mCallingActivity, mProductList);
-//        if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("<span style='font-family: Helvetica Neue, Helvetica, Arial, sans-serif;'></span>")) {
-//            adapter.setItemMargin(mCallingActivity.getResources().getInteger(R.integer.product_slide_margin));
-//        }
-//        hlvAllProduct.setAdapter(adapter);
-//        hlvAllProduct.setOnItemClickListener(this);
     }
 
     private View.OnClickListener getListener(final int position) {
@@ -351,7 +342,6 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             startVideoActtivity(mCurrentItem.getExtraVideos().get(position));
             // startVideoPlayer(BitmapCreator.getAbsolutePath(mCurrentItem.getExtraVideos().get(position)));
         }
-
 
         if (parent.getAdapter().getClass().getName().equals(HorizontalPhotoProductAdapter.class.getName())) {
             startSlideFragment(position);

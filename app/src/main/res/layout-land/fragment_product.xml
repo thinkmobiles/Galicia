@@ -139,17 +139,14 @@
                     android:layout_height="match_parent"
                     android:layout_weight="3">
 
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
                         <RelativeLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_toLeftOf="@+id/rlNext_FPU"
                             android:layout_toRightOf="@+id/rlPrev_FPU"
                             android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp">
+                            android:layout_marginRight="5dp"
+                            android:layout_centerHorizontal="true">
                             <HorizontalScrollView
                                 android:id="@+id/hsvList"
                                 android:layout_width="match_parent"
@@ -172,8 +169,6 @@
 
                             </View>
                         </RelativeLayout>
-
-
 
                         <RelativeLayout
                             android:id="@+id/rlNext_FPU"
@@ -206,7 +201,6 @@
                                 android:layout_margin="10dp"
                                 android:src="@drawable/btn_prev_state_normal" />
                         </RelativeLayout>
-                    </RelativeLayout>
                 </RelativeLayout>
 
             </LinearLayout>
