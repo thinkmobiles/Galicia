@@ -73,14 +73,10 @@
         android:id="@+id/llDetailContainer_FPU"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:layout_weight="2"
         android:background="@android:color/white"
         android:padding="@dimen/default_padding">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
 
             <ImageView
@@ -145,21 +141,8 @@
                             android:layout_toLeftOf="@+id/rlNext_FPU"
                             android:layout_toRightOf="@+id/rlPrev_FPU"
                             android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_centerHorizontal="true">
-                            <HorizontalScrollView
-                                android:id="@+id/hsvList"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:paddingTop="5dp"
-                                android:scrollbars="none">
+                            android:layout_marginRight="5dp">
 
-                                <LinearLayout
-                                    android:id="@+id/llContProd"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:orientation="horizontal" />
-                            </HorizontalScrollView>
                             <View
                                 android:layout_width="@dimen/abc_action_bar_progress_bar_size"
                                 android:layout_height="match_parent"
@@ -168,9 +151,31 @@
                                 android:paddingBottom="@dimen/menu_item_size_txt">
 
                             </View>
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_horizontal">
+
+                                <HorizontalScrollView
+                                    android:id="@+id/hsvList"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:paddingTop="5dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:scrollbars="none">
+
+                                    <LinearLayout
+                                        android:id="@+id/llContProd"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:orientation="horizontal" />
+                                </HorizontalScrollView>
+                            </LinearLayout>
                         </RelativeLayout>
 
-                        <RelativeLayout
+                    <RelativeLayout
                             android:id="@+id/rlNext_FPU"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -205,7 +210,6 @@
 
             </LinearLayout>
 
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
