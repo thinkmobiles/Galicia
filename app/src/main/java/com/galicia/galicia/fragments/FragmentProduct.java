@@ -299,7 +299,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             llContProd.removeAllViewsInLayout();
         }
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) mCallingActivity.getResources().getDimension(R.dimen.width_item_hlv_mini), ViewGroup.LayoutParams.WRAP_CONTENT);
         if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("<span style='font-family: Helvetica Neue, Helvetica, Arial, sans-serif;'></span>")) {
             params.setMargins(
                     mCallingActivity.getResources().getInteger(R.integer.product_slide_margin),
