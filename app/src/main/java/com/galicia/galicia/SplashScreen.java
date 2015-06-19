@@ -13,6 +13,7 @@ import com.cristaliza.mvc.events.EventListener;
 import com.cristaliza.mvc.models.estrella.AppModel;
 import com.galicia.galicia.custom.circleprogress.CircleProgress;
 import com.galicia.galicia.global.ApiManager;
+import com.galicia.galicia.global.Network;
 import com.galicia.galicia.global.SharedPreferencesManager;
 
 import java.io.File;
@@ -37,9 +38,10 @@ public class SplashScreen extends Activity {
         makeDownloadListener();
         mProgressView = (CircleProgress) findViewById(R.id.progress);
         mInfo = (TextView) findViewById(R.id.tvDownloadProcess);
+        mProgressView.setVisibility(View.GONE);
         if (isHasContent()) {
-//            updateContent();
-            openNewActivity();
+            updateContent();
+//            openNewActivity();
         } else {
             downloadContent();
         }
@@ -59,8 +61,12 @@ public class SplashScreen extends Activity {
 
 
     private void updateContent() {
-        ApiManager.init(this);
-        ApiManager.getLastUpdateServer(downloadListener);
+        if (Network.isInternetConnectionAvailable(this)){
+            ApiManager.init(this);
+            ApiManager.getLastUpdateServer(downloadListener);
+        } else {
+            openMainActivityDelay();
+        }
     }
 
     private boolean isHasContent() {
@@ -75,11 +81,15 @@ public class SplashScreen extends Activity {
     }
 
     private void downloadContent() {
-        mIsLoadContent = true;
-        ApiManager.init(this);
-        ApiManager.downloadContent(downloadListener);
-        mProgressView.setVisibility(View.VISIBLE);
-        mProgressView.startAnim();
+        if (Network.isInternetConnectionAvailable(this)) {
+            mIsLoadContent = true;
+            ApiManager.init(this);
+            ApiManager.downloadContent(downloadListener);
+            mProgressView.setVisibility(View.VISIBLE);
+            mProgressView.startAnim();
+        } else {
+            finish();
+        }
     }
 
     private void makeDownloadListener() {
@@ -90,6 +100,7 @@ public class SplashScreen extends Activity {
                 switch (event.getId()) {
                     case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
                         Toast.makeText(getBaseContext(), event.getType() + getString(R.string.error), Toast.LENGTH_LONG).show();
+                        openNewActivity();
                         break;
 
                     case AppModel.ChangeEvent.DOWNLOAD_ALL_CHANGED_ID:

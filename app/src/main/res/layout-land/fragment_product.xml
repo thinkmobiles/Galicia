@@ -271,8 +271,7 @@
                         android:layout_width="@dimen/down_arrow"
                         android:layout_height="@dimen/abc_action_button_min_width_overflow_material"
                         android:layout_centerHorizontal="true"
-                        android:rotation="-90"
-                        android:src="@drawable/btn_prev_state_pressed" />
+                        android:src="@drawable/arrow" />
                 </RelativeLayout>
 
             </LinearLayout>
