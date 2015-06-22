@@ -1,7 +1,13 @@
 package com.galicia.galicia;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +30,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import static android.app.AlertDialog.*;
+
 public class SplashScreen extends Activity {
 
     private EventListener downloadListener;
@@ -39,12 +47,7 @@ public class SplashScreen extends Activity {
         mProgressView = (CircleProgress) findViewById(R.id.progress);
         mInfo = (TextView) findViewById(R.id.tvDownloadProcess);
         mProgressView.setVisibility(View.GONE);
-        if (isHasContent()) {
-            updateContent();
-//            openNewActivity();
-        } else {
-            downloadContent();
-        }
+        checkContent();
     }
 
     private void openMainActivityDelay() {
@@ -58,15 +61,35 @@ public class SplashScreen extends Activity {
         worker.schedule(task, 1, TimeUnit.SECONDS);
     }
 
+    private void checkContent(){
 
+        ApiManager.init(this);
+
+        if(isHasContent()){
+            if(Network.isInternetConnectionAvailable(this) && hasNewContent()){
+                showDialog();
+            } else
+                openMainActivityDelay();
+        } else if(Network.isInternetConnectionAvailable(this)){
+            downloadContent();
+        } else {
+            final AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setMessage("Check Internet connection please")
+                    .setPositiveButton("OK", new OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            finish();
+                        }
+                    })
+                    .create();
+
+            dialog.show();
+        }
+    }
 
     private void updateContent() {
-        if (Network.isInternetConnectionAvailable(this)){
-            ApiManager.init(this);
             ApiManager.getLastUpdateServer(downloadListener);
-        } else {
-            openMainActivityDelay();
-        }
     }
 
     private boolean isHasContent() {
@@ -80,16 +103,33 @@ public class SplashScreen extends Activity {
         finish();
     }
 
+    private void showDialog(){
+        final AlertDialog dialog = new AlertDialog.Builder(this)
+                .setMessage("Want to update content?")
+                .setNegativeButton("No", new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                })
+                .setPositiveButton("Yes", new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        updateContent();
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+
+        dialog.show();
+
+    }
+
     private void downloadContent() {
-        if (Network.isInternetConnectionAvailable(this)) {
             mIsLoadContent = true;
-            ApiManager.init(this);
             ApiManager.downloadContent(downloadListener);
             mProgressView.setVisibility(View.VISIBLE);
             mProgressView.startAnim();
-        } else {
-            finish();
-        }
     }
 
     private void makeDownloadListener() {
@@ -116,15 +156,11 @@ public class SplashScreen extends Activity {
                             }
                         });
                         break;
-
                     case AppModel.ChangeEvent.LAST_UPDATE_CHANGED_ID:
                         Log.d("Update", "Update");
                         runOnUiThread (new Thread(new Runnable() {
                             public void run() {
-                                if (hasNewContent())
                                     downloadContent();
-                                else
-                                    openMainActivityDelay();
                             }
                         }));
                         break;
