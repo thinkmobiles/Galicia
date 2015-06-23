@@ -59,17 +59,17 @@
     <string name="add_shop_succesfull">Shop add succesfull</string>
     <string name="add_item_to_shop">Item add to shop_id= </string>
     <string name="attachment_error">Attachment Error</string>
-    <string name="error"> error</string>
+    <string name="error"> Error</string>
     <string name="click_back">Please click BACK again to exit</string>
 
 
     <string name="create_new_shop">Create new shop</string>
     <string name="send_mail">Send email...</string>
 
-    <string name="download">Download..</string>
+    <string name="download">Descargando..</string>
     <string name="not_play">Not play</string>
     <!-- Views-->
-    <string name="plus_info">+INFO</string>
+    <string name="plus_info">+Información</string>
     <string name="vaciar">VACIAR</string>
     <string name="title_videos">VIDEOS</string>
 

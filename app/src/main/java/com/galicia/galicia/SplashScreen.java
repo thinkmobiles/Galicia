@@ -2,12 +2,8 @@ package com.galicia.galicia;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,7 +26,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static android.app.AlertDialog.*;
+import static android.app.AlertDialog.OnClickListener;
 
 public class SplashScreen extends Activity {
 
@@ -156,6 +152,7 @@ public class SplashScreen extends Activity {
                             }
                         });
                         break;
+
                     case AppModel.ChangeEvent.LAST_UPDATE_CHANGED_ID:
                         Log.d("Update", "Update");
                         runOnUiThread (new Thread(new Runnable() {
