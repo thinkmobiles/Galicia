@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.galicia.galicia">
+    package="com.cristaliza.nacional">
 
     <supports-screens
         android:largeScreens="true"
@@ -20,15 +20,15 @@
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:name=".global.App"
+        android:name="com.cristaliza.nacional.global.App"
         android:theme="@style/AppTheme" >
 
-        <meta-data android:name="DATABASE" android:value="galicia_database.db" />
+        <meta-data android:name="DATABASE" android:value="nacional_database.db" />
         <meta-data android:name="VERSION" android:value="2" />
         <meta-data android:name="QUERY_LOG" android:value="true" />
-        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.galicia.galicia.orm_database" />
+        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.cristaliza.nacional.orm_database" />
 
-        <activity android:name=".SplashScreen"
+        <activity android:name="com.cristaliza.nacional.SplashScreen"
             android:label="@string/app_name"
             android:screenOrientation="landscape">
             <intent-filter>
@@ -37,11 +37,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity"
+        <activity android:name="com.cristaliza.nacional.MainActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan"/>
 
-        <activity android:name=".PlayVideoActivity"
+        <activity android:name="com.cristaliza.nacional.PlayVideoActivity"
             android:screenOrientation="landscape"
             android:hardwareAccelerated="true"/>
     </application>

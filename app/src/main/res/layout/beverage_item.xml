@@ -10,7 +10,7 @@
         style="@style/TitleStyle"
         android:layout_alignParentTop="true" />
 
-    <com.galicia.galicia.custom.custom_list.ItemListBeverage
+    <com.cristaliza.nacional.custom.custom_list.ItemListBeverage
         android:id="@+id/vDescription_BI"
         android:background="@android:color/white"
         android:layout_height="0dp"
