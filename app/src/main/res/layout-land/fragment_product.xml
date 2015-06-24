@@ -74,7 +74,7 @@
                         android:textColor="@android:color/black" />
                 </ScrollView>
 
-                <com.galicia.galicia.custom.HorizontalListView
+                <com.cristaliza.alimentacion.custom.HorizontalListView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/hlvAllProduct_FPU"
@@ -86,7 +86,7 @@
                     android:fadeScrollbars="false"
                     android:layout_marginBottom="@dimen/default_margin">
 
-                </com.galicia.galicia.custom.HorizontalListView>
+                </com.cristaliza.alimentacion.custom.HorizontalListView>
             </LinearLayout>
         </RelativeLayout>
 
