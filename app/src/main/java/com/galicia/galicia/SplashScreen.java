@@ -2,14 +2,9 @@ package com.galicia.galicia;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +25,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static android.app.AlertDialog.*;
+import static android.app.AlertDialog.OnClickListener;
 
 public class SplashScreen extends Activity {
 
@@ -47,7 +42,27 @@ public class SplashScreen extends Activity {
         mProgressView = (CircleProgress) findViewById(R.id.progress);
         mInfo = (TextView) findViewById(R.id.tvDownloadProcess);
         mProgressView.setVisibility(View.GONE);
-        checkContent();
+        separateAction();
+    }
+
+
+    private void separateAction() {
+        ApiManager.init(SplashScreen.this);
+
+        if (!Network.isInternetConnectionAvailable(SplashScreen.this))
+        {// NO internet connection
+            if (isHasContent())
+                showFinishDialog();
+            else
+                openMainActivityDelay();
+        }
+        else
+        { //Yes Internet connection
+            if (!isHasContent())
+                downloadContent();
+            else
+                updateContent();
+        }
     }
 
     private void openMainActivityDelay() {
@@ -55,37 +70,25 @@ public class SplashScreen extends Activity {
                 Executors.newSingleThreadScheduledExecutor();
         Runnable task = new Runnable() {
             public void run() {
-                openNewActivity();
+                openMainActivity();
             }
         };
         worker.schedule(task, 1, TimeUnit.SECONDS);
     }
 
-    private void checkContent(){
+    private void showFinishDialog() {
+        final AlertDialog dialog = new AlertDialog.Builder(this)
+                .setMessage("Compruebe la conexión a Internet por favor")
+                .setPositiveButton("Ok", new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                })
+                .create();
 
-        ApiManager.init(this);
-
-        if(isHasContent()){
-            if(Network.isInternetConnectionAvailable(this) && hasNewContent()){
-                showDialog();
-            } else
-                openMainActivityDelay();
-        } else if(Network.isInternetConnectionAvailable(this)){
-            downloadContent();
-        } else {
-            final AlertDialog dialog = new AlertDialog.Builder(this)
-                    .setMessage("Check Internet connection please")
-                    .setPositiveButton("OK", new OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            finish();
-                        }
-                    })
-                    .create();
-
-            dialog.show();
-        }
+        dialog.show();
     }
 
     private void updateContent() {
@@ -97,22 +100,23 @@ public class SplashScreen extends Activity {
         return f.exists();
     }
 
-    private void openNewActivity() {
+    private void openMainActivity() {
         startActivity(new Intent(SplashScreen.this, MainActivity.class));
         mProgressView.stopAnim();
         finish();
     }
 
-    private void showDialog(){
+    private void showUpdateDialog(){
         final AlertDialog dialog = new AlertDialog.Builder(this)
-                .setMessage("Want to update content?")
-                .setNegativeButton("No", new OnClickListener() {
+                .setMessage("Quiere descargar nuevo contenido ahora?")
+                .setNegativeButton("Cancelar", new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        openMainActivity();
                         dialog.cancel();
                     }
                 })
-                .setPositiveButton("Yes", new OnClickListener() {
+                .setPositiveButton("Ok", new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         updateContent();
@@ -139,14 +143,15 @@ public class SplashScreen extends Activity {
             public void onEvent(final Event event) {
                 switch (event.getId()) {
                     case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
-                        Toast.makeText(getBaseContext(), event.getType() + getString(R.string.error), Toast.LENGTH_LONG).show();
-                        openNewActivity();
+                        Toast.makeText(getBaseContext(), "Error en la información descargada", Toast.LENGTH_LONG).show();
+                        openMainActivity();
                         break;
 
                     case AppModel.ChangeEvent.DOWNLOAD_ALL_CHANGED_ID:
+                        Toast.makeText(getBaseContext(),"Descargando contenidos", Toast.LENGTH_LONG).show();
                         SharedPreferencesManager.saveUpdateDate(getBaseContext(), System.currentTimeMillis());
                         ApiManager.setOfflineMode();
-                        openNewActivity();
+                        openMainActivity();
                         break;
 
                     case AppModel.ChangeEvent.DOWNLOAD_FILE_CHANGED_ID:
@@ -157,10 +162,12 @@ public class SplashScreen extends Activity {
                         });
                         break;
                     case AppModel.ChangeEvent.LAST_UPDATE_CHANGED_ID:
-                        Log.d("Update", "Update");
-                        runOnUiThread (new Thread(new Runnable() {
+                        runOnUiThread(new Thread(new Runnable() {
                             public void run() {
-                                    downloadContent();
+                                if (hasNewContent())
+                                    showUpdateDialog();
+                                else
+                                    openMainActivityDelay();
                             }
                         }));
                         break;
@@ -179,14 +186,13 @@ public class SplashScreen extends Activity {
 
     private boolean hasNewContent() {
         final Date currentUpdate = new Date(SharedPreferencesManager.getUpdateDate(getBaseContext()));
-        final Date lastUpdate = getDate(ApiManager.getDateUpdate());
+        final Date lastUpdate = parseDate(ApiManager.getDateUpdate());
         if(currentUpdate.before(lastUpdate))
             return true;
         return false;
-
     }
 
-    private Date getDate(final String _date){
+    private Date parseDate(final String _date){
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date(2000,1,1);
         if(_date != null) {
