@@ -6,7 +6,7 @@
     android:gravity="center"
     android:background="@drawable/splashscreen">
 
-    <com.cristaliza.nacional.custom.circleprogress.CircleProgress
+    <com.cristaliza.alimentation.custom.circleprogress.CircleProgress
         android:layout_gravity="center"
         android:id="@+id/progress"
         android:layout_width="250dp"
