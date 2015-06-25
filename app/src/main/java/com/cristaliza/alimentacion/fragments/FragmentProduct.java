@@ -18,6 +18,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cristaliza.alimentacion.custom.AddProductToShopDialog;
 import com.cristaliza.mvc.events.Event;
 import com.cristaliza.mvc.events.EventListener;
 import com.cristaliza.mvc.models.estrella.AppModel;
@@ -53,6 +54,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     private RelativeLayout rlProductPhotoContainer;
     private LinearLayout llCompanyLogo, llDetail, llMoreDetail;
     private ScrollView svDescriptionContainer;
+    private int typeDialog = Constants.TYPE_DIALOG_ADD;
 
     public static FragmentProduct newInstance(final ItemSerializable _item) {
         final FragmentProduct fragment = new FragmentProduct();
@@ -88,7 +90,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         ivFicha = (ImageView) _view.findViewById(R.id.ivFichaCata_FPU);
         wvProductDescription = (WebView) _view.findViewById(R.id.wvProductDescription_FPU);
         tvProductPhotoTitle = (TextView) _view.findViewById(R.id.tvThirdProductTitle_FPU);
-        hlvAllProduct = (HorizontalListView) _view.findViewById(R.id.hlvAllProduct_FPU);
+//        hlvAllProduct = (HorizontalListView) _view.findViewById(R.id.hlvAllProduct_FPU);
         lvProductVideo = (ListView) _view.findViewById(R.id.lvProductVideo_FPU);
         ivProductPhoto = (ImageView) _view.findViewById(R.id.ivProductPhoto_FPU);
         rlProductPhotoContainer = (RelativeLayout) _view.findViewById(R.id.rlProductPhotoContainer_FPU);
@@ -97,7 +99,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         llDetail = (LinearLayout) _view.findViewById(R.id.llDetailContainer_FPU);
         llMoreDetail = (LinearLayout) _view.findViewById(R.id.llMoreDetailContainer_FPU);
 
-        svDescriptionContainer = (ScrollView) _view.findViewById(R.id.svDescriptionContainer_FPU);
+//        svDescriptionContainer = (ScrollView) _view.findViewById(R.id.svDescriptionContainer_FPU);
 
         mCallingActivity.setEnableMenu(true);
     }
@@ -128,6 +130,10 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             }
         };
     }
+    public void setTypeDialog(int _type) {
+        typeDialog = _type;
+        ivAddProduct.setImageResource(R.drawable.selector_btn_added_envio);
+    }
 
     private void getProduct() {
         if (mProductList == null) {
@@ -143,7 +149,9 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivAddProduct_FPU:
-                new CustomSpinerDialog(mCallingActivity, mCurrentItem).addProduct();
+                AddProductToShopDialog
+                        .newInstance(new ItemSerializable(mCurrentItem))
+                        .show(mCallingActivity, this, typeDialog);
                 break;
             case R.id.ivFichaCata_FPU:
                 FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FichaFragment.newInstance(mCurrentItem.getFichaCata()));

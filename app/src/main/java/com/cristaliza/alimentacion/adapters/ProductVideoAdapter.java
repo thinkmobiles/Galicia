@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +76,13 @@ public class ProductVideoAdapter extends BaseAdapter {
                     MediaStore.Images.Thumbnails.MINI_KIND));
         }
         return mExtraVideoBitmapCache.get(_filePath);
+    }
+    public static String getYouTubeImageId(String str){
+        int start_index = str.lastIndexOf("/")+1;
+        int end_index = str.length();
+        String videoId = str.substring(start_index,end_index);
+        Log.i("TER", videoId);
+        return  videoId;
     }
 
 

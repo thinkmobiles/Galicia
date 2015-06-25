@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_dark"
+        android:alpha="0.8"
+        android:id="@+id/flBackground_PSD"
+        android:layout_below="@+id/flTop_PSD"
+        android:layout_above="@+id/flBottom_PSD"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/abc_text_size_title_material_toolbar"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/tv_dialogTitle_CD"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="30pt"
+            android:textColor="#FFFFFF"
+            android:text="@string/dialog_lable"
+            android:textSize="@dimen/dialog_title_text_size" />
+
+        <LinearLayout
+            android:id="@+id/llSpinner_PSD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/abc_button_padding_horizontal_material"
+            android:orientation="vertical"
+            android:layout_alignRight="@+id/ll_buttons"
+            android:layout_alignEnd="@+id/ll_buttons"
+            android:layout_below="@+id/tv_dialogTitle_CD"
+            android:layout_centerHorizontal="true"
+            android:layout_alignLeft="@+id/ll_buttons">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/etNewShop_PSD1"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:color/white"
+                    android:paddingLeft="@dimen/abc_control_inset_material"
+                    android:hint="Escribe el nombre del local"
+                    android:completionThreshold="1" />
+
+                <ImageView
+                    android:id="@+id/iv_all_ItemShop_PSD"
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/d_arrow"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true" />
+
+            </RelativeLayout>
+
+
+
+            <Spinner
+                android:id="@+id/spinner_PSD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@android:drawable/btn_dropdown"
+                android:gravity="center_horizontal"
+                android:padding="@dimen/abc_button_padding_horizontal_material"
+                android:spinnerMode="dropdown"
+                android:visibility="gone"
+                android:focusable="false">
+
+            </Spinner>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/llSpinner_PSD"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:id="@+id/tvCancel_PSD"
+                android:layout_width="@dimen/dialog_button_width"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/abc_action_bar_progress_bar_size"
+                android:background="@drawable/selector_dialog_button"
+                android:gravity="center_vertical|center_horizontal"
+                android:padding="@dimen/abc_button_padding_horizontal_material"
+                android:text="@string/button_cancel"
+                android:textSize="@dimen/dialog_button_text_size" />
+
+            <TextView
+                android:id="@+id/tvAccept_PSD"
+                android:layout_width="@dimen/dialog_button_width"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_dialog_button"
+                android:gravity="center_vertical|center_horizontal"
+                android:padding="@dimen/abc_button_padding_horizontal_material"
+                android:text="@string/button_accept"
+                android:textSize="@dimen/dialog_button_text_size" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/etNewShop_PSD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/ll_buttons"
+            android:layout_marginBottom="@dimen/abc_button_padding_horizontal_material"
+            android:background="@android:color/white"
+            android:hint="enter shop"
+            android:padding="@dimen/abc_button_padding_horizontal_material"
+            android:visibility="gone"
+            android:layout_alignRight="@+id/llSpinner_PSD"
+            android:layout_alignEnd="@+id/llSpinner_PSD" />
+
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_big_margin"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/flBottom_PSD"></FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_big_margin"
+        android:id="@+id/flTop_PSD"></FrameLayout>
+
+</RelativeLayout>

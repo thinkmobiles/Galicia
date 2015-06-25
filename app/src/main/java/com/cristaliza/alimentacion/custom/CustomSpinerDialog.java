@@ -66,7 +66,7 @@ public class CustomSpinerDialog {
         findDialogUI(view);
         setDialogListener();
 
-        spinnerPurchaseAdapter = new SpinnerPurchaseAdapter(mCallingActivity, subList);
+//        spinnerPurchaseAdapter = new SpinnerPurchaseAdapter(mCallingActivity, subList);
         spinner.setAdapter(spinnerPurchaseAdapter);
 
         spinerDialog.setView(view);

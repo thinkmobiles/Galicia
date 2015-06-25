@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.cristaliza.alimentacion.R;
-import com.cristaliza.alimentacion.models.Shop;
+import com.cristaliza.alimentacion.orm_database.Shop;
 
 import java.util.List;
 

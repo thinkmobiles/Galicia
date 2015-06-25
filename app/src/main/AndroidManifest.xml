@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cristaliza.alimentacion" >
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.cristaliza.alimentacion">
 
     <supports-screens
         android:largeScreens="true"
@@ -13,27 +14,37 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET"/>
 
+
     <application
         android:allowBackup="true"
+        tools:replace = "android:icon"
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:name="com.cristaliza.alimentacion.global.App"
+        android:name=".global.App"
         android:theme="@style/AppTheme" >
 
+        <meta-data android:name="DATABASE" android:value="alimentacion_database.db" />
+        <meta-data android:name="VERSION" android:value="2" />
+        <meta-data android:name="QUERY_LOG" android:value="true" />
+        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.cristaliza.alimentacion.orm_database" />
 
-        <activity android:name="com.cristaliza.alimentacion.SplashScreen"
+
+        <activity android:name=".SplashScreen"
             android:label="@string/app_name"
-
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name="com.cristaliza.alimentacion.MainActivity" android:screenOrientation="landscape"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="landscape"/>
+
+        <activity android:name=".PlayVideoActivity"
+            android:screenOrientation="landscape"
+            android:hardwareAccelerated="true"/>
     </application>
 
 </manifest>

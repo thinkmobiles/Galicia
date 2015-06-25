@@ -10,6 +10,7 @@
     <string name="title_inicio">INICIO</string>
     <string name="title_envios">ENVIOS PENDIENTES</string>
     <string name="title_envio">envío</string>
+    <string name="error"> error</string>
 
 
     <string name="app_name">Alimentación</string>
@@ -37,6 +38,13 @@
     <string name="delete_all_item">All item deleted succesfull</string>
     <string name="delete_all_shop">All shop deleted succesfull</string>
     <string name="dialog_lable">ANADIR FICHA A</string>
+
+    <string name="ver_envio">VER ENVÍO</string>
+    <string name="continuar">CONTINUAR</string>
+    <string name="want_continue">ESTA FICHA HA SIDO AÑADIDA</string>
+    <string name="add_shop_succesfull">Shop add succesfull</string>
+    <string name="add_item_to_shop">Item add to shop_id= </string>
+    <string name="title_videos">VIDEOS</string>
 
     <string-array name="spinner_resource">
         <item>Item1</item>

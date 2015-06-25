@@ -1,7 +1,7 @@
 package com.cristaliza.alimentacion.global;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.app.FragmentTransaction;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -35,12 +35,12 @@ public abstract class FragmentReplacer {
         _activity.getSupportFragmentManager().popBackStack(null, _activity.getFragmentManager().POP_BACK_STACK_INCLUSIVE);
     }
 
-    public static final void replaceTopNavigationFragment(final Activity _activity,
-                                                          final Fragment _fragment) {
-         _activity.getFragmentManager().beginTransaction()
-                .replace(R.id.container, _fragment)
-                .commit();
-    }
+//    public static final void replaceTopNavigationFragment(final FragmentActivity _activity,
+//                                                          final Fragment _fragment) {
+//         _activity.getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.container, _fragment)
+//                .commit();
+//    }
 
     public static final void replaceTopNavigationFragment(final FragmentActivity _activity,
                                                           final android.support.v4.app.Fragment _fragment) {
@@ -61,29 +61,29 @@ public abstract class FragmentReplacer {
         }
     }
 
-    public static final void replaceCurrentFragment(final Activity _activity,
+    public static final void replaceCurrentFragment(final FragmentActivity _activity,
                                                     final Fragment _fragment) {
-        _activity.getFragmentManager().beginTransaction()
+        _activity.getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, _fragment)
                 .addToBackStack(null)
                 .commit();
 
     }
 
-    public static final void replaceFragmentWithAnim(final FragmentActivity _activity,
-                                                     final Fragment _fragment) {
-        _activity.getFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .setCustomAnimations(R.anim.anim_in, R.anim.anim_out)//,
-//                        R.anim.anim_out,R.anim.anim_in)
-                .replace(R.id.container, _fragment)
-                .addToBackStack(null).commit();
-//        manageBackButton(_activity, true);
-    }
+//    public static final void replaceFragmentWithAnim(final FragmentActivity _activity,
+//                                                     final Fragment _fragment) {
+//        _activity.getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                .setCustomAnimations(R.anim.anim_in, R.anim.anim_out)//,
+////                        R.anim.anim_out,R.anim.anim_in)
+//                .replace(R.id.container, _fragment)
+//                .addToBackStack(null).commit();
+////        manageBackButton(_activity, true);
+//    }
 
-    public static final void addFragment(final Activity _context,
+    public static final void addFragment(final FragmentActivity _context,
                                          final Fragment _fragment) {
 
-        _context.getFragmentManager().beginTransaction()
+        _context.getSupportFragmentManager().beginTransaction()
                 .add(R.id.container, _fragment)
                 .addToBackStack(null)
                 .commit();

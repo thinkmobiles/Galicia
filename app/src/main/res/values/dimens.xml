@@ -3,44 +3,52 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <!--<dimen name="slidingmenu_shadow_width">15dp</dimen>-->
+    <dimen name="slidingmenu_shadow_width">15dp</dimen>
 
-    <!--&lt;!&ndash;<dimen name="beverage_title_min_size">45dp</dimen>&ndash;&gt;-->
-    <!--&lt;!&ndash;<dimen name="beverage_title_max_size">75dp</dimen>&ndash;&gt;-->
-    <!--&lt;!&ndash;<dimen name="beverage_description_size">160dp</dimen>&ndash;&gt;-->
+    <!--<dimen name="beverage_title_min_size">45dp</dimen>-->
+    <!--<dimen name="beverage_title_max_size">75dp</dimen>-->
+    <!--<dimen name="beverage_description_size">160dp</dimen>-->
 
-    <!--&lt;!&ndash;<dimen name="beverage_item_w">90dp</dimen>&ndash;&gt;-->
+    <!--<dimen name="beverage_item_w">90dp</dimen>-->
 
     <dimen name="default_circle_view_size">200dp</dimen>
+    <dimen name="gradient_view_size">70dp</dimen>
+
+    <!-- dialogs-->
+    <dimen name="dialog_title_text_size">24sp</dimen>
+    <dimen name="dialog_button_text_size">22sp</dimen>
+    <dimen name="dialog_button_width">200dp</dimen>
+    <dimen name="custom_dialog_message_text_size">30sp</dimen>
+
+    <dimen name="dialog_big_margin">100dp</dimen>
+    <dimen name="down_arrow">25dp</dimen>
+
+    SlideMenu
+    <dimen name="menu_width">300dp</dimen>
+    <dimen name="menu_height">55dp</dimen>
+    <dimen name="menu_margin_top">70dp</dimen>
+    <dimen name="menu_padding_left">5dp</dimen>
+    <dimen name="menu_text_size">15sp</dimen>
+
+
+     fragment product universal
+    <dimen name="default_padding">10dp</dimen>
+    <dimen name="default_margin">8dp</dimen>
 
 
 
-    <!--SlideMenu-->
-    <!--<dimen name="menu_width">300dp</dimen>-->
-    <!--<dimen name="menu_height">55dp</dimen>-->
-    <!--<dimen name="menu_margin_top">70dp</dimen>-->
-    <!--<dimen name="menu_padding_left">5dp</dimen>-->
-    <!--<dimen name="menu_text_size">15sp</dimen>-->
+    <dimen name="action_bar_title_height">48dp</dimen>
+    <dimen name="action_bar_bottom_margin">12dp</dimen>
+    <dimen name="action_bar_title_txt">22dp</dimen>
+    <dimen name="action_bar_menu_icon_margin">15dp</dimen>
 
-
-    <!-- fragment product universal-->
-    <!--<dimen name="default_padding">10dp</dimen>-->
-    <!--<dimen name="default_margin">8dp</dimen>-->
-
-
-
-    <!--<dimen name="action_bar_title_height">48dp</dimen>-->
-    <!--<dimen name="action_bar_bottom_margin">12dp</dimen>-->
-    <!--<dimen name="action_bar_title_txt">22dp</dimen>-->
-    <!--<dimen name="action_bar_menu_icon_margin">15dp</dimen>-->
-
-    <!--Start menu-->
-    <!--<dimen name="menu_item_size_txt">18dp</dimen>-->
-    <!--<dimen name="menu_item_height">30dp</dimen>-->
-    <!--<dimen name="beverage_title_min_size">30dp</dimen>-->
-    <!--<dimen name="beverage_title_max_size">40dp</dimen>-->
-    <!--<dimen name="beverage_description_size">98dp</dimen>-->
-    <!--<dimen name="beverage_item_w">80dp</dimen>-->
+    Start menu
+    <dimen name="menu_item_size_txt">18dp</dimen>
+    <dimen name="menu_item_height">30dp</dimen>
+    <dimen name="beverage_title_min_size">30dp</dimen>
+    <dimen name="beverage_title_max_size">40dp</dimen>
+    <dimen name="beverage_description_size">98dp</dimen>
+    <dimen name="beverage_item_w">80dp</dimen>
 
 
 </resources>

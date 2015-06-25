@@ -15,6 +15,7 @@ public abstract class Constants {
     public static final String MIME_TYPE                = "text/html";
     public static final String ENCODING                 = "UTF-8";
     public static final String PARAM_OPEN               = "OPEN";
+    public static final String PARAMS                   = "params";
 
 //<----------------------------------DB------------------------------------------------->
 
@@ -54,4 +55,14 @@ public abstract class Constants {
 
     public static final String WHERE_ID_EQUALS = ID_COLUMN + " =?";
     public static final String WHERE_SHOP_ID_EQUALS = COLUMN_ID_SHOP + " =?";
+
+    //----------------------------Video----------------------------------
+    public static final String YOUTUBE_VIDEO_ID = "YOUTUBE_VIDEO_ID";
+    public static final String URL_YOUTUBE_EMBED = "https://www.youtube.com/embed/";
+    public static final String URL_YOUTUBE_AUTOPLAY = "?autoplay=1";
+    public static final String ViDEO_TYPE_DATA = "video/*";
+
+    //--------------------
+    public static final int TYPE_DIALOG_ADD     = 0;
+    public static final int TYPE_DIALOG_ADDED   = 1;
 }
