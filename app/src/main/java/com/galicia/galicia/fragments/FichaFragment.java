@@ -12,7 +12,6 @@ import com.galicia.galicia.R;
 import com.galicia.galicia.global.Constants;
 import com.galicia.galicia.untils.BitmapCreator;
 
-import it.sephiroth.android.library.imagezoom.ImageViewTouch;
 
 /**
  * Created by vasia on 19.05.2015.
@@ -20,7 +19,7 @@ import it.sephiroth.android.library.imagezoom.ImageViewTouch;
 public class FichaFragment extends Fragment implements View.OnClickListener {
 
     private MainActivity mCallingActivity;
-    private ImageViewTouch ivFicha;
+    private ImageView ivFicha;
     private ImageView ivClose;
     private String mFichaCata;
 
@@ -51,7 +50,7 @@ public class FichaFragment extends Fragment implements View.OnClickListener {
     }
 
     private void findUI(final View _view){
-        ivFicha = (ImageViewTouch) _view.findViewById(R.id.ivFicha_FF);
+        ivFicha = (ImageView) _view.findViewById(R.id.ivFicha_FF);
         ivClose = (ImageView) _view.findViewById(R.id.ivClose_FF);
 
         mCallingActivity.setEnableMenu(true);
