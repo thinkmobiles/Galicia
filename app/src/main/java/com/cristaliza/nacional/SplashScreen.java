@@ -51,7 +51,7 @@ public class SplashScreen extends Activity {
 
         if (!Network.isInternetConnectionAvailable(SplashScreen.this))
         {// NO internet connection
-            if (isHasContent())
+            if (!isHasContent())
                 showFinishDialog();
             else
                 openMainActivityDelay();
