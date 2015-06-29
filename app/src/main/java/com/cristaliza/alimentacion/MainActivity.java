@@ -3,7 +3,6 @@ package com.cristaliza.alimentacion;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ImageButton;
@@ -12,11 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cristaliza.mvc.models.estrella.Item;
 import com.cristaliza.alimentacion.fragments.StartMenu;
 import com.cristaliza.alimentacion.global.ApiManager;
 import com.cristaliza.alimentacion.global.FragmentReplacer;
 import com.cristaliza.alimentacion.untils.SlidingMenuManager;
+import com.cristaliza.mvc.models.estrella.Item;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
@@ -48,12 +47,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mTitle  = (TextView) findViewById(R.id.tvMenuTitle);
         logo = (ImageView) findViewById(R.id.tvLogoTitle);
         mBackgroundLayout = (LinearLayout) findViewById(R.id.llAppContainer);
-//        logo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
         menuBtn.setOnClickListener(this);
     }
 
