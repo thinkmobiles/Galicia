@@ -143,7 +143,6 @@ public class SplashScreen extends Activity {
             public void onEvent(final Event event) {
                 switch (event.getId()) {
                     case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
-//                        Toast.makeText(getBaseContext(), "Error en la información descargada", Toast.LENGTH_LONG).show();
                         openMainActivity();
                         break;
 

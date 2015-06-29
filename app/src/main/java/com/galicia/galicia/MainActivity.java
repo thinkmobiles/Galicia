@@ -47,12 +47,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mTitle  = (TextView) findViewById(R.id.tvMenuTitle);
         logo = (ImageView) findViewById(R.id.tvLogoTitle);
         mBackgroundLayout = (LinearLayout) findViewById(R.id.llAppContainer);
-//        logo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
         menuBtn.setOnClickListener(this);
     }
 
