@@ -143,15 +143,15 @@ public class SplashScreen extends Activity {
             public void onEvent(final Event event) {
                 switch (event.getId()) {
                     case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
-                        Toast.makeText(getBaseContext(), "Error en la información descargada", Toast.LENGTH_LONG).show();
                         openMainActivity();
                         break;
 
                     case AppModel.ChangeEvent.DOWNLOAD_ALL_CHANGED_ID:
-                        Toast.makeText(getBaseContext(),"Descargando contenidos", Toast.LENGTH_LONG).show();
-                        SharedPreferencesManager.saveUpdateDate(getBaseContext(), System.currentTimeMillis());
-                        ApiManager.setOfflineMode();
-                        openMainActivity();
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                saveDownload();
+                            }
+                        });
                         break;
 
                     case AppModel.ChangeEvent.DOWNLOAD_FILE_CHANGED_ID:
@@ -182,6 +182,12 @@ public class SplashScreen extends Activity {
         if (!mIsLoadContent) {
             super.onBackPressed();
         }
+    }
+
+    private void saveDownload() {
+        Toast.makeText(getBaseContext(),"Descargando contenidos", Toast.LENGTH_LONG).show();
+        SharedPreferencesManager.saveUpdateDate(getBaseContext(), System.currentTimeMillis());
+        openMainActivity();
     }
 
     private boolean hasNewContent() {

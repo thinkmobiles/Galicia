@@ -1,7 +1,7 @@
 package com.cristaliza.nacional.global;
 
 import android.content.Context;
-import android.os.Environment;
+import android.content.ContextWrapper;
 
 import com.cristaliza.mvc.controllers.estrella.MainController;
 import com.cristaliza.mvc.controllers.estrella.MainViewListener;
@@ -20,7 +20,9 @@ public abstract class ApiManager {
     private static String path = null;
 
     public static void setPath(Context context) {
-        path = Environment.getExternalStorageDirectory() + "/" + context.getPackageName();
+//        path = Environment.getExternalStorageDirectory() + "/" + context.getPackageName();
+        ContextWrapper cw = new ContextWrapper(context);
+        path = cw.getDir(context.getPackageName(), Context.MODE_PRIVATE).getAbsolutePath() + "/" +context.getPackageName();
     }
 
     public static String getPath(Context context) {
@@ -34,7 +36,9 @@ public abstract class ApiManager {
 
     public static void init(Context context) {
         model = AppModel.getInstance();
-        path = Environment.getExternalStorageDirectory() + "/" + context.getPackageName();
+//        path = Environment.getExternalStorageDirectory() + "/" + context.getPackageName();
+        ContextWrapper cw = new ContextWrapper(context);
+        path = cw.getDir(context.getPackageName(), Context.MODE_PRIVATE).getAbsolutePath() + "/" +context.getPackageName();
         controller = new MainController();
         controller.setAppNacional();
 //        controller.onExecuteWSAppConfig();
@@ -91,15 +95,6 @@ public abstract class ApiManager {
     public static List<Item> getFirstList() {
         List<Item> list = model.getFirstLevel();
 
-        for (int i = 0; i < list.size(); ++i){
-            for(int j = i+1; j < list.size(); ++j){
-                if(list.get(j).getId().trim().compareTo(list.get(i).getId().trim())<0){
-                    Item temp = list.get(j);
-                    list.set(j,list.get(i));
-                    list.set(i,temp);
-                }
-            }
-        }
         return list;
     }
 
