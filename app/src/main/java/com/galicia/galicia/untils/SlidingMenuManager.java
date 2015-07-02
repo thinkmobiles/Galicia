@@ -58,7 +58,7 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
         menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
         menu.setShadowWidthRes(R.dimen.slidingmenu_shadow_width);
         menu.setBehindWidth(getDisplayWidth());
-        menu.setFadeDegree(0.33f);
+        menu.setFadeDegree(0.3f);
         menu.attachToActivity(_activity, SlidingMenu.SLIDING_WINDOW);
         menu.setMenu(R.layout.menu);
         menu.setSlidingEnabled(true);

@@ -16,7 +16,8 @@
         android:src="@drawable/selector_btn_next"
         android:padding="10dp"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/margin_navigation_button"/>
 
     <ImageView
         android:id="@+id/ivPrev"
@@ -25,7 +26,8 @@
         android:src="@drawable/selector_btn_prev"
         android:padding="10dp"
         android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/margin_navigation_button"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -34,6 +36,6 @@
         android:src="@drawable/btn_close_state_normal"
         android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp" />
+        android:layout_marginRight="@dimen/margin_navigation_button"/>
 
 </RelativeLayout>

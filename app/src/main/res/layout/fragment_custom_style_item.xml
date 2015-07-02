@@ -8,7 +8,8 @@
         android:id="@+id/tvItemTitle_CS"
         style="@style/ItemTitle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp" />
 
     <LinearLayout
         android:orientation="horizontal"

@@ -17,16 +17,21 @@
     <!--Sliding Menu-->
     <dimen name="slidingmenu_shadow_width">5dp</dimen>
     <dimen name="menu_width">300dp</dimen>
-    <dimen name="menu_height">35dp</dimen>
+    <dimen name="menu_height">11dp</dimen>
     <dimen name="menu_margin_top">20dp</dimen>
     <dimen name="menu_padding_left">5dp</dimen>
-    <dimen name="menu_text_size">11sp</dimen>
+    <dimen name="menu_text_size">15sp</dimen>
+    <dimen name="margin_item">30dp</dimen>
 
 
     <!--Video description-->
     <dimen name="video_txt_size">11sp</dimen>
     <dimen name="default_padding">0dp</dimen>
     <dimen name="default_margin">8dp</dimen>
+    <dimen name="margin_navigation_button">60dp</dimen>
+    <dimen name="nav_button_width">20dp</dimen>
+    <dimen name="up_margin_pager">130dp</dimen>
+    <dimen name="down_margin_pager">40dp</dimen>
 
 
 
