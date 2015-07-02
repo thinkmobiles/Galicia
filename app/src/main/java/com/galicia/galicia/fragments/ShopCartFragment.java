@@ -78,6 +78,7 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener, 
         guardarButton.setVisibility(View.INVISIBLE);
         callActivity.setEnableMenu(true);
         callActivity.setTitle(callActivity.getString(R.string.title_envio));
+        callActivity.setBackground();
     }
 
     public void setClickListener() {

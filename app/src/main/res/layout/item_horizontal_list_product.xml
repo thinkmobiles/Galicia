@@ -4,7 +4,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/height_item_hlv_mini"
         android:id="@+id/ivPhotoProd"
         android:layout_above="@+id/ivPlusInfo"
         android:layout_alignParentTop="true"

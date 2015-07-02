@@ -19,7 +19,7 @@ import com.galicia.galicia.untils.SlidingMenuManager;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
-    private ImageButton menuBtn;
+    private ImageView menuBtn;
     private LinearLayout mBackgroundLayout;
     private TextView mTitle;
     private SlidingMenuManager manager;
@@ -43,7 +43,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 
     private void findUI() {
-        menuBtn = (ImageButton) findViewById(R.id.ibMenu);
+        menuBtn = (ImageView) findViewById(R.id.ivMenu);
         mTitle  = (TextView) findViewById(R.id.tvMenuTitle);
         logo = (ImageView) findViewById(R.id.tvLogoTitle);
         mBackgroundLayout = (LinearLayout) findViewById(R.id.llAppContainer);

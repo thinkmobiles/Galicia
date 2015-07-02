@@ -16,6 +16,12 @@ public  class DBManager {
     }
 
     public static final Shop addShop(final String _shopName){
+        List<Shop> shops = Shop.listAll(Shop.class);
+        for(Shop tShop : shops){
+            if(tShop.getName().equals(_shopName)){
+                return tShop;
+            }
+        }
         final Shop shop = new Shop(_shopName);
         shop.save();
         return shop;

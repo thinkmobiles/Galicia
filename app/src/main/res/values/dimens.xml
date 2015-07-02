@@ -1,7 +1,6 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
 
     <!--<dimen name="slidingmenu_shadow_width">15dp</dimen>-->
 
@@ -13,6 +12,11 @@
 
     <dimen name="default_circle_view_size">200dp</dimen>
     <dimen name="gradient_view_size">70dp</dimen>
+
+    <!-- shop fragment-->
+    <dimen name="shop_fragment_padding_left_right">55dp</dimen>
+    <dimen name="shop_fragment_padding_top">30dp</dimen>
+    <dimen name="shop_default_margin">15dp</dimen>
 
     <!-- dialogs-->
     <dimen name="dialog_title_text_size">24sp</dimen>
@@ -40,6 +44,7 @@
     <dimen name="menu_space_height">230dp</dimen>
 
     <dimen name="width_item_hlv_mini">150dp</dimen>
+    <dimen name="height_item_hlv_mini">150dp</dimen>
 
     <dimen name="product_devider_height">0dp</dimen>
     <integer name="product_slide_margin">17</integer>

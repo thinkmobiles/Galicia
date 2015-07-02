@@ -311,7 +311,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         for (int i = 0; i < mProductList.size(); ++i) {
             View view = View.inflate(mCallingActivity, R.layout.item_horizontal_list_product, null);
             ImageView image = (ImageView) view.findViewById(R.id.ivPhotoProd);
-            image.setImageBitmap(BitmapCreator.getBitmap(mProductList.get(i).getImageSmall()));
+            image.setImageBitmap(BitmapCreator.getBitmap(mProductList.get(i).getImage()));
             view.setLayoutParams(params);
             view.setOnClickListener(getListener(i));
             llContProd.addView(view);
@@ -364,13 +364,13 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         mCallingActivity.setTitle(mCurrentItem.getName());
         mCallingActivity.setBackground(mCurrentItem.getBackgroundImage());
 
-        if(hasBigImage(mCurrentItem.getId())){
-            LinearLayout.LayoutParams param25 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 3.0f);
-            LinearLayout.LayoutParams param75 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
-
-            rlContWeb.setLayoutParams(param25);
-            rlContHSV.setLayoutParams(param75);
-        }
+//        if(hasBigImage(mCurrentItem.getId())){
+//            LinearLayout.LayoutParams param25 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 3.0f);
+//            LinearLayout.LayoutParams param75 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
+//
+//            rlContWeb.setLayoutParams(param25);
+//            rlContHSV.setLayoutParams(param75);
+//        }
 
         if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("<span style='font-family: Helvetica Neue, Helvetica, Arial, sans-serif;'></span>")) {
             rlContWeb.setVisibility(View.GONE);

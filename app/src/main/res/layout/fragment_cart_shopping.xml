@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/shop_fragment_padding_left_right"
+    android:paddingRight="@dimen/shop_fragment_padding_left_right"
+    android:paddingBottom="@dimen/shop_fragment_padding_left_right"
     android:background="@android:color/white">
 
     <RelativeLayout
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/abc_text_size_title_material_toolbar"
             android:layout_marginTop="@dimen/abc_text_size_title_material_toolbar"
-            android:layout_marginLeft="@dimen/abc_button_padding_horizontal_material"
+            android:layout_marginLeft="@dimen/shop_default_margin"
             android:clickable="true"
             android:paddingTop="@dimen/abc_button_padding_horizontal_material"
             android:paddingBottom="@dimen/abc_button_padding_horizontal_material"
@@ -55,13 +55,13 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:id="@+id/textView" />
-        <View
+
+        <LinearLayout
             android:layout_below="@id/iv_deleteAll_FS"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/black_translucent">
-
-        </View>
+            android:layout_marginTop="@dimen/shop_default_margin"
+            android:background="@color/black_translucent"/>
     </RelativeLayout>
 
     <ListView
@@ -69,7 +69,9 @@
         android:layout_below="@+id/rl_labelShopping_FS"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/tw_guardar_button_FS">
+        android:layout_marginTop="-5dp"
+        android:layout_above="@+id/tw_guardar_button_FS"
+        android:listSelector="@android:color/transparent">
     </ListView>
 
     <Button
