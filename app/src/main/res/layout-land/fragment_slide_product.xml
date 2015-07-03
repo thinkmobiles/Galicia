@@ -2,6 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="@android:color/white"
+    android:paddingTop="@dimen/default_middle_margin"
+    android:paddingBottom="@dimen/default_middle_margin"
+    android:paddingRight="@dimen/shop_fragment_padding_left_right"
+    android:paddingLeft="@dimen/shop_fragment_padding_left_right"
     android:layout_height="match_parent">
 
     <android.support.v4.view.ViewPager
@@ -32,8 +36,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/ivClose"
         android:src="@drawable/btn_close_state_normal"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp" />
+        android:layout_alignParentRight="true"/>
 
 </RelativeLayout>

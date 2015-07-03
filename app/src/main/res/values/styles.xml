@@ -55,6 +55,10 @@
         <item name="android:layout_marginTop">@dimen/down_margin_pager</item>
         <item name="android:layout_marginLeft">@dimen/margin_navigation_button</item>
     </style>
+    <style name="TitlePager" parent="ItemTitle">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginLeft">-30dp</item>
+    </style>
     <style name="pager_style">
         <item name="android:textSize">15pt</item>
         <item name="android:textColor">#000000</item>
