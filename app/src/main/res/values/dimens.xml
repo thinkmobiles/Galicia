@@ -16,7 +16,9 @@
     <!-- shop fragment-->
     <dimen name="shop_fragment_padding_left_right">55dp</dimen>
     <dimen name="shop_fragment_padding_top">30dp</dimen>
-    <dimen name="shop_default_margin">15dp</dimen>
+
+    <dimen name="default_small_margin">15dp</dimen>
+    <dimen name="default_middle_margin">30dp</dimen>
 
     <!-- dialogs-->
     <dimen name="dialog_title_text_size">24sp</dimen>
@@ -44,7 +46,7 @@
     <dimen name="menu_space_height">230dp</dimen>
 
     <dimen name="width_item_hlv_mini">150dp</dimen>
-    <dimen name="height_item_hlv_mini">150dp</dimen>
+    <dimen name="height_item_hlv_mini">180dp</dimen>
 
     <dimen name="product_devider_height">0dp</dimen>
     <integer name="product_slide_margin">17</integer>

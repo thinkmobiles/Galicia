@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +48,6 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     private MainActivity mCallingActivity;
     private Item mCurrentItem;
     private ImageView ivProductPhoto, ivCompanyLogo, ivAddProduct, ivFicha, ivGoBack, ivDownScroll, ivProductAward, ivNext, ivPrev;
-//    private HorizontalListView hlvAllProduct;
     private HorizontalScrollView hsvList;
     private ListView lvProductVideo;
     private TextView tvProductPhotoTitle;
@@ -100,14 +100,16 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         if(bigPart){
             maxWidth = getDisplayWidth() / 4 * 3;
         }
-        if(mThirdList.size() > 1) {
-            long s = -50;
-            for(int i = 0 ;i < mProductList.size(); ++i){
-                s = s + llContProd.getChildAt(i).getMeasuredWidth();
-            }
-            if (s < maxWidth) {
-                rlNext.setVisibility(View.GONE);
-                rlPrev.setVisibility(View.GONE);
+        if(mThirdList.size() >= 1) {
+            long s = -150;
+            if(llContProd.getChildCount() != 0) {
+                for (int i = 0; i < mProductList.size(); ++i) {
+                    s = s + llContProd.getChildAt(i).getMeasuredWidth();
+                }
+                if (s < maxWidth) {
+                    rlNext.setVisibility(View.GONE);
+                    rlPrev.setVisibility(View.GONE);
+                }
             }
         }
     }
@@ -124,7 +126,6 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         ivNext = (ImageView) _view.findViewById(R.id.ivNext_FPU);
         wvProductDescription = (WebView) _view.findViewById(R.id.wvProductDescription_FPU);
         tvProductPhotoTitle = (TextView) _view.findViewById(R.id.tvThirdProductTitle_FPU);
-//        hlvAllProduct = (HorizontalListView) _view.findViewById(R.id.hlvAllProduct_FPU);
         hsvList = (HorizontalScrollView) _view.findViewById(R.id.hsvList);
         lvProductVideo = (ListView) _view.findViewById(R.id.lvProductVideo_FPU);
         rlProductPhotoContainer = (RelativeLayout) _view.findViewById(R.id.rlProductPhotoContainer_FPU);
@@ -260,7 +261,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         if (mThirdList.size() == 1) {
             setOneProductDetail();
         } else {
-            llMoreDetail.setVisibility(View.GONE);
+//            llMoreDetail.setVisibility(View.GONE);
+//            llMoreDetail.setLayoutParams(new RelativeLayout.LayoutParams(0, 0));
             calculateContainerSizeIfProductNoDetail();
 //            hlvAllProduct.setVisibility(View.VISIBLE);
             initHorizontalImageList();
@@ -271,12 +273,14 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
 
     private void calculateContainerSizeIfProductNoDetail() {
         bigPart = true;
-        int companyLogoWidth = getDisplayWidth() / 8 * 2;
-        int productDetailWidth = getDisplayWidth() / 8 * 6;
-        final LinearLayout.LayoutParams companyLogoParams = new LinearLayout.LayoutParams(companyLogoWidth, ViewGroup.LayoutParams.MATCH_PARENT);
-        final LinearLayout.LayoutParams productDetailParams = new LinearLayout.LayoutParams(productDetailWidth, ViewGroup.LayoutParams.MATCH_PARENT);
-        llCompanyLogo.setLayoutParams(companyLogoParams);
-        llDetail.setLayoutParams(productDetailParams);
+//        int companyLogoWidth = getDisplayWidth() / 8 * 2;
+//        int productDetailWidth = getDisplayWidth() / 8 * 6;
+//        final RelativeLayout.LayoutParams companyLogoParams = new RelativeLayout.LayoutParams(companyLogoWidth, ViewGroup.LayoutParams.MATCH_PARENT);
+//        final RelativeLayout.LayoutParams productDetailParams = new RelativeLayout.LayoutParams(productDetailWidth, ViewGroup.LayoutParams.MATCH_PARENT);
+//        llCompanyLogo.setLayoutParams(companyLogoParams);
+//        llDetail.setLayoutParams(productDetailParams);
+
+        llMoreDetail.setVisibility(View.GONE);
     }
 
     private void setOneProductDetail() {

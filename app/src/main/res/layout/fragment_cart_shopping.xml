@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/abc_text_size_title_material_toolbar"
             android:layout_marginTop="@dimen/abc_text_size_title_material_toolbar"
-            android:layout_marginLeft="@dimen/shop_default_margin"
+            android:layout_marginLeft="@dimen/default_small_margin"
             android:clickable="true"
             android:paddingTop="@dimen/abc_button_padding_horizontal_material"
             android:paddingBottom="@dimen/abc_button_padding_horizontal_material"
@@ -60,7 +60,7 @@
             android:layout_below="@id/iv_deleteAll_FS"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_marginTop="@dimen/shop_default_margin"
+            android:layout_marginTop="@dimen/default_small_margin"
             android:background="@color/black_translucent"/>
     </RelativeLayout>
 
