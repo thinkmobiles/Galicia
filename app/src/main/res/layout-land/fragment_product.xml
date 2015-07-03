@@ -3,264 +3,224 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:paddingLeft="@dimen/shop_fragment_padding_left_right"
+    android:paddingRight="@dimen/shop_fragment_padding_left_right"
+    android:paddingTop="@dimen/shop_fragment_padding_top"
+    android:paddingBottom="@dimen/shop_fragment_padding_top"
     android:orientation="horizontal">
-
     <RelativeLayout
         android:id="@+id/llCompanyLogo_FPU"
-        android:layout_width="match_parent"
+        android:layout_width="190dp"
         android:layout_height="match_parent"
-        android:layout_weight="3"
         android:background="@android:color/white"
         android:orientation="vertical"
-        android:padding="@dimen/default_padding">
-
+        android:layout_alignParentLeft="true">
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="190dp"
             android:layout_height="match_parent"
             android:layout_above="@+id/rlContBtn"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical"
-            android:paddingBottom="15dp"
-            android:paddingTop="15dp">
-
+            android:orientation="vertical">
             <ImageView
                 android:id="@+id/ivCompanyLogo_FPU"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_weight="1"
-                android:src="@drawable/logo" />
-
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY" />
             <ImageView
                 android:id="@+id/ivCompanyAward_FPU"
+                android:layout_marginTop="@dimen/shop_fragment_padding_top"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/rlContBtn"
-                android:layout_below="@+id/ivCompanyLogo_FPU"
-                android:layout_weight="1" />
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY" />
         </LinearLayout>
-
         <RelativeLayout
             android:id="@+id/rlContBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="@dimen/abc_dropdownitem_icon_width">
-
+            android:layout_gravity="bottom">
             <ImageView
                 android:id="@+id/ivAddProduct_FPU"
-                android:layout_width="wrap_content"
+                android:layout_width="190dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/abc_button_padding_horizontal_material"
-                android:layout_marginLeft="@dimen/abc_action_bar_icon_vertical_padding_material"
-                android:layout_marginRight="@dimen/abc_action_bar_icon_vertical_padding_material"
                 android:src="@drawable/selector_btn_add_envio" />
-
             <ImageView
                 android:id="@+id/ivFichaCata_FPU"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/default_small_margin"
+                android:layout_width="190dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ivAddProduct_FPU"
-                android:layout_marginLeft="@dimen/abc_action_bar_icon_vertical_padding_material"
-                android:layout_marginRight="@dimen/abc_action_bar_icon_vertical_padding_material"
                 android:src="@drawable/selector_btn_cata" />
-
         </RelativeLayout>
     </RelativeLayout>
-
     <LinearLayout
         android:id="@+id/llDetailContainer_FPU"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight="2"
         android:background="@android:color/white"
-        android:padding="@dimen/default_padding">
-
-
-            <ImageView
-                android:id="@+id/iv_back_FPU"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/abc_text_size_title_material_toolbar"
-                android:layout_marginTop="@dimen/abc_text_size_title_material_toolbar"
-                android:clickable="true"
-                android:paddingBottom="@dimen/abc_button_padding_horizontal_material"
-                android:paddingTop="@dimen/abc_button_padding_horizontal_material"
-                android:src="@drawable/btn_volver">
-
-            </ImageView>
-
-
-            <LinearLayout
-                android:id="@+id/llDesc_FPU"
+        android:layout_marginRight="@dimen/default_middle_margin"
+        android:layout_marginLeft="45dp"
+        android:layout_toLeftOf="@+id/llMoreDetailContainer_FPU"
+        android:layout_toRightOf="@+id/llCompanyLogo_FPU"
+        android:layout_weight="1">
+        <ImageView
+            android:id="@+id/iv_back_FPU"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:paddingBottom="15dp"
+            android:src="@drawable/btn_volver">
+        </ImageView>
+        <LinearLayout
+            android:id="@+id/llDesc_FPU"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/iv_back_FPU"
-                android:orientation="vertical">
-
-                <RelativeLayout
+                android:layout_weight="2"
+                android:id="@+id/rlContWeb"
+                android:layout_marginBottom="@dimen/shop_fragment_padding_top">
+                <ScrollView
+                    android:id="@+id/scrV"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:id="@+id/rlContWeb">
-
+                    android:scrollbarAlwaysDrawVerticalTrack="true"
+                    android:fadeScrollbars="false"
+                    android:scrollbars="vertical"
+                    android:scrollbarStyle="outsideOverlay">
                     <WebView
                         android:id="@+id/wvProductDescription_FPU"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:fadeScrollbars="false"
-                        android:focusableInTouchMode="false"
-                        android:paddingLeft="1px"
-                        android:paddingRight="20px"
-                        android:scrollbarAlwaysDrawVerticalTrack="true"
-                        android:scrollbarStyle="outsideInset"
+                        android:layout_marginRight="23dp"
+                        android:fadeScrollbars="true"
+                        android:scrollbarFadeDuration="0"
+                        android:isScrollContainer="false"
                         android:textColor="@android:color/black" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/abc_text_size_title_material_toolbar"
-                        android:layout_alignParentBottom="true"
-                        android:background="@drawable/vertical_gradient_shape"
-                        android:paddingBottom="@dimen/menu_item_size_txt">
-
-                    </View>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/rlContHSV"
+                </ScrollView>
+                <View
                     android:layout_width="match_parent"
+                    android:layout_height="@dimen/abc_text_size_title_material_toolbar"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/vertical_gradient_shape"
+                    android:paddingBottom="@dimen/menu_item_size_txt">
+                </View>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rlContHSV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="3">
-
-                        <RelativeLayout
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/rlNext_FPU"
+                    android:layout_toRightOf="@+id/rlPrev_FPU">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal">
+                        <HorizontalScrollView
+                            android:id="@+id/hsvList"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_toLeftOf="@+id/rlNext_FPU"
-                            android:layout_toRightOf="@+id/rlPrev_FPU"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp">
-
-                            <View
-                                android:layout_width="@dimen/abc_action_bar_progress_bar_size"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentRight="true"
-                                android:background="@drawable/horizontal_gradient_shape"
-                                android:paddingBottom="@dimen/menu_item_size_txt">
-
-                            </View>
-
+                            android:paddingTop="5dp"
+                            android:layout_gravity="center_horizontal"
+                            android:scrollbars="none">
                             <LinearLayout
-                                android:orientation="horizontal"
+                                android:id="@+id/llContProd"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center_horizontal">
-
-                                <HorizontalScrollView
-                                    android:id="@+id/hsvList"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:paddingTop="5dp"
-                                    android:layout_gravity="center_horizontal"
-                                    android:scrollbars="none">
-
-                                    <LinearLayout
-                                        android:id="@+id/llContProd"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:orientation="horizontal" />
-                                </HorizontalScrollView>
-                            </LinearLayout>
-                        </RelativeLayout>
-
-                    <RelativeLayout
-                            android:id="@+id/rlNext_FPU"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentRight="true">
-
-                            <ImageView
-                                android:id="@+id/ivNext_FPU"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:layout_gravity="center_vertical"
-                                android:layout_margin="10dp"
-                                android:src="@drawable/btn_next_state_mormal" />
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/rlPrev_FPU"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentLeft="true">
-
-                            <ImageView
-                                android:id="@+id/ivPrev_FPU"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:layout_gravity="center_vertical"
-                                android:layout_margin="10dp"
-                                android:src="@drawable/btn_prev_state_normal" />
-                        </RelativeLayout>
+                                android:orientation="horizontal" />
+                        </HorizontalScrollView>
+                    </LinearLayout>
                 </RelativeLayout>
-
-            </LinearLayout>
-
+                <View
+                    android:layout_width="@dimen/abc_action_bar_progress_bar_size"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="false"
+                    android:background="@drawable/horizontal_gradient_shape"
+                    android:paddingBottom="@dimen/menu_item_size_txt"
+                    android:layout_toLeftOf="@+id/rlNext_FPU">
+                </View>
+                <RelativeLayout
+                    android:id="@+id/rlNext_FPU"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:background="#ffffff">
+                    <ImageView
+                        android:id="@+id/ivNext_FPU"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/btn_next_state_mormal" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rlPrev_FPU"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:background="#ffffff">
+                    <ImageView
+                        android:id="@+id/ivPrev_FPU"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/btn_prev_state_normal" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/llMoreDetailContainer_FPU"
-        android:layout_width="match_parent"
+        android:layout_width="230dp"
         android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:backgroundTint="@android:color/white">
-
+        android:backgroundTint="@android:color/white"
+        android:layout_alignParentRight="true">
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_margin"
             android:layout_weight="3"
             android:background="@android:color/white"
             android:orientation="horizontal">
-
             <LinearLayout
                 android:id="@+id/ll_video_container_FP"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
-
                 <TextView
                     android:id="@+id/tv_titleVideoExtra_FP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
+                    android:layout_marginTop="@dimen/default_small_margin"
                     android:gravity="center"
-                    android:padding="@dimen/abc_button_padding_horizontal_material"
                     android:text="@string/title_videos"
-                    android:textColor="@android:color/secondary_text_light_nodisable" />
-
+                    android:textSize="16dp"
+                    android:textColor="#ffffff"
+                    android:paddingBottom="@dimen/default_margin" />
                 <ListView
                     android:id="@+id/lvProductVideo_FPU"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/tv_titleVideoExtra_FP"
                     android:layout_marginBottom="@dimen/default_margin"
-                    android:layout_marginLeft="@dimen/default_margin"
-                    android:layout_marginRight="3dp"
                     android:layout_marginTop="@dimen/default_margin"
                     android:layout_weight="1"
                     android:fadeScrollbars="false"
                     android:footerDividersEnabled="false"
                     android:headerDividersEnabled="false"
-                    android:paddingRight="15dp"
                     android:scrollbarAlwaysDrawVerticalTrack="true"
                     android:scrollbarStyle="outsideOverlay" />
-
                 <RelativeLayout
                     android:id="@+id/rlDownScroll"
                     android:layout_width="match_parent"
@@ -269,7 +229,6 @@
                     android:layout_marginLeft="@dimen/default_margin"
                     android:layout_marginRight="3dp"
                     android:layout_marginTop="@dimen/default_margin">
-
                     <ImageView
                         android:id="@+id/iv_downScroll_FP"
                         android:layout_width="@dimen/down_arrow"
@@ -277,9 +236,7 @@
                         android:layout_centerHorizontal="true"
                         android:src="@drawable/arrow" />
                 </RelativeLayout>
-
             </LinearLayout>
-
             <RelativeLayout
                 android:id="@+id/rlProductPhotoContainer_FPU"
                 android:layout_width="match_parent"
@@ -287,9 +244,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
+                android:paddingLeft="@dimen/default_small_margin"
+                android:orientation="horizontal">
                 <ImageView
                     android:id="@+id/ivProductPhoto_FPU"
                     android:layout_width="match_parent"
@@ -297,25 +253,17 @@
                     android:layout_above="@+id/tvThirdProductTitle_FPU"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true" />
-
                 <TextView
                     android:id="@+id/tvThirdProductTitle_FPU"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentStart="true"
                     android:gravity="center_horizontal"
                     android:padding="10dp"
                     android:singleLine="false"
                     android:textColor="@android:color/black"
                     android:visibility="visible" />
-
             </RelativeLayout>
         </RelativeLayout>
-
     </LinearLayout>
-
 </LinearLayout>

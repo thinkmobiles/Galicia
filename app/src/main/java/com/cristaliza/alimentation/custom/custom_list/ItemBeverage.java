@@ -49,30 +49,30 @@ public class ItemBeverage extends LinearLayout {
             descriptionIsShowed = true;
         }
     }
-
     public void collapseDescription() {
         if (descriptionIsShowed) {
             AnimationUtils.collapse(description, MIN_SIZE_DESC, MAX_SIZE_DESC, 300, true);
 //            AnimationUtils.collapse(view, MIN_SIZE_DESC, MAX_SIZE_DESC, 300, true);
             descriptionIsShowed = false;
-
         }
     }
-
     public void hideTitle(final boolean selected){
-        if (selected)
+        if (selected) {
             title.setBackgroundColor(0x70000000);
-        else title.setBackgroundColor(0x00000000);
+            AnimationUtils.expand(title, MAX_SIZE_TITLE, MIN_SIZE_TITLE, 200);
+        } else {
+            title.setBackgroundColor(0x00000000);
+            AnimationUtils.expand(title, MIN_SIZE_TITLE, MAX_SIZE_TITLE, 200);
+        }
         if (titleIsShowed) {
-            AnimationUtils.collapse(title, MIN_SIZE_TITLE, MAX_SIZE_TITLE, 200, false);
+//            AnimationUtils.collapse(title, MIN_SIZE_TITLE, MAX_SIZE_TITLE, 200, false);
             titleIsShowed = false;
         }
     }
-
     public void showTitle(){
         title.setBackgroundColor(0x00000000);
         if (!titleIsShowed) {
-            AnimationUtils.expand(title, MIN_SIZE_TITLE, MAX_SIZE_TITLE, 200);
+            AnimationUtils.expand(title, MAX_SIZE_TITLE, MAX_SIZE_TITLE, 200);
             titleIsShowed = true;
         }
     }

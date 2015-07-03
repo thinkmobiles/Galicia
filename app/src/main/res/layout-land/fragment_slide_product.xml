@@ -2,13 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="@android:color/white"
+    android:paddingTop="@dimen/default_middle_margin"
+    android:paddingBottom="@dimen/default_middle_margin"
+    android:paddingRight="@dimen/shop_fragment_padding_left_right"
+    android:paddingLeft="@dimen/shop_fragment_padding_left_right"
     android:layout_height="match_parent">
-
     <android.support.v4.view.ViewPager
         android:id="@+id/vpSlider"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
     <ImageView
         android:id="@+id/ivNext"
         android:layout_width="wrap_content"
@@ -17,7 +19,6 @@
         android:padding="10dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true" />
-
     <ImageView
         android:id="@+id/ivPrev"
         android:layout_width="wrap_content"
@@ -26,14 +27,10 @@
         android:padding="10dp"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true" />
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ivClose"
         android:src="@drawable/btn_close_state_normal"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp" />
-
+        android:layout_alignParentRight="true"/>
 </RelativeLayout>

@@ -1,32 +1,34 @@
 <resources>
     <!--Main Activity-->
-    <dimen name="action_bar_title_height">64dp</dimen>
+    <dimen name="action_bar_title_height">90dp</dimen>
     <dimen name="action_bar_bottom_margin">32dp</dimen>
     <dimen name="action_bar_title_txt">28dp</dimen>
-    <dimen name="action_bar_menu_icon_margin">15dp</dimen>
-
+    <dimen name="action_bar_menu_icon_margin">30dp</dimen>
     <!--Start menu-->
-    <dimen name="menu_item_size_txt">26dp</dimen>
+    <dimen name="menu_item_size_txt">25dp</dimen>
     <dimen name="menu_item_height">40dp</dimen>
-    <dimen name="beverage_title_min_size">40dp</dimen>
-    <dimen name="beverage_title_max_size">60dp</dimen>
-    <dimen name="beverage_description_size">156dp</dimen>
+    <dimen name="beverage_title_min_size">70dp</dimen>
+    <dimen name="beverage_title_max_size">45dp</dimen>
+    <dimen name="beverage_description_size">225dp</dimen>
     <dimen name="beverage_item_w">80dp</dimen>
-
+    <dimen name="beverage_item_margin_right_left">30dp</dimen>
+    <dimen name="beverage_item_margin_top_bottom">15dp</dimen>
     <!--Sliding Menu-->
     <dimen name="slidingmenu_shadow_width">5dp</dimen>
     <dimen name="menu_width">300dp</dimen>
-    <dimen name="menu_height">50dp</dimen>
+    <dimen name="menu_height">20dp</dimen>
     <dimen name="menu_margin_top">45dp</dimen>
     <dimen name="menu_padding_left">5dp</dimen>
     <dimen name="menu_text_size">16sp</dimen>
     <dimen name="menu_space_height">20dp</dimen>
-
+    <dimen name="margin_item">25dp</dimen>
+    <dimen name="up_margin_pager">130dp</dimen>
+    <dimen name="down_margin_pager">30dp</dimen>
+    <dimen name="margin_navigation_button">27dp</dimen>
     <!--Pager Beverages-->
     <dimen name="disc_margin_top">160dp</dimen>
     <dimen name="disc_big_margin_top">320dp</dimen>
     <dimen name="disc_margin_left">150dp</dimen>
-
     <!--Video description-->
     <dimen name="video_txt_size">14sp</dimen>
     <dimen name="default_padding">10dp</dimen>

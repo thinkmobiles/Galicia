@@ -2,8 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/default_small_margin"
+    android:paddingRight="@dimen/default_small_margin">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,19 +13,16 @@
         android:textSize="@dimen/video_txt_size"
         android:textColor="@android:color/white"
         />
-
     <RelativeLayout
         android:layout_below="@+id/tvVideoTitle_IPV"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ivVideoImage_IPV"
             android:layout_centerHorizontal="true"
-             />
-
+            />
         <ImageView
             android:id="@+id/iv_playButton_IPV"
             android:layout_width="@dimen/action_bar_title_txt"
@@ -35,10 +33,5 @@
             android:layout_marginTop="40dp"
             android:layout_marginBottom="40dp"
             />
-
-
-        </RelativeLayout>
-
-
-
+    </RelativeLayout>
 </RelativeLayout>

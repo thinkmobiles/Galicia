@@ -216,7 +216,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
                      );
 
                 isSelectChek = false;
-                mFragmentBack.setTypeDialog(Constants.TYPE_DIALOG_ADDED);
+//                mFragmentBack.setTypeDialog(Constants.TYPE_DIALOG_ADDED);
                 setVisible();
              } else {
                  Shop shop = DBManager.addShop(autoCompleteTextView.getText().toString());
@@ -236,7 +236,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
                  autoCompleteTextView.setText("");
                  adapter.notifyDataSetChanged();
                  autoCompleteTextView.showDropDown();
-                 mFragmentBack.setTypeDialog(Constants.TYPE_DIALOG_ADDED);
+//                 mFragmentBack.setTypeDialog(Constants.TYPE_DIALOG_ADDED);
                  setVisible();
              }
 

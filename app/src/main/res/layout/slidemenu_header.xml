@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/menu_background_black">
-
+    >
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_title_height"
+        android:background="@color/menu_background_black"
+        />
     <TextView
-        android:layout_width="@dimen/menu_width"
-        android:layout_height="@dimen/menu_height"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/title_inicio"
         android:id="@+id/tvInicio"
+        style="@style/HeaderSlideMenu"
         android:background="@drawable/line_bottom"
-        android:layout_marginTop="@dimen/menu_margin_top"
-        style="@style/TitleItemSlideMenu" />
+        />
 </LinearLayout>

@@ -21,17 +21,14 @@
     <!--<string name="added_item">Item added to cart</string>-->
     <!--<string name="version">0.1</string>-->
     <!--<string-array name="spinner_resource">-->
-        <!--<item>Item1</item>-->
-        <!--<item>Item2</item>-->
-        <!--<item>Item3</item>-->
+    <!--<item>Item1</item>-->
+    <!--<item>Item2</item>-->
+    <!--<item>Item3</item>-->
     <!--</string-array>-->
-
-    <string name="app_name">Alimentación</string>
-
+    <string name="app_name">Horeca Galicia</string>
     <!-- Slide menu-->
     <string name="title_inicio">INICIO</string>
-    <string name="title_envio">envío</string>
-
+    <string name="title_envio">envíos pendientes</string>
     <!-- Dialogs-->
     <string name="dialog_lable">ANADIR FICHA A:</string>
     <string name="want_continue">ESTA FICHA HA SIDO AÑADIDA</string>
@@ -47,32 +44,27 @@
     <string name="cancel">Cancel</string>
     <string name="delete_all_products">Delete all products?</string>
     <string name="delete_all_shops">Delete all shops?</string>
-
     <!-- Toasts-->
     <string name="empty_cart">Cart is empty</string>
-    <string name="enter_shop">Enter shop</string>
+    <string name="enter_shop">Por favor, añade un local</string>
     <string name="added_to_cart">Added to cart</string>
     <string name="delete_shop">Shop deleted succesfull</string>
-    <string name="delete_item">Item deleted succesfull</string>
+    <string name="delete_item">Item eliminado correctamente</string>
     <string name="delete_all_item">All item deleted succesfull</string>
     <string name="delete_all_shop">All shop deleted succesfull</string>
-    <string name="add_shop_succesfull">Shop add succesfull</string>
+    <string name="add_shop_succesfull">Añadido correctamente</string>
     <string name="add_item_to_shop">Item add to shop_id= </string>
     <string name="attachment_error">Attachment Error</string>
-    <string name="error"> Error</string>
+    <string name="error"> error</string>
     <string name="click_back">Please click BACK again to exit</string>
-
-
     <string name="create_new_shop">Create new shop</string>
     <string name="send_mail">Send email...</string>
-
-    <string name="download">Descargando..</string>
+    <string name="download">Download..</string>
     <string name="not_play">Not play</string>
     <!-- Views-->
-    <string name="plus_info">+Información</string>
+    <string name="plus_info">+ INFO</string>
     <string name="vaciar">VACIAR</string>
     <string name="title_videos">VIDEOS</string>
-
     <string-array name="list_id_big_image">
         <item>144</item>
         <item>146</item>
@@ -87,5 +79,4 @@
         <item>299</item>
         <item>298</item>
     </string-array>
-
 </resources>

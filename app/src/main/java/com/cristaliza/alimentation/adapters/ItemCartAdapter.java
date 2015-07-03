@@ -83,7 +83,7 @@ public class ItemCartAdapter extends BaseAdapter {
         public void initHolder(View _view) {
             this.previewImage  = (ImageView) _view.findViewById(R.id.ivPrevProduct);
             this.nameItem      = (TextView) _view.findViewById(R.id.tv_title_goods_IS);
-            this.deleteButton  = (ImageView) _view.findViewById(R.id.iv_delete_shop_product_IS);
+            this.deleteButton  = (ImageView) _view.findViewById(R.id.iv_delete_shop_item_IS);
         }
 
         public void setListener(int position) {
