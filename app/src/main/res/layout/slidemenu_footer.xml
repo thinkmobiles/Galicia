@@ -3,9 +3,17 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/menu_background_black"
+        />
+
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/title_envio"
-        android:background="@drawable/line_top"
         android:id="@+id/tvEnvios"
-        style="@style/TitleItemSlideMenu" />
+        style="@style/FooterSlideMenu"
+        android:background="@drawable/line_top"/>
 </LinearLayout>

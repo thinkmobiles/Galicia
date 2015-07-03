@@ -78,7 +78,7 @@ public class SplashScreen extends Activity {
 
     private void showFinishDialog() {
         final AlertDialog dialog = new AlertDialog.Builder(this)
-                .setMessage("Compruebe la conexi�n a Internet por favor")
+                .setMessage("Compruebe la conexin a Internet por favor")
                 .setPositiveButton("Ok", new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

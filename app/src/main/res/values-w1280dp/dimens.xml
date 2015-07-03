@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="menu_space_height">230dp</dimen>
+    <dimen name="size_product">550dp</dimen>
+    <dimen name="margin_product">130dp</dimen>
+    <dimen name="margin_navigation_button">40dp</dimen>
+    <dimen name="nav_button_width">15dp</dimen>
+    <dimen name="up_margin_pager">130dp</dimen>
+    <dimen name="down_margin_pager">30dp</dimen>
 </resources>
