@@ -19,9 +19,12 @@
     <dimen name="menu_height">20dp</dimen>
     <dimen name="menu_margin_top">45dp</dimen>
     <dimen name="menu_padding_left">5dp</dimen>
-    <dimen name="menu_text_size">18sp</dimen>
+    <dimen name="menu_text_size">16sp</dimen>
     <dimen name="menu_space_height">20dp</dimen>
     <dimen name="margin_item">25dp</dimen>
+    <dimen name="up_margin_pager">80dp</dimen>
+    <dimen name="down_margin_pager">30dp</dimen>
+    <dimen name="margin_navigation_button">27dp</dimen>
 
     <!--Pager Beverages-->
     <dimen name="disc_margin_top">160dp</dimen>

@@ -34,6 +34,8 @@
     <dimen name="nav_button_width">10dp</dimen>
     <dimen name="up_margin_pager">65dp</dimen>
     <dimen name="down_margin_pager">20dp</dimen>
+    <dimen name="size_product">290dp</dimen>
+    <dimen name="margin_product">60dp</dimen>
 
     <!--SlideMenu-->
     <dimen name="menu_width">300dp</dimen>
