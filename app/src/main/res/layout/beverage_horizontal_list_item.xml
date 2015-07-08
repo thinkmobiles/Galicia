@@ -5,4 +5,5 @@
     android:layout_marginLeft="@dimen/beverage_item_margin_right_left"
     android:layout_marginTop="@dimen/beverage_item_margin_top_bottom"
     android:layout_marginBottom="@dimen/beverage_item_margin_top_bottom"
+    android:scaleType="fitEnd"
     style="@style/ItemHorizontalListStyle"/>
