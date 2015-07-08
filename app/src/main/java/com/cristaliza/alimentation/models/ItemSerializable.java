@@ -5,7 +5,7 @@ import com.cristaliza.mvc.models.estrella.Item;
 import java.io.Serializable;
 
 public class ItemSerializable implements Serializable {
-    private Item item;
+    private transient Item item;
 
     public ItemSerializable(Item item) {
         this.item = item;
