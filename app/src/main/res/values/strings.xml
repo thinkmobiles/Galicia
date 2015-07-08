@@ -40,6 +40,7 @@
     <string name="button_accept">ACEPTAR</string>
     <string name="ver_envio">VER ENVÍO</string>
     <string name="continuar">CONTINUAR</string>
+    <string name="compania">COMPAÑÍA</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
     <string name="delete_all_products">Delete all products?</string>

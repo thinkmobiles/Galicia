@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/title_inicio"
+        android:text="@string/compania"
         android:id="@+id/tvInicio"
         style="@style/HeaderSlideMenu"
         android:background="@drawable/line_bottom"
