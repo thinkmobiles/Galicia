@@ -22,7 +22,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/ivMenu"
                 android:src="@drawable/btn_menu"
-                android:layout_marginLeft="65dp"
+                android:padding="@dimen/default_padding"
+                android:layout_marginLeft="55dp"
                 android:layout_marginRight="@dimen/action_bar_menu_icon_margin" />
             <TextView
                 android:id="@+id/tvMenuTitle"
@@ -41,6 +42,7 @@
             android:layout_height="match_parent"
             android:src="@drawable/logo_nacional"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="55dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="15dp"
             android:scaleType="fitCenter" />
