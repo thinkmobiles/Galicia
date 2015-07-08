@@ -65,7 +65,7 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
     private void initAdapter(){
         menuAdapter= new MenuAdapter(mMenuTitle, activity);
         listMenu.addHeaderView(header);
-        listMenu.addHeaderView(compania);
+//        listMenu.addHeaderView(compania);
         listMenu.addFooterView(footer);
         listMenu.setAdapter(menuAdapter);
     }
@@ -96,14 +96,14 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
             FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu());
         }else if(view == footer) {
             FragmentReplacer.replaceFragmentWithStack(activity, ShopCartFragment.newInstance());
-        } else if(view == compania){
-            FragmentReplacer.replaceFragmentWithStack(
-                    activity,
-                    CompaniaFragment.newInstance(new ItemSerializable(mMenuItemList.get(0)))
-            );
+//        } else if(view == compania){
+//            FragmentReplacer.replaceFragmentWithStack(
+//                    activity,
+//                    CompaniaFragment.newInstance(new ItemSerializable(mMenuItemList.get(0)))
+//            );
         } else {
             FragmentReplacer.clearSupBackStack(activity);
-            FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu().newInstance(position - 1));
+            FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu().newInstance(position));
         }
         menu.toggle();
     }
@@ -125,7 +125,7 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
     private void createMenu(){
         mMenuTitle = new ArrayList<>();
         mMenuItemList = ApiManager.getFirstList();
-        for (int i = 1; i < mMenuItemList.size(); ++i){
+        for (int i = 0; i < mMenuItemList.size(); ++i){
             mMenuTitle.add(mMenuItemList.get(i).getName());
         }
     }

@@ -28,7 +28,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/menu_item_height"
+        android:layout_height="@dimen/action_bar_title_height"
         android:id="@+id/rlT"/>
 
     <RelativeLayout
