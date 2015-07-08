@@ -16,10 +16,12 @@ import com.cristaliza.mvc.models.estrella.AppModel;
 import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
+import com.galicia.galicia.fragments.CompaniaFragment;
 import com.galicia.galicia.fragments.ShopCartFragment;
 import com.galicia.galicia.fragments.StartMenu;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.FragmentReplacer;
+import com.galicia.galicia.models.ItemSerializable;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
     private SlidingMenu menu;
     private MainActivity activity;
     private ListView listMenu;
-    private View footer, header;
+    private View footer, header, compania;
     private EventListener mMenuListener;
     private List<Item> mMenuItemList;
     private List<String> mMenuTitle;
@@ -67,6 +69,7 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
     private void findView(View _view){
         footer      = View.inflate(activity,R.layout.slidemenu_footer,null);
         header      = View.inflate(activity, R.layout.slidemenu_header, null);
+        compania    = View.inflate(activity, R.layout.slidemenu_compania, null);
 
         mSpace      = (RelativeLayout) _view.findViewById(R.id.rlSpace);
         listMenu    = (ListView) _view.findViewById(R.id.sidemenu);
@@ -75,6 +78,7 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
     private void initAdapter(){
         menuAdapter= new MenuAdapter(mMenuTitle, activity);
         listMenu.addHeaderView(header);
+        listMenu.addHeaderView(compania);
         listMenu.addFooterView(footer);
         listMenu.setAdapter(menuAdapter);
     }
@@ -111,15 +115,18 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if(view == header){
             FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu());
-            menu.toggle();
         }else if(view == footer) {
             FragmentReplacer.replaceFragmentWithStack(activity, ShopCartFragment.newInstance());
-            menu.toggle();
+        } else if(view == compania){
+            FragmentReplacer.replaceFragmentWithStack(
+                    activity,
+                    CompaniaFragment.newInstance(new ItemSerializable(mMenuItemList.get(0)))
+            );
         } else {
             FragmentReplacer.clearSupBackStack(activity);
-            FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu().newInstance(position - 1));
-            menu.toggle();
+            FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu().newInstance(position - 2));
         }
+        menu.toggle();
     }
 
     private void makeLitener(){
@@ -141,11 +148,11 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
     private void createMenu(){
         mMenuTitle = new ArrayList<>();
         mMenuItemList = ApiManager.getFirstList();
-        for (Item item: mMenuItemList){
-            mMenuTitle.add(item.getName());
+        for (int i = 1; i < mMenuItemList.size(); ++i){
+            mMenuTitle.add(mMenuItemList.get(i).getName());
         }
     }
     private int getDisplayWidth(){
-        return activity.getWindowManager().getDefaultDisplay().getWidth() / 3;
+        return activity.getWindowManager().getDefaultDisplay().getWidth() / 100 * 38;
     }
 }

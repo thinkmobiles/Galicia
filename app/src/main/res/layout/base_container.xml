@@ -42,10 +42,12 @@
             android:layout_weight="4"
             android:id="@+id/tvLogoTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo"
+            android:layout_height="match_parent"
+            android:src="@drawable/logo_galicia"
             android:layout_alignParentRight="true"
-            android:scaleType="center" />
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:scaleType="fitCenter" />
 
 
     </LinearLayout>

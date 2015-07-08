@@ -40,7 +40,7 @@
 
     <style name="TitleItemSlideMenu" parent="TitleBeverage">
         <item name="android:layout_height">@dimen/menu_height</item>
-        <item name="android:layout_width">@dimen/menu_width</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:textSize">@dimen/menu_text_size</item>
         <item name="android:paddingLeft">@dimen/menu_padding_left</item>
         <item name="android:layout_marginTop">@dimen/margin_item</item>

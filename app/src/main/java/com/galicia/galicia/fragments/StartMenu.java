@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class StartMenu extends Fragment implements View.OnClickListener {
 
-    private LinearLayout containerForAdd;
+    private LinearLayout containerForAdd, llCompania;
     private List<GroupBeverageModel> groupBeverageModels;
     private List<ItemBeverage> views;
     private List<Item> mMenuItemList;
@@ -65,13 +65,22 @@ public class StartMenu extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.start_menu_fragment, container, false);
 
-        containerForAdd = (LinearLayout) view.findViewById(R.id.llContentList_AM);
-        mCallingActivity.setBackground();
-        mCallingActivity.setTitle("");
+        findUI(view);
         makeListeners();
         ApiManager.getFirstLevel(mMenuListener);
-        mCallingActivity.setEnableMenu(false);
         return view;
+    }
+
+    private void findUI(View _view){
+
+        containerForAdd = (LinearLayout) _view.findViewById(R.id.llContentList_AM);
+        llCompania = (LinearLayout) _view.findViewById(R.id.llCompania);
+
+        llCompania.setOnClickListener(this);
+
+        mCallingActivity.setBackground();
+        mCallingActivity.setTitle("");
+        mCallingActivity.setEnableMenu(false);
     }
 
     private void makeListeners() {
@@ -96,9 +105,9 @@ public class StartMenu extends Fragment implements View.OnClickListener {
     private void createMenu() {
         groupBeverageModels = new ArrayList<>();
         mMenuItemList = ApiManager.getFirstList();
-        for (Item item : mMenuItemList){
-            mTitleMenu = item.getName();
-            ApiManager.getSecondLevel(mMenuListener, item);
+        for (int i = 1; i <mMenuItemList.size(); ++i){
+            mTitleMenu = mMenuItemList.get(i).getName();
+            ApiManager.getSecondLevel(mMenuListener, mMenuItemList.get(i));
         }
         addViews();
     }
@@ -122,31 +131,37 @@ public class StartMenu extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if (selectedView == null || selectedView == view)
-            stateListExpand.set(!stateListExpand.get());
-
-        if (stateListExpand.get()){
-            for (ItemBeverage ib: views){
-                if (ib.title == view) {
-                    ib.expandDescription();
-                    ib.hideTitle(true);
-                }
-                else {
-                    if (ib.title == selectedView)
-                        ib.collapseDescription();
-                    ib.hideTitle(false);
-                }
-            }
-            selectedView = view;
+        if(view.getId() == R.id.llCompania){
+            FragmentReplacer.replaceFragmentWithStack(
+                    mCallingActivity,
+                    CompaniaFragment.newInstance(new ItemSerializable(mMenuItemList.get(0)))
+            );
         } else {
-            for (ItemBeverage ib: views){
-                ib.showTitle();
-                if (ib.title == view)
-                    ib.collapseDescription();
+            if (selectedView == null || selectedView == view)
+                stateListExpand.set(!stateListExpand.get());
+
+            if (stateListExpand.get()) {
+                for (ItemBeverage ib : views) {
+                    if (ib.title == view) {
+                        ib.expandDescription();
+                        ib.hideTitle(true);
+                    } else {
+                        if (ib.title == selectedView)
+                            ib.collapseDescription();
+                        ib.hideTitle(false);
+                    }
+                }
+                selectedView = view;
+            } else {
+                for (ItemBeverage ib : views) {
+                    ib.showTitle();
+                    if (ib.title == view)
+                        ib.collapseDescription();
+                }
+                selectedView = null;
             }
-            selectedView = null;
+            mBaseTitle = ((TextView) view).getText().toString();
         }
-        mBaseTitle = ((TextView)view).getText().toString();
     }
 
     private View.OnClickListener mItemOnClickListener = new View.OnClickListener() {
