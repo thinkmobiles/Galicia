@@ -92,7 +92,7 @@ public class StartMenu extends Fragment implements View.OnClickListener {
     private void createMenu() {
         groupBeverageModels = new ArrayList<>();
         mMenuItemList = ApiManager.getFirstList();
-        for (int i = 0; i <mMenuItemList.size(); ++i){
+        for (int i = 1; i <mMenuItemList.size(); ++i){
             mTitleMenu = mMenuItemList.get(i).getName();
             ApiManager.getSecondLevel(mMenuListener, mMenuItemList.get(i));
         }
