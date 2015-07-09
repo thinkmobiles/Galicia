@@ -24,13 +24,14 @@
                 android:id="@+id/ivCompanyLogo_FPU"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scaleType="fitXY" />
+                android:maxHeight="220dp"
+                android:scaleType="fitStart"/>
             <ImageView
                 android:id="@+id/ivCompanyAward_FPU"
                 android:layout_marginTop="@dimen/shop_fragment_padding_top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scaleType="fitXY" />
+                android:scaleType="fitStart" />
         </LinearLayout>
         <RelativeLayout
             android:id="@+id/rlContBtn"
