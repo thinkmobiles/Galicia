@@ -76,7 +76,7 @@
     <dimen name="beverage_item_margin_top_bottom">15dp</dimen>
 
 
-
+    <dimen name="video_txt_size">14sp</dimen>
     <!--&lt;!&ndash;Sliding Menu&ndash;&gt;-->
     <!--<dimen name="slidingmenu_shadow_width">5dp</dimen>-->
     <!--<dimen name="menu_width">300dp</dimen>-->

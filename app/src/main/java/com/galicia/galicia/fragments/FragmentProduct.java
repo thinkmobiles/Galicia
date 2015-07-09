@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -148,7 +149,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     private void setListener() {
         ivAddProduct.setOnClickListener(this);
         ivFicha.setOnClickListener(this);
-        llMoreDetail.setOnClickListener(this);
+        rlProductPhotoContainer.setOnClickListener(this);
         ivGoBack.setOnClickListener(this);
         ivDownScroll.setOnClickListener(this);
         rlDownScroll.setOnClickListener(this);
@@ -204,7 +205,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             case R.id.ivFichaCata_FPU:
                 FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FichaFragment.newInstance(mCurrentItem.getFichaCata()));
                 break;
-            case R.id.llMoreDetailContainer_FPU:
+            case R.id.rlProductPhotoContainer_FPU:
                 startSlideFragment(0);
                 break;
             case R.id.iv_back_FPU:
@@ -386,6 +387,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
                     Constants.ENCODING,
                     ""
             );
+//            wvProductDescription.setText(Html.fromHtml(mCurrentItem.getDescription()));
         }
     }
 
