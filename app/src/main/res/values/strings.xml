@@ -25,7 +25,7 @@
     <!--<item>Item2</item>-->
     <!--<item>Item3</item>-->
     <!--</string-array>-->
-    <string name="app_name">Horeca Galicia</string>
+    <string name="app_name">Alimentación</string>
     <!-- Slide menu-->
     <string name="title_inicio">INICIO</string>
     <string name="title_envio">envíos pendientes</string>

@@ -3,20 +3,24 @@
     android:id="@+id/llContainerInfo"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <TextView
         android:id="@+id/tvItemTitle_CS"
         style="@style/ItemTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/ivPrev"
                 android:layout_width="wrap_content"
@@ -27,13 +31,16 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="@dimen/margin_navigation_button"
                 android:visibility="invisible"/>
+
             <TextView
                 android:id="@+id/tvItemFormatOne_CS"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="visible"
                 android:layout_marginTop="@dimen/up_margin_pager"
-                android:layout_marginLeft="@dimen/margin_product" />
+                android:layout_marginLeft="@dimen/margin_product"
+                />
+
             <TextView
                 android:id="@+id/tvItemFormatThree_CS"
                 android:layout_width="wrap_content"
@@ -42,18 +49,22 @@
                 android:layout_marginLeft="@dimen/margin_product"
                 android:layout_below="@+id/ivPrev"
                 android:layout_marginStart="@dimen/margin_navigation_button"
-                android:layout_marginTop="@dimen/margin_navigation_button" />
+                android:layout_marginTop="@dimen/margin_navigation_button"/>
         </RelativeLayout>
+
         <ImageView
             android:id="@+id/ivItemImage_CS"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_product"
             android:layout_weight="1"
-            android:layout_gravity="bottom"/>
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/down_margin_pager"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/ivNext"
                 android:layout_width="wrap_content"
@@ -64,24 +75,27 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/margin_navigation_button"
                 android:visibility="invisible"/>
-            <TextView
-                android:id="@+id/tvItemFormatFour_CS"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                android:layout_below="@+id/ivNext"
-                android:layout_alignLeft="@+id/tvItemFormatTwo_CS"
-                android:layout_alignStart="@+id/tvItemFormatTwo_CS"
-                android:layout_marginTop="@dimen/margin_navigation_button"
-                android:layout_marginRight="@dimen/margin_product" />
+
             <TextView
                 android:id="@+id/tvItemFormatTwo_CS"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="@dimen/up_margin_pager"
-                android:layout_marginRight="@dimen/margin_product" />
+                android:layout_marginRight="@dimen/margin_product"/>
+
+            <TextView
+                android:id="@+id/tvItemFormatFour_CS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_below="@+id/ivNext"
+                android:layout_alignLeft="@+id/tvItemFormatTwo_CS"
+                android:layout_alignStart="@+id/tvItemFormatTwo_CS"
+                android:layout_marginTop="@dimen/margin_navigation_button"
+                android:layout_marginRight="@dimen/margin_product"/>
         </RelativeLayout>
+
     </LinearLayout>
 </RelativeLayout>
