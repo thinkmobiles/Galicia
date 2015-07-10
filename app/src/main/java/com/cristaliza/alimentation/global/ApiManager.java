@@ -1,6 +1,7 @@
 package com.cristaliza.alimentation.global;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.os.Environment;
 
 import com.cristaliza.mvc.controllers.estrella.MainController;
@@ -20,7 +21,9 @@ public abstract class ApiManager {
     private static String path = null;
 
     public static void setPath(Context context) {
-        path = Environment.getExternalStorageDirectory() + "/" + context.getPackageName();
+//        path = Environment.getExternalStorageDirectory() + "/" + context.getPackageName();
+        ContextWrapper cw = new ContextWrapper(context);
+        path = cw.getDir(context.getPackageName(), Context.MODE_PRIVATE).getAbsolutePath() + "/" +context.getPackageName();
     }
 
     public static String getPath(Context context) {
