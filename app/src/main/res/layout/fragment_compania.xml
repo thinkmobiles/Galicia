@@ -25,18 +25,32 @@
             android:src="@drawable/logo"
             android:layout_below="@+id/ivVolver_FC"
             android:layout_marginBottom="15dp"/>
-        <TextView
-            android:layout_width="wrap_content"
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/tvDescription_FC"
             android:layout_below="@+id/ivLogo_FC"
-            android:textSize="13sp" />
+            android:layout_above="@+id/contVideo"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="false"
+            android:scrollbarStyle="outsideInset"
+            android:paddingTop="@dimen/default_padding"
+            android:paddingRight="@dimen/default_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/tvDescription_FC"
+                android:textSize="13sp" />
+        </ScrollView>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/contVideo"
-            android:layout_below="@+id/tvDescription_FC">
+            android:layout_alignParentBottom="true">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
