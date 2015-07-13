@@ -70,12 +70,6 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
     }
     private void initViewListeners(){
         listMenu.setOnItemClickListener(this);
-        mSpace.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                menu.toggle();
-            }
-        });
     }
     public void show(){
         menu.showMenu();
