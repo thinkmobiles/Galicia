@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/contMenu"
             android:layout_alignRight="@+id/contMenu"
-            android:layout_marginBottom="17dp"
+            android:layout_marginBottom="@dimen/default_small_margin"
             android:id="@+id/llCompania"
             android:layout_alignParentTop="true">
             <View
@@ -29,21 +29,21 @@
                 <View
                     android:layout_width="match_parent"
                     android:background="@android:color/white"
-                    android:layout_height="1px"/>
+                    android:layout_height="@dimen/devider_height"/>
                 <TextView
                     android:id="@+id/tvCompania"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="13dp"
-                    android:paddingBottom="13dp"
+                    android:paddingTop="@dimen/item_compania_padding_top_bottom"
+                    android:paddingBottom="@dimen/item_compania_padding_top_bottom"
                     android:gravity="center_horizontal"
                     android:text="@string/compania"
                     android:textColor="@android:color/white"
-                    android:textSize="24dp"/>
+                    android:textSize="@dimen/item_compania_text_size"/>
                 <View
                     android:layout_width="match_parent"
                     android:background="@android:color/white"
-                    android:layout_height="1px"/>
+                    android:layout_height="@dimen/devider_height"/>
             </LinearLayout>
             <View
                 android:orientation="horizontal"

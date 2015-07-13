@@ -6,10 +6,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="7"
-        android:paddingTop="30dp"
-        android:paddingBottom="8dp"
-        android:paddingLeft="60dp"
-        android:paddingRight="40dp"
+        android:paddingTop="@dimen/info_padding_top"
+        android:paddingBottom="@dimen/default_padding"
+        android:paddingLeft="@dimen/info_padding_left"
+        android:paddingRight="@dimen/info_padding_right"
         android:background="@android:color/white">
         <ImageView
             android:layout_width="wrap_content"
@@ -17,47 +17,44 @@
             android:id="@+id/ivVolver_FC"
             android:src="@drawable/btn_volver"
             android:layout_alignParentTop="true"
-            android:layout_marginBottom="25dp"/>
+            android:layout_marginBottom="@dimen/default_big_margin"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ivLogo_FC"
             android:src="@drawable/logo"
             android:layout_below="@+id/ivVolver_FC"
-            android:layout_marginBottom="15dp"/>
-
+            android:layout_marginBottom="@dimen/default_middle_margin"/>
         <ScrollView
-            android:id="@+id/scrollView"
+            android:id="@+id/svDescrioption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ivLogo_FC"
             android:layout_above="@+id/contVideo"
-            android:scrollbars="vertical"
+            android:layout_below="@+id/ivLogo_FC"
             android:fadeScrollbars="false"
             android:scrollbarStyle="outsideInset"
-            android:paddingTop="@dimen/default_padding"
-            android:paddingRight="@dimen/default_padding">
-
+            android:scrollbars="vertical"
+            android:paddingRight="@dimen/default_padding"
+            android:paddingTop="@dimen/default_padding">
             <TextView
+                android:id="@+id/tvDescription_FC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/tvDescription_FC"
-                android:textSize="13sp" />
+                android:textSize="@dimen/info_text_size" />
         </ScrollView>
-
         <RelativeLayout
+            android:id="@+id/contVideo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/contVideo"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/default_padding">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
                 android:text="New Text"
                 android:id="@+id/tvNameVideo_FC"
-                android:textSize="13sp" />
+                android:textSize="@dimen/info_text_size" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,8 +66,8 @@
                     android:scaleType="fitXY"
                     android:id="@+id/ivVideo_FC" />
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="@dimen/info_btn_play_side"
+                    android:layout_height="@dimen/info_btn_play_side"
                     android:id="@+id/ivPlay_FC"
                     android:src="@drawable/new12"
                     android:layout_centerInParent="true"/>

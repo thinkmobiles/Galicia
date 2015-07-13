@@ -4,14 +4,12 @@
     android:layout_height="match_parent"
     android:focusable="false"
     android:background="@android:color/white">
-
-    <it.sephiroth.android.library.imagezoom.ImageViewTouch
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/ivFicha_FF"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,6 +19,6 @@
         android:layout_alignParentEnd="true"
         android:src="@drawable/selector_btn_close"
         android:padding="@dimen/default_padding"
-        android:layout_margin="@dimen/default_margin"
+        android:layout_margin="@dimen/default_middle_margin"
         android:clickable="true" />
 </RelativeLayout>

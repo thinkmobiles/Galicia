@@ -6,8 +6,4 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:text="SpinnerItem"
-    android:textSize="22sp"></TextView>
-
-
-
-
+    android:textSize="@dimen/dialog_spiner_text_size"/>

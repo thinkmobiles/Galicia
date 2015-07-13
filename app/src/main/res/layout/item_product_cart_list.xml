@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
@@ -10,46 +9,35 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true">
-
         <ImageView
             android:id="@+id/ivPrevProduct"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:padding="5dp" />
-
+            android:layout_width="@dimen/product_height"
+            android:layout_height="@dimen/product_height"
+            android:layout_margin="@dimen/default_margin" />
         <TextView
             android:id="@+id/tv_title_goods_IS"
             android:layout_width="wrap_content"
-            android:textSize="24dp"
+            android:textSize="@dimen/product_tetx_size"
             android:layout_height="wrap_content"
             android:gravity="clip_vertical"
             android:layout_gravity="center_vertical" />
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/abc_button_padding_horizontal_material"
             android:layout_marginBottom="@dimen/abc_button_padding_horizontal_material">
-
-
-
             <ImageView
                 android:id="@+id/iv_delete_shop_product_IS"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@drawable/btn_delete" />
-
-
         </LinearLayout>
-
     </LinearLayout>
-
 </RelativeLayout>

@@ -5,24 +5,20 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:background="@drawable/splashscreen">
-
     <com.cristaliza.alimentation.custom.circleprogress.CircleProgress
         android:layout_gravity="center"
         android:id="@+id/progress"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:visibility="visible"
+        android:layout_width="@dimen/default_circle_view_size"
+        android:layout_height="@dimen/default_circle_view_size"
+        android:visibility="gone"
         android:layout_centerInParent="true" />
-
     <TextView
         android:id="@+id/tvDownloadProcess"
         android:layout_width="match_parent"
-        android:textSize="24dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:textSize="@dimen/product_tetx_size"
+        android:layout_marginLeft="@dimen/default_small_margin"
+        android:layout_marginRight="@dimen/default_small_margin"
         android:textColor="@color/text_grey"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />
-
-
 </RelativeLayout>

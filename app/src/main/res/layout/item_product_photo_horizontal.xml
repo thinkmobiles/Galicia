@@ -3,7 +3,6 @@
     android:orientation="vertical" android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:id="@+id/rlItemContainer_IPI">
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,9 +13,8 @@
         android:singleLine="true"
         android:gravity="center_horizontal"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"/>
-
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"/>
     <ImageView
         android:layout_width="@dimen/width_item_hlv_mini"
         android:layout_height="match_parent"
@@ -25,5 +23,4 @@
         android:paddingTop="@dimen/default_padding"
         android:layout_alignParentTop="true"
         android:layout_above="@+id/tvDescription_IPI" />
-
 </RelativeLayout>

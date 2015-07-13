@@ -69,7 +69,7 @@ public class StartMenu extends Fragment implements View.OnClickListener {
         llCompania.setOnClickListener(this);
         mCallingActivity.setBackground();
         mCallingActivity.setTitle("");
-        mCallingActivity.setEnableMenu(false);
+        mCallingActivity.setEnableMenu(true);
     }
     private void makeListeners() {
         mMenuListener = new EventListener() {
