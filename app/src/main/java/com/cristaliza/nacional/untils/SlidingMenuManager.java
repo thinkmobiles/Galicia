@@ -59,7 +59,6 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
         footer      = View.inflate(activity,R.layout.slidemenu_footer,null);
         header      = View.inflate(activity, R.layout.slidemenu_header, null);
         compania    = View.inflate(activity, R.layout.slidemenu_compania, null);
-        mSpace      = (RelativeLayout) _view.findViewById(R.id.rlSpace);
         listMenu    = (ListView) _view.findViewById(R.id.sidemenu);
     }
     private void initAdapter(){

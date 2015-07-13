@@ -9,7 +9,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/action_bar_title_height"
+        android:layout_height="@dimen/action_bar_header_height"
         android:gravity="center_vertical">
         <LinearLayout
             android:orientation="horizontal"
@@ -21,16 +21,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/ivMenu"
-                android:src="@drawable/btn_menu"
                 android:padding="@dimen/default_padding"
-                android:layout_marginLeft="55dp"
-                android:layout_marginRight="@dimen/action_bar_menu_icon_margin" />
+                android:src="@drawable/btn_menu"
+                android:layout_marginLeft="@dimen/default_big_margin"
+                android:layout_marginRight="@dimen/default_small_margin" />
             <TextView
                 android:id="@+id/tvMenuTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/action_bar_title_txt"
+                android:textSize="@dimen/action_bar_title_txt_size"
                 android:textAllCaps="true"
                 android:text="Title"
                 android:gravity="center_vertical" />
@@ -42,15 +42,15 @@
             android:layout_height="match_parent"
             android:src="@drawable/logo_nacional"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="55dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginRight="@dimen/default_big_margin"
+            android:layout_marginTop="@dimen/default_small_margin"
+            android:layout_marginBottom="@dimen/default_small_margin"
             android:scaleType="fitCenter" />
     </LinearLayout>
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/action_bar_bottom_margin">
+        android:layout_marginBottom="@dimen/default_small_margin">
     </FrameLayout>
 </LinearLayout>
