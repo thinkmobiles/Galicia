@@ -1,9 +1,9 @@
 <resources>
 
     <!--Main Activity-->
-    <dimen name="action_bar_title_height">56dp</dimen>
+    <dimen name="action_bar_header_height">56dp</dimen>
     <dimen name="action_bar_bottom_margin">18dp</dimen>
-    <dimen name="action_bar_title_txt">22dp</dimen>
+    <dimen name="action_bar_title_txt_size">22dp</dimen>
     <dimen name="action_bar_menu_icon_margin">15dp</dimen>
 
     <!--Start menu-->

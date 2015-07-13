@@ -3,11 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-
     <RelativeLayout
         android:id="@+id/rl_Up_Space"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/action_bar_title_height"
+        android:layout_height="@dimen/action_bar_header_height"
         android:background="@color/menu_background_black"
         android:layout_alignParentTop="true"
        />
@@ -30,19 +29,8 @@
         android:dividerHeight="0px"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
-        android:paddingLeft="20dp"
-        android:layout_above="@+id/rlSpace"
-        android:layout_alignParentRight="true"
+        android:paddingLeft="@dimen/margin_item"
         android:layout_below="@id/rl_Up_Space"
         android:layout_toRightOf="@+id/rl_Left_Space"
         android:layout_toEndOf="@+id/rl_Left_Space" />
-    <RelativeLayout
-        android:id="@+id/rlSpace"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/menu_space_height"
-        android:background="@color/menu_background_black"
-        android:layout_alignParentBottom="true"
-        android:visibility="gone">
-
-    </RelativeLayout>
 </RelativeLayout>

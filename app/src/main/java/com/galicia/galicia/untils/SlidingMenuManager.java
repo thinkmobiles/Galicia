@@ -37,7 +37,6 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
     private List<Item> mMenuItemList;
     private List<String> mMenuTitle;
     private MenuAdapter menuAdapter;
-    private RelativeLayout mSpace;
     private TextView tvEnvios;
 
     public void initMenu(Activity _activity) {
@@ -71,7 +70,6 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
         header      = View.inflate(activity, R.layout.slidemenu_header, null);
         compania    = View.inflate(activity, R.layout.slidemenu_compania, null);
 
-        mSpace      = (RelativeLayout) _view.findViewById(R.id.rlSpace);
         listMenu    = (ListView) _view.findViewById(R.id.sidemenu);
     }
 
@@ -85,13 +83,6 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
 
     private void initViewListeners(){
         listMenu.setOnItemClickListener(this);
-
-        mSpace.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                menu.toggle();
-            }
-        });
     }
 
     public void show(){

@@ -13,14 +13,14 @@
 
         <ImageView
             android:id="@+id/ivPrevProduct"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:padding="5dp" />
+            android:layout_width="@dimen/product_height"
+            android:layout_height="@dimen/product_height"
+            android:layout_margin="@dimen/default_margin" />
 
         <TextView
             android:id="@+id/tv_title_goods_IS"
             android:layout_width="wrap_content"
-            android:textSize="24dp"
+            android:textSize="@dimen/product_tetx_size"
             android:layout_height="wrap_content"
             android:gravity="clip_vertical"
             android:layout_gravity="center_vertical" />

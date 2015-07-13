@@ -26,8 +26,9 @@
             android:id="@+id/tv_dialogTitle_CD"
             android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="30pt"
-            android:textColor="#FFFFFF"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/default_padding"
+            android:textColor="@android:color/white"
             android:text="@string/dialog_lable"
             android:textSize="@dimen/dialog_title_text_size" />
 
@@ -59,8 +60,8 @@
 
                 <ImageView
                     android:id="@+id/iv_all_ItemShop_PSD"
-                    android:layout_width="40dp"
-                    android:layout_height="50dp"
+                    android:layout_width="@dimen/dialog_spiner_arrow_side"
+                    android:layout_height="@dimen/dialog_spiner_arrow_side"
                     android:src="@drawable/d_arrow"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true" />

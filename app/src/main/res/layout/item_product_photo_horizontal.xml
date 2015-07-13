@@ -10,12 +10,12 @@
         android:id="@+id/tvDescription_IPI"
         android:textColor="@android:color/black"
         android:layout_alignParentBottom="true"
-        android:text="+INFO"
+        android:text="@string/plus_info"
         android:singleLine="true"
         android:gravity="center_horizontal"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"/>
 
     <ImageView
         android:layout_width="@dimen/width_item_hlv_mini"
