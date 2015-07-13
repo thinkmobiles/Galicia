@@ -6,12 +6,14 @@ import android.content.ContextWrapper;
 import com.cristaliza.mvc.controllers.estrella.MainController;
 import com.cristaliza.mvc.controllers.estrella.MainViewListener;
 import com.cristaliza.mvc.events.EventListener;
+import com.cristaliza.mvc.models.estrella.AppConfig;
 import com.cristaliza.mvc.models.estrella.AppModel;
 import com.cristaliza.mvc.models.estrella.Item;
 import com.cristaliza.mvc.models.estrella.Product;
 
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public abstract class ApiManager {
 
@@ -38,10 +40,8 @@ public abstract class ApiManager {
         model = AppModel.getInstance();
         ContextWrapper cw = new ContextWrapper(context);
         path = cw.getDir(context.getPackageName(), Context.MODE_PRIVATE).getAbsolutePath() + "/" +context.getPackageName();
-//        path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + context.getPackageName();
-        controller = new MainController();
+        controller = new MainController(model);
         controller.setAppGalicia();
-//        controller.onExecuteWSAppConfig();
     }
 
     public static void downloadContent(EventListener listener){
@@ -114,5 +114,46 @@ public abstract class ApiManager {
         model.removeListeners();
         model.addListener(AppModel.ChangeEvent.PRODUCTS_CHANGED, listener);
         controller.onExecuteWSProducts(item);
+    }
+
+    private static void setAppConfig(){
+        String url = path + "/" + model.getApp().getId() + "/" + "levels" + "/app-config.xml";
+        model.setOnlineMode(true);
+
+        Network.LoaderConfig loader = new Network.LoaderConfig();
+        loader.execute(model);
+
+        AppConfig res = null;
+        try {
+            res = loader.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        model.setAppConfig(res);
+    }
+
+    public static String getDate(){
+        setAppConfig();
+        model.setOnlineMode(false);
+
+        String url = model.getAppConfig().getParameter("base-url")
+                + model.getAppConfig().getParameter("ws-plv-last-update");
+        Network.LoaderDateOfUpdate loader = new Network.LoaderDateOfUpdate();
+        loader.execute(url);
+
+        List lItems = null;
+        try {
+            lItems = loader.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        AppModel.getInstance().setLastUpdate(((Item) lItems.get(0)).getUpdate());
+        return ((Item)lItems.get(0)).getUpdate();
     }
 }
