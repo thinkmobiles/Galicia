@@ -5,9 +5,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="7"
+        android:layout_weight="2"
         android:paddingTop="@dimen/info_padding_top"
-        android:paddingBottom="@dimen/default_padding"
+        android:paddingBottom="@dimen/info_padding_bottom"
         android:paddingLeft="@dimen/info_padding_left"
         android:paddingRight="@dimen/info_padding_right"
         android:background="@android:color/white">
@@ -17,14 +17,14 @@
             android:id="@+id/ivVolver_FC"
             android:src="@drawable/btn_volver"
             android:layout_alignParentTop="true"
-            android:layout_marginBottom="@dimen/default_big_margin"/>
+            android:layout_marginBottom="@dimen/info_padding_right"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ivLogo_FC"
             android:src="@drawable/logo"
             android:layout_below="@+id/ivVolver_FC"
-            android:layout_marginBottom="@dimen/default_middle_margin"/>
+            android:layout_marginBottom="@dimen/info_view_margin_bottom"/>
         <ScrollView
             android:id="@+id/svDescrioption"
             android:layout_width="match_parent"
@@ -62,7 +62,7 @@
                 android:id="@+id/rlVideo">
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/info_video_height"
                     android:scaleType="fitXY"
                     android:id="@+id/ivVideo_FC" />
                 <ImageView
@@ -78,6 +78,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/ivPhotoComp_FC"
-        android:layout_weight="3"
+        android:layout_weight="1"
         android:scaleType="fitXY"/>
 </LinearLayout>
