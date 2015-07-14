@@ -22,11 +22,14 @@
     <dimen name="video_txt_size">14sp</dimen>
     <dimen name="down_arrow">25dp</dimen>
     <!-- Compania fragment-->
-    <dimen name="info_padding_left">60dp</dimen>
+    <dimen name="info_padding_left">70dp</dimen>
     <dimen name="info_padding_right">40dp</dimen>
     <dimen name="info_padding_top">30dp</dimen>
+    <dimen name="info_padding_bottom">50dp</dimen>
+    <dimen name="info_view_margin_bottom">25dp</dimen>
     <dimen name="info_text_size">13sp</dimen>
     <dimen name="info_btn_play_side">25sp</dimen>
+    <dimen name="info_video_height">200dp</dimen>
     <!-- dialogs-->
     <dimen name="dialog_title_text_size">24sp</dimen>
     <dimen name="dialog_button_text_size">22sp</dimen>
