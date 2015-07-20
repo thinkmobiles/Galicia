@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="@dimen/item_video_height"
     android:paddingLeft="@dimen/default_small_margin"
     android:paddingRight="@dimen/default_small_margin">
     <TextView
@@ -10,13 +10,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/tvVideoTitle_IPV"
         android:layout_alignParentTop="true"
+        android:text="sfdgfdgbfd"
         android:textSize="@dimen/video_txt_size"
         android:textColor="@android:color/white"
         />
     <RelativeLayout
         android:layout_below="@+id/tvVideoTitle_IPV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="@dimen/item_video_height_image">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

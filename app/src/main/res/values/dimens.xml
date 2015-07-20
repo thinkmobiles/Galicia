@@ -13,13 +13,15 @@
     <dimen name="product_heigt">70dp</dimen>
     <!-- Product fragment-->
     <dimen name="logo_width">190dp</dimen>
-    <dimen name="logo_height">180dp</dimen>
+    <dimen name="logo_min_height">50dp</dimen>
     <dimen name="list_video_width">230dp</dimen>
     <dimen name="video_title_txt_size">16dp</dimen>
     <dimen name="description_product_txt_size">16dp</dimen>
     <dimen name="description_margin_right">25dp</dimen>
     <dimen name="description_txt_size">15sp</dimen>
     <dimen name="video_txt_size">14sp</dimen>
+    <dimen name="item_video_height">210dp</dimen>
+    <dimen name="item_video_height_image">170dp</dimen>
     <dimen name="down_arrow">25dp</dimen>
     <!-- Compania fragment-->
     <dimen name="info_padding_left">70dp</dimen>
