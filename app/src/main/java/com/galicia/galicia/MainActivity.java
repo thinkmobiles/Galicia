@@ -41,7 +41,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
 
-
     private void findUI() {
         menuBtn = (ImageView) findViewById(R.id.ivMenu);
         mTitle  = (TextView) findViewById(R.id.tvMenuTitle);
@@ -71,7 +70,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     public void setBackground(final String _path) {
-        mBackgroundLayout.setBackground(Drawable.createFromPath(ApiManager.getPath() + _path));
+        if (_path == null)
+            setBackground();
+        else
+            mBackgroundLayout.setBackground(Drawable.createFromPath(ApiManager.getPath() + _path));
     }
 
     public void setBackground() {
