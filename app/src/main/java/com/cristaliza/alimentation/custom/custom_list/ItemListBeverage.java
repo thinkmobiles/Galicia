@@ -29,18 +29,24 @@ public class ItemListBeverage extends RelativeLayout {
         prepareViews();
     }
 
-    public void prepareViews(){
+    public void prepareViews() {
         llContainer = new LinearLayout(getContext());
         llContainer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
         llContainer.setOrientation(LinearLayout.HORIZONTAL);
     }
 
-    public void updateContent(final List<Item> beverageModels, OnClickListener _ClickListener){
+    public void updateContent(final List<Item> beverageModels, OnClickListener _ClickListener) {
+        LayoutParams params = new LayoutParams((int) getResources().getDimension(R.dimen.beverage_item_w_b), ViewGroup.LayoutParams.MATCH_PARENT);
+        params.setMargins(30, 15, 30, 15);
+
         llContainer.removeAllViews();
-        for (Item bm: beverageModels){
+        for (Item bm : beverageModels) {
             final ImageView iv = (ImageView) LayoutInflater.from(getContext()).inflate(R.layout.beverage_horizontal_list_item, llContainer, false);
+            if ("19".equals(bm.getId()) || "35".equals(bm.getId())) {
+                iv.setLayoutParams(params);
+                iv.setPadding(0, 0, 0, 30);
+            }
             setImage(iv, bm.getIcon());
-//            iv.setImageBitmap(getBitmap(bm.getIcon()));
             iv.setTag(bm);
             iv.setOnClickListener(_ClickListener);
             llContainer.addView(iv);
@@ -60,7 +66,7 @@ public class ItemListBeverage extends RelativeLayout {
 
     }
 
-    private void prepareScrollParent(){
+    private void prepareScrollParent() {
 
         HorizontalScrollView hsv = new HorizontalScrollView(getContext());
         hsv.setLayoutParams(new HorizontalScrollView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -69,7 +75,7 @@ public class ItemListBeverage extends RelativeLayout {
 
     }
 
-    private void prepareRelativeParent(){
+    private void prepareRelativeParent() {
         addView(llContainer);
 
     }
@@ -79,7 +85,7 @@ public class ItemListBeverage extends RelativeLayout {
     }
 
     private void setImage(ImageView view, String _path) {
-        if (_path != null){
+        if (_path != null) {
             if (_path.isEmpty())
                 view.setImageResource(R.drawable.default_bytulka);
             else

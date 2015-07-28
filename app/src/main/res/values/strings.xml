@@ -1,29 +1,4 @@
 <resources>
-    <!-- not use-->
-    <!--<string name="title_rivera">CERVEZAS HIJOS DE RIVERA</string>-->
-    <!--<string name="title_importacion">CERVEZAS DE importación</string>-->
-    <!--<string name="title_aguas">AGUAS</string>-->
-    <!--<string name="title_vino">VINO / LICORES</string>-->
-    <!--<string name="title_refrescos">REFRESCOS / ZUMOS / BATIDOS</string>-->
-    <!--<string name="title_sidras">SIDRAS</string>-->
-    <!--<string name="title_energetical">energéticas</string>-->
-    <!--<string name="title_envios">ENVIOS PENDIENTES</string>-->
-    <!--<string name="action_settings">Settings</string>-->
-    <!--<string name="title">Estrella Galicia - SDK Sample</string>-->
-    <!--<string name="header_label">Contador</string>-->
-    <!--<string name="counter_value">0</string>-->
-    <!--<string name="button_increment">+</string>-->
-    <!--<string name="button_decrement">-</string>-->
-    <!--<string name="button_reset">Reset</string>-->
-    <!--<string name="webservice_label">WebServcice Data:</string>-->
-    <!--<string name="button_webservice">Download</string>-->
-    <!--<string name="button_webservice_appconfig">Read content</string>-->
-    <!--<string name="added_item">Item added to cart</string>-->
-    <!--<string name="version">0.1</string>-->
-    <!--<string-array name="spinner_resource">-->
-    <!--<item>Item1</item>-->
-    <!--<item>Item2</item>-->
-    <!--<item>Item3</item>-->
     <!--</string-array>-->
     <string name="app_name">Alimentación</string>
     <!-- Slide menu-->
@@ -67,17 +42,7 @@
     <string name="vaciar">VACIAR</string>
     <string name="title_videos">VIDEOS</string>
     <string-array name="list_id_big_image">
-        <item>144</item>
-        <item>146</item>
-        <item>185</item>
-        <item>239</item>
-        <item>250</item>
-        <item>253</item>
-        <item>300</item>
-        <item>301</item>
-        <item>303</item>
-        <item>360</item>
-        <item>299</item>
-        <item>298</item>
+        <item>39</item>
+        <item>19</item>
     </string-array>
 </resources>
