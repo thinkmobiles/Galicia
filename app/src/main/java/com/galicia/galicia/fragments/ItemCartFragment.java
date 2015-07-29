@@ -36,16 +36,14 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
     //    private ItemDAO itemDAO;
     private String shopName;
     private long shopId;
-    private int pos;
     private MainActivity callActivity;
 
-    public static ItemCartFragment newInstance(final Long shop_id, final String shop_name, int _pos) {
+    public static ItemCartFragment newInstance(final Long shop_id, final String shop_name) {
 
         ItemCartFragment fragment = new ItemCartFragment();
         Bundle bundle = new Bundle();
         bundle.putLong(Constants.ITEM_SHOP_ID, shop_id);
         bundle.putString(Constants.ITEM_SHOP_NAME, shop_name);
-        bundle.putInt(Constants.POSITION, _pos);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -58,7 +56,6 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
         if (getArguments() != null) {
             shopId = getArguments().getLong(Constants.ITEM_SHOP_ID);
             shopName = getArguments().getString(Constants.ITEM_SHOP_NAME);
-            pos = getArguments().getInt(Constants.POSITION);
         }
 
     }
@@ -124,7 +121,7 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
 
 
     private void sendPDF() {
-        PDFSender.sendShopPDFs(callActivity, pos);
+        PDFSender.sendShopPDFs(callActivity, shopId);
     }
 
     private void startDeleteDialog(){

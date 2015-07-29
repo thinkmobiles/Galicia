@@ -113,7 +113,7 @@ public class ShopCartAdapter extends BaseAdapter {
 
     private void seeDetailItem(int _pos) {
         FragmentReplacer.replaceFragmentWithStack(activity,
-                ItemCartFragment.newInstance(getItem(_pos).getId(), getItem(_pos).getName(), _pos));
+                ItemCartFragment.newInstance(getItem(_pos).getId(), getItem(_pos).getName()));
     }
 
     private void sendPDF(int _pos) {
