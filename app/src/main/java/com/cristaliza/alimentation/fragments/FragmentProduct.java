@@ -93,7 +93,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             long s = -150;
             if(llContProd.getChildCount() != 0) {
                 for (int i = 0; i < mProductList.size(); ++i) {
-                    s = s + llContProd.getChildAt(i).getMeasuredWidth();
+//                    s = s + llContProd.getChildAt(i).getMeasuredWidth();
+                    s = s + 180;
                 }
                 if (s < maxWidth) {
                     rlNext.setVisibility(View.GONE);
