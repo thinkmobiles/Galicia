@@ -2,25 +2,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:id="@+id/rlItemContainer_IPI">
+    android:id="@+id/rlItemContainer_IPI"
+    android:gravity="bottom">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvDescription_IPI"
         android:textColor="@android:color/black"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentBottom="false"
         android:text="@string/plus_info"
         android:singleLine="true"
         android:gravity="center_horizontal"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginBottom="@dimen/default_margin"/>
+        android:layout_marginBottom="@dimen/default_margin"
+        android:layout_below="@+id/ivIcon_IPI" />
     <ImageView
-        android:layout_width="@dimen/width_item_hlv_mini"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/ivIcon_IPI"
         android:layout_centerHorizontal="true"
         android:paddingTop="@dimen/default_padding"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/tvDescription_IPI" />
+        android:layout_alignParentTop="false" />
 </RelativeLayout>

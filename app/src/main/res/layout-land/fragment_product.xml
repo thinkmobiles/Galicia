@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/logo_min_height"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitStart"/>
             <ImageView
                 android:id="@+id/ivCompanyAward_FPU"
                 android:layout_marginTop="@dimen/default_middle_margin"

@@ -2,8 +2,11 @@ package com.cristaliza.alimentation.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -275,10 +278,14 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
                     mCallingActivity.getResources().getInteger(R.integer.product_slide_margin),
                     0);
         }
+        Bitmap bitmap = null;
         for (int i = 0; i < mProductList.size(); ++i) {
             View view = View.inflate(mCallingActivity, R.layout.item_horizontal_list_product, null);
             ImageView image = (ImageView) view.findViewById(R.id.ivPhotoProd);
-            image.setImageBitmap(BitmapCreator.getBitmap(mProductList.get(i).getImage()));
+            bitmap = BitmapCreator.getBitmap(mProductList.get(i).getImage());
+            image.setImageBitmap(bitmap);
+            if(bitmap.getWidth() > bitmap.getHeight() - 10)
+                image.setScaleType(ImageView.ScaleType.FIT_END);
             view.setLayoutParams(params);
             view.setOnClickListener(getListener(i));
             llContProd.addView(view);
