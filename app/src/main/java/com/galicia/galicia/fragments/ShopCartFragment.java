@@ -133,7 +133,7 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         FragmentReplacer.replaceFragmentWithStack(callActivity,
-                ItemCartFragment.newInstance(data.get(position).getId(), data.get(position).getName()));
+                ItemCartFragment.newInstance(data.get(position).getId(), data.get(position).getName(), position));
     }
 
     public void updateDate() {

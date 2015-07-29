@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.galicia.galicia.global.Constants;
 import com.galicia.galicia.orm_database.DBManager;
 import com.galicia.galicia.orm_database.DBProduct;
 import com.galicia.galicia.untils.DataBase.ItemDAO;
+import com.galicia.galicia.untils.PDFSender;
 
 import java.util.List;
 
@@ -30,17 +32,20 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
     private List<DBProduct> data;
     private ListView purchaseList;
     private ImageView deleteItems, ivGoBack;
-//    private ItemDAO itemDAO;
+    private Button btnEnviar;
+    //    private ItemDAO itemDAO;
     private String shopName;
     private long shopId;
+    private int pos;
     private MainActivity callActivity;
 
-    public static ItemCartFragment newInstance(final Long shop_id, final String shop_name) {
+    public static ItemCartFragment newInstance(final Long shop_id, final String shop_name, int _pos) {
 
         ItemCartFragment fragment = new ItemCartFragment();
         Bundle bundle = new Bundle();
         bundle.putLong(Constants.ITEM_SHOP_ID, shop_id);
         bundle.putString(Constants.ITEM_SHOP_NAME, shop_name);
+        bundle.putInt(Constants.POSITION, _pos);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -53,6 +58,7 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
         if (getArguments() != null) {
             shopId = getArguments().getLong(Constants.ITEM_SHOP_ID);
             shopName = getArguments().getString(Constants.ITEM_SHOP_NAME);
+            pos = getArguments().getInt(Constants.POSITION);
         }
 
     }
@@ -80,12 +86,13 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
         deleteItems = (ImageView) view.findViewById(R.id.iv_deleteAll_FS);
         purchaseList = (ListView) view.findViewById(R.id.lv_list_Shopping_FS);
         ivGoBack = (ImageView) view.findViewById(R.id.iv_back_FPU);
-
+        btnEnviar = (Button) view.findViewById(R.id.tw_guardar_button_FS);
     }
 
     private void setListeners(){
         deleteItems.setOnClickListener(this);
         ivGoBack.setOnClickListener(this);
+        btnEnviar.setOnClickListener(this);
     }
 
     private void initUI(){
@@ -102,6 +109,9 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
             case R.id.iv_back_FPU:
                 super.getActivity().onBackPressed();
                 break;
+            case R.id.tw_guardar_button_FS:
+                sendPDF();
+                break;
         }
     }
 
@@ -110,6 +120,11 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
 //        data.addAll(itemDAO.getItems(shopId));
         data.addAll(DBManager.getProducts(shopId));
         itemCartAdapter.updateList(data);
+    }
+
+
+    private void sendPDF() {
+        PDFSender.sendShopPDFs(callActivity, pos);
     }
 
     private void startDeleteDialog(){
