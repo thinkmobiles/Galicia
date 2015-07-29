@@ -102,7 +102,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             maxWidth = getDisplayWidth() / 4 * 3;
         }
         if(mThirdList.size() >= 1) {
-            long s = -150;
+            long s = -200;
             if(llContProd.getChildCount() != 0) {
                 for (int i = 0; i < mProductList.size(); ++i) {
                     s = s + llContProd.getChildAt(i).getMeasuredWidth();

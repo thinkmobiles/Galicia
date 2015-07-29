@@ -43,7 +43,8 @@ public class ItemListBeverage extends RelativeLayout {
         for (Item bm: beverageModels){
             final ImageView iv = (ImageView) LayoutInflater.from(getContext()).inflate(R.layout.beverage_horizontal_list_item, llContainer, false);
             setImage(iv, bm);
-//            iv.setImageBitmap(getBitmap(bm.getIcon()));
+            if(setFit(bm))
+                iv.setScaleType(ImageView.ScaleType.FIT_XY);
             iv.setTag(bm);
             iv.setOnClickListener(_ClickListener);
             llContainer.addView(iv);
@@ -61,6 +62,15 @@ public class ItemListBeverage extends RelativeLayout {
 //        view.setBackgroundResource(R.drawable.horizontal_gradient_shape);
 //        addView(view);
 
+    }
+
+    private boolean setFit(Item item){
+        return(item.getId().equals("250") ||
+                item.getId().equals("253") ||
+                item.getId().equals("374") ||
+                item.getId().equals("375") ||
+                item.getId().equals("359")
+        );
     }
 
     private void prepareScrollParent(){

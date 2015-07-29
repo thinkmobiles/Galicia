@@ -1,6 +1,6 @@
 <resources>
 
-    <integer name="product_slide_margin">17</integer>
+    <integer name="product_slide_margin">20</integer>
     <integer name="desc_padding_bottom">40</integer>
 
     <dimen name="default_circle_view_size">250dp</dimen>
@@ -62,7 +62,7 @@
     <dimen name="menu_text_size">17sp</dimen>
     <dimen name="margin_item">25dp</dimen>
 
-    <dimen name="width_item_hlv_mini">150dp</dimen>
+    <dimen name="width_item_hlv_mini">180dp</dimen>
     <dimen name="height_item_hlv_mini">180dp</dimen>
 
     <!--Main Activity-->
@@ -74,7 +74,7 @@
     <dimen name="beverage_title_min_size">67dp</dimen>
     <dimen name="beverage_title_max_size">40dp</dimen>
     <dimen name="beverage_description_size">215dp</dimen>
-    <dimen name="beverage_item_w">80dp</dimen>
+    <dimen name="beverage_item_w">40dp</dimen>
     <dimen name="beverage_item_margin_right_left">30dp</dimen>
     <dimen name="beverage_item_margin_top_bottom">15dp</dimen>
     <dimen name="devider_height">1px</dimen>
