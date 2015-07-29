@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import com.cristaliza.nacional.custom.CustomDialog;
 import com.cristaliza.nacional.global.Constants;
 import com.cristaliza.nacional.orm_database.DBManager;
 import com.cristaliza.nacional.orm_database.DBProduct;
+import com.cristaliza.nacional.untils.PDFSender;
 
 import java.util.List;
 
@@ -28,6 +30,7 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
     private List<DBProduct> data;
     private ListView purchaseList;
     private ImageView deleteItems, ivGoBack;
+    private Button btnEnviar;
 //    private ItemDAO itemDAO;
     private String shopName;
     private long shopId;
@@ -78,6 +81,7 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
         deleteItems = (ImageView) view.findViewById(R.id.iv_deleteAll_FS);
         purchaseList = (ListView) view.findViewById(R.id.lv_list_Shopping_FS);
         ivGoBack = (ImageView) view.findViewById(R.id.iv_back_FPU);
+        btnEnviar = (Button) view.findViewById(R.id.tw_guardar_button_FS);
 
     }
 
@@ -100,6 +104,10 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
             case R.id.iv_back_FPU:
                 super.getActivity().onBackPressed();
                 break;
+            case R.id.tw_guardar_button_FS:
+                sendPDF();
+                break;
+
         }
     }
 
@@ -108,6 +116,10 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
 //        data.addAll(itemDAO.getItems(shopId));
         data.addAll(DBManager.getProducts(shopId));
         itemCartAdapter.updateList(data);
+    }
+
+    private void sendPDF() {
+        PDFSender.sendShopPDFs(callActivity, shopId);
     }
 
     private void startDeleteDialog(){
