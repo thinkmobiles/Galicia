@@ -28,8 +28,9 @@
                 android:scaleType="fitStart"/>
             <ImageView
                 android:id="@+id/ivCompanyAward_FPU"
-                android:layout_marginTop="@dimen/default_middle_margin"
-                android:layout_width="match_parent"
+                android:minHeight="@dimen/logo_min_height"
+                android:scaleType="fitCenter"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <RelativeLayout
