@@ -28,9 +28,9 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'kxml2:kxml2:2.3.0'
+//    compile files('/home/john/projects/Galicia/libs/estrella-sdk-1.4.1.jar')
     compile 'com.jeremyfeinstein.slidingmenu:library:1.3@aar'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'it.sephiroth.android.library.imagezoom:imagezoom:+'
     compile 'com.github.satyan:sugar:1.3'
-//    compile files('/home/samson/StudioProjects/Galicia/libs/estrella-sdk-1.5.jar')
 }
