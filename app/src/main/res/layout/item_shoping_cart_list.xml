@@ -20,10 +20,11 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/default_small_margin"
-        android:layout_marginBottom="@dimen/default_small_margin">
+        android:layout_alignParentRight="true">
         <ImageView
             android:id="@+id/iv_refresh_shop_item_IS"
             android:layout_width="wrap_content"
