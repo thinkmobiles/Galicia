@@ -42,7 +42,7 @@ public class ItemListBeverage extends RelativeLayout {
         llContainer.removeAllViews();
         for (Item bm: beverageModels){
             final ImageView iv = (ImageView) LayoutInflater.from(getContext()).inflate(R.layout.beverage_horizontal_list_item, llContainer, false);
-            setImage(iv, bm.getIcon());
+            setImage(iv, bm);
 //            iv.setImageBitmap(getBitmap(bm.getIcon()));
             iv.setTag(bm);
             iv.setOnClickListener(_ClickListener);
@@ -64,9 +64,9 @@ public class ItemListBeverage extends RelativeLayout {
     }
 
     private void prepareScrollParent(){
-
         HorizontalScrollView hsv = new HorizontalScrollView(getContext());
-        hsv.setLayoutParams(new HorizontalScrollView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        hsv.setLayoutParams(new HorizontalScrollView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        hsv.setHorizontalScrollBarEnabled(false);
         hsv.addView(llContainer);
         addView(hsv);
 
@@ -81,12 +81,9 @@ public class ItemListBeverage extends RelativeLayout {
         return BitmapFactory.decodeFile(ApiManager.getPath() + _path);
     }
 
-    private void setImage(ImageView view, String _path) {
-        if (_path != null){
-            if (_path.isEmpty())
-                view.setImageResource(R.drawable.default_bytulka);
-            else
-                view.setImageBitmap(getBitmap(_path));
+    private void setImage(ImageView view, Item _item) {
+        if (_item.getIcon() != null){
+            view.setImageBitmap(getBitmap(_item.getIcon()));
         } else {
             view.setImageResource(R.drawable.default_bytulka);
         }
