@@ -13,7 +13,7 @@
     <dimen name="beverage_description_size">215dp</dimen>
     <dimen name="beverage_item_w">80dp</dimen>
     <dimen name="beverage_item_margin_right_left">30dp</dimen>
-    <dimen name="beverage_item_margin_top_bottom">15dp</dimen>
+    <dimen name="beverage_item_margin">15dp</dimen>
 
     <!--Sliding Menu-->
     <dimen name="slidingmenu_shadow_width">5dp</dimen>

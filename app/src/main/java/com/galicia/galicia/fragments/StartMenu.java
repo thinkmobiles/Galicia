@@ -184,7 +184,6 @@ public class StartMenu extends Fragment implements View.OnClickListener {
     }
 
     private void openItemFragment(final Item _item) {
-        Log.e("sdfgbds", _item.getId());
         FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FragmentProduct.newInstance(new ItemSerializable(_item)));
     }
 

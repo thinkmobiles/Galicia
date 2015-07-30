@@ -26,30 +26,15 @@
             android:layout_gravity="center_vertical" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/abc_button_padding_horizontal_material"
-            android:layout_marginBottom="@dimen/abc_button_padding_horizontal_material">
-
-
-
             <ImageView
                 android:id="@+id/iv_delete_shop_product_IS"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/btn_delete" />
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/default_small_margin"
+                android:layout_marginBottom="@dimen/default_small_margin"
+                android:src="@drawable/btn_circle_delete" />
 
-
-        </LinearLayout>
-
-    </LinearLayout>
 
 </RelativeLayout>

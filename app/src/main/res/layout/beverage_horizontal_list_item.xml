@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ivItemList_BHLI"
-    android:layout_marginRight="@dimen/beverage_item_margin_right_left"
-    android:layout_marginLeft="@dimen/beverage_item_margin_right_left"
-    android:layout_marginTop="@dimen/beverage_item_margin_top_bottom"
-    android:layout_marginBottom="@dimen/beverage_item_margin_top_bottom"
+    android:layout_marginRight="@dimen/beverage_item_margin"
+    android:layout_marginLeft="@dimen/beverage_item_margin"
+    android:layout_marginTop="@dimen/beverage_item_margin"
+    android:layout_marginBottom="@dimen/beverage_item_margin"
     android:scaleType="fitEnd"
-    style="@style/ItemHorizontalListStyle"/>
+    android:layout_width="@dimen/beverage_item_w"
+    android:layout_height="match_parent"
+    android:padding="5dp"/>

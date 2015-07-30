@@ -70,7 +70,7 @@
     <dimen name="beverage_description_size">98dp</dimen>
     <dimen name="beverage_item_w">80dp</dimen>
     <dimen name="beverage_item_margin_right_left">30dp</dimen>
-    <dimen name="beverage_item_margin_top_bottom">15dp</dimen>
+    <dimen name="beverage_item_margin">15dp</dimen>
 
 
     <dimen name="video_txt_size">14sp</dimen>

@@ -76,9 +76,9 @@
     <dimen name="beverage_title_min_size">67dp</dimen>
     <dimen name="beverage_title_max_size">40dp</dimen>
     <dimen name="beverage_description_size">215dp</dimen>
-    <dimen name="beverage_item_w">80dp</dimen>
+    <dimen name="beverage_item_w">110dp</dimen>
     <dimen name="beverage_item_margin_right_left">30dp</dimen>
-    <dimen name="beverage_item_margin_top_bottom">15dp</dimen>
+    <dimen name="beverage_item_margin">15dp</dimen>
     <dimen name="devider_height">1px</dimen>
     <dimen name="item_compania_padding_top_bottom">13dp</dimen>
     <dimen name="item_compania_text_size">25dp</dimen>
