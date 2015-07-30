@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cristaliza.nacional.MainActivity;
@@ -82,12 +83,13 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
         purchaseList = (ListView) view.findViewById(R.id.lv_list_Shopping_FS);
         ivGoBack = (ImageView) view.findViewById(R.id.iv_back_FPU);
         btnEnviar = (Button) view.findViewById(R.id.tw_guardar_button_FS);
-
+        ((TextView) view.findViewById(R.id.tv_locales_label_FS)).setText(R.string.listado_shopping);
     }
 
     private void setListeners(){
         deleteItems.setOnClickListener(this);
         ivGoBack.setOnClickListener(this);
+        btnEnviar.setOnClickListener(this);
     }
 
     private void initUI(){

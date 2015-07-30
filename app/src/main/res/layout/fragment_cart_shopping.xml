@@ -62,6 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-5dp"
+        android:scrollbars="none"
         android:layout_above="@+id/tw_guardar_button_FS"
         android:listSelector="@android:color/transparent">
     </ListView>

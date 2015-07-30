@@ -42,8 +42,8 @@ public class ItemListBeverage extends RelativeLayout {
         for (Item bm: beverageModels){
             final ImageView iv = (ImageView) LayoutInflater.from(getContext()).inflate(R.layout.beverage_horizontal_list_item, llContainer, false);
             setImage(iv, bm.getIcon());
-            if(isFit(bm))
-                iv.setScaleType(ImageView.ScaleType.FIT_XY);
+//            if(isFit(bm))
+//                iv.setScaleType(ImageView.ScaleType.FIT_XY);
             iv.setTag(bm);
             iv.setOnClickListener(_ClickListener);
             llContainer.addView(iv);
