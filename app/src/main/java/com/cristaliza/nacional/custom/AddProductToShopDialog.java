@@ -52,7 +52,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
     private TextView tvAccept, tvCancel, tvTitle;
     private EditText shopName;
     private Item mCurrentItem;
-    private FrameLayout flTop, flBottom;
+    private FrameLayout flTop, flBottom, flCenter;
     private EventListener mListener;
     private List<Product> mProductList;
     private List<Item> mThirdList;
@@ -134,6 +134,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
         tvAccept        = (TextView) _view.findViewById(R.id.tvAccept_PSD);
         flTop           = (FrameLayout) _view.findViewById(R.id.flTop_PSD);
         flBottom        = (FrameLayout) _view.findViewById(R.id.flBottom_PSD);
+        flCenter        = (FrameLayout) _view.findViewById(R.id.flBackground_PSD);
         autoCompleteTextView = (AutoCompleteTextView) _view.findViewById(R.id.etNewShop_PSD1);
         allShop         = (ImageView) _view.findViewById(R.id.iv_all_ItemShop_PSD);
     }
@@ -148,6 +149,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
         tvCancel.setOnClickListener(this);
         tvAccept.setOnClickListener(this);
         flBottom.setOnClickListener(this);
+        flCenter.setOnClickListener(this);
         flTop.setOnClickListener(this);
         allShop.setOnClickListener(this);
         makeDownloadListener();
@@ -173,8 +175,9 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
                 } else
                      onClickPositiveButton();
                 break;
-            case R.id.flTop_PSD:
+            case R.id.flBackground_PSD:
                 break;
+            case R.id.flTop_PSD:
             case R.id.flBottom_PSD:
                 FragmentReplacer.popSupBackStack(getActivity());
                 break;
