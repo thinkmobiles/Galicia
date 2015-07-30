@@ -6,8 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cristaliza.alimentation.MainActivity;
@@ -17,6 +19,7 @@ import com.cristaliza.alimentation.custom.CustomDialog;
 import com.cristaliza.alimentation.global.Constants;
 import com.cristaliza.alimentation.orm_database.DBManager;
 import com.cristaliza.alimentation.orm_database.DBProduct;
+import com.cristaliza.alimentation.untils.PDFSender;
 
 import java.util.List;
 
@@ -28,6 +31,7 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
     private List<DBProduct> data;
     private ListView purchaseList;
     private ImageView deleteItems, ivGoBack;
+    private Button btnEnviar;
 //    private ItemDAO itemDAO;
     private String shopName;
     private long shopId;
@@ -78,12 +82,14 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
         deleteItems = (ImageView) view.findViewById(R.id.iv_deleteAll_FS);
         purchaseList = (ListView) view.findViewById(R.id.lv_list_Shopping_FS);
         ivGoBack = (ImageView) view.findViewById(R.id.iv_back_FPU);
-
+        btnEnviar = (Button) view.findViewById(R.id.tw_guardar_button_FS);
+        ((TextView) view.findViewById(R.id.tv_locales_label_FS)).setText(callActivity.getString(R.string.listado_shopping));
     }
 
     private void setListeners(){
         deleteItems.setOnClickListener(this);
         ivGoBack.setOnClickListener(this);
+        btnEnviar.setOnClickListener(this);
     }
 
     private void initUI(){
@@ -99,6 +105,9 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.iv_back_FPU:
                 super.getActivity().onBackPressed();
+                break;
+            case R.id.tw_guardar_button_FS:
+                PDFSender.sendShopPDFs(callActivity, shopId);
                 break;
         }
     }

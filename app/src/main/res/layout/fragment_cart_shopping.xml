@@ -61,6 +61,7 @@
         android:layout_below="@+id/rl_labelShopping_FS"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:scrollbars="none"
         android:layout_marginTop="-5dp"
         android:layout_above="@+id/tw_guardar_button_FS"
         android:listSelector="@android:color/transparent">

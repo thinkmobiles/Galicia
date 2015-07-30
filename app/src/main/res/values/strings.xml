@@ -8,6 +8,7 @@
     <string name="dialog_lable">ANADIR FICHA A:</string>
     <string name="want_continue">ESTA FICHA HA SIDO AÑADIDA</string>
     <string name="locales_shopping">LOCALES</string>
+    <string name="listado_shopping">LISTADO DE PRODUCTOS</string>
     <string name="guardar_shopping">ENVIAR</string>
     <string name="version">0.1</string>
     <string name="added_item">Item added to cart</string>

@@ -43,10 +43,12 @@ public class ItemListBeverage extends RelativeLayout {
         for (Item bm : beverageModels) {
             final ImageView iv = (ImageView) LayoutInflater.from(getContext()).inflate(R.layout.beverage_horizontal_list_item, llContainer, false);
             if ("19".equals(bm.getId()) || "35".equals(bm.getId())) {
-                iv.setLayoutParams(params);
-                iv.setPadding(0, 0, 0, 20);
-                if("35".equals(bm.getId()))
+                iv.setPadding(10, 0, 0, 20);
+                if("35".equals(bm.getId())) {
+                    params.width = 208;
                     iv.setPadding(0, 0, 0, 16);
+                }
+                iv.setLayoutParams(params);
             }
             setImage(iv, bm.getIcon());
             iv.setTag(bm);
