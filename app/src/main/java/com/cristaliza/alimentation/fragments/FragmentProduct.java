@@ -70,6 +70,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             mCurrentItem = ((ItemSerializable) getArguments().getSerializable(Constants.ITEM_SERIAZ)).getItem();
             getArguments().remove(Constants.ITEM_SERIAZ);
         }
+        initParamItemHSV();
     }
     @Override
     public View onCreateView(LayoutInflater _inflater, ViewGroup _container, Bundle _savedInstanceState) {
@@ -90,9 +91,9 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             maxWidth = getDisplayWidth() / 4 * 3;
         }
         if(mThirdList.size() >= 1) {
-            long s = -150;
+            long s = -10;
             if(llContProd.getChildCount() != 0) {
-                for (int i = 0; i < mProductList.size(); ++i) {
+                for (int i = 0; i < llContProd.getChildCount(); ++i) {
 //                    s = s + llContProd.getChildAt(i).getMeasuredWidth();
                     s = s + 180;
                 }
@@ -263,6 +264,17 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         tvProductPhotoTitle.setText(mCallingActivity.getString(R.string.plus_info));
         llDeac.setPadding(0, 0, 0, mCallingActivity.getResources().getInteger(R.integer.desc_padding_bottom));
     }
+
+    private LinearLayout.LayoutParams params80;
+    private LinearLayout.LayoutParams params150;
+
+    private void initParamItemHSV(){
+        params80 = new LinearLayout.LayoutParams(85, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params150 = new LinearLayout.LayoutParams(180, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params80.setMargins(0,0,60,0);
+        params150.setMargins(0,0,60,0);
+    }
+
     private void initHorizontalImageList() {
         if (mProductList.size() == 0) {
             rlContHSV.setVisibility(View.GONE);
@@ -271,23 +283,19 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         if(llContProd.getChildCount() != 0){
             llContProd.removeAllViewsInLayout();
         }
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) mCallingActivity.getResources().getDimension(R.dimen.width_item_hlv_mini), ViewGroup.LayoutParams.WRAP_CONTENT);
-        if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("<span style='font-family: Helvetica Neue, Helvetica, Arial, sans-serif;'></span>")) {
-            params.setMargins(
-                    mCallingActivity.getResources().getInteger(R.integer.product_slide_margin),
-                    0,
-                    mCallingActivity.getResources().getInteger(R.integer.product_slide_margin),
-                    0);
-        }
+
         Bitmap bitmap = null;
         for (int i = 0; i < mProductList.size(); ++i) {
             View view = View.inflate(mCallingActivity, R.layout.item_horizontal_list_product, null);
             ImageView image = (ImageView) view.findViewById(R.id.ivPhotoProd);
             bitmap = BitmapCreator.getBitmap(mProductList.get(i).getImage());
+            Log.e("size", bitmap.getWidth() + " " + bitmap.getHeight());
             image.setImageBitmap(bitmap);
-            if(bitmap.getWidth() > bitmap.getHeight() - 10)
+            if(bitmap.getWidth() > bitmap.getHeight() - 400) {
                 image.setScaleType(ImageView.ScaleType.FIT_END);
-            view.setLayoutParams(params);
+                view.setLayoutParams(params150);
+            } else
+                view.setLayoutParams(params80);
             view.setOnClickListener(getListener(i));
             llContProd.addView(view);
         }

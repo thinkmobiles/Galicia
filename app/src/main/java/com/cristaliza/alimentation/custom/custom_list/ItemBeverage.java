@@ -3,6 +3,7 @@ package com.cristaliza.alimentation.custom.custom_list;
 import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cristaliza.alimentation.R;
@@ -18,6 +19,7 @@ public class ItemBeverage extends LinearLayout {
     public TextView title;
     public ItemListBeverage description;
     public View view;
+    public RelativeLayout descr;
     private boolean titleIsShowed = true, descriptionIsShowed = false;
 
     private GroupBeverageModel gbm;
@@ -37,6 +39,7 @@ public class ItemBeverage extends LinearLayout {
         title       = (TextView)            findViewById(R.id.tvTitle_BI);
         description = (ItemListBeverage)    findViewById(R.id.vDescription_BI);
 //        view        = (View)                findViewById(R.id.gradientView);
+        descr       = (RelativeLayout)      findViewById(R.id.rlDescr);
 
         title.setText(gbm.title);
         description.updateContent(gbm.beverageModels, _Listener);
@@ -45,6 +48,7 @@ public class ItemBeverage extends LinearLayout {
     public void expandDescription() {
         if (!descriptionIsShowed) {
             AnimationUtils.expand(description, MIN_SIZE_DESC, MAX_SIZE_DESC, 300);
+            AnimationUtils.expand(descr, MIN_SIZE_DESC, MAX_SIZE_DESC, 300);
 //            AnimationUtils.expand(view, MIN_SIZE_DESC, MAX_SIZE_DESC, 300);
             descriptionIsShowed = true;
         }
@@ -52,6 +56,7 @@ public class ItemBeverage extends LinearLayout {
     public void collapseDescription() {
         if (descriptionIsShowed) {
             AnimationUtils.collapse(description, MIN_SIZE_DESC, MAX_SIZE_DESC, 300, true);
+            AnimationUtils.collapse(descr, MIN_SIZE_DESC, MAX_SIZE_DESC, 300, true);
 //            AnimationUtils.collapse(view, MIN_SIZE_DESC, MAX_SIZE_DESC, 300, true);
             descriptionIsShowed = false;
         }

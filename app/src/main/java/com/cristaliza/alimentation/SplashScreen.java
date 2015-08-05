@@ -20,6 +20,7 @@ import com.cristaliza.alimentation.global.SharedPreferencesManager;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -60,8 +61,11 @@ public class SplashScreen extends Activity {
         { //Yes Internet connection
             if (!isHasContent())
                 downloadContent();
-            else
-                updateContent();
+            else if (hasNewContent()) {
+                showDialogUpdate();
+            } else {
+                openMainActivity();
+            }
         }
     }
 
@@ -129,6 +133,25 @@ public class SplashScreen extends Activity {
 
     }
 
+    private void showDialogUpdate() {
+        new AlertDialog.Builder(this)
+                .setMessage(getString(R.string.want_update))
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        downloadContent();
+                    }
+                })
+                .setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        openMainActivity();
+                    }
+                })
+                .create()
+                .show();
+    }
+
     private void downloadContent() {
         mIsLoadContent = true;
         ApiManager.downloadContent(downloadListener);
@@ -191,11 +214,14 @@ public class SplashScreen extends Activity {
     }
 
     private boolean hasNewContent() {
-        final Date currentUpdate = new Date(SharedPreferencesManager.getUpdateDate(getBaseContext()));
-        final Date lastUpdate = parseDate(ApiManager.getDateUpdate());
+        Calendar currentUpdate = Calendar.getInstance();
+        Calendar lastUpdate = Calendar.getInstance();
+        currentUpdate.setTimeInMillis(SharedPreferencesManager.getUpdateDate(getBaseContext()));
+        lastUpdate.setTime(parseDate(ApiManager.getDate()));
         if(currentUpdate.before(lastUpdate))
             return true;
         return false;
+
     }
 
     private Date parseDate(final String _date){

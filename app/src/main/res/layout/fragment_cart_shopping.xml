@@ -3,69 +3,76 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/default_big_margin"
-    android:paddingRight="@dimen/default_big_margin"
-    android:paddingBottom="@dimen/default_big_margin"
     android:background="@android:color/white">
+
     <RelativeLayout
-        android:id="@+id/rl_labelShopping_FS"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-        <ImageView
-            android:id="@+id/iv_deleteAll_FS"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/btn_delete"
-            android:paddingRight="@dimen/abc_button_padding_vertical_material"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/textView"
-            android:layout_toStartOf="@+id/textView"
-            android:paddingBottom="@dimen/abc_control_inset_material"/>
-        <TextView
-            android:text="@string/locales_shopping"
-            android:id="@+id/tv_locales_label_FS"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"/>
-        <ImageView
-            android:id="@+id/iv_back_FPU"
-            android:layout_toRightOf="@id/tv_locales_label_FS"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/abc_text_size_title_material_toolbar"
-            android:layout_marginTop="@dimen/abc_text_size_title_material_toolbar"
-            android:layout_marginLeft="@dimen/default_small_margin"
-            android:clickable="true"
-            android:paddingTop="@dimen/abc_button_padding_horizontal_material"
-            android:paddingBottom="@dimen/abc_button_padding_horizontal_material"
-            android:src="@drawable/btn_volver"
-            android:layout_centerVertical="true">
-        </ImageView>
-        <TextView
-            android:text="@string/vaciar"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:id="@+id/textView" />
-        <LinearLayout
-            android:layout_below="@id/iv_deleteAll_FS"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/default_big_margin"
+        android:layout_marginLeft="@dimen/default_big_margin"
+        android:layout_above="@+id/ivBG">
+
+        <RelativeLayout
+            android:id="@+id/rl_labelShopping_FS"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="@dimen/default_small_margin"
-            android:background="@color/black_translucent"/>
+            android:layout_height="wrap_content"
+            >
+            <ImageView
+                android:id="@+id/iv_deleteAll_FS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_delete"
+                android:paddingRight="@dimen/abc_button_padding_vertical_material"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/textView"
+                android:layout_toStartOf="@+id/textView"
+                android:paddingBottom="@dimen/abc_control_inset_material"/>
+            <TextView
+                android:text="@string/locales_shopping"
+                android:id="@+id/tv_locales_label_FS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"/>
+            <ImageView
+                android:id="@+id/iv_back_FPU"
+                android:layout_toRightOf="@id/tv_locales_label_FS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/abc_text_size_title_material_toolbar"
+                android:layout_marginTop="@dimen/abc_text_size_title_material_toolbar"
+                android:layout_marginLeft="@dimen/default_small_margin"
+                android:clickable="true"
+                android:paddingTop="@dimen/abc_button_padding_horizontal_material"
+                android:paddingBottom="@dimen/abc_button_padding_horizontal_material"
+                android:src="@drawable/btn_volver"
+                android:layout_centerVertical="true">
+            </ImageView>
+            <TextView
+                android:text="@string/vaciar"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:id="@+id/textView" />
+            <LinearLayout
+                android:layout_below="@id/iv_deleteAll_FS"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/default_small_margin"
+                android:background="@color/black_translucent"/>
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/lv_list_Shopping_FS"
+            android:layout_below="@+id/rl_labelShopping_FS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:layout_marginTop="-5dp"
+            android:listSelector="@android:color/transparent">
+        </ListView>
     </RelativeLayout>
-    <ListView
-        android:id="@+id/lv_list_Shopping_FS"
-        android:layout_below="@+id/rl_labelShopping_FS"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:layout_marginTop="-5dp"
-        android:layout_above="@+id/tw_guardar_button_FS"
-        android:listSelector="@android:color/transparent">
-    </ListView>
+
     <Button
         android:id="@+id/tw_guardar_button_FS"
         android:text="@string/guardar_shopping"
@@ -73,5 +80,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/default_big_margin"
+        android:layout_marginLeft="@dimen/default_middle_margin"
+        android:layout_marginBottom="@dimen/default_big_margin"
         android:background="@color/background_material_light"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivBG"
+        android:src="@drawable/bg_envios"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/tw_guardar_button_FS" />
+
 </RelativeLayout>

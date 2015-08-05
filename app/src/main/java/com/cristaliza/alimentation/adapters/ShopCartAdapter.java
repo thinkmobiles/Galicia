@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.cristaliza.alimentation.R;
 import com.cristaliza.alimentation.fragments.ItemCartFragment;
+import com.cristaliza.alimentation.fragments.ShopCartFragment;
 import com.cristaliza.alimentation.global.FragmentReplacer;
 
 import com.cristaliza.alimentation.orm_database.DBManager;
@@ -25,11 +26,13 @@ import java.util.List;
  */
 public class ShopCartAdapter extends BaseAdapter {
     private FragmentActivity activity;
+    private ShopCartFragment fragment;
     private List<Shop> shopsData;
     private LayoutInflater inflater;
 
-    public ShopCartAdapter(FragmentActivity activity, List<Shop> _data) {
+    public ShopCartAdapter(FragmentActivity activity, List<Shop> _data, ShopCartFragment fragment) {
         this.activity = activity;
+        this.fragment = fragment;
         shopsData = _data;
 
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -104,6 +107,7 @@ public class ShopCartAdapter extends BaseAdapter {
 //        shopDAO.deleteShop(getItem(_pos));
         DBManager.deleteShop(getItem(_pos));
         updateList(DBManager.getShops());
+        fragment.updateDate();
 //        ShopCartFragment.newInstance().updateDate();
 //        notifyDataSetChanged();
         Toast.makeText(activity, R.string.delete_shop, Toast.LENGTH_SHORT).show();

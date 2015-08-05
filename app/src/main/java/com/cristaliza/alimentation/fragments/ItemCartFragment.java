@@ -101,7 +101,7 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_deleteAll_FS:
-                startDeleteDialog();
+                deleteAllItems();
                 break;
             case R.id.iv_back_FPU:
                 super.getActivity().onBackPressed();

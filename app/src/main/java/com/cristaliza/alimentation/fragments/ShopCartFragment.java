@@ -65,7 +65,7 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener, 
         findUI(rootView);
         setClickListener();
 
-        shopCartAdapter = new ShopCartAdapter(callActivity, data);
+        shopCartAdapter = new ShopCartAdapter(callActivity, data, this);
         purchaseList.setAdapter(shopCartAdapter);
         return rootView;
     }
@@ -105,8 +105,8 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener, 
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_deleteAll_FS:
-                startDeleteDialog();
-//                deleteAllShop();
+//                startDeleteDialog();
+                deleteAllShop();
                 break;
 
             case R.id.iv_back_FPU:
@@ -137,10 +137,7 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener, 
     }
 
     public void updateDate() {
-        data.clear();
-//        data.addAll(shopDAO.getShops());
-        data.addAll(DBManager.getShops());
-        shopCartAdapter.notifyDataSetChanged();
+        data = DBManager.getShops();
     }
 
     public void deleteAllShop() {

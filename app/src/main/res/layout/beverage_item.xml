@@ -8,12 +8,25 @@
         android:id="@+id/tvTitle_BI"
         style="@style/TitleStyle"
         android:layout_alignParentTop="true" />
-    <com.cristaliza.alimentation.custom.custom_list.ItemListBeverage
-        android:id="@+id/vDescription_BI"
-        android:background="@android:color/white"
-        android:layout_height="0dp"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:visibility="gone"
-        android:gravity="center"
-        android:layout_below="@+id/tvTitle_BI" />
+        android:layout_height="0dp"
+        android:layout_below="@+id/tvTitle_BI"
+        android:id="@+id/rlDescr">
+
+        <com.cristaliza.alimentation.custom.custom_list.ItemListBeverage
+            android:id="@+id/vDescription_BI"
+            android:background="@android:color/white"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:gravity="center"/>
+        <View
+            android:layout_width="@dimen/abc_action_bar_progress_bar_size"
+            android:layout_height="match_parent"
+            android:background="@drawable/horizontal_gradient_shape"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+
 </RelativeLayout>

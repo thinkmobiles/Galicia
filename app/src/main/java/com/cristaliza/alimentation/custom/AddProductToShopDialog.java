@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cristaliza.alimentation.fragments.ItemCartFragment;
 import com.cristaliza.mvc.events.Event;
 import com.cristaliza.mvc.events.EventListener;
 import com.cristaliza.mvc.models.estrella.AppModel;
@@ -61,6 +62,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
     private boolean isSelectChek, questionCheck=false;
     private boolean isShowListShop = false;
     private int typeDialog;
+    private Shop mShop;
     private FragmentProduct mFragmentBack;
     ArrayAdapter<String> adapter;
 
@@ -162,7 +164,10 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
             case R.id.tvCancel_PSD:
                 if (questionCheck){
                     FragmentReplacer.popSupBackStack(getActivity());
-                    FragmentReplacer.replaceFragmentWithStack(getActivity(), new ShopCartFragment());
+                    FragmentReplacer.replaceFragmentWithStack(
+                            mCallingActivity,
+                            ItemCartFragment.newInstance(mShop.getId(), mShop.getName())
+                    );
                     questionCheck = false;
                 } else {
                     FragmentReplacer.popSupBackStack(getActivity());
@@ -190,8 +195,10 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
     private void changeDownUpList(){
         if(isShowListShop){
             autoCompleteTextView.dismissDropDown();
+            allShop.setImageResource(R.drawable.d_arrow);
         }else{
             autoCompleteTextView.showDropDown();
+            allShop.setImageResource(R.drawable.u_arrow);
         }
         isShowListShop = !isShowListShop;
     }
@@ -209,11 +216,10 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
          if (!autoCompleteTextView.getText().toString().isEmpty()) {
              questionCheck = true;
              if (isSelectChek) {
-                shopList.get(selected).getId();
-
+                mShop = subList.get(selected);
                      DBManager.addItem(
                              mCurrentItem.getPdf(),
-                             subList.get(selected),
+                             mShop,
                              mCurrentItem.getName(),
                              mCurrentItem.getIcon()
                      );
@@ -223,6 +229,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
                 setVisible();
              } else {
                  Shop shop = DBManager.addShop(autoCompleteTextView.getText().toString());
+                 mShop = shop;
                  spinnerLayout.setVisibility(View.VISIBLE);
                  addProduct();
 

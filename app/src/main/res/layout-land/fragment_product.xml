@@ -16,22 +16,23 @@
         android:orientation="vertical"
         android:layout_alignParentLeft="true">
         <LinearLayout
-            android:layout_width="210dp"
+            android:layout_width="@dimen/logo_width"
             android:layout_height="match_parent"
             android:layout_above="@+id/rlContBtn"
             android:gravity="center_horizontal"
             android:orientation="vertical">
             <ImageView
                 android:id="@+id/ivCompanyLogo_FPU"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/logo_width"
+                android:layout_height="@dimen/logo_width"
                 android:minHeight="@dimen/logo_min_height"
-                android:scaleType="fitStart"/>
+                android:scaleType="fitCenter"/>
             <ImageView
                 android:id="@+id/ivCompanyAward_FPU"
                 android:minHeight="@dimen/logo_min_height"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="@dimen/logo_width"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" />
         </LinearLayout>
         <RelativeLayout
             android:id="@+id/rlContBtn"
@@ -59,7 +60,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@android:color/white"
-        android:layout_marginRight="@dimen/default_middle_margin"
         android:layout_marginLeft="45dp"
         android:layout_toLeftOf="@+id/llMoreDetailContainer_FPU"
         android:layout_toRightOf="@+id/llCompanyLogo_FPU"
@@ -136,14 +136,16 @@
                                 android:orientation="horizontal" />
                         </HorizontalScrollView>
                     </LinearLayout>
+
+                    <View
+                        android:layout_width="@dimen/abc_action_bar_progress_bar_size"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/horizontal_gradient_shape"
+                        android:paddingBottom="@dimen/menu_item_size_txt"
+                        android:layout_alignParentRight="true">
+                    </View>
                 </RelativeLayout>
-                <View
-                    android:layout_width="@dimen/abc_action_bar_progress_bar_size"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/horizontal_gradient_shape"
-                    android:paddingBottom="@dimen/menu_item_size_txt"
-                    android:layout_toLeftOf="@+id/rlNext_FPU">
-                </View>
+
                 <RelativeLayout
                     android:id="@+id/rlNext_FPU"
                     android:layout_width="wrap_content"
@@ -156,6 +158,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/default_padding"
                         android:src="@drawable/btn_next_state_mormal" />
                 </RelativeLayout>
                 <RelativeLayout
@@ -169,6 +172,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
+                        android:layout_margin="@dimen/default_padding"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/btn_prev_state_normal" />
                 </RelativeLayout>
@@ -179,6 +183,7 @@
         android:id="@+id/llMoreDetailContainer_FPU"
         android:layout_width="@dimen/list_video_width"
         android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/default_middle_margin"
         android:backgroundTint="@android:color/white"
         android:layout_alignParentRight="true">
         <RelativeLayout
