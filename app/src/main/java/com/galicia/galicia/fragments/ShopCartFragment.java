@@ -65,7 +65,7 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener, 
         findUI(rootView);
         setClickListener();
 
-        shopCartAdapter = new ShopCartAdapter(callActivity, data);
+        shopCartAdapter = new ShopCartAdapter(callActivity, data, this);
         purchaseList.setAdapter(shopCartAdapter);
         return rootView;
     }
@@ -76,8 +76,9 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener, 
         guardarButton = (Button) view.findViewById(R.id.tw_guardar_button_FS);
         ivGoBack = (ImageView) view.findViewById(R.id.iv_back_FPU);
         guardarButton.setVisibility(View.INVISIBLE);
+        ivGoBack.setVisibility(View.GONE);
         callActivity.setEnableMenu(true);
-        callActivity.setTitle(callActivity.getString(R.string.title_envio));
+        callActivity.setTitle(callActivity.getString(R.string.title_envios));
         callActivity.setBackground();
     }
 
@@ -90,7 +91,7 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener, 
 //        });
         deleteItems.setOnClickListener(this);
         purchaseList.setOnItemClickListener(this);
-        ivGoBack.setOnClickListener(this);
+//        ivGoBack.setOnClickListener(this);
 //        purchaseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -105,8 +106,8 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener, 
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_deleteAll_FS:
-                startDeleteDialog();
-//                deleteAllShop();
+//                startDeleteDialog();
+                deleteAllShop();
                 break;
 
             case R.id.iv_back_FPU:
@@ -137,10 +138,7 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener, 
     }
 
     public void updateDate() {
-        data.clear();
-//        data.addAll(shopDAO.getShops());
-        data.addAll(DBManager.getShops());
-        shopCartAdapter.notifyDataSetChanged();
+        data = DBManager.getShops();
     }
 
     public void deleteAllShop() {

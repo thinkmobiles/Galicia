@@ -89,10 +89,14 @@ public class SplashScreen extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         downloadContent();
+                    }
+                })
+                .setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
                         openMainActivity();
                     }
                 })
-                .setNegativeButton(R.string.button_cancel, null)
                 .create()
                 .show();
     }

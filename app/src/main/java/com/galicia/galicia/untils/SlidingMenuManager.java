@@ -107,6 +107,7 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
         if(view == header){
             FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu());
         }else if(view == footer) {
+            FragmentReplacer.clearSupBackStack(activity);
             FragmentReplacer.replaceFragmentWithStack(activity, ShopCartFragment.newInstance());
         } else if(view == compania){
             FragmentReplacer.replaceFragmentWithStack(
@@ -115,7 +116,7 @@ public class SlidingMenuManager implements AdapterView.OnItemClickListener {
             );
         } else {
             FragmentReplacer.clearSupBackStack(activity);
-            FragmentReplacer.replaceFragmentWithStack(activity, new StartMenu().newInstance(position - 1));
+            FragmentReplacer.replaceFragmentWithStack(activity, StartMenu.newInstance(position - 1));
         }
         menu.toggle();
     }

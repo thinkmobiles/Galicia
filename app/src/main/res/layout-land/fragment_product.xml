@@ -18,7 +18,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="210dp"
+            android:layout_width="@dimen/logo_width"
             android:layout_height="match_parent"
             android:layout_above="@+id/rlContBtn"
             android:gravity="center_horizontal"
@@ -26,14 +26,14 @@
 
             <ImageView
                 android:id="@+id/ivCompanyLogo_FPU"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/logo_width"
+                android:layout_height="@dimen/logo_width"
                 android:minHeight="@dimen/logo_min_height"
-                android:scaleType="fitStart" />
+                android:scaleType="fitCenter" />
 
             <ImageView
                 android:id="@+id/ivCompanyAward_FPU"
-                android:scaleType="fitStart"
+                android:scaleType="fitCenter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true" />
@@ -189,7 +189,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/btn_next_state_mormal" />
+                        android:src="@drawable/btn_next_state_mormal"
+                        android:layout_margin="@dimen/default_padding"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -205,7 +206,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/btn_prev_state_normal" />
+                        android:src="@drawable/btn_prev_state_normal"
+                        android:layout_margin="@dimen/default_padding"/>
                 </RelativeLayout>
             </RelativeLayout>
 

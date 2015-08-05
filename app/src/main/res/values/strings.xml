@@ -1,41 +1,15 @@
 <resources>
-    <!-- not use-->
-    <!--<string name="title_rivera">CERVEZAS HIJOS DE RIVERA</string>-->
-    <!--<string name="title_importacion">CERVEZAS DE importación</string>-->
-    <!--<string name="title_aguas">AGUAS</string>-->
-    <!--<string name="title_vino">VINO / LICORES</string>-->
-    <!--<string name="title_refrescos">REFRESCOS / ZUMOS / BATIDOS</string>-->
-    <!--<string name="title_sidras">SIDRAS</string>-->
-    <!--<string name="title_energetical">energéticas</string>-->
-    <!--<string name="title_envios">ENVIOS PENDIENTES</string>-->
-    <!--<string name="action_settings">Settings</string>-->
-    <!--<string name="title">Estrella Galicia - SDK Sample</string>-->
-    <!--<string name="header_label">Contador</string>-->
-    <!--<string name="counter_value">0</string>-->
-    <!--<string name="button_increment">+</string>-->
-    <!--<string name="button_decrement">-</string>-->
-    <!--<string name="button_reset">Reset</string>-->
-    <!--<string name="webservice_label">WebServcice Data:</string>-->
-    <!--<string name="button_webservice">Download</string>-->
-    <!--<string name="button_webservice_appconfig">Read content</string>-->
-    <!--<string name="added_item">Item added to cart</string>-->
-    <!--<string name="version">0.1</string>-->
-    <!--<string-array name="spinner_resource">-->
-        <!--<item>Item1</item>-->
-        <!--<item>Item2</item>-->
-        <!--<item>Item3</item>-->
-    <!--</string-array>-->
-
     <string name="app_name">Horeca Galicia</string>
 
     <!-- Slide menu-->
     <string name="title_inicio">INICIO</string>
-    <string name="title_envio">envíos pendientes</string>
+    <string name="title_envios">envíos</string>
 
     <!-- Dialogs-->
     <string name="dialog_lable">ANADIR FICHA A:</string>
     <string name="want_continue">ESTA FICHA HA SIDO AÑADIDA</string>
     <string name="locales_shopping">LOCALES</string>
+    <string name="fichas">FICHAS</string>
     <string name="guardar_shopping">ENVIAR</string>
     <string name="version">0.1</string>
     <string name="added_item">Item added to cart</string>
@@ -53,7 +27,7 @@
     <string name="empty_cart">Cart is empty</string>
     <string name="enter_shop">Por favor, añade un local</string>
     <string name="added_to_cart">Added to cart</string>
-    <string name="delete_shop">Shop deleted succesfull</string>
+    <string name="delete_shop">Locale eliminado correctamente</string>
     <string name="delete_item">Item eliminado correctamente</string>
     <string name="delete_all_item">All item deleted succesfull</string>
     <string name="delete_all_shop">All shop deleted succesfull</string>
@@ -72,7 +46,7 @@
     <!-- Views-->
     <string name="plus_info">+ INFO</string>
     <string name="vaciar">VACIAR</string>
-    <string name="title_videos">VIDEOS</string>
+    <string name="title_videos">VÍDEOS</string>
 
     <string-array name="list_id_big_image">
         <item>144</item>

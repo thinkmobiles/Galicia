@@ -28,6 +28,7 @@ import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.adapters.SpinnerPurchaseAdapter;
 import com.galicia.galicia.fragments.FragmentProduct;
+import com.galicia.galicia.fragments.ItemCartFragment;
 import com.galicia.galicia.fragments.ShopCartFragment;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.Constants;
@@ -55,7 +56,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
     private TextView tvAccept, tvCancel, tvTitle;
     private EditText shopName;
     private Item mCurrentItem;
-    private FrameLayout flTop, flBottom;
+    private FrameLayout flTop, flBottom, flCenter;
     private EventListener mListener;
     private List<Product> mProductList;
     private List<Item> mThirdList;
@@ -65,6 +66,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
     private boolean isShowListShop = false;
     private int typeDialog;
     private FragmentProduct mFragmentBack;
+    private Shop mShop;
     ArrayAdapter<String> adapter;
 
     public static AddProductToShopDialog newInstance(final ItemSerializable _item) {
@@ -137,6 +139,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
         tvAccept        = (TextView) _view.findViewById(R.id.tvAccept_PSD);
         flTop           = (FrameLayout) _view.findViewById(R.id.flTop_PSD);
         flBottom        = (FrameLayout) _view.findViewById(R.id.flBottom_PSD);
+        flCenter        = (FrameLayout) _view.findViewById(R.id.flBackground_PSD);
         autoCompleteTextView = (AutoCompleteTextView) _view.findViewById(R.id.etNewShop_PSD1);
         allShop         = (ImageView) _view.findViewById(R.id.iv_all_ItemShop_PSD);
     }
@@ -151,6 +154,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
         tvCancel.setOnClickListener(this);
         tvAccept.setOnClickListener(this);
         flBottom.setOnClickListener(this);
+        flCenter.setOnClickListener(this);
         flTop.setOnClickListener(this);
         allShop.setOnClickListener(this);
         makeDownloadListener();
@@ -163,7 +167,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
             case R.id.tvCancel_PSD:
                 if (questionCheck){
                     FragmentReplacer.popSupBackStack(getActivity());
-                    FragmentReplacer.replaceFragmentWithStack(getActivity(), new ShopCartFragment());
+                    FragmentReplacer.replaceFragmentWithStack(getActivity(), ItemCartFragment.newInstance(mShop.getId(), mShop.getName()));
                     questionCheck = false;
                 } else {
                     FragmentReplacer.popSupBackStack(getActivity());
@@ -176,8 +180,9 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
                 } else
                      onClickPositiveButton();
                 break;
-            case R.id.flTop_PSD:
+            case R.id.flBackground_PSD:
                 break;
+            case R.id.flTop_PSD:
             case R.id.flBottom_PSD:
                 FragmentReplacer.popSupBackStack(getActivity());
                 break;
@@ -190,8 +195,10 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
     private void changeDownUpList(){
         if(isShowListShop){
             autoCompleteTextView.dismissDropDown();
+            allShop.setImageResource(R.drawable.d_arrow);
         }else{
             autoCompleteTextView.showDropDown();
+            allShop.setImageResource(R.drawable.u_arrow);
         }
         isShowListShop = !isShowListShop;
     }
@@ -209,7 +216,6 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
          if (!autoCompleteTextView.getText().toString().isEmpty()) {
              questionCheck = true;
              if (isSelectChek) {
-                shopList.get(selected).getId();
 
                      DBManager.addItem(
                              mCurrentItem.getPdf(),
@@ -217,11 +223,12 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
                              mCurrentItem.getName(),
                              mCurrentItem.getIcon()
                      );
-
+                mShop = subList.get(selected);
                 isSelectChek = false;
                 setVisible();
              } else {
                  Shop shop = DBManager.addShop(autoCompleteTextView.getText().toString());
+                 mShop = shop;
                  spinnerLayout.setVisibility(View.VISIBLE);
                  addProduct();
 

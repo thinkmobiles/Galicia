@@ -3,6 +3,7 @@ package com.galicia.galicia.custom.custom_list;
 import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.galicia.galicia.R;
@@ -17,6 +18,7 @@ public class ItemBeverage extends LinearLayout {
 
     public TextView title;
     public ItemListBeverage description;
+    private RelativeLayout descr;
     private boolean titleIsShowed = true, descriptionIsShowed = false;
 
     private GroupBeverageModel gbm;
@@ -35,6 +37,7 @@ public class ItemBeverage extends LinearLayout {
     private void findViews(OnClickListener _Listener){
         title       = (TextView)            findViewById(R.id.tvTitle_BI);
         description = (ItemListBeverage)    findViewById(R.id.vDescription_BI);
+        descr       = (RelativeLayout)      findViewById(R.id.rlDescr_BI);
 
         title.setText(gbm.title);
         description.updateContent(gbm.beverageModels, _Listener);
@@ -43,6 +46,7 @@ public class ItemBeverage extends LinearLayout {
     public void expandDescription() {
         if (!descriptionIsShowed) {
             AnimationUtils.expand(description, MIN_SIZE_DESC, MAX_SIZE_DESC, 300);
+            AnimationUtils.expand(descr, MIN_SIZE_DESC, MAX_SIZE_DESC, 300);
 //            AnimationUtils.expand(view, MIN_SIZE_DESC, MAX_SIZE_DESC, 300);
             descriptionIsShowed = true;
         }
@@ -51,6 +55,7 @@ public class ItemBeverage extends LinearLayout {
     public void collapseDescription() {
         if (descriptionIsShowed) {
             AnimationUtils.collapse(description, MIN_SIZE_DESC, MAX_SIZE_DESC, 300, true);
+            AnimationUtils.collapse(descr, MIN_SIZE_DESC, MAX_SIZE_DESC, 300, true);
             descriptionIsShowed = false;
 
         }

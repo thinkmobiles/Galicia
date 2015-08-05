@@ -2,6 +2,7 @@ package com.galicia.galicia.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -109,7 +110,6 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
 //                    s = s + llContProd.getChildAt(i).getMeasuredWidth();
                     s = s + 180;
                 }
-                Log.e("width", s + " " + maxWidth);
                 if (s < maxWidth) {
                     rlNext.setVisibility(View.GONE);
                     rlPrev.setVisibility(View.GONE);
@@ -371,14 +371,6 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
 
         mCallingActivity.setTitle(mCurrentItem.getName());
         mCallingActivity.setBackground(mCurrentItem.getBackgroundImage());
-
-//        if(hasBigImage(mCurrentItem.getId())){
-//            LinearLayout.LayoutParams param25 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 3.0f);
-//            LinearLayout.LayoutParams param75 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
-//
-//            rlContWeb.setLayoutParams(param25);
-//            rlContHSV.setLayoutParams(param75);
-//        }
 
         if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("<span style='font-family: Helvetica Neue, Helvetica, Arial, sans-serif;'></span>")) {
             rlContWeb.setVisibility(View.GONE);

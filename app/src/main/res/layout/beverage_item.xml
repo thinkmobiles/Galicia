@@ -10,12 +10,29 @@
         style="@style/TitleStyle"
         android:layout_alignParentTop="true" />
 
-    <com.galicia.galicia.custom.custom_list.ItemListBeverage
-        android:id="@+id/vDescription_BI"
-        android:background="@android:color/white"
-        android:layout_height="0dp"
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:visibility="gone"
-        android:gravity="center_horizontal"
-        android:layout_below="@+id/tvTitle_BI" />
+        android:layout_height="0dp"
+        android:layout_below="@+id/tvTitle_BI"
+        android:id="@+id/rlDescr_BI">
+
+        <com.galicia.galicia.custom.custom_list.ItemListBeverage
+            android:id="@+id/vDescription_BI"
+            android:background="@android:color/white"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:gravity="center_horizontal" />
+        <View
+            android:layout_width="@dimen/abc_action_bar_progress_bar_size"
+            android:layout_height="match_parent"
+            android:background="@drawable/horizontal_gradient_shape"
+            android:paddingBottom="@dimen/menu_item_size_txt"
+            android:layout_alignParentRight="true"
+            android:id="@+id/alpha">
+
+        </View>
+    </RelativeLayout>
 </RelativeLayout>

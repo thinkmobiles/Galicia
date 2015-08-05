@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cristaliza.mvc.models.estrella.Item;
 import com.galicia.galicia.MainActivity;
 import com.galicia.galicia.R;
 import com.galicia.galicia.adapters.ItemCartAdapter;
@@ -19,7 +19,6 @@ import com.galicia.galicia.custom.CustomDialog;
 import com.galicia.galicia.global.Constants;
 import com.galicia.galicia.orm_database.DBManager;
 import com.galicia.galicia.orm_database.DBProduct;
-import com.galicia.galicia.untils.DataBase.ItemDAO;
 import com.galicia.galicia.untils.PDFSender;
 
 import java.util.List;
@@ -84,6 +83,7 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
         purchaseList = (ListView) view.findViewById(R.id.lv_list_Shopping_FS);
         ivGoBack = (ImageView) view.findViewById(R.id.iv_back_FPU);
         btnEnviar = (Button) view.findViewById(R.id.tw_guardar_button_FS);
+        ((TextView) view.findViewById(R.id.tv_locales_label_FS)).setText(callActivity.getString(R.string.fichas));
     }
 
     private void setListeners(){
@@ -104,7 +104,9 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
                 startDeleteDialog();
                 break;
             case R.id.iv_back_FPU:
-                super.getActivity().onBackPressed();
+                callActivity.onBackPressed();
+                callActivity.setTitle(callActivity.getString(R.string.title_envios));
+//                FragmentReplacer.replaceFragmentWithoutBackStack(callActivity, new ShopCartFragment());
                 break;
             case R.id.tw_guardar_button_FS:
                 sendPDF();
