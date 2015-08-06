@@ -20,36 +20,41 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/default_small_margin"
-        android:layout_marginBottom="@dimen/default_small_margin">
+        android:layout_alignParentRight="true">
         <ImageView
             android:id="@+id/iv_refresh_shop_item_IS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/refresh"
             android:visibility="gone"
-            android:layout_marginLeft="@dimen/default_small_margin" />
+            android:layout_marginLeft="@dimen/default_small_margin"
+            android:layout_marginTop="@dimen/default_small_margin"
+            android:layout_marginBottom="@dimen/default_small_margin" />
         <ImageView
             android:id="@+id/iv_delete_shop_item_IS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/btn_circle_delete"
-            android:layout_marginLeft="@dimen/default_small_margin" />
+            android:layout_marginLeft="@dimen/default_small_margin"
+            android:layout_marginTop="@dimen/default_small_margin"
+            android:layout_marginBottom="@dimen/default_small_margin" />
         <ImageView
             android:id="@+id/iv_see_detail_shop_item_IS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/btn_circle_see"
-            android:layout_marginLeft="@dimen/default_small_margin" />
+            android:layout_marginLeft="@dimen/default_small_margin"
+            android:layout_marginTop="@dimen/default_small_margin"
+            android:layout_marginBottom="@dimen/default_small_margin" />
         <ImageView
             android:id="@+id/iv_send_shop_item_IS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/default_small_margin"
+            android:layout_marginTop="@dimen/default_small_margin"
+            android:layout_marginBottom="@dimen/default_small_margin"
             android:layout_weight="1"
             android:src="@drawable/btn_circle_send" />
     </LinearLayout>

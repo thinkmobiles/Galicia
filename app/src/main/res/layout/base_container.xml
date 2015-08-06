@@ -6,17 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-    <LinearLayout
+    <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/action_bar_header_height"
         android:gravity="center_vertical">
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_weight="2"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/tvLogoTitle">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,17 +36,15 @@
                 android:gravity="center_vertical" />
         </LinearLayout>
         <ImageView
-            android:layout_weight="4"
             android:id="@+id/tvLogoTitle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/logo_nacional"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/default_big_margin"
             android:layout_marginTop="@dimen/default_small_margin"
             android:layout_marginBottom="@dimen/default_small_margin"
             android:scaleType="fitCenter" />
-    </LinearLayout>
+    </RelativeLayout>
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"

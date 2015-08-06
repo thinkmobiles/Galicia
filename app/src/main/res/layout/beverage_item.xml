@@ -4,16 +4,33 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/tvTitle_BI"
+        android:id="@+id/descr">
+
+        <com.cristaliza.nacional.custom.custom_list.ItemListBeverage
+            android:id="@+id/vDescription_BI"
+            android:background="@android:color/white"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:gravity="center_horizontal"/>
+
+        <View
+            android:layout_width="@dimen/abc_action_bar_progress_bar_size"
+            android:layout_height="match_parent"
+            android:background="@drawable/horizontal_gradient_shape"
+            android:paddingBottom="@dimen/menu_item_size_txt"
+            android:layout_alignParentRight="true">
+        </View>
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/tvTitle_BI"
         style="@style/TitleStyle"
         android:layout_alignParentTop="true" />
-    <com.cristaliza.nacional.custom.custom_list.ItemListBeverage
-        android:id="@+id/vDescription_BI"
-        android:background="@android:color/white"
-        android:layout_height="0dp"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:gravity="center_horizontal"
-        android:layout_below="@+id/tvTitle_BI" />
+
 </RelativeLayout>
