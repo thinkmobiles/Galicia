@@ -278,7 +278,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         for (int i = 0; i < mProductList.size(); ++i) {
             View view = View.inflate(mCallingActivity, R.layout.item_horizontal_list_product, null);
             ImageView image = (ImageView) view.findViewById(R.id.ivPhotoProd);
-            image.setImageBitmap(BitmapCreator.getBitmap(mProductList.get(i).getImage()));
+            image.setImageBitmap(BitmapCreator.getBitmap(mProductList.get(i).getImageSmall()));
             view.setLayoutParams(params);
             view.setOnClickListener(getListener(i));
             llContProd.addView(view);
