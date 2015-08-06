@@ -260,7 +260,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         llMoreDetail.setVisibility(View.VISIBLE);
         rlContHSV.setVisibility(View.GONE);
         lvProductVideo.setVisibility(View.GONE);
-        ivProductPhoto.setImageBitmap(BitmapCreator.getBitmap(mProductList.get(0).getImage()));
+        ivProductPhoto.setImageBitmap(BitmapCreator.getBitmap(mProductList.get(0).getImageSmall()));
         tvProductPhotoTitle.setText(mCallingActivity.getString(R.string.plus_info));
         llDeac.setPadding(0, 0, 0, mCallingActivity.getResources().getInteger(R.integer.desc_padding_bottom));
     }
