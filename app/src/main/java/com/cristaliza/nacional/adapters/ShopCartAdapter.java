@@ -123,7 +123,7 @@ public class ShopCartAdapter extends BaseAdapter {
     }
 
     private View.OnClickListener shopItemListener(final int _pos) {
-        View.OnClickListener listener = new View.OnClickListener() {
+        return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
@@ -139,8 +139,6 @@ public class ShopCartAdapter extends BaseAdapter {
                 }
             }
         };
-
-        return listener;
     }
 
 }

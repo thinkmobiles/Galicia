@@ -107,7 +107,7 @@ public class ItemCartAdapter extends BaseAdapter {
     }
 
     private View.OnClickListener productItemListener(final int pos) {
-        View.OnClickListener listener = new View.OnClickListener() {
+        return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
@@ -117,7 +117,6 @@ public class ItemCartAdapter extends BaseAdapter {
                 }
             }
         };
-        return listener;
     }
 
 }

@@ -54,7 +54,7 @@
     <dimen name="menu_text_size">17sp</dimen>
     <dimen name="margin_item">25dp</dimen>
     <dimen name="width_item_hlv_mini">150dp</dimen>
-    <dimen name="height_item_hlv_mini">180dp</dimen>
+    <dimen name="height_item_hlv_mini">300dp</dimen>
     <!--Main Activity-->
     <dimen name="action_bar_header_height">90dp</dimen>
     <dimen name="action_bar_title_txt_size">28dp</dimen>
