@@ -8,6 +8,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_item_hlv_mini"
             android:layout_above="@+id/ivPlusInfo"
+            android:scaleType="fitEnd"
             android:layout_alignParentTop="true"/>
 
     <TextView

@@ -266,11 +266,15 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     }
 
     private LinearLayout.LayoutParams params80;
+    private LinearLayout.LayoutParams params80_0;
     private LinearLayout.LayoutParams params150;
+    private LinearLayout.LayoutParams params150_0;
 
     private void initParamItemHSV(){
         params80 = new LinearLayout.LayoutParams(85, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params150 = new LinearLayout.LayoutParams(180, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params80_0 = new LinearLayout.LayoutParams(85, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params150 = new LinearLayout.LayoutParams(170, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params150_0 = new LinearLayout.LayoutParams(170, ViewGroup.LayoutParams.WRAP_CONTENT);
         params80.setMargins(0,0,60,0);
         params150.setMargins(0,0,60,0);
     }
@@ -289,13 +293,19 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             View view = View.inflate(mCallingActivity, R.layout.item_horizontal_list_product, null);
             ImageView image = (ImageView) view.findViewById(R.id.ivPhotoProd);
             bitmap = BitmapCreator.getBitmap(mProductList.get(i).getImage());
-            Log.e("size", bitmap.getWidth() + " " + bitmap.getHeight());
             image.setImageBitmap(bitmap);
             if(bitmap.getWidth() > bitmap.getHeight() - 400) {
                 image.setScaleType(ImageView.ScaleType.FIT_END);
                 view.setLayoutParams(params150);
-            } else
+                if(i == mProductList.size() - 1){
+                    view.setLayoutParams(params150_0);
+                }
+            } else {
                 view.setLayoutParams(params80);
+                if(i == mProductList.size() - 1){
+                    view.setLayoutParams(params80_0);
+                }
+            }
             view.setOnClickListener(getListener(i));
             llContProd.addView(view);
         }

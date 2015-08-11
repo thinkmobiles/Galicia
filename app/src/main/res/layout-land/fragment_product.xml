@@ -80,9 +80,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:id="@+id/rlContWeb"
-                android:layout_marginBottom="@dimen/default_middle_margin">
+                android:layout_marginBottom="@dimen/default_margin">
                 <ScrollView
                     android:id="@+id/scrV"
                     android:layout_width="match_parent"
@@ -108,8 +108,7 @@
             <RelativeLayout
                 android:id="@+id/rlContHSV"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="3">
+                android:layout_height="@dimen/height_item_hlv_mini">
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
