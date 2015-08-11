@@ -11,6 +11,15 @@
         android:layout_height="wrap_content"
        />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvEAN_CS"
+        android:textSize="18dp"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/tvItemTitle_CS"
+        android:layout_alignLeft="@+id/tvItemTitle_CS" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -32,7 +41,7 @@
                 android:layout_marginLeft="@dimen/margin_navigation_button"
                 android:visibility="invisible"/>
 
-            <TextView
+            <WebView
                 android:id="@+id/tvItemFormatOne_CS"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,7 +50,7 @@
                 android:layout_marginLeft="@dimen/margin_product"
                 />
 
-            <TextView
+            <WebView
                 android:id="@+id/tvItemFormatThree_CS"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -76,7 +85,7 @@
                 android:layout_marginRight="@dimen/margin_navigation_button"
                 android:visibility="invisible"/>
 
-            <TextView
+            <WebView
                 android:id="@+id/tvItemFormatTwo_CS"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,7 +94,7 @@
                 android:layout_marginTop="@dimen/up_margin_pager"
                 android:layout_marginRight="@dimen/margin_product"/>
 
-            <TextView
+            <WebView
                 android:id="@+id/tvItemFormatFour_CS"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -98,4 +107,5 @@
         </RelativeLayout>
 
     </LinearLayout>
+
 </RelativeLayout>
