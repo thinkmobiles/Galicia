@@ -2,6 +2,7 @@ package com.cristaliza.nacional.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -315,9 +316,23 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         startActivity(intent);
     }
     private void makeData() {
-        ivCompanyLogo.setImageBitmap(BitmapCreator.getBitmap(mCurrentItem.getLogo()));
+        Bitmap bitmap = BitmapCreator.getBitmap(mCurrentItem.getLogo());
+        if(bitmap != null){
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    (int) mCallingActivity.getResources().getDimension(R.dimen.logo_width),
+                    bitmap.getHeight() * 19 / 30);
+            ivCompanyLogo.setLayoutParams(params);
+        }
+        ivCompanyLogo.setImageBitmap(bitmap);
         if (mCurrentItem.getPrizes() != null) {
-            ivProductAward.setImageBitmap(BitmapCreator.getBitmap(mCurrentItem.getPrizes().get(0)));
+            bitmap = BitmapCreator.getBitmap(mCurrentItem.getPrizes().get(0));
+            if(bitmap.getHeight() < 450){
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        (int) mCallingActivity.getResources().getDimension(R.dimen.logo_width),
+                        bitmap.getHeight() * 19 / 30);
+                ivProductAward.setLayoutParams(params);
+            }
+            ivProductAward.setImageBitmap(bitmap);
         }
         mCallingActivity.setTitle(mCurrentItem.getName());
         mCallingActivity.setBackground(mCurrentItem.getBackgroundImage());
