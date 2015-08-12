@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.ActionMenuView;
 import android.widget.AdapterView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -168,9 +169,6 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             @Override
             public void onEvent(Event event) {
                 switch (event.getId()) {
-                    case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
-                        Toast.makeText(getActivity(), event.getType() + getActivity().getString(R.string.error), Toast.LENGTH_SHORT).show();
-                        break;
                     case AppModel.ChangeEvent.THIRD_LEVEL_CHANGED_ID:
                         mThirdList = ApiManager.getThirdList();
                         getProduct();
@@ -364,16 +362,32 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     }
 
     private void makeData() {
-        ivCompanyLogo.setImageBitmap(BitmapCreator.getBitmap(mCurrentItem.getLogo()));
+        Bitmap bitmap = BitmapCreator.getBitmap(mCurrentItem.getLogo());
+        if(bitmap != null){
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    (int) mCallingActivity.getResources().getDimension(R.dimen.logo_width),
+                    bitmap.getHeight() * 19 / 30
+            );
+            ivCompanyLogo.setLayoutParams(params);
+        }
+        ivCompanyLogo.setImageBitmap(bitmap);
         if (mCurrentItem.getPrizes() != null) {
-            ivProductAward.setImageBitmap(BitmapCreator.getBitmap(mCurrentItem.getPrizes().get(0)));
+            bitmap = BitmapCreator.getBitmap(mCurrentItem.getPrizes().get(0));
+            if(bitmap.getHeight() < 450){
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        (int) mCallingActivity.getResources().getDimension(R.dimen.logo_width),
+                        bitmap.getHeight() * 19 / 30
+                );
+                ivProductAward.setLayoutParams(params);
+            }
+            ivProductAward.setImageBitmap(bitmap);
         }
 
         mCallingActivity.setTitle(mCurrentItem.getName());
         mCallingActivity.setBackground(mCurrentItem.getBackgroundImage());
 
         if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("<span style='font-family: Helvetica Neue, Helvetica, Arial, sans-serif;'></span>")) {
-            rlContWeb.setVisibility(View.GONE);
+            rlContWeb.setVisibility(View.INVISIBLE);
         } else {
             wvProductDescription.loadDataWithBaseURL(
                     "",

@@ -74,7 +74,8 @@ public class FragmentItemDetails extends Fragment {
 
     private void makeData() {
         mItemName.setText(mSProduct.getProduct().getName());
-        mItemEan.setText(mSProduct.getProduct().getEAN());
+        if(mSProduct.getProduct().getEAN() != null)
+            mItemEan.setText("EAN " + mSProduct.getProduct().getEAN());
         mItemImage.setImageBitmap(BitmapCreator.getBitmap(mSProduct.getProduct().getImage()));
 
         if (mSProduct.getProduct().getPackaging() != null)
