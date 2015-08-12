@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.ActionMenuView;
 import android.widget.AdapterView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -151,9 +152,6 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             @Override
             public void onEvent(Event event) {
                 switch (event.getId()) {
-                    case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
-                        Toast.makeText(getActivity(), event.getType() + getActivity().getString(R.string.error), Toast.LENGTH_SHORT).show();
-                        break;
                     case AppModel.ChangeEvent.THIRD_LEVEL_CHANGED_ID:
                         mThirdList = ApiManager.getThirdList();
                         getProduct();
@@ -292,7 +290,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         for (int i = 0; i < mProductList.size(); ++i) {
             View view = View.inflate(mCallingActivity, R.layout.item_horizontal_list_product, null);
             ImageView image = (ImageView) view.findViewById(R.id.ivPhotoProd);
-            bitmap = BitmapCreator.getBitmap(mProductList.get(i).getImage());
+            bitmap = BitmapCreator.getBitmap(mProductList.get(i).getImageSmall());
             image.setImageBitmap(bitmap);
             if(bitmap.getWidth() > bitmap.getHeight() - 400) {
                 image.setScaleType(ImageView.ScaleType.FIT_END);
@@ -341,9 +339,25 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         startActivity(intent);
     }
     private void makeData() {
-        ivCompanyLogo.setImageBitmap(BitmapCreator.getBitmap(mCurrentItem.getLogo()));
+        Bitmap bitmap = BitmapCreator.getBitmap(mCurrentItem.getLogo());
+        if(bitmap != null){
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    (int) mCallingActivity.getResources().getDimension(R.dimen.logo_width),
+                    bitmap.getHeight() * 19 / 30
+            );
+            ivCompanyLogo.setLayoutParams(params);
+        }
+        ivCompanyLogo.setImageBitmap(bitmap);
         if (mCurrentItem.getPrizes() != null) {
-            ivProductAward.setImageBitmap(BitmapCreator.getBitmap(mCurrentItem.getPrizes().get(0)));
+            bitmap = BitmapCreator.getBitmap(mCurrentItem.getPrizes().get(0));
+            if(bitmap.getHeight() < 450) {
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        (int) mCallingActivity.getResources().getDimension(R.dimen.logo_width),
+                        bitmap.getHeight() * 19 / 30
+                );
+//                ivProductAward.setLayoutParams(params);
+            }
+            ivProductAward.setImageBitmap(bitmap);
         }
         mCallingActivity.setTitle(mCurrentItem.getName());
         mCallingActivity.setBackground(mCurrentItem.getBackgroundImage());
