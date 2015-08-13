@@ -88,15 +88,13 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             maxWidth = getDisplayWidth() / 4 * 3;
         }
         if(mThirdList.size() >= 1) {
-            long s = -150;
-            if(llContProd.getChildCount() != 0) {
-                for (int i = 0; i < mProductList.size(); ++i) {
-                    s = s + llContProd.getChildAt(i).getMeasuredWidth();
-                }
-                if (s < maxWidth) {
-                    rlNext.setVisibility(View.GONE);
-                    rlPrev.setVisibility(View.GONE);
-                }
+            long s = -100;
+            for (int i = 0; i < llContProd.getChildCount(); ++i) {
+                s = s + llContProd.getChildAt(i).getMeasuredWidth();
+            }
+            if (s < maxWidth) {
+                rlNext.setVisibility(View.GONE);
+                rlPrev.setVisibility(View.GONE);
             }
         }
     }
@@ -156,14 +154,9 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
                         break;
                     case AppModel.ChangeEvent.PRODUCTS_CHANGED_ID:
                         mProductList.add(ApiManager.getProductsList().get(0));
-                        initProductDetail();
                 }
             }
         };
-    }
-    public void setTypeDialog(int _type) {
-        typeDialog = _type;
-        ivAddProduct.setImageResource(R.drawable.selector_btn_added_envio);
     }
     private void getProduct() {
         if (mProductList == null) {
@@ -171,7 +164,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             for (Item item : mThirdList) {
                 ApiManager.getProducts(mListener, item);
             }
-        } else initProductDetail();
+        }
+        initProductDetail();
     }
     @Override
     public void onClick(View v) {
@@ -329,7 +323,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             if(bitmap.getHeight() < 450){
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                         (int) mCallingActivity.getResources().getDimension(R.dimen.logo_width),
-                        bitmap.getHeight() * 19 / 30);
+                        bitmap.getHeight() * 19 / 30 - 25);
                 ivProductAward.setLayoutParams(params);
             }
             ivProductAward.setImageBitmap(bitmap);
