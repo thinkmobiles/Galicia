@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -135,6 +136,12 @@ public class StartMenu extends Fragment implements View.OnClickListener {
                     }
                 }
                 selectedView = view;
+                String name = String.valueOf(((TextView) view).getText().toString());
+                for(int i = 0; i < mMenuItemList.size(); ++i) {
+                    if(mMenuItemList.get(i).getName().equals(name)){
+                        idOpen = i;
+                    }
+                }
             } else {
                 for (ItemBeverage ib : views) {
                     ib.showTitle();
@@ -142,6 +149,7 @@ public class StartMenu extends Fragment implements View.OnClickListener {
                         ib.collapseDescription();
                 }
                 selectedView = null;
+                idOpen = -1;
             }
             mBaseTitle = ((TextView) view).getText().toString();
         }

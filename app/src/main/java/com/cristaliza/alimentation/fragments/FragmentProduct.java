@@ -92,11 +92,11 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             maxWidth = getDisplayWidth() / 4 * 3;
         }
         if(mThirdList.size() >= 1) {
-            long s = -10;
+            long s = -60;
             if(llContProd.getChildCount() != 0) {
                 for (int i = 0; i < llContProd.getChildCount(); ++i) {
-//                    s = s + llContProd.getChildAt(i).getMeasuredWidth();
-                    s = s + 180;
+                    s = s + llContProd.getChildAt(i).getMeasuredWidth() + 60;
+//                    s = s + 180;
                 }
                 if (s < maxWidth) {
                     rlNext.setVisibility(View.GONE);
@@ -158,22 +158,19 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
                         break;
                     case AppModel.ChangeEvent.PRODUCTS_CHANGED_ID:
                         mProductList.add(ApiManager.getProductsList().get(0));
-                        initProductDetail();
                 }
             }
         };
     }
-    public void setTypeDialog(int _type) {
-        typeDialog = _type;
-        ivAddProduct.setImageResource(R.drawable.selector_btn_added_envio);
-    }
+
     private void getProduct() {
         if (mProductList == null) {
             mProductList = new ArrayList<Product>();
             for (Item item : mThirdList) {
                 ApiManager.getProducts(mListener, item);
             }
-        } else initProductDetail();
+        }
+        initProductDetail();
     }
     @Override
     public void onClick(View v) {
@@ -292,18 +289,26 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             ImageView image = (ImageView) view.findViewById(R.id.ivPhotoProd);
             bitmap = BitmapCreator.getBitmap(mProductList.get(i).getImageSmall());
             image.setImageBitmap(bitmap);
-            if(bitmap.getWidth() > bitmap.getHeight() - 400) {
-                image.setScaleType(ImageView.ScaleType.FIT_END);
-                view.setLayoutParams(params150);
-                if(i == mProductList.size() - 1){
-                    view.setLayoutParams(params150_0);
-                }
-            } else {
-                view.setLayoutParams(params80);
-                if(i == mProductList.size() - 1){
-                    view.setLayoutParams(params80_0);
-                }
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    bitmap.getWidth() * 27 / 44,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            if(i != mProductList.size() - 1){
+                params.setMargins(0, 0, 60, 0);
             }
+            view.setLayoutParams(params);
+//            if(bitmap.getWidth() > bitmap.getHeight() - 400) {
+//                image.setScaleType(ImageView.ScaleType.FIT_END);
+//                view.setLayoutParams(params150);
+//                if(i == mProductList.size() - 1){
+//                    view.setLayoutParams(params150_0);
+//                }
+//            } else {
+//                view.setLayoutParams(params80);
+//                if(i == mProductList.size() - 1){
+//                    view.setLayoutParams(params80_0);
+//                }
+//            }
             view.setOnClickListener(getListener(i));
             llContProd.addView(view);
         }
