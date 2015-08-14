@@ -107,7 +107,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
 //            long s = -200;
             long s = -100;
             for (int i = 0; i < llContProd.getChildCount(); ++i) {
-                s = s + llContProd.getChildAt(i).getMeasuredWidth();
+                s = s + llContProd.getChildAt(i).getMeasuredWidth() + 30;
 //                s = s + 180;
             }
             if (s < maxWidth) {
@@ -374,7 +374,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             if(bitmap.getHeight() < 450){
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                         (int) mCallingActivity.getResources().getDimension(R.dimen.logo_width),
-                        bitmap.getHeight() * 19 / 30
+                        bitmap.getHeight() * 19 / 31
                 );
                 ivProductAward.setLayoutParams(params);
             }
