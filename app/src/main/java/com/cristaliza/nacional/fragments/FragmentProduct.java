@@ -323,7 +323,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             if(bitmap.getHeight() < 450){
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                         (int) mCallingActivity.getResources().getDimension(R.dimen.logo_width),
-                        bitmap.getHeight() * 19 / 30);
+                        bitmap.getHeight() * 19 / 31);
                 ivProductAward.setLayoutParams(params);
             }
             ivProductAward.setImageBitmap(bitmap);
