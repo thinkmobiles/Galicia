@@ -137,6 +137,7 @@ public class StartMenu extends Fragment implements View.OnClickListener {
                     mCallingActivity,
                     CompaniaFragment.newInstance(new ItemSerializable(mMenuItemList.get(0)))
             );
+            idOpen = -1;
         } else {
             if (selectedView == null || selectedView == view)
                 stateListExpand.set(!stateListExpand.get());
@@ -153,6 +154,12 @@ public class StartMenu extends Fragment implements View.OnClickListener {
                     }
                 }
                 selectedView = view;
+                String name = ((TextView) view).getText().toString();
+                for(int i = 0; i < mMenuItemList.size(); ++i){
+                    if(mMenuItemList.get(i).getName().equals(name)){
+                        idOpen = i;
+                    }
+                }
             } else {
                 for (ItemBeverage ib : views) {
                     ib.showTitle();
@@ -160,6 +167,7 @@ public class StartMenu extends Fragment implements View.OnClickListener {
                         ib.collapseDescription();
                 }
                 selectedView = null;
+                idOpen = -1;
             }
             mBaseTitle = ((TextView) view).getText().toString();
         }

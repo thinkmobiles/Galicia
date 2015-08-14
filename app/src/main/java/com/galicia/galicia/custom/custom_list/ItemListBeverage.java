@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,7 +83,14 @@ public class ItemListBeverage extends RelativeLayout {
 
     private void setImage(ImageView view, Item _item) {
         if (_item.getIcon() != null){
-            view.setImageBitmap(getBitmap(_item.getIcon()));
+            Bitmap bitmap = getBitmap(_item.getIcon());
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    bitmap.getWidth() * 250 / bitmap.getHeight(),
+                    ViewGroup.LayoutParams.MATCH_PARENT
+            );
+            params.setMargins(40, 5, 40, 5);
+            view.setImageBitmap(bitmap);
+            view.setLayoutParams(params);
         } else {
             view.setImageResource(R.drawable.default_bytulka);
         }

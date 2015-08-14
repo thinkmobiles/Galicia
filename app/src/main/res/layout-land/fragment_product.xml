@@ -24,16 +24,14 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
                 <ImageView
                     android:id="@+id/ivCompanyLogo_FPU"
                     android:layout_width="@dimen/logo_width"
                     android:layout_height="wrap_content"
                     android:scaleType="fitStart" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="25px"/>
 
                 <ImageView
                     android:id="@+id/ivCompanyAward_FPU"
@@ -41,7 +39,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true" />
-            </LinearLayout>
         </LinearLayout>
 
         <RelativeLayout
