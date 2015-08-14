@@ -26,7 +26,7 @@ public class ItemListBeverage extends RelativeLayout {
     public ItemListBeverage(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.ITEM_WIDTH         = (int) context.getResources().getDimension(R.dimen.beverage_item_w)
-                + 2 * (int)context.getResources().getDimension(R.dimen.beverage_item_margin_right_left);
+                + 2 * 40;
         this.MAX_PHYSICAL_WIDTH = context.getResources().getDisplayMetrics().widthPixels;
         prepareViews();
     }
@@ -44,13 +44,13 @@ public class ItemListBeverage extends RelativeLayout {
         llContainer.removeAllViews();
         for (Item bm : beverageModels) {
             final ImageView iv = (ImageView) LayoutInflater.from(getContext()).inflate(R.layout.beverage_horizontal_list_item, llContainer, false);
-            if ("19".equals(bm.getId()) || "35".equals(bm.getId())) {
-                iv.setPadding(0, 8, 0, 8);
-                if("35".equals(bm.getId())) {
-                    params.width = 340;
-                }
-                iv.setLayoutParams(params);
-            }
+//            if ("19".equals(bm.getId()) || "35".equals(bm.getId())) {
+//                iv.setPadding(0, 8, 0, 8);
+//                if("35".equals(bm.getId())) {
+//                    params.width = 340;
+//                }
+//                iv.setLayoutParams(params);
+//            }
             setImage(iv, bm.getIcon());
             iv.setTag(bm);
             iv.setOnClickListener(_ClickListener);
@@ -94,8 +94,16 @@ public class ItemListBeverage extends RelativeLayout {
         if (_path != null) {
             if (_path.isEmpty())
                 view.setImageResource(R.drawable.default_bytulka);
-            else
-                view.setImageBitmap(getBitmap(_path));
+            else {
+                Bitmap bitmap = getBitmap(_path);
+                view.setImageBitmap(bitmap);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        bitmap.getWidth() * 235 / bitmap.getHeight(),
+                        ViewGroup.LayoutParams.MATCH_PARENT
+                );
+                params.setMargins(40, 5, 40, 5);
+                view.setLayoutParams(params);
+            }
         } else {
             view.setImageResource(R.drawable.default_bytulka);
         }

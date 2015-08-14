@@ -121,6 +121,7 @@ public class StartMenu extends Fragment implements View.OnClickListener {
                     mCallingActivity,
                     CompaniaFragment.newInstance(new ItemSerializable(mMenuItemList.get(0)))
             );
+            idOpen = -1;
         } else {
             if (selectedView == null || selectedView == view)
                 stateListExpand.set(!stateListExpand.get());

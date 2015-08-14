@@ -3,7 +3,6 @@ package com.cristaliza.alimentation.fragments;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.ActionMenuView;
 import android.widget.AdapterView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -19,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cristaliza.mvc.events.Event;
 import com.cristaliza.mvc.events.EventListener;
@@ -348,7 +345,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         if(bitmap != null){
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     (int) mCallingActivity.getResources().getDimension(R.dimen.logo_width),
-                    bitmap.getHeight() * 19 / 30
+                    bitmap.getHeight() * 190 / bitmap.getWidth()
             );
             ivCompanyLogo.setLayoutParams(params);
         }
@@ -357,10 +354,10 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             bitmap = BitmapCreator.getBitmap(mCurrentItem.getPrizes().get(0));
             if(bitmap.getHeight() < 450) {
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        (int) mCallingActivity.getResources().getDimension(R.dimen.logo_width),
-                        bitmap.getHeight() * 19 / 30
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        bitmap.getHeight() * 19 / 31
                 );
-//                ivProductAward.setLayoutParams(params);
+                ivProductAward.setLayoutParams(params);
             }
             ivProductAward.setImageBitmap(bitmap);
         }
@@ -394,6 +391,9 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     }
     private int getDisplayWidth() {
         return mCallingActivity.getWindowManager().getDefaultDisplay().getWidth();
+    }
+    private int getDisplayHeight(){
+        return mCallingActivity.getWindowManager().getDefaultDisplay().getHeight();
     }
     private void startSlideFragment(int _position) {
         FragmentReplacer.replaceFragmentWithStack(
