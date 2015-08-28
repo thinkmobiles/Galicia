@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.cristaliza.alimentation"
-        minSdkVersion 16
+        minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -32,5 +32,5 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'it.sephiroth.android.library.imagezoom:imagezoom:+'
     compile 'com.github.satyan:sugar:1.3'
-//    compile files('/home/samson/StudioProjects/Galicia/libs/estrella-sdk-1.5.jar')
+    compile files('/home/samson/StudioProjects/Galicia/libs/estrella-sdk-1.5.jar')
 }
