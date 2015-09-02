@@ -52,14 +52,6 @@ public class ItemListBeverage extends RelativeLayout {
         if (beverageModels.size() * ITEM_WIDTH > MAX_PHYSICAL_WIDTH)
             prepareScrollParent();
         else prepareRelativeParent();
-//        final float scale = getResources().getDisplayMetrics().density;
-//        int my_dp = (int) (20 * scale + 0.5f);
-//        View view = new View(getContext());
-//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(my_dp,ViewGroup.LayoutParams.MATCH_PARENT);
-//        params.gravity = Gravity.END;
-//        view.setLayoutParams(params);
-//        view.setBackgroundResource(R.drawable.horizontal_gradient_shape);
-//        addView(view);
 
     }
 
@@ -83,12 +75,14 @@ public class ItemListBeverage extends RelativeLayout {
 
     private void setImage(ImageView view, Item _item) {
         if (_item.getIcon() != null){
+            int koef = MAX_PHYSICAL_WIDTH / 5;
+            int marginLeftRight = MAX_PHYSICAL_WIDTH / 32;
             Bitmap bitmap = getBitmap(_item.getIcon());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    bitmap.getWidth() * 250 / bitmap.getHeight(),
+                    bitmap.getWidth() * koef / bitmap.getHeight(),
                     ViewGroup.LayoutParams.MATCH_PARENT
             );
-            params.setMargins(40, 5, 40, 5);
+            params.setMargins(marginLeftRight, 5, marginLeftRight, 5);
             view.setImageBitmap(bitmap);
             view.setLayoutParams(params);
         } else {
