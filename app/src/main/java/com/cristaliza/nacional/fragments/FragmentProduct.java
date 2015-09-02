@@ -228,22 +228,13 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         if (mThirdList.size() == 1) {
             setOneProductDetail();
         } else {
-//            llMoreDetail.setVisibility(View.GONE);
-//            llMoreDetail.setLayoutParams(new RelativeLayout.LayoutParams(0, 0));
             calculateContainerSizeIfProductNoDetail();
-//            hlvAllProduct.setVisibility(View.VISIBLE);
             initHorizontalImageList();
         }
     }
     private boolean bigPart = false;
     private void calculateContainerSizeIfProductNoDetail() {
         bigPart = true;
-//        int companyLogoWidth = getDisplayWidth() / 8 * 2;
-//        int productDetailWidth = getDisplayWidth() / 8 * 6;
-//        final RelativeLayout.LayoutParams companyLogoParams = new RelativeLayout.LayoutParams(companyLogoWidth, ViewGroup.LayoutParams.MATCH_PARENT);
-//        final RelativeLayout.LayoutParams productDetailParams = new RelativeLayout.LayoutParams(productDetailWidth, ViewGroup.LayoutParams.MATCH_PARENT);
-//        llCompanyLogo.setLayoutParams(companyLogoParams);
-//        llDetail.setLayoutParams(productDetailParams);
         llMoreDetail.setVisibility(View.GONE);
     }
     private void setOneProductDetail() {
@@ -289,16 +280,17 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         return listener;
     }
     private void initVideoList() {
-        llVideo.setBackground(BitmapCreator.getDrawable(mCurrentItem.getExtraBackgroundImage()));
+        llVideo.setBackgroundDrawable(BitmapCreator.getDrawable(mCurrentItem.getExtraBackgroundImage()));
         final ProductVideoAdapter apter = new ProductVideoAdapter(mCallingActivity, mCurrentItem);
         lvProductVideo.setAdapter(apter);
+        if(apter.getCount() < 3)
+            rlDownScroll.setVisibility(View.GONE);
         lvProductVideo.setOnItemClickListener(this);
     }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (parent.getAdapter().getClass().getName().equals(ProductVideoAdapter.class.getName())) {
             startVideoActtivity(mCurrentItem.getExtraVideos().get(position));
-            // startVideoPlayer(BitmapCreator.getAbsolutePath(mCurrentItem.getExtraVideos().get(position)));
         }
         if (parent.getAdapter().getClass().getName().equals(HorizontalPhotoProductAdapter.class.getName())) {
             startSlideFragment(position);
@@ -311,10 +303,11 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     }
     private void makeData() {
         Bitmap bitmap = BitmapCreator.getBitmap(mCurrentItem.getLogo());
+        int width = (int) mCallingActivity.getResources().getDimension(R.dimen.logo_width);
         if(bitmap != null){
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    (int) mCallingActivity.getResources().getDimension(R.dimen.logo_width),
-                    bitmap.getHeight() * 190 / bitmap.getWidth());
+                    width,
+                    bitmap.getHeight() * width / bitmap.getWidth());
             ivCompanyLogo.setLayoutParams(params);
         }
         ivCompanyLogo.setImageBitmap(bitmap);
@@ -322,21 +315,16 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             bitmap = BitmapCreator.getBitmap(mCurrentItem.getPrizes().get(0));
             if(bitmap.getHeight() < 450){
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        (int) mCallingActivity.getResources().getDimension(R.dimen.logo_width),
-                        bitmap.getHeight() * 19 / 31);
+                        width,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+//                        bitmap.getHeight() * 19 / 31
+                );
                 ivProductAward.setLayoutParams(params);
             }
             ivProductAward.setImageBitmap(bitmap);
         }
         mCallingActivity.setTitle(mCurrentItem.getName());
         mCallingActivity.setBackground(mCurrentItem.getBackgroundImage());
-//        if(hasBigImage(mCurrentItem.getId())){
-//            LinearLayout.LayoutParams param25 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 3.0f);
-//            LinearLayout.LayoutParams param75 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
-//
-//            rlContWeb.setLayoutParams(param25);
-//            rlContHSV.setLayoutParams(param75);
-//        }
         if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("<span style='font-family: Helvetica Neue, Helvetica, Arial, sans-serif;'></span>")) {
             rlContWeb.setVisibility(View.GONE);
         } else {
@@ -348,13 +336,6 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
                     ""
             );
         }
-    }
-    private boolean hasBigImage(String _id){
-        for(int i = 0; i < listId.length; ++i){
-            if(listId[i].equals(_id))
-                return true;
-        }
-        return false;
     }
     private int getDisplayWidth() {
         return mCallingActivity.getWindowManager().getDefaultDisplay().getWidth();

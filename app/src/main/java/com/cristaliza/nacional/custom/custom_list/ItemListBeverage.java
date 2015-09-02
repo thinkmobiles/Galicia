@@ -81,13 +81,16 @@ public class ItemListBeverage extends RelativeLayout {
     }
 
     private void setImage(ImageView view, String _path) {
+        int koef = (int) getResources().getDimension(R.dimen.beverage_description_size) + 20;
+        int marginLeftRight = (int) getResources().getDimension(R.dimen.beverage_item_margin_right_left);
+        int marginTopBottom = (int) getResources().getDimension(R.dimen.beverage_item_margin_top_bottom);
         if (_path != null && !_path.isEmpty()){
             Bitmap bitmap = getBitmap(_path);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    bitmap.getWidth() * 230 / 440,
+                    bitmap.getWidth() * koef / bitmap.getHeight(),
                     ViewGroup.LayoutParams.MATCH_PARENT
             );
-            params.setMargins(50, 5, 50, 5);
+            params.setMargins(marginLeftRight, marginTopBottom, marginLeftRight, marginTopBottom);
             view.setImageBitmap(bitmap);
             view.setLayoutParams(params);
         } else {
