@@ -25,8 +25,8 @@ public class ItemListBeverage extends RelativeLayout {
 
     public ItemListBeverage(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.ITEM_WIDTH         = (int) context.getResources().getDimension(R.dimen.beverage_item_w)
-                + 2 * 40;
+        this.ITEM_WIDTH = (int) getResources().getDimension(R.dimen.beverage_item_w)
+                + 2 * (int) getResources().getDimension(R.dimen.beverage_item_margin_right_left);
         this.MAX_PHYSICAL_WIDTH = context.getResources().getDisplayMetrics().widthPixels;
         prepareViews();
     }
@@ -44,37 +44,22 @@ public class ItemListBeverage extends RelativeLayout {
         llContainer.removeAllViews();
         for (Item bm : beverageModels) {
             final ImageView iv = (ImageView) LayoutInflater.from(getContext()).inflate(R.layout.beverage_horizontal_list_item, llContainer, false);
-//            if ("19".equals(bm.getId()) || "35".equals(bm.getId())) {
-//                iv.setPadding(0, 8, 0, 8);
-//                if("35".equals(bm.getId())) {
-//                    params.width = 340;
-//                }
-//                iv.setLayoutParams(params);
-//            }
             setImage(iv, bm.getIcon());
             iv.setTag(bm);
             iv.setOnClickListener(_ClickListener);
             llContainer.addView(iv);
         }
 
-        if (beverageModels.size() * ITEM_WIDTH > MAX_PHYSICAL_WIDTH)
+//        if (beverageModels.size() * ITEM_WIDTH > MAX_PHYSICAL_WIDTH)
             prepareScrollParent();
-        else prepareRelativeParent();
-//        final float scale = getResources().getDisplayMetrics().density;
-//        int my_dp = (int) (20 * scale + 0.5f);
-//        View view = new View(getContext());
-//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(my_dp,ViewGroup.LayoutParams.MATCH_PARENT);
-//        params.gravity = Gravity.END;
-//        view.setLayoutParams(params);
-//        view.setBackgroundResource(R.drawable.horizontal_gradient_shape);
-//        addView(view);
+//        else prepareRelativeParent();
 
     }
 
     private void prepareScrollParent() {
 
         HorizontalScrollView hsv = new HorizontalScrollView(getContext());
-        hsv.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        hsv.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
         hsv.setHorizontalScrollBarEnabled(false);
         hsv.addView(llContainer);
         addView(hsv);
@@ -91,6 +76,9 @@ public class ItemListBeverage extends RelativeLayout {
     }
 
     private void setImage(ImageView view, String _path) {
+        int heightList = (int) getResources().getDimension(R.dimen.beverage_description_size) + 20;
+        int marginLR = (int) getResources().getDimension(R.dimen.beverage_item_margin_right_left);
+        int marginTB = (int) getResources().getDimension(R.dimen.beverage_item_margin_top_bottom);
         if (_path != null) {
             if (_path.isEmpty())
                 view.setImageResource(R.drawable.default_bytulka);
@@ -98,15 +86,19 @@ public class ItemListBeverage extends RelativeLayout {
                 Bitmap bitmap = getBitmap(_path);
                 view.setImageBitmap(bitmap);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        bitmap.getWidth() * 235 / bitmap.getHeight(),
+                        bitmap.getWidth() * heightList / bitmap.getHeight(),
                         ViewGroup.LayoutParams.MATCH_PARENT
                 );
-                params.setMargins(40, 5, 40, 5);
+                params.setMargins(marginLR, marginTB, marginLR, marginTB);
                 view.setLayoutParams(params);
             }
         } else {
             view.setImageResource(R.drawable.default_bytulka);
         }
+
+        ITEM_WIDTH = view.getMeasuredWidth()
+                + 2 * (int) getResources().getDimension(R.dimen.beverage_item_margin_right_left);
+
     }
 
 }

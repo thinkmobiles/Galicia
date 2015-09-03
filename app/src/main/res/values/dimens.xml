@@ -53,7 +53,7 @@
     <dimen name="menu_text_size">17sp</dimen>
     <dimen name="margin_item">25dp</dimen>
     <dimen name="width_item_hlv_mini">75dp</dimen>
-    <dimen name="height_item_hlv_mini">180dp</dimen>
+    <dimen name="height_item_hlv_mini">300dp</dimen>
     <!--Main Activity-->
     <dimen name="action_bar_header_height">90dp</dimen>
     <dimen name="action_bar_title_txt_size">28dp</dimen>
@@ -64,7 +64,7 @@
     <dimen name="beverage_description_size">215dp</dimen>
     <dimen name="beverage_item_w">80dp</dimen>
     <dimen name="beverage_item_w_b">300dp</dimen>
-    <dimen name="beverage_item_margin_right_left">30dp</dimen>
+    <dimen name="beverage_item_margin_right_left">50dp</dimen>
     <dimen name="beverage_item_margin_top_bottom">15dp</dimen>
     <dimen name="devider_height">1px</dimen>
     <dimen name="item_compania_padding_top_bottom">13dp</dimen>
