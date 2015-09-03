@@ -23,13 +23,9 @@ import java.util.List;
 
 public class ItemListBeverage extends RelativeLayout {
     private LinearLayout llContainer;
-    private int MAX_PHYSICAL_WIDTH = 0;
-    private int ITEM_WIDTH = 0;
 
     public ItemListBeverage(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.ITEM_WIDTH         = (int) context.getResources().getDimension(R.dimen.beverage_item_w);
-        this.MAX_PHYSICAL_WIDTH = context.getResources().getDisplayMetrics().widthPixels;
         prepareViews();
     }
 
@@ -49,9 +45,7 @@ public class ItemListBeverage extends RelativeLayout {
             llContainer.addView(iv);
         }
 
-        if (beverageModels.size() * ITEM_WIDTH > MAX_PHYSICAL_WIDTH)
-            prepareScrollParent();
-        else prepareRelativeParent();
+        prepareScrollParent();
 
     }
 
@@ -64,25 +58,21 @@ public class ItemListBeverage extends RelativeLayout {
 
     }
 
-    private void prepareRelativeParent(){
-        addView(llContainer);
-
-    }
-
     private Bitmap getBitmap(String _path) {
         return BitmapFactory.decodeFile(ApiManager.getPath() + _path);
     }
 
     private void setImage(ImageView view, Item _item) {
         if (_item.getIcon() != null){
-            int koef = MAX_PHYSICAL_WIDTH / 5;
-            int marginLeftRight = MAX_PHYSICAL_WIDTH / 32;
+            int heightList = (int) getResources().getDimension(R.dimen.beverage_description_size) + 30;
+            int marginLeftRight = (int) getResources().getDimension(R.dimen.beverage_item_margin_right_left);
+            int marginTopBottom = (int) getResources().getDimension(R.dimen.beverage_item_margin);
             Bitmap bitmap = getBitmap(_item.getIcon());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    bitmap.getWidth() * koef / bitmap.getHeight(),
+                    bitmap.getWidth() * heightList / bitmap.getHeight(),
                     ViewGroup.LayoutParams.MATCH_PARENT
             );
-            params.setMargins(marginLeftRight, 5, marginLeftRight, 5);
+            params.setMargins(marginLeftRight, marginTopBottom, marginLeftRight, marginTopBottom);
             view.setImageBitmap(bitmap);
             view.setLayoutParams(params);
         } else {

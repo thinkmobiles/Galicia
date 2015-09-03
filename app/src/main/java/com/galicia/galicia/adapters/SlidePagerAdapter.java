@@ -20,17 +20,6 @@ public class SlidePagerAdapter extends FragmentPagerAdapter {
         this.mPager = _pager;
     }
 
-    public void refreshPager(final boolean goNext){
-        int position = mPager.getCurrentItem();
-        if(goNext){
-            if(position<mFragments.size()-1)
-                mPager.setCurrentItem(++position,true);
-        } else {
-            if(position > 0)
-                mPager.setCurrentItem(--position,true);
-        }
-    }
-
     @Override
     public Fragment getItem(int position) {
         return mFragments.get(position);

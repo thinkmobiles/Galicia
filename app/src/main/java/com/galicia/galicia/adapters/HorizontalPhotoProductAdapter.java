@@ -29,10 +29,6 @@ public class HorizontalPhotoProductAdapter extends BaseAdapter {
         this.mProductList = mProductList;
     }
 
-    public void setItemMargin(final int _itemMargin){
-        mItemMargin = _itemMargin;
-    }
-
     @Override
     public int getCount() {
         return mProductList.size();
@@ -60,17 +56,11 @@ public class HorizontalPhotoProductAdapter extends BaseAdapter {
         } else {
             holder = (Holder) convertView.getTag();
         }
-        if (mItemMargin != 0) {
-            final RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            rlParams.setMargins(mItemMargin, 0, mItemMargin, 40);
-            holder.ivImage.setLayoutParams(rlParams);
-        }
 
         holder.ivImage.setImageBitmap(BitmapCreator.getBitmap(mProductList.get(position).getImageSmall()));
 
         return convertView;
     }
-
 
     private class Holder {
         private ImageView ivImage;

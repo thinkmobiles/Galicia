@@ -32,7 +32,6 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
     private ListView purchaseList;
     private ImageView deleteItems, ivGoBack;
     private Button btnEnviar;
-    //    private ItemDAO itemDAO;
     private String shopName;
     private long shopId;
     private MainActivity callActivity;
@@ -62,8 +61,6 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        itemDAO = new ItemDAO(callActivity);
-//        data = itemDAO.getItems(shopId);
         data = DBManager.getProducts(shopId);
     }
 
@@ -106,7 +103,6 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
             case R.id.iv_back_FPU:
                 callActivity.onBackPressed();
                 callActivity.setTitle(callActivity.getString(R.string.title_envios));
-//                FragmentReplacer.replaceFragmentWithoutBackStack(callActivity, new ShopCartFragment());
                 break;
             case R.id.tw_guardar_button_FS:
                 sendPDF();
@@ -116,7 +112,6 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
 
     public void updateDate() {
         data.clear();
-//        data.addAll(itemDAO.getItems(shopId));
         data.addAll(DBManager.getProducts(shopId));
         itemCartAdapter.updateList(data);
     }
@@ -143,7 +138,6 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
 
     public void deleteAllItems() {
         if (!data.isEmpty()) {
-//            itemDAO.deleteAll(shopId);
             DBManager.deleteAllItems(shopId);
             updateDate();
             Toast.makeText(getActivity(), R.string.delete_all_item, Toast.LENGTH_SHORT).show();

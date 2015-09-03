@@ -31,7 +31,7 @@
                     android:scaleType="fitStart" />
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="25px"/>
+                    android:layout_height="25dp"/>
 
                 <ImageView
                     android:id="@+id/ivCompanyAward_FPU"

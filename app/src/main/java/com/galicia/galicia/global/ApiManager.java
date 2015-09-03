@@ -63,11 +63,6 @@ public abstract class ApiManager {
         controller.onExecuteWSAppLastUpdate();
     }
 
-
-    public static String getDateUpdate() {
-        return model.getLastUpdate();
-    }
-
     public static void setOfflineMode(){
         controller.setSynchronousMode();
         model.setOfflinePath(path);
@@ -93,9 +88,7 @@ public abstract class ApiManager {
     }
 
     public static List<Item> getFirstList() {
-        List<Item> list = model.getFirstLevel();
-
-        return list;
+        return model.getFirstLevel();
     }
 
     public static List<Item> getSecondList() {
@@ -117,7 +110,6 @@ public abstract class ApiManager {
     }
 
     private static void setAppConfig(){
-        String url = path + "/" + model.getApp().getId() + "/" + "levels" + "/app-config.xml";
         model.setOnlineMode(true);
 
         Network.LoaderConfig loader = new Network.LoaderConfig();
@@ -126,9 +118,7 @@ public abstract class ApiManager {
         AppConfig res = null;
         try {
             res = loader.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
 
@@ -147,9 +137,7 @@ public abstract class ApiManager {
         List lItems = null;
         try {
             lItems = loader.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
 

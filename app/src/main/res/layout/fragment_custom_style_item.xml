@@ -48,6 +48,7 @@
                 android:visibility="visible"
                 android:layout_marginTop="@dimen/up_margin_pager"
                 android:layout_marginLeft="@dimen/margin_product"
+                android:scrollbars="none"
                 />
 
             <WebView
@@ -58,6 +59,7 @@
                 android:layout_marginLeft="@dimen/margin_product"
                 android:layout_below="@+id/ivPrev"
                 android:layout_marginStart="@dimen/margin_navigation_button"
+                android:scrollbars="none"
                 android:layout_marginTop="@dimen/margin_navigation_button"/>
         </RelativeLayout>
 
@@ -92,6 +94,7 @@
                 android:visibility="gone"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="@dimen/up_margin_pager"
+                android:scrollbars="none"
                 android:layout_marginRight="@dimen/margin_product"/>
 
             <WebView
@@ -103,6 +106,7 @@
                 android:layout_alignLeft="@+id/tvItemFormatTwo_CS"
                 android:layout_alignStart="@+id/tvItemFormatTwo_CS"
                 android:layout_marginTop="@dimen/margin_navigation_button"
+                android:scrollbars="none"
                 android:layout_marginRight="@dimen/margin_product"/>
         </RelativeLayout>
 

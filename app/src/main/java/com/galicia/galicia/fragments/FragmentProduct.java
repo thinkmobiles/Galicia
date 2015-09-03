@@ -58,12 +58,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     private EventListener mListener;
     private ArrayList<Product> mProductList;
     private List<Item> mThirdList;
-    private RelativeLayout rlProductPhotoContainer, llCompanyLogo, rlDownScroll, rlNext, rlPrev, rlContHSV, rlContWeb;
-    private LinearLayout llDetail, llMoreDetail, llVideo, llDeac, llContProd;
-
-    private int typeDialog = Constants.TYPE_DIALOG_ADD;
-
-    private String[] listId;
+    private RelativeLayout rlProductPhotoContainer, rlDownScroll, rlNext, rlPrev, rlContHSV, rlContWeb;
+    private LinearLayout llMoreDetail, llVideo, llDeac, llContProd;
 
     public static FragmentProduct newInstance(final ItemSerializable _item) {
         final FragmentProduct fragment = new FragmentProduct();
@@ -77,7 +73,6 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mCallingActivity = (MainActivity) activity;
-        listId = mCallingActivity.getResources().getStringArray(R.array.list_id_big_image);
         if (getArguments() != null) {
             mCurrentItem = ((ItemSerializable) getArguments().getSerializable(Constants.ITEM_SERIAZ)).getItem();
             getArguments().remove(Constants.ITEM_SERIAZ);
@@ -130,14 +125,12 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         hsvList = (HorizontalScrollView) _view.findViewById(R.id.hsvList);
         lvProductVideo = (ListView) _view.findViewById(R.id.lvProductVideo_FPU);
         rlProductPhotoContainer = (RelativeLayout) _view.findViewById(R.id.rlProductPhotoContainer_FPU);
-        llCompanyLogo = (RelativeLayout) _view.findViewById(R.id.llCompanyLogo_FPU);
         rlDownScroll = (RelativeLayout) _view.findViewById(R.id.rlDownScroll);
         rlPrev = (RelativeLayout) _view.findViewById(R.id.rlPrev_FPU);
         rlNext = (RelativeLayout) _view.findViewById(R.id.rlNext_FPU);
         rlContHSV = (RelativeLayout) _view.findViewById(R.id.rlContHSV);
         rlContWeb = (RelativeLayout) _view.findViewById(R.id.rlContWeb);
         llVideo = (LinearLayout) _view.findViewById(R.id.ll_video_container_FP);
-        llDetail = (LinearLayout) _view.findViewById(R.id.llDetailContainer_FPU);
         llMoreDetail = (LinearLayout) _view.findViewById(R.id.llMoreDetailContainer_FPU);
         llDeac = (LinearLayout) _view.findViewById(R.id.llDesc_FPU);
         llContProd = (LinearLayout) _view.findViewById(R.id.llContProd);
@@ -178,7 +171,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
 
     private void getProduct() {
         if (mProductList == null) {
-            mProductList = new ArrayList<Product>();
+            mProductList = new ArrayList<>();
             for (Item item : mThirdList) {
                 ApiManager.getProducts(mListener, item);
             }
@@ -192,7 +185,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             case R.id.ivAddProduct_FPU:
                 AddProductToShopDialog
                         .newInstance(new ItemSerializable(mCurrentItem))
-                        .show(mCallingActivity, this, typeDialog);
+                        .show(mCallingActivity, this, Constants.TYPE_DIALOG_ADD);
                 break;
             case R.id.ivFichaCata_FPU:
                 FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FichaFragment.newInstance(mCurrentItem.getFichaCata()));
@@ -287,7 +280,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         }
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) mCallingActivity.getResources().getDimension(R.dimen.width_item_hlv_mini), ViewGroup.LayoutParams.WRAP_CONTENT);
-        if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("<span style='font-family: Helvetica Neue, Helvetica, Arial, sans-serif;'></span>")) {
+        if (mCurrentItem.getDescription() == null
+                || mCurrentItem.getDescription().equals("<span style='font-family: Helvetica Neue, Helvetica, Arial, sans-serif;'></span>")) {
             params.setMargins(
                     mCallingActivity.getResources().getInteger(R.integer.product_slide_margin),
                     0,
@@ -316,9 +310,9 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
 
     private void initVideoList() {
         llVideo.setBackgroundDrawable(BitmapCreator.getDrawable(mCurrentItem.getExtraBackgroundImage()));
-        ProductVideoAdapter apter = new ProductVideoAdapter(mCallingActivity, mCurrentItem);
-        lvProductVideo.setAdapter(apter);
-        if(apter.getCount() < 3)
+        ProductVideoAdapter adapter = new ProductVideoAdapter(mCallingActivity, mCurrentItem);
+        lvProductVideo.setAdapter(adapter);
+        if(adapter.getCount() < 3)
             rlDownScroll.setVisibility(View.GONE);
         lvProductVideo.setOnItemClickListener(this);
     }
@@ -342,12 +336,11 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
     }
 
     private void makeData() {
-        int koefWidthLogo = mCallingActivity.getResources().getDisplayMetrics().widthPixels / 7;
+        int koefWidthLogo = (int) mCallingActivity.getResources().getDimension(R.dimen.logo_width);
         Bitmap bitmap = BitmapCreator.getBitmap(mCurrentItem.getLogo());
         if(bitmap != null){
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     koefWidthLogo,
-//                    (int) mCallingActivity.getResources().getDimension(R.dimen.logo_width),
                     bitmap.getHeight() * koefWidthLogo / bitmap.getWidth()
             );
             ivCompanyLogo.setLayoutParams(params);
@@ -358,8 +351,6 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             if(bitmap.getHeight() < 450){
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                         koefWidthLogo,
-//                        (int) mCallingActivity.getResources().getDimension(R.dimen.logo_width),
-//                        bitmap.getHeight() * koefWidthLogo / koefAward
                         ViewGroup.LayoutParams.WRAP_CONTENT
                 );
                 ivProductAward.setLayoutParams(params);
@@ -370,7 +361,8 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
         mCallingActivity.setTitle(mCurrentItem.getName());
         mCallingActivity.setBackground(mCurrentItem.getBackgroundImage());
 
-        if (mCurrentItem.getDescription() == null || mCurrentItem.getDescription().equals("<span style='font-family: Helvetica Neue, Helvetica, Arial, sans-serif;'></span>")) {
+        if (mCurrentItem.getDescription() == null
+                || mCurrentItem.getDescription().equals("<span style='font-family: Helvetica Neue, Helvetica, Arial, sans-serif;'></span>")) {
             rlContWeb.setVisibility(View.INVISIBLE);
         } else {
             wvProductDescription.loadDataWithBaseURL(

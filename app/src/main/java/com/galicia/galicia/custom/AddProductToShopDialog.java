@@ -1,7 +1,6 @@
 package com.galicia.galicia.custom;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,15 +27,12 @@ import com.galicia.galicia.R;
 import com.galicia.galicia.adapters.SpinnerPurchaseAdapter;
 import com.galicia.galicia.fragments.FragmentProduct;
 import com.galicia.galicia.fragments.ItemCartFragment;
-import com.galicia.galicia.fragments.ShopCartFragment;
 import com.galicia.galicia.global.ApiManager;
 import com.galicia.galicia.global.Constants;
 import com.galicia.galicia.global.FragmentReplacer;
 import com.galicia.galicia.models.ItemSerializable;
 import com.galicia.galicia.orm_database.DBManager;
 import com.galicia.galicia.orm_database.Shop;
-import com.galicia.galicia.untils.DataBase.ItemDAO;
-import com.galicia.galicia.untils.DataBase.ShopDAO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -204,14 +199,6 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
     }
 
     private void onClickPositiveButton(){
-//        if (shopName.getVisibility() == View.GONE) {
-//            if (subList.get(selected).getId() == null) {
-//                spinnerLayout.setVisibility(View.INVISIBLE);
-//                shopName.setVisibility(View.VISIBLE);
-//            } else {
-
-
-//            }
 
          if (!autoCompleteTextView.getText().toString().isEmpty()) {
              questionCheck = true;
@@ -232,15 +219,12 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
                  spinnerLayout.setVisibility(View.VISIBLE);
                  addProduct();
 
-
                      DBManager.addItem(
                              mCurrentItem.getPdf(),
                              shop,
                              mCurrentItem.getName(),
                              mCurrentItem.getIcon());
 
-
-//                 ApiManager.getThirdLevel(mListener, mCurrentItem);
                  Toast.makeText(mCallingActivity, mCallingActivity.getString(R.string.add_shop_succesfull),Toast.LENGTH_SHORT ).show();
                  autoCompleteTextView.setText("");
                  adapter.notifyDataSetChanged();
@@ -252,18 +236,6 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
              Toast.makeText(mCallingActivity, mCallingActivity.getString(R.string.enter_shop), Toast.LENGTH_SHORT).show();
          }
 
-//            spinnerLayout.setVisibility(View.VISIBLE);
-//            shopName.setVisibility(View.GONE);
-           // addProduct();
-//            FragmentReplacer.popSupBackStack(getActivity());
-//        } else {
-//            Toast.makeText(mCallingActivity, "enter shop", Toast.LENGTH_SHORT).show();
-
-    }
-    private void addProductToCart(){
-        ApiManager.getThirdLevel(mListener, mCurrentItem);
-//        FragmentReplacer.popSupBackStack(getActivity());
-        Toast.makeText(mCallingActivity, mCallingActivity.getString(R.string.add_item_to_shop) + String.valueOf(subList.get(selected).getId()), Toast.LENGTH_SHORT).show();
     }
 
     private void makeDownloadListener() {
@@ -280,15 +252,6 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
                         break;
                     case AppModel.ChangeEvent.PRODUCTS_CHANGED_ID:
                         mProductList.add(ApiManager.getProductsList().get(0));
-//                        if (mProductList.size() == mThirdList.size()){
-//                            DBManager.addItem(
-//                                    mCurrentItem.getPdf(),
-//                                    subList.get(selected),
-//                                    mCurrentItem.getName(),
-//                                    mProductList
-//                            );
-//                        }
-
                 }
             }
         };
@@ -332,7 +295,6 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
             shopList.add(0, lastElement);
             subList = shopList.subList(0, shopList.size() - 1);
         }
-//        subList.add(new Shop("Create new shop"));
 
         initSpinner();
     }

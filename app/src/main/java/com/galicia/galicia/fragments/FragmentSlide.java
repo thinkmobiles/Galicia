@@ -27,7 +27,6 @@ public class FragmentSlide extends Fragment implements View.OnClickListener, Vie
     private ImageView mBtnNext, mBtnPrev, mClose;
     private ViewPager mSlidePager;
     private ArrayList<Fragment> fragments = new ArrayList<>();
-    private SlidePagerAdapter mSlidePagerAdapter;
     private MainActivity mCallingActivity;
 
     public FragmentSlide() {
@@ -59,8 +58,6 @@ public class FragmentSlide extends Fragment implements View.OnClickListener, Vie
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_slide_product, container, false);
-
-
 
         findUI(view);
         makeList();
@@ -104,8 +101,7 @@ public class FragmentSlide extends Fragment implements View.OnClickListener, Vie
 
     private void initFragmentsList() {
 
-        mSlidePagerAdapter = new SlidePagerAdapter(mSlidePager, fragments, getChildFragmentManager());
-        mSlidePager.setAdapter(mSlidePagerAdapter);
+        mSlidePager.setAdapter(new SlidePagerAdapter(mSlidePager, fragments, getChildFragmentManager()));
         mSlidePager.setCurrentItem(mPosition);
         mSlidePager.setOnPageChangeListener(this);
         onPageChange(mPosition);

@@ -17,7 +17,6 @@ import com.galicia.galicia.global.FragmentReplacer;
 
 import com.galicia.galicia.orm_database.DBManager;
 import com.galicia.galicia.orm_database.Shop;
-import com.galicia.galicia.untils.DataBase.ShopDAO;
 import com.galicia.galicia.untils.PDFSender;
 
 import java.util.List;
@@ -82,11 +81,10 @@ public class ShopCartAdapter extends BaseAdapter {
 
     class ViewHolder {
         private TextView nameShop;
-        private ImageView refreshButton, deleteButton, seeButton, sendButton;
+        private ImageView deleteButton, seeButton, sendButton;
 
         public void initHolder(View view) {
             nameShop = (TextView) view.findViewById(R.id.tv_title_goods_IS);
-            refreshButton = (ImageView) view.findViewById(R.id.iv_refresh_shop_item_IS);
             deleteButton = (ImageView) view.findViewById(R.id.iv_delete_shop_item_IS);
             seeButton = (ImageView) view.findViewById(R.id.iv_see_detail_shop_item_IS);
             sendButton = (ImageView) view.findViewById(R.id.iv_send_shop_item_IS);
@@ -104,13 +102,9 @@ public class ShopCartAdapter extends BaseAdapter {
     }
 
     private void deleteShop(int _pos) {
-//        ShopDAO shopDAO = new ShopDAO(activity);
-//        shopDAO.deleteShop(getItem(_pos));
         DBManager.deleteShop(getItem(_pos));
         updateList(DBManager.getShops());
         fragment.updateDate();
-//        ShopCartFragment.newInstance().updateDate();
-//        notifyDataSetChanged();
         Toast.makeText(activity, R.string.delete_shop, Toast.LENGTH_SHORT).show();
     }
 
@@ -124,7 +118,7 @@ public class ShopCartAdapter extends BaseAdapter {
     }
 
     private View.OnClickListener shopItemListener(final int _pos) {
-        View.OnClickListener listener = new View.OnClickListener() {
+        return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
@@ -140,8 +134,6 @@ public class ShopCartAdapter extends BaseAdapter {
                 }
             }
         };
-
-        return listener;
     }
 
 }
