@@ -47,17 +47,6 @@ public abstract class ApiManager {
         controller.setAsynchronousMode();
         controller.downloadAllAppData(listener, path);
     }
-    public static void getLastUpdateServer(EventListener listener) {
-        controller.onExecuteWSAppConfig();
-        model.setOnlineMode(true);
-        model.addListener(AppModel.ChangeEvent.LAST_UPDATE_CHANGED, listener);
-        controller.setAsynchronousMode();
-        model.setOfflinePath(path);
-        controller.onExecuteWSAppLastUpdate();
-    }
-    public static String getDateUpdate() {
-        return model.getLastUpdate();
-    }
     public static void setOfflineMode(){
         controller.setSynchronousMode();
         model.setOfflinePath(path);
@@ -79,8 +68,7 @@ public abstract class ApiManager {
         controller.onExecuteWSThirdLevel(item);
     }
     public static List<Item> getFirstList() {
-        List<Item> list = model.getFirstLevel();
-        return list;
+        return model.getFirstLevel();
     }
     public static List<Item> getSecondList() {
         return model.getSecondLevel();
@@ -97,16 +85,13 @@ public abstract class ApiManager {
         controller.onExecuteWSProducts(item);
     }
     private static void setAppConfig(){
-        String url = path + "/" + model.getApp().getId() + "/" + "levels" + "/app-config.xml";
         model.setOnlineMode(true);
         Network.LoaderConfig loader = new Network.LoaderConfig();
         loader.execute(model);
         AppConfig res = null;
         try {
             res = loader.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         model.setAppConfig(res);
@@ -121,9 +106,7 @@ public abstract class ApiManager {
         List lItems = null;
         try {
             lItems = loader.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         AppModel.getInstance().setLastUpdate(((Item) lItems.get(0)).getUpdate());

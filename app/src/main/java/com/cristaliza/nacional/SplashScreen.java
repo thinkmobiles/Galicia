@@ -92,16 +92,6 @@ public class SplashScreen extends Activity {
                 .create()
                 .show();
     }
-    private void openMainActivityDelay() {
-        ScheduledExecutorService worker =
-                Executors.newSingleThreadScheduledExecutor();
-        Runnable task = new Runnable() {
-            public void run() {
-                openMainActivity();
-            }
-        };
-        worker.schedule(task, 1, TimeUnit.SECONDS);
-    }
     private boolean isHasContent() {
         File f = new File(ApiManager.getPath(this));
         return f.exists();
@@ -129,13 +119,6 @@ public class SplashScreen extends Activity {
                             }
                         });
                         break;
-                    case AppModel.ChangeEvent.DOWNLOAD_FILE_CHANGED_ID:
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                mInfo.setText(event.getMessage());
-                            }
-                        });
-                        break;
                 }
             }
         };
@@ -147,7 +130,7 @@ public class SplashScreen extends Activity {
         }
     }
     private void saveDownload() {
-        Toast.makeText(getBaseContext(),"Descargando contenidos", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), getResources().getString(R.string.content_is_loaded), Toast.LENGTH_LONG).show();
         SharedPreferencesManager.saveUpdateDate(getBaseContext(), System.currentTimeMillis());
         openMainActivity();
     }
@@ -156,9 +139,7 @@ public class SplashScreen extends Activity {
         Calendar lastUpdate = Calendar.getInstance();
         currentUpdate.setTimeInMillis(SharedPreferencesManager.getUpdateDate(getBaseContext()));
         lastUpdate.setTime(getDate(ApiManager.getDate()));
-        if(currentUpdate.before(lastUpdate))
-            return true;
-        return false;
+        return currentUpdate.before(lastUpdate);
     }
     private Date getDate(final String _date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

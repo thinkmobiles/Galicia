@@ -28,7 +28,6 @@ public class PlayVideoActivity extends Activity {
 
         if(!videoId.isEmpty()){
             playVideo(videoId);
-//            this.finish();
         }
     }
 
@@ -41,9 +40,7 @@ public class PlayVideoActivity extends Activity {
                 ProductVideoAdapter.getYouTubeImageId(_videoId) +
                 Constants.URL_YOUTUBE_AUTOPLAY);
 
-//        videoContainer.setWebViewClient(new WebViewClient());
         videoContainer.getSettings().setJavaScriptEnabled(true);
-        // web.getSettings().setDomStorageEnabled(true);
 
         videoContainer.getSettings().setAllowContentAccess(true);
         WebSettings webSettings = videoContainer.getSettings();

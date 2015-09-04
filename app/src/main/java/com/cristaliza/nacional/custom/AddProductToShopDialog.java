@@ -49,21 +49,15 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
     private List<Shop> shopList, subList;
     private LinearLayout spinnerLayout;
     private Spinner spinner;
-    private SpinnerPurchaseAdapter spinnerPurchaseAdapter;
     private TextView tvAccept, tvCancel, tvTitle;
-    private EditText shopName;
     private Item mCurrentItem;
     private FrameLayout flTop, flBottom, flCenter;
-    private EventListener mListener;
-    private List<Product> mProductList;
-    private List<Item> mThirdList;
     private AutoCompleteTextView autoCompleteTextView;
     private ImageView allShop;
     private boolean isSelectChek, questionCheck=false;
     private boolean isShowListShop = false;
     private int typeDialog;
     private Shop mShop;
-    private FragmentProduct mFragmentBack;
     ArrayAdapter<String> adapter;
 
     public static AddProductToShopDialog newInstance(final ItemSerializable _item) {
@@ -74,8 +68,7 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
         return fragment;
     }
 
-    public void show(MainActivity _mActivity,FragmentProduct _fragment, int _typeDialog){
-        mFragmentBack = _fragment;
+    public void show(MainActivity _mActivity, int _typeDialog){
         typeDialog = _typeDialog;
         FragmentReplacer.addFragment(_mActivity, this);
     }
@@ -113,9 +106,8 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
         for (int i = 0; i<subList.size(); i++ ){
             names[i] = subList.get(i).getName();
         }
-        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, names);
-        spinnerPurchaseAdapter = new SpinnerPurchaseAdapter(mCallingActivity, subList);
-        spinner.setAdapter(spinnerPurchaseAdapter);
+        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, names);
+        spinner.setAdapter(new SpinnerPurchaseAdapter(mCallingActivity, subList));
         autoCompleteTextView.setAdapter(adapter);
     }
 
@@ -154,7 +146,6 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
         flCenter.setOnClickListener(this);
         flTop.setOnClickListener(this);
         allShop.setOnClickListener(this);
-        makeDownloadListener();
         makeAutocompleteItemClickListener();
     }
 
@@ -204,15 +195,6 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
     }
 
     private void onClickPositiveButton(){
-//        if (shopName.getVisibility() == View.GONE) {
-//            if (subList.get(selected).getId() == null) {
-//                spinnerLayout.setVisibility(View.INVISIBLE);
-//                shopName.setVisibility(View.VISIBLE);
-//            } else {
-
-
-//            }
-
          if (!autoCompleteTextView.getText().toString().isEmpty()) {
              questionCheck = true;
              if (isSelectChek) {
@@ -226,28 +208,21 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
                      );
 
                 isSelectChek = false;
-//                mFragmentBack.setTypeDialog(Constants.TYPE_DIALOG_ADDED);
                 setVisible();
              } else {
                  Shop shop = DBManager.addShop(autoCompleteTextView.getText().toString());
                  mShop = shop;
                  spinnerLayout.setVisibility(View.VISIBLE);
                  addProduct();
-
-
                      DBManager.addItem(
                              mCurrentItem.getPdf(),
                              shop,
                              mCurrentItem.getName(),
                              mCurrentItem.getIcon());
-
-
-//                 ApiManager.getThirdLevel(mListener, mCurrentItem);
                  Toast.makeText(mCallingActivity, mCallingActivity.getString(R.string.add_shop_succesfull),Toast.LENGTH_SHORT ).show();
                  autoCompleteTextView.setText("");
                  adapter.notifyDataSetChanged();
                  autoCompleteTextView.showDropDown();
-//                 mFragmentBack.setTypeDialog(Constants.TYPE_DIALOG_ADDED);
                  setVisible();
              }
 
@@ -255,46 +230,6 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
              Toast.makeText(mCallingActivity, mCallingActivity.getString(R.string.enter_shop), Toast.LENGTH_SHORT).show();
          }
 
-//            spinnerLayout.setVisibility(View.VISIBLE);
-//            shopName.setVisibility(View.GONE);
-           // addProduct();
-//            FragmentReplacer.popSupBackStack(getActivity());
-//        } else {
-//            Toast.makeText(mCallingActivity, "enter shop", Toast.LENGTH_SHORT).show();
-
-    }
-    private void addProductToCart(){
-        ApiManager.getThirdLevel(mListener, mCurrentItem);
-//        FragmentReplacer.popSupBackStack(getActivity());
-        Toast.makeText(mCallingActivity, mCallingActivity.getString(R.string.add_item_to_shop) + String.valueOf(subList.get(selected).getId()), Toast.LENGTH_SHORT).show();
-    }
-
-    private void makeDownloadListener() {
-        mListener = new EventListener() {
-            @Override
-            public void onEvent(Event event) {
-                switch (event.getId()) {
-                    case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
-                        Toast.makeText(getActivity(), event.getType() + mCallingActivity.getString(R.string.error), Toast.LENGTH_SHORT).show();
-                        break;
-                    case AppModel.ChangeEvent.THIRD_LEVEL_CHANGED_ID:
-                        mThirdList = ApiManager.getThirdList();
-                        getProduct();
-                        break;
-                    case AppModel.ChangeEvent.PRODUCTS_CHANGED_ID:
-                        mProductList.add(ApiManager.getProductsList().get(0));
-//                        if (mProductList.size() == mThirdList.size()){
-//                            DBManager.addItem(
-//                                    mCurrentItem.getPdf(),
-//                                    subList.get(selected),
-//                                    mCurrentItem.getName(),
-//                                    mProductList
-//                            );
-//                        }
-
-                }
-            }
-        };
     }
 
     private void makeAutocompleteItemClickListener(){
@@ -305,15 +240,6 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
                 isSelectChek=true;
             }
         });
-    }
-
-    private void getProduct() {
-        if (mProductList == null) {
-            mProductList = new ArrayList<>();
-            for (Item item : mThirdList) {
-                ApiManager.getProducts(mListener, item);
-            }
-        }
     }
 
     @Override
@@ -335,7 +261,6 @@ public class AddProductToShopDialog extends Fragment implements AdapterView.OnIt
             shopList.add(0, lastElement);
             subList = shopList.subList(0, shopList.size() - 1);
         }
-//        subList.add(new Shop("Create new shop"));
 
         initSpinner();
     }

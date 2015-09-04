@@ -28,10 +28,8 @@ import java.util.List;
 public abstract class PDFSender {
 
     public static void sendShopPDFs (Activity activity, long pos){
-        // ItemDAO i = new ItemDAO(activity);
         List<DBItem> items = DBManager.getItems(pos);
         ArrayList<Uri> uris =new ArrayList<>();
-        //  List<Item> items = i.getItems(String.valueOf(pos));
 
         for (int k=0; k<items.size(); k++){
             File file = new File(ApiManager.getPath() + items.get(k).getPdf());
@@ -56,7 +54,7 @@ public abstract class PDFSender {
         activity.startActivityForResult(Intent.createChooser(mailer, activity.getString(R.string.send_mail)), 10);
     }
 
-    public static void copy(File src, File dst) throws IOException {
+    private static void copy(File src, File dst) throws IOException {
         InputStream in = new FileInputStream(src);
         OutputStream out = new FileOutputStream(dst);
 
@@ -69,19 +67,5 @@ public abstract class PDFSender {
         in.close();
         out.close();
     }
-
-   public static void sendItemPDF(Context context,String string){
-
-        File file = new File(ApiManager.getPath() + string);
-        if (!file.exists() || !file.canRead()) {
-            Toast.makeText(context, context.getString(R.string.attachment_error), Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Uri uri = Uri.parse(Constants.PATH_FILE + file);
-        Intent mailer = new Intent(Intent.ACTION_SEND);
-        mailer.setType(Constants.TYPE_MESSAGE);
-        mailer.putExtra(Intent.EXTRA_STREAM, uri);
-        context.startActivity(Intent.createChooser(mailer, context.getString(R.string.send_mail)));
-   }
 
 }

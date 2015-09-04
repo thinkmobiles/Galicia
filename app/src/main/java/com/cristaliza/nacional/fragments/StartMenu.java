@@ -39,7 +39,7 @@ public class StartMenu extends Fragment implements View.OnClickListener {
     private AtomicBoolean stateListExpand = new AtomicBoolean(false);
     private EventListener mMenuListener;
     private MainActivity mCallingActivity;
-    private String mTitleMenu, mBaseTitle;
+    private String mTitleMenu;
     private int idOpen = -1;
     public static StartMenu newInstance(final int _open){
         StartMenu fragment = new StartMenu();
@@ -153,7 +153,6 @@ public class StartMenu extends Fragment implements View.OnClickListener {
                 selectedView = null;
                 idOpen = -1;
             }
-            mBaseTitle = ((TextView) view).getText().toString();
         }
     }
     private View.OnClickListener mItemOnClickListener = new View.OnClickListener() {
