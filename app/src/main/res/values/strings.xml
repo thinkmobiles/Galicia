@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Horeca Galicia</string>
+    <string name="version">0.1</string>
 
     <!-- Slide menu-->
     <string name="title_inicio">INICIO</string>
@@ -11,8 +12,6 @@
     <string name="locales_shopping">LOCALES</string>
     <string name="fichas">FICHAS</string>
     <string name="guardar_shopping">ENVIAR</string>
-    <string name="version">0.1</string>
-    <string name="added_item">Item added to cart</string>
     <string name="button_cancel">CANCELAR</string>
     <string name="button_accept">ACEPTAR</string>
     <string name="ver_envio">VER ENVÍO</string>
@@ -32,35 +31,16 @@
     <string name="delete_all_item">All item deleted succesfull</string>
     <string name="delete_all_shop">All shop deleted succesfull</string>
     <string name="add_shop_succesfull">Añadido correctamente</string>
-    <string name="add_item_to_shop">Item add to shop_id= </string>
     <string name="attachment_error">Attachment Error</string>
     <string name="error"> error</string>
-    <string name="click_back">Please click BACK again to exit</string>
+    <string name="click_back">Por favor, haga clic de nuevo para salir</string>
 
-
-    <string name="create_new_shop">Create new shop</string>
     <string name="send_mail">Send email...</string>
 
-    <string name="download">Download..</string>
-    <string name="not_play">Not play</string>
+    <string name="download">Carga de contenidos</string>
     <!-- Views-->
-    <string name="plus_info">+ INFO</string>
+    <string name="plus_info">+INFO</string>
     <string name="vaciar">VACIAR</string>
     <string name="title_videos">VÍDEOS</string>
-
-    <string-array name="list_id_big_image">
-        <item>144</item>
-        <item>146</item>
-        <item>185</item>
-        <item>239</item>
-        <item>250</item>
-        <item>253</item>
-        <item>300</item>
-        <item>301</item>
-        <item>303</item>
-        <item>360</item>
-        <item>299</item>
-        <item>298</item>
-    </string-array>
 
 </resources>

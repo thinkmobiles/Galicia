@@ -101,17 +101,6 @@ public class SplashScreen extends Activity {
                 .show();
     }
 
-    private void openMainActivityDelay() {
-        ScheduledExecutorService worker =
-                Executors.newSingleThreadScheduledExecutor();
-        Runnable task = new Runnable() {
-            public void run() {
-                openMainActivity();
-            }
-        };
-        worker.schedule(task, 1, TimeUnit.SECONDS);
-    }
-
     private boolean isHasContent() {
         File f = new File(ApiManager.getPath(this));
         return f.exists();
@@ -127,6 +116,7 @@ public class SplashScreen extends Activity {
             mIsLoadContent = true;
             ApiManager.downloadContent(downloadListener);
             mProgressView.setVisibility(View.VISIBLE);
+            mInfo.setVisibility(View.VISIBLE);
             mProgressView.startAnim();
     }
 
@@ -140,13 +130,6 @@ public class SplashScreen extends Activity {
                         runOnUiThread(new Runnable() {
                             public void run() {
                             saveDownload();
-                            }
-                        });
-                        break;
-                    case AppModel.ChangeEvent.DOWNLOAD_FILE_CHANGED_ID:
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                mInfo.setText(event.getMessage());
                             }
                         });
                         break;
