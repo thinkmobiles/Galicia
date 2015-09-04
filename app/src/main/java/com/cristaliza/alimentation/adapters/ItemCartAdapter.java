@@ -97,17 +97,14 @@ public class ItemCartAdapter extends BaseAdapter {
     }
 
     private void deleteItem(int pos) {
-//        ItemDAO itemDAO = new ItemDAO(context);
-//        itemDAO.deleteItem(getItem(pos));
         DBManager.deleteProduct(itemsData.get(pos).getId());
-//        List<Item> list = itemDAO.getItems(shopId);
         List<DBProduct> products = DBManager.getProducts(mShopId);
         updateList(products);
         Toast.makeText(context, R.string.delete_item, Toast.LENGTH_SHORT).show();
     }
 
     private View.OnClickListener productItemListener(final int pos) {
-        View.OnClickListener listener = new View.OnClickListener() {
+        return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
@@ -117,7 +114,6 @@ public class ItemCartAdapter extends BaseAdapter {
                 }
             }
         };
-        return listener;
     }
 
 }

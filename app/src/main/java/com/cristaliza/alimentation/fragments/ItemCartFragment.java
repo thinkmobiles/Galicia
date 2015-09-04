@@ -32,7 +32,6 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
     private ListView purchaseList;
     private ImageView deleteItems, ivGoBack;
     private Button btnEnviar;
-//    private ItemDAO itemDAO;
     private String shopName;
     private long shopId;
     private MainActivity callActivity;
@@ -56,14 +55,11 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
             shopId = getArguments().getLong(Constants.ITEM_SHOP_ID);
             shopName = getArguments().getString(Constants.ITEM_SHOP_NAME);
         }
-
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        itemDAO = new ItemDAO(callActivity);
-//        data = itemDAO.getItems(shopId);
         data = DBManager.getProducts(shopId);
     }
 
@@ -114,29 +110,12 @@ public class ItemCartFragment extends Fragment implements View.OnClickListener {
 
     public void updateDate() {
         data.clear();
-//        data.addAll(itemDAO.getItems(shopId));
         data.addAll(DBManager.getProducts(shopId));
         itemCartAdapter.updateList(data);
     }
 
-    private void startDeleteDialog(){
-        if (DBManager.getProducts(shopId).size() == 0)
-            return;
-        final CustomDialog.Builder builder = new CustomDialog.Builder()
-                .setMessage(getActivity().getString(R.string.delete_all_products))
-                .setPositiveButton(getActivity().getString(R.string.ok), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        deleteAllItems();
-                    }
-                })
-                .setNegativeButton(getActivity().getString(R.string.cancel), null);
-        builder.createDialog().show(getActivity());
-    }
-
     public void deleteAllItems() {
         if (!data.isEmpty()) {
-//            itemDAO.deleteAll(shopId);
             DBManager.deleteAllItems(shopId);
             updateDate();
             Toast.makeText(getActivity(), R.string.delete_all_item, Toast.LENGTH_SHORT).show();

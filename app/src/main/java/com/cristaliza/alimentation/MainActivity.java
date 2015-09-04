@@ -21,7 +21,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private LinearLayout mBackgroundLayout;
     private TextView mTitle;
     private SlidingMenuManager manager;
-    private ImageView logo;
     private Item mCurrentItem;
     private boolean doubleBackToExitPressedOnce;
     private boolean clickable = true;
@@ -38,7 +37,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private void findUI() {
         menuBtn = (ImageView) findViewById(R.id.ivMenu);
         mTitle  = (TextView) findViewById(R.id.tvMenuTitle);
-        logo = (ImageView) findViewById(R.id.tvLogoTitle);
         mBackgroundLayout = (LinearLayout) findViewById(R.id.llAppContainer);
         menuBtn.setOnClickListener(this);
     }
@@ -62,10 +60,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         if (_path == null)
             setBackground();
         else
-            mBackgroundLayout.setBackground(Drawable.createFromPath(ApiManager.getPath() + _path));
+            mBackgroundLayout.setBackgroundDrawable(Drawable.createFromPath(ApiManager.getPath() + _path));
     }
     public void setBackground() {
-        mBackgroundLayout.setBackground(getResources().getDrawable(R.drawable.background));
+        mBackgroundLayout.setBackgroundDrawable(getResources().getDrawable(R.drawable.background));
     }
     public void openStartMenu(){
         FragmentReplacer.replaceFragmentWithStack(this, new StartMenu());

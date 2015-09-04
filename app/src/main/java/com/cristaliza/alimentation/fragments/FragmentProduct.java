@@ -170,7 +170,7 @@ public class FragmentProduct extends Fragment implements View.OnClickListener, A
             case R.id.ivAddProduct_FPU:
                 AddProductToShopDialog
                         .newInstance(new ItemSerializable(mCurrentItem))
-                        .show(mCallingActivity, this, Constants.TYPE_DIALOG_ADD);
+                        .show(mCallingActivity, Constants.TYPE_DIALOG_ADD);
                 break;
             case R.id.ivFichaCata_FPU:
                 FragmentReplacer.replaceFragmentWithStack(mCallingActivity, FichaFragment.newInstance(mCurrentItem.getFichaCata()));

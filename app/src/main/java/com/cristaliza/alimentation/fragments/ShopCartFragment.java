@@ -19,7 +19,6 @@ import com.cristaliza.alimentation.custom.CustomDialog;
 import com.cristaliza.alimentation.global.FragmentReplacer;
 import com.cristaliza.alimentation.orm_database.DBManager;
 import com.cristaliza.alimentation.orm_database.Shop;
-import com.cristaliza.alimentation.untils.DataBase.ShopDAO;
 
 import java.util.List;
 
@@ -31,7 +30,6 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener, 
     private List<Shop> data;
     private ListView purchaseList;
     private ImageView deleteItems,ivGoBack;
-    private ShopDAO shopDAO;
     private Button guardarButton;
     private MainActivity callActivity;
     private static ShopCartFragment fragment;
@@ -53,8 +51,6 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener, 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        shopDAO = new ShopDAO(callActivity);
-//        data = shopDAO.getShops();
         data = DBManager.getShops();
     }
 
@@ -82,52 +78,21 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener, 
     }
 
     public void setClickListener() {
-//        deleteItems.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                deleteAllShop();
-//            }
-//        });
         deleteItems.setOnClickListener(this);
         purchaseList.setOnItemClickListener(this);
         ivGoBack.setOnClickListener(this);
-//        purchaseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                FragmentReplacer.replaceFragmentWithStack(callActivity,
-//                        ItemCartFragment.newInstance(String.valueOf(data.get(position).getId()), data.get(position).getName()));
-//            }
-//        });
-
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_deleteAll_FS:
-//                startDeleteDialog();
                 deleteAllShop();
                 break;
-
             case R.id.iv_back_FPU:
                 super.getActivity().onBackPressed();
                 break;
         }
-    }
-
-    private void startDeleteDialog(){
-        if (DBManager.getShops().size() == 0)
-            return;
-        final CustomDialog.Builder builder = new CustomDialog.Builder()
-                .setMessage(getActivity().getString(R.string.delete_all_shops))
-                .setPositiveButton(getActivity().getString(R.string.ok), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        deleteAllShop();
-                    }
-                })
-                .setNegativeButton(getActivity().getString(R.string.cancel), null);
-        builder.createDialog().show(getActivity());
     }
 
     @Override
@@ -142,10 +107,8 @@ public class ShopCartFragment extends Fragment implements View.OnClickListener, 
 
     public void deleteAllShop() {
         if (!data.isEmpty()) {
-//            shopDAO.deleteAll();
             DBManager.deleteAllShop();
             shopCartAdapter.updateList(DBManager.getShops());
-//            updateDate();
             Toast.makeText(getActivity(), R.string.delete_all_shop, Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getActivity(), R.string.empty_cart, Toast.LENGTH_SHORT).show();

@@ -20,14 +20,9 @@ import java.util.List;
 
 public class ItemListBeverage extends RelativeLayout {
     private LinearLayout llContainer;
-    private int MAX_PHYSICAL_WIDTH = 0;
-    private int ITEM_WIDTH = 0;
 
     public ItemListBeverage(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.ITEM_WIDTH = (int) getResources().getDimension(R.dimen.beverage_item_w)
-                + 2 * (int) getResources().getDimension(R.dimen.beverage_item_margin_right_left);
-        this.MAX_PHYSICAL_WIDTH = context.getResources().getDisplayMetrics().widthPixels;
         prepareViews();
     }
 
@@ -49,26 +44,16 @@ public class ItemListBeverage extends RelativeLayout {
             iv.setOnClickListener(_ClickListener);
             llContainer.addView(iv);
         }
-
-//        if (beverageModels.size() * ITEM_WIDTH > MAX_PHYSICAL_WIDTH)
             prepareScrollParent();
-//        else prepareRelativeParent();
 
     }
 
     private void prepareScrollParent() {
-
         HorizontalScrollView hsv = new HorizontalScrollView(getContext());
         hsv.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
         hsv.setHorizontalScrollBarEnabled(false);
         hsv.addView(llContainer);
         addView(hsv);
-
-    }
-
-    private void prepareRelativeParent() {
-        addView(llContainer);
-
     }
 
     private Bitmap getBitmap(String _path) {
@@ -95,9 +80,6 @@ public class ItemListBeverage extends RelativeLayout {
         } else {
             view.setImageResource(R.drawable.default_bytulka);
         }
-
-        ITEM_WIDTH = view.getMeasuredWidth()
-                + 2 * (int) getResources().getDimension(R.dimen.beverage_item_margin_right_left);
 
     }
 

@@ -70,18 +70,4 @@ public abstract class PDFSender {
         out.close();
     }
 
-   public static void sendItemPDF(Context context,String string){
-
-        File file = new File(ApiManager.getPath() + string);
-        if (!file.exists() || !file.canRead()) {
-            Toast.makeText(context, context.getString(R.string.attachment_error), Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Uri uri = Uri.parse(Constants.PATH_FILE + file);
-        Intent mailer = new Intent(Intent.ACTION_SEND);
-        mailer.setType(Constants.TYPE_MESSAGE);
-        mailer.putExtra(Intent.EXTRA_STREAM, uri);
-        context.startActivity(Intent.createChooser(mailer, context.getString(R.string.send_mail)));
-   }
-
 }

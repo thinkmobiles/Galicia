@@ -11,13 +11,12 @@
     <string name="listado_shopping">FICHAS</string>
     <string name="guardar_shopping">ENVIAR</string>
     <string name="version">0.1</string>
-    <string name="added_item">Item added to cart</string>
     <string name="button_cancel">CANCELAR</string>
     <string name="button_accept">ACEPTAR</string>
     <string name="ver_envio">VER ENVÍO</string>
     <string name="continuar">CONTINUAR</string>
     <string name="compania">COMPAÑÍA</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="delete_all_products">Delete all products?</string>
     <string name="delete_all_shops">Delete all shops?</string>
@@ -34,11 +33,11 @@
     <string name="add_item_to_shop">Item add to shop_id= </string>
     <string name="attachment_error">Attachment Error</string>
     <string name="error"> error</string>
-    <string name="click_back">Please click BACK again to exit</string>
+    <string name="click_back">Por favor, haga clic de nuevo para salir</string>
     <string name="create_new_shop">Create new shop</string>
     <string name="send_mail">Send email...</string>
-    <string name="download">Download..</string>
-    <string name="not_play">Not play</string>
+    <string name="download">Carga de contenidos</string>
+    <string name="downloaded">Descargando contenidos</string>
     <!-- Views-->
     <string name="plus_info">+ INFO</string>
     <string name="vaciar">VACIAR</string>

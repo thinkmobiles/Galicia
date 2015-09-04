@@ -67,9 +67,7 @@ public class ShopCartAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.item_shoping_cart_list, parent, false);
             holder = new ViewHolder();
             holder.initHolder(convertView);
-
             convertView.setTag(holder);
-
         } else
             holder = (ViewHolder) convertView.getTag();
 
@@ -103,13 +101,9 @@ public class ShopCartAdapter extends BaseAdapter {
     }
 
     private void deleteShop(int _pos) {
-//        ShopDAO shopDAO = new ShopDAO(activity);
-//        shopDAO.deleteShop(getItem(_pos));
         DBManager.deleteShop(getItem(_pos));
         updateList(DBManager.getShops());
         fragment.updateDate();
-//        ShopCartFragment.newInstance().updateDate();
-//        notifyDataSetChanged();
         Toast.makeText(activity, R.string.delete_shop, Toast.LENGTH_SHORT).show();
     }
 

@@ -46,7 +46,6 @@ public class SplashScreen extends Activity {
         separateAction();
     }
 
-
     private void separateAction() {
         ApiManager.init(SplashScreen.this);
 
@@ -95,10 +94,6 @@ public class SplashScreen extends Activity {
         dialog.show();
     }
 
-    private void updateContent() {
-        ApiManager.getLastUpdateServer(downloadListener);
-    }
-
     private boolean isHasContent() {
         File f = new File(ApiManager.getPath(this));
         return f.exists();
@@ -108,29 +103,6 @@ public class SplashScreen extends Activity {
         startActivity(new Intent(SplashScreen.this, MainActivity.class));
         mProgressView.stopAnim();
         finish();
-    }
-
-    private void showUpdateDialog(){
-        final AlertDialog dialog = new AlertDialog.Builder(this)
-                .setMessage("Quiere descargar nuevo contenido ahora?")
-                .setNegativeButton("Cancelar", new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        openMainActivity();
-                        dialog.cancel();
-                    }
-                })
-                .setPositiveButton("Ok", new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        updateContent();
-                        dialog.dismiss();
-                    }
-                })
-                .create();
-
-        dialog.show();
-
     }
 
     private void showDialogUpdate() {
@@ -156,6 +128,7 @@ public class SplashScreen extends Activity {
         mIsLoadContent = true;
         ApiManager.downloadContent(downloadListener);
         mProgressView.setVisibility(View.VISIBLE);
+        mInfo.setVisibility(View.VISIBLE);
         mProgressView.startAnim();
     }
 
@@ -168,7 +141,6 @@ public class SplashScreen extends Activity {
                     case AppModel.ChangeEvent.ON_EXECUTE_ERROR_ID:
                         openMainActivity();
                         break;
-
                     case AppModel.ChangeEvent.DOWNLOAD_ALL_CHANGED_ID:
                         runOnUiThread(new Runnable() {
                             public void run() {
@@ -176,32 +148,13 @@ public class SplashScreen extends Activity {
                             }
                         });
                         break;
-
-                    case AppModel.ChangeEvent.DOWNLOAD_FILE_CHANGED_ID:
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                mInfo.setText(event.getMessage());
-                            }
-                        });
-                        break;
-                    case AppModel.ChangeEvent.LAST_UPDATE_CHANGED_ID:
-                        runOnUiThread(new Thread(new Runnable() {
-                            public void run() {
-                                if (hasNewContent())
-                                    showUpdateDialog();
-                                else
-                                    openMainActivityDelay();
-                            }
-                        }));
-                        break;
                 }
             }
         };
-
     }
 
     private void saveDownload() {
-        Toast.makeText(getBaseContext(),"Descargando contenidos", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), getResources().getString(R.string.downloaded), Toast.LENGTH_LONG).show();
         SharedPreferencesManager.saveUpdateDate(getBaseContext(), System.currentTimeMillis());
         openMainActivity();
     }
@@ -218,10 +171,7 @@ public class SplashScreen extends Activity {
         Calendar lastUpdate = Calendar.getInstance();
         currentUpdate.setTimeInMillis(SharedPreferencesManager.getUpdateDate(getBaseContext()));
         lastUpdate.setTime(parseDate(ApiManager.getDate()));
-        if(currentUpdate.before(lastUpdate))
-            return true;
-        return false;
-
+        return currentUpdate.before(lastUpdate);
     }
 
     private Date parseDate(final String _date){
