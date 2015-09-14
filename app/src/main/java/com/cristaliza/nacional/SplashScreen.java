@@ -105,6 +105,7 @@ public class SplashScreen extends Activity {
         mIsLoadContent = true;
         ApiManager.downloadContent(downloadListener);
         mProgressView.setVisibility(View.VISIBLE);
+        mInfo.setVisibility(View.VISIBLE);
         mProgressView.startAnim();
     }
     private void makeDownloadListener() {

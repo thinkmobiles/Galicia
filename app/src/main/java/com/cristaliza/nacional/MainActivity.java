@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,10 +22,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private LinearLayout mBackgroundLayout;
     private TextView mTitle;
     private SlidingMenuManager manager;
-    private Item mCurrentItem;
     private boolean doubleBackToExitPressedOnce;
     private boolean clickable = true;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +35,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         initMenu();
         openStartMenu();
     }
-
-
 
     private void findUI() {
         menuBtn = (ImageView) findViewById(R.id.ivMenu);
@@ -81,14 +76,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     public void openStartMenu(){
         FragmentReplacer.replaceFragmentWithStack(this, new StartMenu());
-    }
-
-    public Item getCurrentItem() {
-        return mCurrentItem;
-    }
-
-    public void setCurrentItem(Item mCurrentItem) {
-        this.mCurrentItem = mCurrentItem;
     }
 
     public void onBackPressed() {

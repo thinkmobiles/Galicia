@@ -22,5 +22,6 @@
         android:textColor="@color/text_grey"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:visibility="gone"/>
 </RelativeLayout>
